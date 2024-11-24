@@ -41,7 +41,8 @@ typedef struct dados_escolares {
 }Escola;
 
 typedef struct estatisticas {
-
+	float medias_matriculas;
+	int finalistas;
 }Estatisticas;
 
 
@@ -192,7 +193,8 @@ void menu_consultar_dados(char * sair) {
 		printf("\n\n");
 		printf("1 - Procurar estudante por nome\n");
 		printf("2 - Listar estudantes por intervalo de datas de nascimento\n");
-		printf("3 - Listar Estudantes por Nacionalidade\n");
+		printf("3 - Listar estudantes por nacionalidade\n");
+		printf("4 - Listar estudantes por ordem alfabética de apelido\n");
 		printf("0 - Voltar ao menu anterior\n");
 		printf("\n\n\tOpção: ");
 		valido = scanf("%c", segunda_opcao);
@@ -201,7 +203,7 @@ void menu_consultar_dados(char * sair) {
 	        validacao_input_menu();
 		}
         
-		if (segunda_opcao < 0 || segunda_opcao > 3) {
+		if (segunda_opcao < '0' || segunda_opcao > '4') {
 			valido = 0;
 			validacao_numero_menu();
 		}
@@ -215,43 +217,6 @@ void menu_consultar_dados(char * sair) {
 
 
 
-void escolha_menus(int * nivel_menu, int * primeira_opcao, int * segunda_opcao) {
-	int sair = 0;
-	*nivel_menu = 1;
-	while(1) {
-		menu_principal(primeira_opcao);
-		system("cls");
-		
-		switch (*primeira_opcao) {
-			case 0: 
-			 	exit(0);
-			case 1:
-				*nivel_menu = 2;
-				menu_filmes(segunda_opcao, &sair);
-				if (sair) {
-					*nivel_menu = 1;
-				}
-				break;
-			case 2:
-				*nivel_menu = 2;
-				menu_series(segunda_opcao, &sair);
-				if (sair) {
-					*nivel_menu = 1;
-				}
-				break;
-			case 3:
-				*nivel_menu = 2;
-				break;
-			case 4:
-				*nivel_menu = 2;
-				break;
-			default:
-				printf("Erro!\n");
-				break;
-		}
-		system("cls");
-		if (*nivel_menu != 1) {
-			break;
-		}
-	}
+void escolha_menus() {
+	
 }
