@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <locale.h>
+#include <string.h>
+
+//Dar push: Source Control -> Commit & Push
+//Dar pull: git pull origin main
 
 //TODO LIST
 /*
