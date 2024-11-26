@@ -27,7 +27,7 @@ unsigned short - hu
 //Structs
 
 typedef struct data_nascimento {
-    unsigned int dia, mes, ano; //TODO
+    short dia, mes, ano;
 }Data;
 
 //Vamos dividir os dados enter uma struct Estudante, para dados pessoais, e outra para dados escolares ()
@@ -224,4 +224,15 @@ void menu_consultar_dados(char * sair) {
 
 void escolha_menus() {
 	
+}
+
+//TODO
+void ler_data(Estudante * aluno, Data * date) {
+	Data nascimento;
+	char data[11]; //Vamos usar o formato DD/MM/AAAA (10 caracteres + \0)
+
+	while(1) {
+		printf("Data de nascimento (DD/MM/AAAA): ");
+		if(fgets(data, sizeof(data), stdin) !=NULL); //stdin porque é daí que lemos os dados; //fgets retorna um ponteiro para "data", logo verificamos se não é NULL
+	}
 }
