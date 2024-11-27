@@ -4,9 +4,6 @@
 #include <locale.h>
 #include <string.h>
 
-//Dar push: Source Control -> Commit & Push
-//Dar pull: git pull origin main
-//Corrigir erros: rm .git/index.lock
 
 //TODO LIST
 /*
