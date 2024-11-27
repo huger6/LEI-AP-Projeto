@@ -75,7 +75,7 @@ void validacao_input_menu() {
 	printf("Entrada inválida!\n");
 	while (getchar() != '\n');  // Limpar o buffer de entrada (o que foi escrito incorretamente)
 	printf("Pressione Enter para continuar.\n");
-	getchar();  // Esperar pelo Enter do utilizador
+	getchar();  // Esperar pelo Enter do user
 	system("cls");
 }
 
@@ -122,8 +122,9 @@ void menu() {
 */
 
 
-void menu_principal(char * primeira_opcao) {
+void menu_principal() {
 	short valido = 0; //Usamos apenas short devido ao facto do scanf poder retornar -1 (ainda que improvavel), acontece no EOF ou Ctrl Z
+	char opcao = 0;
 		do {
 			//Sleep(1000) espera 1 segundo antes de avançar para tornar o programa mais suave
 			system("cls"); //Limpar terminal apenas se voltarmos a escrever o menu (ou seja, já não estão a ser necessárias as informações anteriores)
@@ -137,25 +138,25 @@ void menu_principal(char * primeira_opcao) {
 			printf("6 - Opções\n");
 			printf("0 - Sair do programa\n");
 			printf("\n\n\tOpção: ");
-			valido = scanf("%c", primeira_opcao); //scanf retorna 1 se conseguir ler de acordo com o esperado
+			valido = scanf("%c", &opcao); //scanf retorna 1 se conseguir ler de acordo com o esperado
 			
 			if (valido != 1) {
 		        validacao_input_menu();
 			}
 	        
-			else if (*primeira_opcao < '0' || *primeira_opcao > '6') { 
+			else if (opcao < '0' || opcao > '6') { 
 				valido = 0; //Scanf leu corretamente e retornou 1, mas como não queremos esses números, voltamos a definir a zero para dizer que é inválido
 				validacao_numero_menu(); 
 			}
 			
-			if ((*primeira_opcao == '0')&&(valido == 1)) { //Verifica-se também valido ==1 no caso de ter sido introduzida uma entrada invalida e 2ªopcao nao ter sofrido alteraçoes, ficando a 0
+			if ((opcao == '0')&&(valido == 1)) { //Verifica-se também valido ==1 no caso de ter sido introduzida uma entrada invalida e 2ªopcao nao ter sofrido alteraçoes, ficando a 0
 				exit(0); //Averiguar melhor o que fazer aqui
 			}
 		} while (valido == 0);
 }
 
 void menu_gerir_estudantes(char * sair) {
-	char segunda_opcao = '0';
+	char opcao = '0';
 	short valido = 0;
 	*sair = '0';
 	do {
@@ -167,18 +168,18 @@ void menu_gerir_estudantes(char * sair) {
 		printf("3 - Atualizar dados do estudante\n");
 		printf("0 - Voltar ao menu anterior\n");
 		printf("\n\n\tOpção: ");
-		valido = scanf("%c", segunda_opcao);
+		valido = scanf("%c", &opcao);
 		
 		if (valido != 1) {
 	        validacao_input_menu();
 		}
         
-		if (*segunda_opcao < 0 || *segunda_opcao > 3) {
+		if (opcao < '0' || opcao > '3') {
 			valido = 0;
 			validacao_numero_menu();
 		}
 		
-		if ((*segunda_opcao == '0')&&(valido == 1)) {
+		if ((opcao == '0')&&(valido == 1)) {
 			*sair = '1';
 			break;
 		}
@@ -187,7 +188,7 @@ void menu_gerir_estudantes(char * sair) {
 
 
 void menu_consultar_dados(char * sair) {
-	char segunda_opcao = '0';
+	char opcao = '0';
 	short valido = 0;
 	*sair = '0';
 	do {
