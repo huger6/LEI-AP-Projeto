@@ -65,6 +65,7 @@ int main() {
     setlocale(LC_ALL, "Portuguese");
 
 	printf("TESTE");
+	printf("ARROZ");
 }
 
 
