@@ -132,10 +132,9 @@ void menu_principal() {
 			printf("\n\n");
 			printf("1 - Gerir estudantes\n");
 			printf("2 - Consultar dados\n");
-			printf("3 - Listagens\n");
-			printf("4 - Estatísticas\n");
-			printf("5 - Ficheiros\n");
-			printf("6 - Opções\n");
+			printf("3 - Estatísticas\n");
+			printf("4 - Extras\n");
+			// printf("5 - Opções\n"); talvez possamos implementar um modo de nacionalidade (apresentar o programa em inglês, etc)
 			printf("0 - Sair do programa\n");
 			printf("\n\n\tOpção: ");
 			valido = scanf("%c", &opcao); //scanf retorna 1 se conseguir ler de acordo com o esperado
@@ -144,7 +143,7 @@ void menu_principal() {
 		        validacao_input_menu();
 			}
 	        
-			else if (opcao < '0' || opcao > '6') { 
+			else if (opcao < '0' || opcao > '4') { 
 				valido = 0; //Scanf leu corretamente e retornou 1, mas como não queremos esses números, voltamos a definir a zero para dizer que é inválido
 				validacao_numero_menu(); 
 			}
@@ -201,24 +200,87 @@ void menu_consultar_dados(char * sair) {
 		printf("4 - Listar estudantes por ordem alfabética de apelido\n");
 		printf("0 - Voltar ao menu anterior\n");
 		printf("\n\n\tOpção: ");
-		valido = scanf("%c", segunda_opcao);
+		valido = scanf("%c", &opcao);
 		
 		if (valido != 1) {
 	        validacao_input_menu();
 		}
         
-		if (segunda_opcao < '0' || segunda_opcao > '4') {
+		if (opcao < '0' || opcao > '4') {
 			valido = 0;
 			validacao_numero_menu();
 		}
 		
-		if ((segunda_opcao == '0')&&(valido == 1)) {
+		if ((opcao == '0')&&(valido == 1)) {
 			*sair = '1';
 			break;
 		}
 	} while (valido == 0);	 
 }
 
+void menu_estatisticas(char * sair) {
+	char opcao = '0';
+	short valido = 0;
+	*sair = '0';
+	do {
+		system("cls");
+		printf("\t\tESTATÍSTICAS");
+		printf("\n\n");
+		printf("1 - Contar estudantes por escalão de média atual\n");
+		printf("2 - Calcular número médio de matrículas(geral e por nacionalidade)\n");
+		printf("3 - Determinar número de finalistas\n");
+		printf("4 - Calcular média de idades por nacionalidade e ano\n");
+		printf("5 - Listar estudantes em risco de prescrição\n");
+		printf("0 - Voltar ao menu anterior\n");
+		printf("\n\n\tOpção: ");
+		valido = scanf("%c", &opcao);
+		
+		if (valido != 1) {
+	        validacao_input_menu();
+		}
+        
+		if (opcao < '0' || opcao > '5') {
+			valido = 0;
+			validacao_numero_menu();
+		}
+		
+		if ((opcao == '0')&&(valido == 1)) {
+			*sair = '1';
+			break;
+		}
+	} while (valido == 0);	 
+}
+
+void menu_estatisticas(char * sair) {
+	char opcao = '0';
+	short valido = 0;
+	*sair = '0';
+	do {
+		system("cls");
+		printf("\t\tEXTRAS");
+		printf("\n\n");
+		printf("1 - Listar estudantes nascidos em dias específicos da semana\n");
+		printf("2 - Listar os estudantes cujo aniversário num determinado ano é ao domingo\n");
+		printf("3 - Relacionar o ano de inscrição com intervalos das classificações\n");
+		printf("0 - Voltar ao menu anterior\n");
+		printf("\n\n\tOpção: ");
+		valido = scanf("%c", &opcao);
+		
+		if (valido != 1) {
+	        validacao_input_menu();
+		}
+        
+		if (opcao < '0' || opcao > '3') {
+			valido = 0;
+			validacao_numero_menu();
+		}
+		
+		if ((opcao == '0')&&(valido == 1)) {
+			*sair = '1';
+			break;
+		}
+	} while (valido == 0);	 
+}
 
 
 void escolha_menus() {
