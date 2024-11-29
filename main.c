@@ -7,9 +7,7 @@
 
 //TODO LIST
 /*
--Perguntar à professora da funcionalidade 1: está-nos a ser pedido para carregar todos os dados de uma só vez para o programa? Se sim, isso não seria
-...pouco eficiente e não seria melhor carregar os dados apenas quando nos é solicitado algum tipo de dado do ficheiro, onde poderíamos implementar algum
-...tipo de merge sort (isto deve fazer parte do menu???)
+-Carregar os dados todos para a ram no inicio do programa
 -Perguntar se podemos pedir a data de nascimento separada ou como uma string
 -Perguntar o que querem dizer com mecanismo de avanço página a página
 -Os dados devem ficar no ecra? É que estava a pensar em limpar o terminal em cada ida ao menu
