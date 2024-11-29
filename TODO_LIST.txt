@@ -1,12 +1,18 @@
--Carregar os dados todos para a ram no inicio do programa
 -Perguntar se podemos pedir a data de nascimento separada ou como uma string
 -Perguntar o que querem dizer com mecanismo de avanço página a página
 -Os dados devem ficar no ecra? É que estava a pensar em limpar o terminal em cada ida ao menu
 -Verificar se o método que estamos a usar para retornar a opcao dos menus é correta.
--REVER METODO LER INPUTS!!
+-Perguntar se a struct relacionada aos menus é correta
 
--Para a ultima pergunta podemos usar um array dentro de um array, basicamente aquilo é uma matriz, ou entao fazer da forma "convencional"
+
 
 NOTAS:
 short - hd
 unsigned short - hu
+
+
+A IMPLEMENTAR:
+-Pedir confirmação antes de sair do programa
+-Para a ultima pergunta podemos usar um array dentro de um array, basicamente aquilo é uma matriz, ou entao fazer da forma "convencional"
+-REVER METODO LER INPUTS!!
+-Carregar os dados todos para a ram no inicio do programa

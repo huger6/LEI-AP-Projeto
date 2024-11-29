@@ -2,6 +2,7 @@
 
 //Funções
 void carregar_dados(FILE * ficheiro) { 
+
 }
 
 void validacao_menus(short * valido, char opcao, const char limInf, const char limSup) { //Lims const pois não devem ser alterados
@@ -9,7 +10,7 @@ void validacao_menus(short * valido, char opcao, const char limInf, const char l
         validacao_input_menu();
     }
     else if (opcao < limInf || opcao > limSup) { 
-        valido = 0; //Scanf leu corretamente e retornou 1, mas como não queremos esses números, voltamos a definir a zero para dizer que é inválido
+        *valido = 0; //Scanf leu corretamente e retornou 1, mas como não queremos esses números, voltamos a definir a zero para dizer que é inválido
         validacao_numero_menu(); 
     }
 }
@@ -39,34 +40,34 @@ void validacao_numero_menu() {
 	limpar_terminal(); 
 }
 
-char menu_principal() {
+void menu_principal() {
 	short valido = 0; //Usamos apenas short devido ao facto do scanf poder retornar -1 (ainda que improvavel), acontece no EOF ou Ctrl Z
 	char opcao = '0';
-		do {
-			//Sleep(1000) espera 1 segundo antes de avançar para tornar o programa mais suave | SÓ FUNCIONA EM WINDOWS
-			limpar_terminal(); //Limpar terminal apenas se voltarmos a escrever o menu (ou seja, já não estão a ser necessárias as informações anteriores)
-			printf("\t\tMENU");
-			printf("\n\n");
-			printf("1 - Gerir estudantes\n");
-			printf("2 - Consultar dados\n");
-			printf("3 - Estatísticas\n");
-			printf("4 - Extras\n");
-			// printf("5 - Opções\n"); talvez possamos implementar um modo de nacionalidade (apresentar o programa em inglês, etc)
-			printf("0 - Sair do programa\n");
-			printf("\n\n\tOpção: ");
-            //rever
-			valido = scanf("%c", &opcao); //scanf retorna 1 se conseguir ler de acordo com o esperado
-			
-			validacao_menus(&valido,opcao,'0','4');
-			
-			if ((opcao == '0')&&(valido == 1)) { //Verifica-se também valido == 1 no caso de ter sido introduzida uma entrada invalida e 2ªopcao nao ter sofrido alteraçoes, ficando a 0
-				return 0; 
-			}
-		} while (valido == 0);
+    do {
+        //Sleep(1000) espera 1 segundo antes de avançar para tornar o programa mais suave | SÓ FUNCIONA EM WINDOWS
+        limpar_terminal(); //Limpar terminal apenas se voltarmos a escrever o menu (ou seja, já não estão a ser necessárias as informações anteriores)
+        printf("\t\tMENU");
+        printf("\n\n");
+        printf("1 - Gerir estudantes\n");
+        printf("2 - Consultar dados\n");
+        printf("3 - Estatísticas\n");
+        printf("4 - Extras\n");
+        // printf("5 - Opções\n"); talvez possamos implementar um modo de nacionalidade (apresentar o programa em inglês, etc)
+        printf("0 - Sair do programa\n");
+        printf("\n\n\tOpção: ");
+        //rever
+        valido = scanf("%c", &opcao); //scanf retorna 1 se conseguir ler de acordo com o esperado
+        
+        validacao_menus(&valido,opcao,'0','4');
+        
+        if (valido == 1) { //Se for valido, então retornamos o valor escolhido
+            return opcao;
+        }
+    } while (valido == 0);
 }
 
 //Nota: poderíamos ter optado por fazer várias funções apenas com o output do menu, mas visto que teríamos ainda de fazer diferentes funções
-//devido a ter que gerir as opções e os números, seria adicionar complexidade desnecessária, do nosso ponto de vista
+//devido a ter que gerir as opções e os números, estariamos a adicionar complexidade desnecessária, do nosso ponto de vista
 void menu_gerir_estudantes() { 
 	char opcao = '0';
 	short valido = 0;
@@ -83,12 +84,11 @@ void menu_gerir_estudantes() {
 		
 		validacao_menus(&valido,opcao,'0','3');
 		
-		if ((opcao == '0')&&(valido == 1)) {
-			break; //Sai do loop(volta ao menu principal)
+		if (valido == 1) {
+            return opcao;
 		}
 	} while (valido == 0);	 
 }
-
 
 void menu_consultar_dados() {
 	char opcao = '0';
@@ -105,18 +105,10 @@ void menu_consultar_dados() {
 		printf("\n\n\tOpção: ");
 		valido = scanf("%c", &opcao);
 		
-		if (valido != 1) {
-	        validacao_input_menu();
-		}
-        
-		if (opcao < '0' || opcao > '4') {
-			valido = 0;
-			validacao_numero_menu();
-		}
+		validacao_menus(&valido,opcao,'0','4');
 		
-		if ((opcao == '0')&&(valido == 1)) {
-			*sair = '1';
-			break;
+		if (valido == 1) {
+			return opcao;
 		}
 	} while (valido == 0);	 
 }
@@ -137,18 +129,10 @@ void menu_estatisticas() {
 		printf("\n\n\tOpção: ");
 		valido = scanf("%c", &opcao);
 		
-		if (valido != 1) {
-	        validacao_input_menu();
-		}
-        
-		if (opcao < '0' || opcao > '5') {
-			valido = 0;
-			validacao_numero_menu();
-		}
+		validacao_menus(&valido,opcao,'0','5');
 		
-		if ((opcao == '0')&&(valido == 1)) {
-			*sair = '1';
-			break;
+		if (valido == 1) {
+			return opcao;
 		}
 	} while (valido == 0);	 
 }
@@ -167,25 +151,147 @@ void menu_extras() {
 		printf("\n\n\tOpção: ");
 		valido = scanf("%c", &opcao);
 		
-		if (valido != 1) {
-	        validacao_input_menu();
-		}
+		validacao_menus(&valido,opcao,'0','3');
         
-		if (opcao < '0' || opcao > '3') {
-			valido = 0;
-			validacao_numero_menu();
-		}
-		
-		if ((opcao == '0')&&(valido == 1)) {
-			*sair = '1';
-			break;
+		if (valido == 1) {
+			return opcao;
 		}
 	} while (valido == 0);	 
 }
 
+void processar_gerir_estudantes(Escolha opcao, Escolha * n_menu) {
+    do {
+        opcao = menu_gerir_estudantes();
+        switch(opcao) {
+            case '0':
+                *n_menu = 'P';
+            case '1':
+                //inserir estudante
+                break;
+            case '2':
+                //eliminar estudante
+                break;
+            case '3':
+                //atualizar estudante
+                break;
+            default:
+                printf("Erro!!"); //Aprofundar
+                break;
+    }
+    } while (*n_menu == 'G');
+}
 
-void escolha_menus() {
-	
+void processar_consultar(Escolha opcao, Escolha * n_menu) {
+    do {
+        opcao = menu_consultar_dados();
+        switch(opcao) {
+            case '0':
+                *n_menu = 'P';
+            case '1':
+                //Procurar estudante por nome
+                break;
+            case '2':
+                //Listar estudantes por intervalo de datas de nascimento
+                break;
+            case '3':
+                //Listar estudantes por nacionalidade
+                break;
+            case '4':
+                //Listar estudantes por ordem alfabética de apelido
+                break;
+            default:
+                printf("Erro!!"); //Aprofundar
+                break;
+    }
+    } while (*n_menu == 'C')
+}
+
+void processar_estatisticas(Escolha opcao, Escolha * n_menu) {
+    do {
+        opcao = menu_estatisticas();
+        switch(opcao) {
+            case '0':
+                *n_menu = 'P';
+            case '1':
+                //Contar estudantes por escalão de média atual
+                break;
+            case '2':
+                //Calcular número médio de matrículas(geral e por nacionalidade)
+                break;
+            case '3':
+                //Determinar número de finalistas
+                break;
+            case '4':
+                //Calcular média de idades por nacionalidade e ano
+                break;
+            case '5':
+                //Listar estudantes em risco de prescrição
+                break;
+            default:
+                printf("Erro!!"); //Aprofundar
+                break;
+    }
+    } while (*n_menu == 'E')
+}
+
+void processar_extras(Escolha opcao, Escolha * n_menu) {
+    do {
+        opcao = menu_extras();
+        switch(opcao) {
+            case '0':
+                *n_menu = 'P';
+            case '1':
+                //Listar estudantes nascidos em dias específicos da semana
+                break;
+            case '2':
+                //Listar os estudantes cujo aniversário num determinado ano é ao domingo
+                break;
+            case 3:
+                //Relacionar o ano de inscrição com intervalos das classificações
+                break;
+            default:
+                printf("Erro!!"); //Aprofundar
+                break;
+    }
+    } while (*n_menu == 'X');
+}
+
+Escolha escolha_menus() {
+	Escolha escolha; //C é case sensitive (pode parecer má prática mas estava difícil de encontrar outro nome igualmente expressivo :))
+
+    escolha.menu_atual = 'P';
+    escolha.opcao_principal = '0';
+    escolha.opcao_submenu = '0'; //Esta variavel nunca é alterada fora das funcoes, ver isto
+
+    do {
+        limpar_terminal();
+        escolha.opcao = menu_principal();
+
+        switch(escolha.opcao) {
+            case '1':
+                escolha.menu_atual = 'G';
+                processar_gerir_estudantes(escolha.opcao_submenu, &escolha.menu_atual); //Passamos menu atual por referência no caso da opção escolhida ser voltar atrás
+                break;
+            case '2':
+                escolha.menu_atual = 'C';
+                processar_consultar_dados(escolha.opcao_submenu, &escolha.menu_atual);
+                break;
+            case '3':
+                escolha.menu_atual = 'E';
+                processar_estatisticas(escolha.opcao_submenu, &escolha.menu_atual);
+                break;
+            case '4':
+                escolha.menu_atual = 'X';
+                processar_extras(escolha.opcao_submenu, &escolha.menu_atual);
+                break;
+            case '0':
+                escolha.menu_atual = 'S'; //Indicar que estamos a sair, para o loop
+                break;
+            default:
+                printf("Erro\n"); //Aprofundar no erro
+                break;
+        }
+    } while (escolha.menu_atual == 'P'); 
 }
 
 //TODO

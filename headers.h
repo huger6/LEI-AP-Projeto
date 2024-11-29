@@ -39,8 +39,9 @@ typedef struct estatisticas {
 }Estatisticas;
 
 typedef struct {
-    char menu;   // Identificar o menu (P-Principal, G-Gerir estudantes,C-Consultar Dados, E-Estatísticas, X-Extras)
-    char opcao;  // Opção selecionada dentro do menu
+    char menu_atual;   // Identificar o menu (P-Principal, G-Gerir estudantes,C-Consultar Dados, E-Estatísticas, X-Extras, S-Sair)
+    char opcao_principal;  // Opção selecionada dentro do menu principal
+    char opcao_submenu; //Opção dos submenus
 } Escolha;
 
 
