@@ -2,26 +2,26 @@
 //Ou seja, evita o processamento dos headers várias vezes
 #define HEADERS_H //define caso seja a 1x
 
+//Definir os nomes dos ficheiros como constantes(de modo a que não sejam alterados)
 #define DADOS_TXT "dados.txt"
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
 
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <windows.h> //Para fazer mudanças no terminal
 #include <locale.h>
 #include <string.h>
 
 
 //Structs
-
 typedef struct data_nascimento {
     short dia, mes, ano;
 }Data;
 
 //Vamos dividir os dados enter uma struct Estudante, para dados pessoais, e outra para dados escolares ()
 typedef struct estudante {
-    unsigned int codigo; //int para prevenir, caso o código tenha, imagine-se, 
+    int codigo; //int para prevenir, caso o código tenha, imagine-se, 6 digitos
+    char * nome; //Declaramos um ponteiro para posteriormente alocar memória dinamicamente consoante o tamanho do nome
     Data nascimento; 
     char nacionalidade[5]; //Temos 5 nacionalidades. Dentro de cada posição do array colocamos um array de chars com a nacionalidade.
     unsigned short matriculas; //unsigned porque matriculas sempre > 0 e short porque usa apenas 2 bytes em x dos 4 de um int
@@ -31,13 +31,17 @@ typedef struct estudante {
 typedef struct dados_escolares {
     unsigned int codigo;
     unsigned char prescrever;
-
-}Escola;
+}Dados;
 
 typedef struct estatisticas {
 	float medias_matriculas;
 	int finalistas;
 }Estatisticas;
+
+typedef struct {
+    char menu;   // Identificar o menu (P-Principal, G-Gerir estudantes,C-Consultar Dados, E-Estatísticas, X-Extras)
+    char opcao;  // Opção selecionada dentro do menu
+} Escolha;
 
 
 //Protótipos das funções
