@@ -18,7 +18,7 @@ void validacao_menus(short * valido, char opcao, const char limInf, const char l
 
 //Limpar o terminal consoante o sistema operativo
 void limpar_terminal() {
-    #ifndef _WIN32 //É automaticamente definido pelo windows
+    #ifdef _WIN32 //É automaticamente definido pelo windows
         system("cls"); //Sistemas windows
     #else
         system("clear"); //Sistemas linux, macOs, etc
@@ -40,7 +40,7 @@ void validacao_numero_menu() {
 	limpar_terminal(); 
 }
 
-void menu_principal() {
+char menu_principal() {
 	short valido = 0; //Usamos apenas short devido ao facto do scanf poder retornar -1 (ainda que improvavel), acontece no EOF ou Ctrl Z
 	char opcao = '0';
     do {
@@ -68,11 +68,11 @@ void menu_principal() {
 
 //Nota: poderíamos ter optado por fazer várias funções apenas com o output do menu, mas visto que teríamos ainda de fazer diferentes funções
 //devido a ter que gerir as opções e os números, estariamos a adicionar complexidade desnecessária, do nosso ponto de vista
-void menu_gerir_estudantes() { 
+char menu_gerir_estudantes() { 
 	char opcao = '0';
 	short valido = 0;
 	do {
-		system("cls");
+		limpar_terminal();
 		printf("\t\tGERIR ESTUDANTES");
 		printf("\n\n");
 		printf("1 - Inserir estudante\n");
@@ -90,11 +90,11 @@ void menu_gerir_estudantes() {
 	} while (valido == 0);	 
 }
 
-void menu_consultar_dados() {
+char menu_consultar_dados() {
 	char opcao = '0';
 	short valido = 0;
 	do {
-		system("cls");
+        limpar_terminal();
 		printf("\t\tCONSULTAR DADOS");
 		printf("\n\n");
 		printf("1 - Procurar estudante por nome\n");
@@ -113,11 +113,11 @@ void menu_consultar_dados() {
 	} while (valido == 0);	 
 }
 
-void menu_estatisticas() {
+char menu_estatisticas() {
 	char opcao = '0';
 	short valido = 0;
 	do {
-		system("cls");
+        limpar_terminal();
 		printf("\t\tESTATÍSTICAS");
 		printf("\n\n");
 		printf("1 - Contar estudantes por escalão de média atual\n");
@@ -137,11 +137,11 @@ void menu_estatisticas() {
 	} while (valido == 0);	 
 }
 
-void menu_extras() {
+char menu_extras() {
 	char opcao = '0';
 	short valido = 0;
 	do {
-		system("cls");
+        limpar_terminal();
 		printf("\t\tEXTRAS");
 		printf("\n\n");
 		printf("1 - Listar estudantes nascidos em dias específicos da semana\n");
@@ -165,6 +165,7 @@ void processar_gerir_estudantes(Escolha opcao, Escolha * n_menu) {
         switch(opcao) {
             case '0':
                 *n_menu = 'P';
+                break;
             case '1':
                 //inserir estudante
                 break;
@@ -187,6 +188,7 @@ void processar_consultar(Escolha opcao, Escolha * n_menu) {
         switch(opcao) {
             case '0':
                 *n_menu = 'P';
+                break;
             case '1':
                 //Procurar estudante por nome
                 break;
@@ -212,6 +214,7 @@ void processar_estatisticas(Escolha opcao, Escolha * n_menu) {
         switch(opcao) {
             case '0':
                 *n_menu = 'P';
+                break;
             case '1':
                 //Contar estudantes por escalão de média atual
                 break;
@@ -240,6 +243,7 @@ void processar_extras(Escolha opcao, Escolha * n_menu) {
         switch(opcao) {
             case '0':
                 *n_menu = 'P';
+                break;
             case '1':
                 //Listar estudantes nascidos em dias específicos da semana
                 break;

@@ -1,15 +1,18 @@
+DÚVIDAS:
 -Perguntar se podemos pedir a data de nascimento separada ou como uma string
 -Perguntar o que querem dizer com mecanismo de avanço página a página
 -Os dados devem ficar no ecra? É que estava a pensar em limpar o terminal em cada ida ao menu
 -Verificar se o método que estamos a usar para retornar a opcao dos menus é correta.
 -Perguntar se a struct relacionada aos menus é correta
+-Rever validacao_menus(), o chatgpt estava a implicar um pouco com isso
 
-
+______________________________________________________________________________________________________________
 
 NOTAS:
 short - hd
 unsigned short - hu
 
+______________________________________________________________________________________________________________
 
 A IMPLEMENTAR:
 -Pedir confirmação antes de sair do programa
