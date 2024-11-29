@@ -1,0 +1,11 @@
+-Carregar os dados todos para a ram no inicio do programa
+-Perguntar se podemos pedir a data de nascimento separada ou como uma string
+-Perguntar o que querem dizer com mecanismo de avanço página a página
+-Os dados devem ficar no ecra? É que estava a pensar em limpar o terminal em cada ida ao menu
+
+
+
+
+NOTAS:
+short - hd
+unsigned short - hu
