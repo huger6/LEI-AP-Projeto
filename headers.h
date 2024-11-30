@@ -6,16 +6,22 @@
 #define DADOS_TXT "dados.txt"
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
 
+//Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
+const short ANO_ATUAL 2025; //definimos o ano atual, ajustar consoante o ano;
+const short ANO_NASC_LIM_INF 1908; //definimos o limite inferior como o ano de nasc da pessoa mais velha do mundo atualmente
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h> //Para fazer mudanças no terminal
+#include <windows.h> 
 #include <locale.h>
 #include <string.h>
 
 
 //Structs
 typedef struct data_nascimento {
-    short dia, mes, ano;
+    short dia;
+    short mes;
+    short ano;
 }Data;
 
 //Vamos dividir os dados enter uma struct Estudante, para dados pessoais, e outra para dados escolares ()

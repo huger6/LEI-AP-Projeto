@@ -5,7 +5,13 @@ void carregar_dados(FILE * ficheiro) {
 
 }
 
-void validacao_menus(short * valido, char opcao, const char limInf, const char limSup) { //Lims const pois não devem ser alterados
+//Função para limpar o buffer quando necessário
+void limpar_buffer() {
+    int lixo;
+    while ((lixo = getchar()) != '\n' && lixo != EOF);
+}
+
+void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup) { //const pois não devem ser alterados
     if (*valido != 1) {
         validacao_input_menu();
     }
@@ -27,13 +33,14 @@ void limpar_terminal() {
 
 void validacao_input_menu() {
 	printf("Entrada inválida!\n");
-	while (getchar() != '\n');  // Limpar o buffer de entrada (o que foi escrito incorretamente)
+	limpar_buffer();  // Limpar o buffer de entrada (o que foi escrito incorretamente)
 	printf("Pressione Enter para continuar.\n");
 	getchar();  // Esperar pelo Enter do user
 	limpar_terminal();
 }
 
 void validacao_numero_menu() {
+    limpar_buffer();
 	printf("Por favor, escolha um número do menu.\n");
 	printf("Pressione Enter para continuar.\n");
 	getchar(); //Ler o enter
@@ -55,8 +62,8 @@ char menu_principal() {
         // printf("5 - Opções\n"); talvez possamos implementar um modo de nacionalidade (apresentar o programa em inglês, etc)
         printf("0 - Sair do programa\n");
         printf("\n\n\tOpção: ");
-        //rever
-        valido = scanf("%c", &opcao); //scanf retorna 1 se conseguir ler de acordo com o esperado
+
+        valido = scanf(" %c", &opcao); //scanf retorna 1 se conseguir ler de acordo com o esperado, " %c" para evitar ler \n's
         
         validacao_menus(&valido,opcao,'0','4');
         
@@ -80,7 +87,7 @@ char menu_gerir_estudantes() {
 		printf("3 - Atualizar dados do estudante\n");
 		printf("0 - Voltar ao menu anterior\n");
 		printf("\n\n\tOpção: ");
-		valido = scanf("%c", &opcao);
+		valido = scanf(" %c", &opcao);
 		
 		validacao_menus(&valido,opcao,'0','3');
 		
@@ -103,7 +110,7 @@ char menu_consultar_dados() {
 		printf("4 - Listar estudantes por ordem alfabética de apelido\n");
 		printf("0 - Voltar ao menu anterior\n");
 		printf("\n\n\tOpção: ");
-		valido = scanf("%c", &opcao);
+		valido = scanf(" %c", &opcao);
 		
 		validacao_menus(&valido,opcao,'0','4');
 		
@@ -127,7 +134,7 @@ char menu_estatisticas() {
 		printf("5 - Listar estudantes em risco de prescrição\n");
 		printf("0 - Voltar ao menu anterior\n");
 		printf("\n\n\tOpção: ");
-		valido = scanf("%c", &opcao);
+		valido = scanf(" %c", &opcao);
 		
 		validacao_menus(&valido,opcao,'0','5');
 		
@@ -149,7 +156,7 @@ char menu_extras() {
 		printf("3 - Relacionar o ano de inscrição com intervalos das classificações\n");
 		printf("0 - Voltar ao menu anterior\n");
 		printf("\n\n\tOpção: ");
-		valido = scanf("%c", &opcao);
+		valido = scanf(" %c", &opcao);
 		
 		validacao_menus(&valido,opcao,'0','3');
         
@@ -250,7 +257,7 @@ void processar_extras(Escolha opcao, Escolha * n_menu) {
             case '2':
                 //Listar os estudantes cujo aniversário num determinado ano é ao domingo
                 break;
-            case 3:
+            case '3':
                 //Relacionar o ano de inscrição com intervalos das classificações
                 break;
             default:
@@ -298,13 +305,68 @@ Escolha escolha_menus() {
     } while (escolha.menu_atual == 'P'); 
 }
 
-//TODO
+char validar_data(short dia, short mes, short ano) {
+    if (ano < 1 || mes < 1 || mes > 12 || dia < 1) { //Limites dos anos são os que foram considerados mais realistas
+        printf("Por favor, insira uma data válida.\n");
+        return 0;
+    }
+    /*Apenas se podem inscrever alunos com mais de 16 anos (sensivelmente, porque devido ao mes de nascimento pode nao ser bem assim)
+    Poderia ser resolvido com a adição de +2 constantes para mes e dia atuais mas achamos desnecessário devido a tratar-se da inscrição de alunos
+    que por natureza, não têm de ser todos iguais ou ser inscritos com a mesma idade.
+    */
+    if (ano < ANO_NASC_LIM_INF || ano > ANO_ATUAL - 16) {
+        printf("O ano inserido é inválido. Insira um ano entre %d e %d", ANO_NASC_LIM_INF, ANO_ATUAL);
+        return 0;
+    }
+
+    // Criamos um vetor com os dias de cada mes, fevereiro com 28 pois é o mais comum
+    short dias_por_mes[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    //Apenas criado para propóstios de informação ao user
+    char nome_do_mes[] = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
+
+    // verificar anos bissextos
+    if (mes == 2 && ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0))) {
+        dias_por_mes[1] = 29;
+    }
+
+    if (dia > dias_por_mes[mes - 1]) {
+        printf("O dia é inválido! O mês de %s tem apenas %hd dias.\n", nome_do_mes[mes - 1], dias_por_mes[mes -1]);
+        return 0; //Falso
+    }
+    //Se não retornou 0(F), é V
+    return 1;
+}
+
+
 void ler_data(Estudante * aluno, Data * date) {
 	Data nascimento;
 	char data[11]; //Vamos usar o formato DD/MM/AAAA (10 caracteres + \0)
+    char erro = '0'; //1 há erro
 
-	while(1) {
+	do {
+        erro = '0';
 		printf("Data de nascimento (DD/MM/AAAA): ");
-		if(fgets(data, sizeof(data), stdin) !=NULL); //stdin porque é daí que lemos os dados; //fgets retorna um ponteiro para "data", logo verificamos se não é NULL
-	}
+		if(fgets(data, sizeof(data), stdin) ==NULL) { //stdin porque é daí que lemos os dados; //fgets retorna um ponteiro para "data", logo verificamos se é NULL ocorreu um erro
+            limpar_buffer();
+            printf("Ocorreu um erro ao tentar ler a data de nascimento!");
+            erro = '1';
+            continue; //O continue faz com que o loop avance para a proxima iteração
+            //Nota: o uso do fgets faz com que o buffer nao rebente, pois ele so le ate ao limite de sizeof(data)-1(para o \0), apenas temos de limpar o buffer depois
+        }
+        //O sscanf lê as x entradas conforme o padrão apresentado
+    	if (sscanf(data, "%hd/%hd/%hd", &aluno->nascimento.dia, &aluno->nascimento.mes, &aluno->nascimento.ano) != 3) { //sscanf tenta ler 3 shorts
+            //Caso nao consiga, o formato é inválido
+            printf("Formato inválido! Use o formato DD/MM/AAAA.\n");
+            limpar_buffer();
+            erro = '1';
+            continue;
+        }        
+        if ((!validar_data(aluno->nascimento.dia, aluno->nascimento.mes, aluno->nascimento.ano))) { //Se já houver erro, não há necessidade de validar
+            limpar_buffer();
+            erro = '1'; //A mensagem de erro deve estar dentro de validar, de modo a especificar o que falhou
+            continue;
+        }
+        erro = '0'; //Se nao for abrangido pelos continues, então não foi detetato nenhum erro, logo saimos do loop
+        limpar_buffer(); //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
+	} while (erro == '1'); //Continuar a pedir a data sempre que esta for inválida
 }

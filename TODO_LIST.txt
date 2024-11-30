@@ -5,7 +5,9 @@ DÚVIDAS:
 -Verificar se o método que estamos a usar para retornar a opcao dos menus é correta.
 -Perguntar se a struct relacionada aos menus é correta
 -Rever validacao_menus(), o chatgpt estava a implicar um pouco com isso
-
+-Perguntar se a definicao de ano atual está correta
+-Rever a lógica de limpeza dos buffers
+-Devo definir macros para os limites das opcoes dos menus?
 ______________________________________________________________________________________________________________
 
 NOTAS:
@@ -19,3 +21,6 @@ A IMPLEMENTAR:
 -Para a ultima pergunta podemos usar um array dentro de um array, basicamente aquilo é uma matriz, ou entao fazer da forma "convencional"
 -REVER METODO LER INPUTS!!
 -Carregar os dados todos para a ram no inicio do programa
+-Fazer função para ler a data
+-Fazer a divisao de win e linux na questao do terminal
+-LIMPAR O BUFFER APÓS CADA OPERAÇÃO BÁSICA
