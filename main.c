@@ -1,5 +1,6 @@
 #include "headers.h"
 #include "funcoes.c"
+//NOTA IMPORTANTE: para dar run temos que abrir o projeto em terminal integrado e depois de estar na main, dar compile run.
 
 int main() {
     //Colocar a consola em PT-PT (caracteres UTF8) Averiguar para sistemas não win
@@ -8,6 +9,8 @@ int main() {
     // setlocale(LC_ALL, "Portuguese"); Esta linha faz com que os caracteres fiquem destorcidos
 	
 	//Lidar com os ficheiros
+
+	//DADOS DEVEM SER CARREGADOS/GUARDADOS NAS FUNÇÕES
 	FILE * dados;
 	FILE * situacao_escolar;
 

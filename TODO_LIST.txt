@@ -21,6 +21,5 @@ A IMPLEMENTAR:
 -Para a ultima pergunta podemos usar um array dentro de um array, basicamente aquilo é uma matriz, ou entao fazer da forma "convencional"
 -REVER METODO LER INPUTS!!
 -Carregar os dados todos para a ram no inicio do programa
--Fazer função para ler a data
 -Fazer a divisao de win e linux na questao do terminal
 -LIMPAR O BUFFER APÓS CADA OPERAÇÃO BÁSICA

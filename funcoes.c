@@ -4,11 +4,13 @@ const short ANO_ATUAL = 2025;
 const short ANO_NASC_LIM_INF = 1908;
 
 //Funções
-/*
-void carregar_dados(FILE * ficheiro) { 
 
+void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escolares, Estatisticas * stats) { 
+    //Temos de averiguar se o ficheiro já existe, se sim, ler, se nao, criar um novo. 
+    FILE * ficheiro = fopen(nome_ficheiro, "r");
+    // if (ficheiro == NULL)
 }
-*/
+
 
 //Função para limpar o buffer quando necessário
 void limpar_buffer() {
