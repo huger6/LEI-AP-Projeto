@@ -1,9 +1,14 @@
 #include "headers.h"
 
+const short ANO_ATUAL = 2025; 
+const short ANO_NASC_LIM_INF = 1908;
+
 //Funções
+/*
 void carregar_dados(FILE * ficheiro) { 
 
 }
+*/
 
 //Função para limpar o buffer quando necessário
 void limpar_buffer() {
@@ -13,11 +18,11 @@ void limpar_buffer() {
 
 void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup) { //const pois não devem ser alterados
     if (*valido != 1) {
-        validacao_input_menu();
+        validacao_input_menu(limInf, limSup);
     }
     else if (opcao < limInf || opcao > limSup) { 
         *valido = 0; //Scanf leu corretamente e retornou 1, mas como não queremos esses números, voltamos a definir a zero para dizer que é inválido
-        validacao_numero_menu(); 
+        validacao_numero_menu(limInf, limSup); 
     }
 }
 
@@ -30,21 +35,21 @@ void limpar_terminal() {
         system("clear"); //Sistemas linux, macOs, etc
     #endif
 }
-
-void validacao_input_menu() {
-	printf("Entrada inválida!\n");
-	limpar_buffer();  // Limpar o buffer de entrada (o que foi escrito incorretamente)
+//Esta função é um pouco "inutil" neste momento. Foi desenhada para tratar erros com ints
+void validacao_input_menu(const char limInf, const char limSup) {
+    limpar_buffer();  // Limpar o buffer de entrada (o que foi escrito incorretamente)
+	printf("Entrada inválida! Introduza um número do menu (%c a %c)\n", limInf, limSup);
 	printf("Pressione Enter para continuar.\n");
-	getchar();  // Esperar pelo Enter do user
+	if (getchar() != '\n') limpar_buffer(); //Caso o user escreva algo e não enter limpar buffer
 	limpar_terminal();
 }
 
-void validacao_numero_menu() {
+void validacao_numero_menu(const char limInf, const char limSup) {
     limpar_buffer();
-	printf("Por favor, escolha um número do menu.\n");
+	printf("Por favor, escolha um número do menu (%c a %c).\n", limInf, limSup);
 	printf("Pressione Enter para continuar.\n");
-	getchar(); //Ler o enter
-	limpar_terminal(); 
+	if (getchar() != '\n') limpar_buffer(); 
+	limpar_terminal();
 }
 
 char menu_principal() {
@@ -166,12 +171,12 @@ char menu_extras() {
 	} while (valido == 0);	 
 }
 
-void processar_gerir_estudantes(Escolha opcao, Escolha * n_menu) {
+void processar_gerir_estudantes(Escolha * escolha) {
     do {
-        opcao = menu_gerir_estudantes();
-        switch(opcao) {
+        escolha->opcao_submenu = menu_gerir_estudantes();
+        switch(escolha->opcao_submenu) {
             case '0':
-                *n_menu = 'P';
+                escolha->menu_atual = 'P';
                 break;
             case '1':
                 //inserir estudante
@@ -186,15 +191,15 @@ void processar_gerir_estudantes(Escolha opcao, Escolha * n_menu) {
                 printf("Erro!!"); //Aprofundar
                 break;
     }
-    } while (*n_menu == 'G');
+    } while (escolha->menu_atual == 'G');
 }
 
-void processar_consultar(Escolha opcao, Escolha * n_menu) {
+void processar_consultar_dados(Escolha * escolha) {
     do {
-        opcao = menu_consultar_dados();
-        switch(opcao) {
+        escolha->opcao_submenu = menu_consultar_dados();
+        switch(escolha->opcao_submenu) {
             case '0':
-                *n_menu = 'P';
+                escolha->menu_atual = 'P';
                 break;
             case '1':
                 //Procurar estudante por nome
@@ -212,15 +217,15 @@ void processar_consultar(Escolha opcao, Escolha * n_menu) {
                 printf("Erro!!"); //Aprofundar
                 break;
     }
-    } while (*n_menu == 'C')
+    } while (escolha->menu_atual == 'C');
 }
 
-void processar_estatisticas(Escolha opcao, Escolha * n_menu) {
+void processar_estatisticas(Escolha * escolha) {
     do {
-        opcao = menu_estatisticas();
-        switch(opcao) {
+        escolha->opcao_submenu = menu_estatisticas();
+        switch(escolha->opcao_submenu) {
             case '0':
-                *n_menu = 'P';
+                escolha->menu_atual = 'P';
                 break;
             case '1':
                 //Contar estudantes por escalão de média atual
@@ -241,15 +246,15 @@ void processar_estatisticas(Escolha opcao, Escolha * n_menu) {
                 printf("Erro!!"); //Aprofundar
                 break;
     }
-    } while (*n_menu == 'E')
+    } while (escolha->menu_atual == 'E');
 }
 
-void processar_extras(Escolha opcao, Escolha * n_menu) {
+void processar_extras(Escolha * escolha) {
     do {
-        opcao = menu_extras();
-        switch(opcao) {
+        escolha->opcao_submenu = menu_extras(); //Obter a opção do segundo menu
+        switch(escolha->opcao_submenu) {
             case '0':
-                *n_menu = 'P';
+                escolha->menu_atual = 'P';
                 break;
             case '1':
                 //Listar estudantes nascidos em dias específicos da semana
@@ -264,7 +269,7 @@ void processar_extras(Escolha opcao, Escolha * n_menu) {
                 printf("Erro!!"); //Aprofundar
                 break;
     }
-    } while (*n_menu == 'X');
+    } while (escolha->menu_atual == 'X');
 }
 
 Escolha escolha_menus() {
@@ -276,24 +281,24 @@ Escolha escolha_menus() {
 
     do {
         limpar_terminal();
-        escolha.opcao = menu_principal();
+        escolha.opcao_principal = menu_principal();
 
-        switch(escolha.opcao) {
+        switch(escolha.opcao_principal) {
             case '1':
                 escolha.menu_atual = 'G';
-                processar_gerir_estudantes(escolha.opcao_submenu, &escolha.menu_atual); //Passamos menu atual por referência no caso da opção escolhida ser voltar atrás
+                processar_gerir_estudantes(&escolha); //Passamos menu atual por referência no caso da opção escolhida ser voltar atrás
                 break;
             case '2':
                 escolha.menu_atual = 'C';
-                processar_consultar_dados(escolha.opcao_submenu, &escolha.menu_atual);
+                processar_consultar_dados(&escolha);
                 break;
             case '3':
                 escolha.menu_atual = 'E';
-                processar_estatisticas(escolha.opcao_submenu, &escolha.menu_atual);
+                processar_estatisticas(&escolha);
                 break;
             case '4':
                 escolha.menu_atual = 'X';
-                processar_extras(escolha.opcao_submenu, &escolha.menu_atual);
+                processar_extras(&escolha);
                 break;
             case '0':
                 escolha.menu_atual = 'S'; //Indicar que estamos a sair, para o loop
@@ -322,7 +327,7 @@ char validar_data(short dia, short mes, short ano) {
     // Criamos um vetor com os dias de cada mes, fevereiro com 28 pois é o mais comum
     short dias_por_mes[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     //Apenas criado para propóstios de informação ao user
-    char nome_do_mes[] = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
+    const char * nome_do_mes[] = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
 
     // verificar anos bissextos
     if (mes == 2 && ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0))) {
@@ -338,8 +343,7 @@ char validar_data(short dia, short mes, short ano) {
 }
 
 
-void ler_data(Estudante * aluno, Data * date) {
-	Data nascimento;
+void ler_data(Estudante * aluno) {
 	char data[11]; //Vamos usar o formato DD/MM/AAAA (10 caracteres + \0)
     char erro = '0'; //1 há erro
 
@@ -360,7 +364,7 @@ void ler_data(Estudante * aluno, Data * date) {
             limpar_buffer();
             erro = '1';
             continue;
-        }        
+        }      
         if ((!validar_data(aluno->nascimento.dia, aluno->nascimento.mes, aluno->nascimento.ano))) { //Se já houver erro, não há necessidade de validar
             limpar_buffer();
             erro = '1'; //A mensagem de erro deve estar dentro de validar, de modo a especificar o que falhou

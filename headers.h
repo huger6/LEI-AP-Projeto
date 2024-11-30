@@ -7,8 +7,8 @@
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
 
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
-const short ANO_ATUAL 2025; //definimos o ano atual, ajustar consoante o ano;
-const short ANO_NASC_LIM_INF 1908; //definimos o limite inferior como o ano de nasc da pessoa mais velha do mundo atualmente
+extern const short ANO_ATUAL; //definimos o ano atual, ajustar consoante o ano;
+extern const short ANO_NASC_LIM_INF; //definimos o limite inferior como o ano de nasc da pessoa mais velha do mundo atualmente
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -52,6 +52,24 @@ typedef struct {
 
 
 //Protótipos das funções
-void menu();
 
-#endif
+void carregar_dados(FILE * ficheiro);
+void limpar_buffer();
+void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup);
+void limpar_terminal();
+void validacao_input_menu(const char limInf, const char limSup);
+void validacao_numero_menu(const char limInf, const char limSup);
+char menu_principal();
+char menu_gerir_estudantes();
+char menu_consultar_dados();
+char menu_estatisticas();
+char menu_extras();
+void processar_gerir_estudantes(Escolha * escolha);
+void processar_consultar_dados(Escolha * escolha);
+void processar_estatisticas(Escolha * escolha);
+void processar_extras(Escolha * escolha);
+Escolha escolha_menus();
+char validar_data(short dia, short mes, short ano);
+void ler_data(Estudante * aluno);
+
+#endif //Termina a condição
