@@ -5,14 +5,76 @@ const short ANO_NASC_LIM_INF = 1908;
 
 //Funções
 
+
+
+//Ao usar esta função temos de ter em conta se o modo de abertura é válido ou não.
+FILE * abrir_ficheiro(const char * nome_ficheiro, const char * modo, char * modo_valido) {
+    *modo_valido = '0'; //Definir o modo como não válido
+    //Definir todos os modos de abertura possíveis
+    const char * modos_possíveis = {"r", "w", "a", "r+", "w+", "a+", "rb", "wb", "ab", "r+b", "w+b", "a+b"};
+    //Rever este comentário
+    int tamanho_modos = sizeof(modos_possíveis) / sizeof(modos_possíveis[0]); //tamanho do array em bytes a dividir pelo tamanho de um dos elementos (são todos iguais pois são ponteiros)
+
+    for(int i = 0; i < sizeof(modos_possíveis)/sizeof, i++) {
+        if (strcmp(modo, modos_possíveis[i]) == 0) {
+            *modo_valido = '1';
+            break; //já não é necessário avançar no loop
+        }
+    }
+    
+    //Esta mensagem de erro é destinada ao programador, afinal é ele que vai escolher o modo de abertura
+    if (*modo_valido == '0') {
+        printf("Modo de abertura do ficheiro '%s' é inválido.\n", nome_ficheiro);
+        return NULL;
+    }
+
+    FILE * ficheiro = fopen(nome_ficheiro, modo);
+    
+    if (ficheiro == NULL) return NULL;
+
+    return ficheiro;
+    
+}
+
 void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escolares, Estatisticas * stats) { 
-    //Temos de averiguar se o ficheiro já existe, se sim, ler, se nao, criar um novo. 
-    FILE * ficheiro = fopen(nome_ficheiro, "r");
-    // if (ficheiro == NULL)
+    FILE * dados;
+    FILE * situacao_escolar;
+    char modo_abertura_valido = '0'; //Poderia ser evitada pela criação de uma struct apenas para erros mas dada a simplicidade do program não é necessário
+
+    dados = abrir_ficheiro(DADOS_TXT, "r", modo_abertura_valido);
+
+    if (dados == NULL) {
+        dados = abrir_ficheiro(DADOS_TXT, "w", modo_abertura_valido);
+        if(dados == NULL) {
+            printf("Ocorreu um erro na abertura do ficheiro '%s', o programa irá encerrar.\n", DADOS_TXT);
+        }
+    }
+
+    situacao_escolar = abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "r", modo_abertura_valido);
+
+    if (situacao_escolar == NULL) {
+        situacao_escolar = abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "w", modo_abertura_valido);
+        if(situacao_escolar == NULL) {
+            printf("Ocorreu um erro na abertura do ficheiro '%s', o programa irá encerrar.\n", SITUACAO_ESCOLAR_TXT);
+        }
+    }
+
+
+
+    
+    
+    
+
+    //Fechamos os ficheiros pois iremos efeturar todas as operações em memória.
+    fclose(dados);
+    fclose(situacao_escolar);
+}
+
+void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escolares, Estatisticas * stats) {
+    
 }
 
 
-//Função para limpar o buffer quando necessário
 void limpar_buffer() {
     int lixo;
     while ((lixo = getchar()) != '\n' && lixo != EOF);
@@ -31,12 +93,37 @@ void validacao_menus(short * valido, const char opcao, const char limInf, const 
 
 //Limpar o terminal consoante o sistema operativo
 void limpar_terminal() {
-    #ifdef _WIN32 //É automaticamente definido pelo windows
+    #ifdef _WIN32 //_WIN32 é uma variável local automaticamente pre-definida pelo windows em todos os sistemas
         system("cls"); //Sistemas windows
     #else
         system("clear"); //Sistemas linux, macOs, etc
     #endif
 }
+
+void colocar_terminal_pt() {
+    #ifdef _WIN32
+        //SetConsoleOutputCP retorna 0 se houver um erro
+        if ((SetConsoleOutputCP(CP_UTF8) == 0)||SetConsoleCP(CP_UTF8) == 0) {
+            printf("Ocorreu um erro ao configurar o terminal do Windows para UTF-8.\n");
+            printf("A aplicação irá continuar. Desformatação será visível. Para resolver, reinicie a aplicação.\n");
+        }
+    #else
+        //Feito com a ajuda do chatgpt
+        // Configuração específica para sistemas Unix-like (Linux, macOS)
+        //setenv pertence ao stdio.h e é usada para configurar var de ambiente, apenas existe no linux,etc
+        if (setenv("LANG", "pt_PT.UTF-8", 1) != 0) {
+            printf("Ocorreu um erro ao configurar o terminal para UTF-8.\n");
+            printf("A aplicação irá continuar. Desformatação será visível. Para resolver, reinicie a aplicação.\n");
+            return;
+        }
+        if (setenv("LC_ALL", "pt_PT.UTF-8", 1) != 0) {
+            printf("Ocorreu um erro ao configurar o terminal do Windows para UTF-8.\n");
+            printf("A aplicação irá continuar. Desformatação será visível. Para resolver, reinicie a aplicação.\n");
+            return;
+        }
+    #endif
+}
+
 //Esta função é um pouco "inutil" neste momento. Foi desenhada para tratar erros com ints
 void validacao_input_menu(const char limInf, const char limSup) {
     limpar_buffer();  // Limpar o buffer de entrada (o que foi escrito incorretamente)
