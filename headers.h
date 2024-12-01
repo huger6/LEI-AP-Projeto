@@ -6,6 +6,8 @@
 #define DADOS_TXT "dados.txt"
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
 
+#define TAMANHO_INICIAL_BUFFER 100
+
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
 extern const short ANO_ATUAL; //definimos o ano atual, ajustar consoante o ano;
 extern const short ANO_NASC_LIM_INF; //definimos o limite inferior como o ano de nasc da pessoa mais velha do mundo atualmente

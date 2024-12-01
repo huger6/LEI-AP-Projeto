@@ -33,3 +33,4 @@ A IMPLEMENTAR:
 -Fazer a divisao de win e linux na questao do terminal
 -LIMPAR O BUFFER APÓS CADA OPERAÇÃO BÁSICA
 -Talvez seja melhor implementar as operações básicas na main. averiguar como poderia ser feito.
+-Dar uma vista de olhos pelas mensagens de erro e talvez aprimorá-las

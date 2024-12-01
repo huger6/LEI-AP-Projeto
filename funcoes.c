@@ -7,7 +7,39 @@ const short ANO_NASC_LIM_INF = 1908;
 
 
 
-//Ao usar esta função temos de ter em conta se o modo de abertura é válido ou não.
+//Linha é alocada dinamicamente, pelo que deve ser libertada quando já não for necessária.
+char * ler_linha(FILE * ficheiro) {
+    char buffer[TAMANHO_INICIAL_BUFFER]; //Buffer para armazenar parte da linha
+    size_t tamanho_total = 0; //Comprimento da linha; size_t pois é sempre >0 e evita conversões que podem levar a erros com outras funções
+    char * linha = NULL;
+
+    while (fgets(buffer, sizeof(buffer), ficheiro)) { //fgets le ate buffer -1 caracteres ou \n ou EOF
+        size_t tamanho = strlen(buffer); //Calcula o tamanho do texto lido
+        //NOTA IMPORTANTE: se o ponteiro passado para realloc for nulo, ele funciona como o malloc
+        char * temp = realloc(linha, tamanho_total + tamanho + 1); //+1 para o nul char
+        if (temp == NULL) {
+            free(linha);
+            printf("Ocorreu um erro ao alocar memória. A encerrar a aplicação.\n");
+            return NULL;
+        }
+        linha = temp; //atualizar o ponteiro linha para apontar para a nova memória
+
+        //Copiar o conteúdo lido para a linha total
+        strcpy(linha + tamanho_total, buffer);
+        tamanho_total += tamanho;
+
+        //Verificamos se a linha está completa
+        if (buffer[tamanho - 1] == '\n') break; //se tudo tiver sido copiado, o ultimo caracter do buffer(e da linha tbm) será o '\n'
+
+        if (linha == NULL && feof(ficheiro)) {
+            printf("Erro ao ler o ficheiro.\n")
+            return NULL;
+        }
+
+        return linha; 
+    }
+
+}
 FILE * abrir_ficheiro(const char * nome_ficheiro, const char * modo, char * modo_valido) {
     *modo_valido = '0'; //Definir o modo como não válido
     //Definir todos os modos de abertura possíveis
@@ -48,7 +80,13 @@ void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escol
         if(dados == NULL) {
             printf("Ocorreu um erro na abertura do ficheiro '%s', o programa irá encerrar.\n", DADOS_TXT);
         }
+        printf("Não existe um ficheiro de '%s'. Foi criado um novo.\n", DADOS_TXT);
+        fclose(dados);
+        abrir_ficheiro(DADOS_TXT, "r", modo_abertura_valido);
     }
+
+    //TODO
+    while((ler_linha(ficheiro)) != NULL);
 
     situacao_escolar = abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "r", modo_abertura_valido);
 
@@ -57,15 +95,18 @@ void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escol
         if(situacao_escolar == NULL) {
             printf("Ocorreu um erro na abertura do ficheiro '%s', o programa irá encerrar.\n", SITUACAO_ESCOLAR_TXT);
         }
+        printf("Não existe um ficheiro de '%s'. Foi criado um novo.\n", SITUACAO_ESCOLAR_TXT);
+        fclose(situacao_escolar);
+        abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "r", modo_abertura_valido);
     }
 
+    
+
 
 
     
     
-    
-
-    //Fechamos os ficheiros pois iremos efeturar todas as operações em memória.
+    //Fechamos os ficheiros pois iremos efeturar todas as operações em memória
     fclose(dados);
     fclose(situacao_escolar);
 }
@@ -430,7 +471,6 @@ char validar_data(short dia, short mes, short ano) {
     //Se não retornou 0(F), é V
     return 1;
 }
-
 
 void ler_data(Estudante * aluno) {
 	char data[11]; //Vamos usar o formato DD/MM/AAAA (10 caracteres + \0)
