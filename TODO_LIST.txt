@@ -1,5 +1,5 @@
 DÚVIDAS:
--Perguntar se podemos pedir a data de nascimento separada ou como uma string
+-Verificar se a leitura da data de nascimento está correta
 -Perguntar o que querem dizer com mecanismo de avanço página a página
 -Os dados devem ficar no ecra? É que estava a pensar em limpar o terminal em cada ida ao menu
 -Verificar se o método que estamos a usar para retornar a opcao dos menus é correta.
