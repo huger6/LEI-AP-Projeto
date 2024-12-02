@@ -86,7 +86,7 @@ void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escol
     }
 
     //TODO
-    while((ler_linha(ficheiro)) != NULL);
+    //while((ler_linha(ficheiro)) != NULL);
 
     situacao_escolar = abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "r", modo_abertura_valido);
 
