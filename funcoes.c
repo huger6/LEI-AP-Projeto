@@ -73,31 +73,15 @@ void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escol
     FILE * situacao_escolar;
     char modo_abertura_valido = '0'; //Poderia ser evitada pela criação de uma struct apenas para erros mas dada a simplicidade do program não é necessário
 
+    //Abrimos os ficheiros para ver
     dados = abrir_ficheiro(DADOS_TXT, "r", modo_abertura_valido);
-
-    if (dados == NULL) {
-        dados = abrir_ficheiro(DADOS_TXT, "w", modo_abertura_valido);
-        if(dados == NULL) {
-            printf("Ocorreu um erro na abertura do ficheiro '%s', o programa irá encerrar.\n", DADOS_TXT);
-        }
-        printf("Não existe um ficheiro de '%s'. Foi criado um novo.\n", DADOS_TXT);
-        fclose(dados);
-        abrir_ficheiro(DADOS_TXT, "r", modo_abertura_valido);
-    }
-
-    //TODO
-    //while((ler_linha(ficheiro)) != NULL);
-
     situacao_escolar = abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "r", modo_abertura_valido);
 
-    if (situacao_escolar == NULL) {
-        situacao_escolar = abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "w", modo_abertura_valido);
-        if(situacao_escolar == NULL) {
-            printf("Ocorreu um erro na abertura do ficheiro '%s', o programa irá encerrar.\n", SITUACAO_ESCOLAR_TXT);
-        }
-        printf("Não existe um ficheiro de '%s'. Foi criado um novo.\n", SITUACAO_ESCOLAR_TXT);
+    if (dados == NULL || situacao_escolar == NULL) {
+        //Se o ponteiro é NULL, o ficheiro não existe, logo não há dados para ler
+        fclose(dados); 
         fclose(situacao_escolar);
-        abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "r", modo_abertura_valido);
+        return; //Saímos da função
     }
 
     
@@ -182,21 +166,24 @@ void validacao_numero_menu(const char limInf, const char limSup) {
 	limpar_terminal();
 }
 
+
 char menu_principal() {
 	short valido = 0; //Usamos apenas short devido ao facto do scanf poder retornar -1 (ainda que improvavel), acontece no EOF ou Ctrl Z
 	char opcao = '0';
     do {
-        //Sleep(1000) espera 1 segundo antes de avançar para tornar o programa mais suave | SÓ FUNCIONA EM WINDOWS
         limpar_terminal(); //Limpar terminal apenas se voltarmos a escrever o menu (ou seja, já não estão a ser necessárias as informações anteriores)
-        printf("\t\tMENU");
-        printf("\n\n");
-        printf("1 - Gerir estudantes\n");
-        printf("2 - Consultar dados\n");
-        printf("3 - Estatísticas\n");
-        printf("4 - Extras\n");
-        // printf("5 - Opções\n"); talvez possamos implementar um modo de nacionalidade (apresentar o programa em inglês, etc)
-        printf("0 - Sair do programa\n");
-        printf("\n\n\tOpção: ");
+        //https://desenvolvedorinteroperavel.wordpress.com/2011/09/11/tabela-ascii-completa/
+        //Link da tabela ASCII completa de onde foram retirados as duplas barras do menu (a partir do 185 decimal)
+        printf("╔══════════════════════════════════╗\n");
+        printf("║          MENU PRINCIPAL          ║\n");
+        printf("╠══════════════════════════════════╣\n");
+        printf("║  1. Gerir estudantes             ║\n");
+        printf("║  2. Consultar dados              ║\n");
+        printf("║  3. Estatísticas                 ║\n");
+        printf("║  4. Extras                       ║\n");
+        printf("║  0. Sair do programa             ║\n");
+        printf("╚══════════════════════════════════╝\n\n");
+        printf("   Escolha uma opção: ");
 
         valido = scanf(" %c", &opcao); //scanf retorna 1 se conseguir ler de acordo com o esperado, " %c" para evitar ler \n's
         
@@ -215,13 +202,16 @@ char menu_gerir_estudantes() {
 	short valido = 0;
 	do {
 		limpar_terminal();
-		printf("\t\tGERIR ESTUDANTES");
-		printf("\n\n");
-		printf("1 - Inserir estudante\n");
-		printf("2 - Eliminar estudante\n");
-		printf("3 - Atualizar dados do estudante\n");
-		printf("0 - Voltar ao menu anterior\n");
-		printf("\n\n\tOpção: ");
+		printf("╔════════════════════════════════════╗\n");
+        printf("║          GERIR ESTUDANTES          ║\n");
+        printf("╠════════════════════════════════════╣\n");
+        printf("║  1. Inserir estudante              ║\n");
+        printf("║  2. Eliminar estudante             ║\n");
+        printf("║  3. Atualizar dados do estudante   ║\n");
+        printf("║  0. Voltar ao menu anterior        ║\n");
+        printf("╚════════════════════════════════════╝\n\n");
+        printf("   Escolha uma opção: ");
+
 		valido = scanf(" %c", &opcao);
 		
 		validacao_menus(&valido,opcao,'0','3');
@@ -237,14 +227,17 @@ char menu_consultar_dados() {
 	short valido = 0;
 	do {
         limpar_terminal();
-		printf("\t\tCONSULTAR DADOS");
-		printf("\n\n");
-		printf("1 - Procurar estudante por nome\n");
-		printf("2 - Listar estudantes por intervalo de datas de nascimento\n");
-		printf("3 - Listar estudantes por nacionalidade\n");
-		printf("4 - Listar estudantes por ordem alfabética de apelido\n");
-		printf("0 - Voltar ao menu anterior\n");
-		printf("\n\n\tOpção: ");
+		printf("╔═════════════════════════════════════════════════════════════╗\n");
+        printf("║                       CONSULTAR DADOS                       ║\n");
+        printf("╠═════════════════════════════════════════════════════════════╣\n");
+        printf("║  1. Procurar estudante por nome                             ║\n");
+        printf("║  2. Listar estudantes por intervalo de datas de nascimento  ║\n");
+        printf("║  3. Listar estudantes por nacionalidade                     ║\n");
+        printf("║  4. Listar estudantes por ordem alfabética de apelido       ║\n");
+        printf("║  0. Voltar ao menu anterior                                 ║\n");
+        printf("╚═════════════════════════════════════════════════════════════╝\n\n");
+        printf("   Escolha uma opção: ");
+
 		valido = scanf(" %c", &opcao);
 		
 		validacao_menus(&valido,opcao,'0','4');
@@ -260,15 +253,18 @@ char menu_estatisticas() {
 	short valido = 0;
 	do {
         limpar_terminal();
-		printf("\t\tESTATÍSTICAS");
-		printf("\n\n");
-		printf("1 - Contar estudantes por escalão de média atual\n");
-		printf("2 - Calcular número médio de matrículas(geral e por nacionalidade)\n");
-		printf("3 - Determinar número de finalistas\n");
-		printf("4 - Calcular média de idades por nacionalidade e ano\n");
-		printf("5 - Listar estudantes em risco de prescrição\n");
-		printf("0 - Voltar ao menu anterior\n");
-		printf("\n\n\tOpção: ");
+		printf("╔════════════════════════════════════════════════════════╗\n");
+        printf("║                      ESTATÍSTICAS                      ║\n");
+        printf("╠════════════════════════════════════════════════════════╣\n");
+        printf("║  1. Contar estudantes por escalão de média atual       ║\n");
+        printf("║  2. Número médio de matrículas (geral/nacionalidade)   ║\n");
+        printf("║  3. Número de finalistas                               ║\n");
+        printf("║  4. Média de idades por nacionalidade e ano            ║\n");
+        printf("║  5. Listar estudantes em risco de prescrição           ║\n");
+        printf("║  0. Voltar ao menu anterior                            ║\n");
+        printf("╚════════════════════════════════════════════════════════╝\n\n");
+        printf("   Escolha uma opção: ");
+
 		valido = scanf(" %c", &opcao);
 		
 		validacao_menus(&valido,opcao,'0','5');
@@ -284,13 +280,16 @@ char menu_extras() {
 	short valido = 0;
 	do {
         limpar_terminal();
-		printf("\t\tEXTRAS");
-		printf("\n\n");
-		printf("1 - Listar estudantes nascidos em dias específicos da semana\n");
-		printf("2 - Listar os estudantes cujo aniversário num determinado ano é ao domingo\n");
-		printf("3 - Relacionar o ano de inscrição com intervalos das classificações\n");
-		printf("0 - Voltar ao menu anterior\n");
-		printf("\n\n\tOpção: ");
+		printf("╔════════════════════════════════════════════════════════════╗\n");
+        printf("║                           EXTRAS                           ║\n");
+        printf("╠════════════════════════════════════════════════════════════╣\n");
+        printf("║  1. Estudantes nascidos em dias específicos da semana      ║\n");
+        printf("║  2. Estudantes cujo aniversário em certo ano é ao domingo  ║\n");
+        printf("║  3. Relacionar ano de inscrição com intervalos de notas    ║\n");
+        printf("║  0. Voltar ao menu anterior                                ║\n");
+        printf("╚════════════════════════════════════════════════════════════╝\n\n");
+        printf("   Escolha uma opção: ");
+
 		valido = scanf(" %c", &opcao);
 		
 		validacao_menus(&valido,opcao,'0','3');

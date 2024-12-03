@@ -1,6 +1,5 @@
 DÚVIDAS:
 -Verificar se a leitura da data de nascimento está correta
--Os dados devem ficar no ecra? É que estava a pensar em limpar o terminal em cada ida ao menu
 -Verificar se o método que estamos a usar para retornar a opcao dos menus é correta.
 -Perguntar se a struct relacionada aos menus é correta
 -Rever a lógica de limpeza dos buffers
@@ -9,7 +8,7 @@ DÚVIDAS:
 usar uma struct com variáveis de erro.
 !!!!-Como dar manage na lógica de abrir ficheiros. Por exemplo, se abro em "r" e o ficheiro não existe? Via retornar NULL. Aí posso criar um novo ficheiro em "w" e depois abrir outra vez em "r",
 mas e se por algum motivo há um erro a criar o ficheiro, vou eliminar todos os dados, teria que haver um mecanismo de segurança, mas como??
--Manter o ficheiro aberto durante as operações em memória ou fecha-lo e reabri-lo mais tarde?
+-Manter o ficheiro aberto durante as operações em memória ou fecha-lo e reabri-lo mais tarde? Abrir. fechar. Abrir, fechar
 
 
 
