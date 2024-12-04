@@ -509,3 +509,26 @@ void ler_data(Estudante * aluno) {
         limpar_buffer(); //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
 	} while (erro == '1'); //Continuar a pedir a data sempre que esta for inválida
 }
+
+Estudante inserir_estudante(){
+
+    Estudante *aluno;
+
+    printf("\nIntroduza o código do estudante: ");
+    while (scanf("%d", &Estudante.codigo) != 1) {
+        limpar_buffer();
+        printf("Código inválido. Insira um número inteiro: ");
+    }
+
+    printf("\nIntroduza o nome do estudante: ");
+    fgets(Estudante.nome, sizeof(Estudante.nome), stdin);
+    Estudante.nome[strcspn(Estudante.nome, "\n")]='\0' //eliminamos o \n
+
+    printf("\nIntroduza a nacionalidade(): ");
+    fgets(Estudante.nacionalidade, sizeof(Estudante.nacionalidade), stdin);
+    Estudante.nacionalidade[strcspn(Estudante.nacionalidade, "\n")]='\0'
+
+    ler_data(&Estudante.nascimento);
+
+    
+}
