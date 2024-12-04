@@ -44,9 +44,8 @@ void separar_parametros(char * linha) {
         *fim = '\0';
 
         remover_espacos(inicio);
-        //TODO
-        if (inicio != '\0')
-
+        *fim = temp;
+        inicio = (*fim == '\0') ? fim : fim + 1; //Verifica se já estamos no fim da string, se sim, inicio = fim, se não inicio = fim +1 (avança uma casa)
 
     }
 }
