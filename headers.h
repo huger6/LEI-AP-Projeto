@@ -8,6 +8,8 @@
 
 #define TAMANHO_INICIAL_BUFFER 100
 
+#define SEPARADOR '\t'
+
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
 extern const short ANO_ATUAL; //definimos o ano atual, ajustar consoante o ano;
 extern const short ANO_NASC_LIM_INF; //definimos o limite inferior como o ano de nasc da pessoa mais velha do mundo atualmente
@@ -26,24 +28,25 @@ typedef struct data_nascimento {
     short ano;
 }Data;
 
-//Vamos dividir os dados enter uma struct Estudante, para dados pessoais, e outra para dados escolares ()
+//Struct para tratar todos os dados relativos aos estudantes
 typedef struct estudante {
     int codigo; //int para prevenir, caso o código tenha, imagine-se, 6 digitos
     char * nome; //Declaramos um ponteiro para posteriormente alocar memória dinamicamente consoante o tamanho do nome
     Data nascimento; 
     char nacionalidade[5]; //Temos 5 nacionalidades. Dentro de cada posição do array colocamos um array de chars com a nacionalidade.
     unsigned short matriculas; //unsigned porque matriculas sempre > 0 e short porque usa apenas 2 bytes em x dos 4 de um int
-    unsigned short ects; //Mesma lógica das matriculas
+    unsigned short ects; //Mesma lógica das matriculas~
+    char prescrever; 
 }Estudante;
 
-typedef struct dados_escolares {
-    unsigned int codigo;
-    unsigned char prescrever;
-}Dados;
-
+//Struct para todos os dados estatísticos
 typedef struct estatisticas {
 	float medias_matriculas;
+    float media;
 	int finalistas;
+    float media_idade_nacionalidade;
+    float media_idade_ano;
+    int risco_prescrever;
 }Estatisticas;
 
 typedef struct {

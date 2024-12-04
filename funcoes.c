@@ -5,7 +5,51 @@ const short ANO_NASC_LIM_INF = 1908;
 
 //Funções
 
+void remover_espacos(char * str) {
+    char * inicio = str;
+    char * fim = NULL;
 
+    //Se o início conter um espaço, vai avançar o ponteiro uma casa, até essa casa deixar de ser um espaço.
+    while (*inicio == ' ') {
+        inicio++;
+    }
+
+    // Copiar a string sem espaços para o array inicial
+    if (inicio != str) {
+        memmove(str, inicio, strlen(inicio) + 1); //É uma versão melhorada do memcpy (evita a sobreposição)
+    }
+
+    //Ponteiro para o último caractere
+    fim = str + strlen(str) - 1;
+    while (fim > str && *fim == ' ') { //verifica se o fim tem um espaço em branco, se sim, anda com o ponteiro uma casa para trás e repete
+        fim--;
+    }
+
+    //Colocamos o nul char no final, de modo a sinalizar o fim da string. 
+    *(fim + 1) = '\0';
+}
+
+
+void separar_parametros(char * linha) {
+    char * inicio = linha; //Ponteiro para o inicio da linha
+    char * fim == NULL;
+
+    while(*inicio != '\0') { //Se não for o fim da linha entramos no loop
+        fim = inicio; //
+
+        //Vamos veriricar se o ponteiro atual de fim é um separador ou o fim da linha, caso não seja avançamos
+        while(*fim != SEPARADOR && *fim != '\0') fim++;
+        //Se estamos aqui, é porque ou estamos num parametro ou a linha acabou
+        char temp = *fim;
+        *fim = '\0';
+
+        remover_espacos(inicio);
+        //TODO
+        if (inicio != '\0')
+
+
+    }
+}
 
 //Linha é alocada dinamicamente, pelo que deve ser libertada quando já não for necessária.
 char * ler_linha(FILE * ficheiro, int * n_linhas) {
@@ -49,7 +93,7 @@ FILE * abrir_ficheiro(const char * nome_ficheiro, const char * modo, char * modo
     //Rever este comentário
     int tamanho_modos = sizeof(modos_possíveis) / sizeof(modos_possíveis[0]); //tamanho do array em bytes a dividir pelo tamanho de um dos elementos (são todos iguais pois são ponteiros)
 
-    for(int i = 0; i < sizeof(modos_possíveis)/sizeof, i++) {
+    for(int i = 0; i < tamanho_modos; i++) {
         if (strcmp(modo, modos_possíveis[i]) == 0) {
             *modo_valido = '1';
             break; //já não é necessário avançar no loop
@@ -87,8 +131,9 @@ void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escol
         fclose(situacao_escolar);
         return; //Saímos da função
     }
-
-    for(int i = 0; i < n_linhas; i++0 ) {
+    //Se der NULL em todos os modos de abertura, quer dizer que há um erro crítico. Dar manage
+    //Se não der nulo nos outros modos de abertura quer dizer que o ficheiro não existia e foi criado
+    for(int i = 0; i < n_linhas; i++ ) {
         linha = ler_linha(dados, n_linhas);
         
     }
@@ -263,7 +308,7 @@ char menu_estatisticas() {
 		printf("╔════════════════════════════════════════════════════════╗\n");
         printf("║                      ESTATÍSTICAS                      ║\n");
         printf("╠════════════════════════════════════════════════════════╣\n");
-        printf("║  1. Contar estudantes por escalão de média atual       ║\n");
+        printf("║  1. Estudantes por escalão de média atual              ║\n");
         printf("║  2. Número médio de matrículas (geral/nacionalidade)   ║\n");
         printf("║  3. Número de finalistas                               ║\n");
         printf("║  4. Média de idades por nacionalidade e ano            ║\n");
