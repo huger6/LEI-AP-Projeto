@@ -8,7 +8,8 @@ const short ANO_NASC_LIM_INF = 1908;
 
 
 //Linha é alocada dinamicamente, pelo que deve ser libertada quando já não for necessária.
-char * ler_linha(FILE * ficheiro) {
+char * ler_linha(FILE * ficheiro, int * n_linhas) {
+    //n_linhas não será inicializado aqui
     char buffer[TAMANHO_INICIAL_BUFFER]; //Buffer para armazenar parte da linha
     size_t tamanho_total = 0; //Comprimento da linha; size_t pois é sempre >0 e evita conversões que podem levar a erros com outras funções
     char * linha = NULL;
@@ -36,6 +37,7 @@ char * ler_linha(FILE * ficheiro) {
             return NULL;
         }
 
+        (*n_linhas)++;
         return linha; 
     }
 
@@ -72,6 +74,8 @@ void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escol
     FILE * dados;
     FILE * situacao_escolar;
     char modo_abertura_valido = '0'; //Poderia ser evitada pela criação de uma struct apenas para erros mas dada a simplicidade do program não é necessário
+    int n_linhas = 1;
+    char * linha = NULL; //Ponteiro para armazenar uma linha
 
     //Abrimos os ficheiros para ver
     dados = abrir_ficheiro(DADOS_TXT, "r", modo_abertura_valido);
@@ -84,7 +88,10 @@ void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escol
         return; //Saímos da função
     }
 
-    
+    for(int i = 0; i < n_linhas; i++0 ) {
+        linha = ler_linha(dados, n_linhas);
+        
+    }
 
 
 
