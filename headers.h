@@ -7,8 +7,9 @@
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
 #define TAMANHO_INICIAL_BUFFER 100
 #define SEPARADOR '\t'
-#define PARAMETROS 4 //De acordo com os dados atuais, são 4 parametros por linha, caso se aumente, este valor deve aumentar também.
-
+#define MAX_PARAMETROS 4 //De acordo com os dados atuais, são 4 parametros por linha, caso se aumente, este valor deve aumentar também.
+#define PARAMETROS_ESTUDANTE 4
+#define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
 
 
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
@@ -39,9 +40,10 @@ typedef struct estudante {
 
 typedef struct dados_escolares {
     int codigo;
-    unsigned short matriculas; //unsigned porque matriculas sempre > 0 e short porque usa apenas 2 bytes em x dos 4 de um int
-    unsigned short ects; //Mesma lógica das matriculas
+    short matriculas; 
+    short ects; 
     float media_atual;
+    short ano_atual;
     char prescrever;
 }Dados;
 

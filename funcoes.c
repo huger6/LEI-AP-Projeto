@@ -33,7 +33,7 @@ void separar_parametros(const char * linha, char ** parametros, int * num_parame
     if(linha == NULL || parametros == NULL || num_parametros == NULL) return;
     char * inicio = linha; //Ponteiro para o inicio da linha, que não deve ser alterado
     char * fim = NULL;
-
+    //Não colocamos *num_parametros = 0 pois esta função poderá ser chamada várias vezes numa linha, e não queremos alterar a var nesse caso
     int indice = 0; //Indice do array
 
     while(*inicio != '\0') { //Se não for o fim da linha entramos no loop
@@ -107,94 +107,73 @@ char * ler_linha(FILE * ficheiro, int * n_linhas) {
     free(linha);
     return NULL;
 }
-FILE * abrir_ficheiro(const char * nome_ficheiro, const char * modo, char * modo_valido) {
-    if(nome_ficheiro == NULL || modo == NULL || modo_valido ==  NULL) return NULL;
-
-    FILE * ficheiro = fopen(nome_ficheiro, modo);
-    //Se o modo de abertura for inválido, fopen irá retornar NULL
-    *modo_valido = (ficheiro != NULL) ? '1' : '0'; //*modo_valido será 0 caso seja inválido
-    if (ficheiro == NULL) {
-        printf("Erro ao abrir o ficheiro '%s'.",nome_ficheiro);
-        return NULL; 
-    }
-    //Mensagem é mais para o programador já que os users não escolhem o modo de abertura
-    if (*modo_valido == '0') {
-        print("O modo de abertura do ficheiro é inválido!\n");
-        return NULL;
-    }
-
-    return ficheiro;
-    
-}
 //Função recebe um array de estudantes e para estatísticas
 void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escolares) { 
-    FILE * dados;
-    FILE * situacao_escolar;
-    char modo_abertura_valido = '0'; //Poderia ser evitada pela criação de uma struct apenas para erros mas dada a simplicidade do program não é necessário
+    FILE * dados = fopen(DADOS_TXT, "r");
+    FILE * situacao_escolar = fopen(SITUACAO_ESCOLAR_TXT, "r");
     int n_linhas = 0;
     char * linha = NULL; //Ponteiro para armazenar uma linha
+    int indice_aluno = 0;
 
-    //Abrimos os ficheiros para ver
-    dados = abrir_ficheiro(DADOS_TXT, "r", modo_abertura_valido);
+    //Esta secção vai copiar, linha a linha, o conteúdo do ficheiro para a memória, nomeadamente na struct Estudante
+    if(dados) { //apenas se a abertura tiver sido bem sucedida
+        while ((linha = ler_linha(dados, &n_linhas)) != NULL) {
+            char * parametros[MAX_PARAMETROS] = {NULL}; //Array com PARAMETROS casas, onde cada pode armazenar um ponteiro para char (ou seja, uma string)
+            int num_parametros = 0; //Armazena o numero real de parametros
 
-    if (dados == NULL) {
-        //Se o ponteiro é NULL, o ficheiro não existe, logo não há dados para ler
-        fclose(dados); 
-        return; //Saímos da função
+            separar_parametros(linha, parametros, &num_parametros); //extrai os dados já formatados corretamente para parametros
+            
+            if(num_parametros == PARAMETROS_ESTUDANTE) { //Como estamos a carregar as structs do estudante, o número de parametros lidos tem que ser igual ao esperado
+                aluno[indice_aluno].codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
+                strcpy(aluno[indice_aluno].nome, parametros[1]); //nome é a segunda coluna nos dados.txt
+                strcpy(aluno[indice_aluno].nascimento, parametros[2]);
+                strcpy(aluno[indice_aluno].nacionalidade, parametros[3]);
+                indice_aluno++; //Se os dados foram carregados, então passamos ao próximo aluno
+            }
+            
+            //Libertamos a memória alocada para os parametros
+            for(int i = 0; i < num_parametros; i++) 
+                free(parametros[i]);
+
+            free(linha); //Libertamos a memória alocada para a linha presente
+        }
+        fclose(dados);
     }
-
-    situacao_escolar = abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "r", modo_abertura_valido);
-
-    if (situacao_escolar == NULL) {
-        fclose(situacao_escolar);
-        return;
+    else {
+        printf("Ocorreu um erro a abrir o ficheiro '%s'.", DADOS_TXT);
     }
     
-    int num_parametros = 0; //Armazena o numero real de parametros
-    while ((linha = ler_linha(dados, &n_linhas)) != NULL) {
-        char * parametros[PARAMETROS] = {NULL}; //Array com PARAMETROS casas, onde cada pode armazenar um ponteiro para char (ou seja, uma string)
-        int num_parametros = 0; //Armazena o numero real de parametros
-
-        separar_parametros(linha, parametros, &num_parametros); //extrai os dados já formatados corretamente para parametros
-        //NOTA IMPORTANTE: PRECISAMOS DE USAR UM INDICE DE ALUNO CASO CONTRARIO VAMOS SOBREPOR DADOS
-        if(num_parametros == PARAMETROS) { //Só deve funcionar caso n PARAMETROS definidos seja igual ao numero de parametros encontrados
-            aluno->codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
-            strcpy(aluno->nome, parametros[1]); //nome é a segunda coluna nos dados.txt
-            strcpy(aluno->nascimento, parametros[2]);
-            strcpy(aluno->nacionalidade, parametros[3]);
-        }
-        
-        //Libertamos a memória alocada para os parametros
-        for(int i = 0; i < num_parametros; i++) 
-            free(parametros[i]);
-
-        free(linha); //Libertamos a memória alocada para a linha presente
-    }
-
+    indice_aluno = 0;
     n_linhas = 0;
-    while ((linha = ler_linha(situacao_escolar, &n_linhas)) != NULL) {
-        char * parametros[PARAMETROS] = {NULL}; //Array com PARAMETROS casas, onde cada pode armazenar um ponteiro para char (ou seja, uma string)
-        int num_parametros = 0; //Armazena o numero real de parametros
 
-        separar_parametros(linha, parametros, &num_parametros); //extrai os dados já formatados corretamente para parametros
+    if(situacao_escolar) {
+        while ((linha = ler_linha(situacao_escolar, &n_linhas)) != NULL) {
+            char * parametros[MAX_PARAMETROS] = {NULL};
+            int num_parametros = 0; 
 
-        if(num_parametros == PARAMETROS) { //Só deve funcionar caso n PARAMETROS definidos seja igual ao numero de parametros encontrados
-            escolares->codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
-            //TODO
-            strcpy(escolares->matriculas, parametros[1]); //nome é a segunda coluna nos dados.txt
-            strcpy(escolares->ects, parametros[2]);
-            strcpy(escolares->media_atual, parametros[3]);
+            separar_parametros(linha, parametros, &num_parametros); 
+
+            if(num_parametros == PARAMETROS_DADOS_ESCOLARES) {
+                escolares[indice_aluno].codigo = atoi(parametros[0]); //codigo
+                escolares[indice_aluno].matriculas = atoi(parametros[1]); //matriculas
+                escolares[indice_aluno].ects = atoi(parametros[2]); //ects
+                escolares[indice_aluno].media_atual = strtof(parametros[3], NULL); //media; usamos null pois o segundo parametro seria um ponteiro para 
+                //guardar o resto da string que não foi lida, o que não é de interesse aqui logo passamos NULL
+                escolares[indice_aluno].ano_atual = atoi(parametros[4]); //ano atual
+                indice_aluno++;
+            }
+            
+            //Libertamos a memória alocada para os parametros
+            for(int i = 0; i < num_parametros; i++) 
+                free(parametros[i]);
+
+            free(linha); //Libertamos a memória alocada para a linha presente
         }
-        
-        //Libertamos a memória alocada para os parametros
-        for(int i = 0; i < num_parametros; i++) 
-            free(parametros[i]);
-
-        free(linha); //Libertamos a memória alocada para a linha presente
+        fclose(situacao_escolar);
     }
-    //Fechamos os ficheiros pois iremos efeturar todas as operações em memória
-    fclose(dados);
-    fclose(situacao_escolar);
+    else {
+        printf("Ocorreu um erro a abrir o ficheiro '%s'.", SITUACAO_ESCOLAR_TXT);
+    }
 }
 
 void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats) {
