@@ -68,6 +68,7 @@ void separar_parametros(const char * linha, char ** parametros, int * num_parame
 }
 
 //Linha é alocada dinamicamente, pelo que deve ser libertada quando já não for necessária.
+//Lê uma linha completa do ficheiro sem que haja a possibilidade de ficar algo por ler
 char * ler_linha(FILE * ficheiro, int * n_linhas) {
     if(ficheiro == NULL || n_linhas == NULL) return NULL;
     //n_linhas não será inicializado aqui
@@ -108,9 +109,9 @@ char * ler_linha(FILE * ficheiro, int * n_linhas) {
     return NULL;
 }
 //Função recebe um array de estudantes e para estatísticas
-void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escolares) { 
-    FILE * dados = fopen(DADOS_TXT, "r");
-    FILE * situacao_escolar = fopen(SITUACAO_ESCOLAR_TXT, "r");
+void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Estudante * aluno, Dados * escolares) { 
+    FILE * dados = fopen(nome_ficheiro_dados, "r");
+    FILE * situacao_escolar = fopen(nome_ficheiro_escolar, "r");
     int n_linhas = 0;
     char * linha = NULL; //Ponteiro para armazenar uma linha
     int indice_aluno = 0;
@@ -140,7 +141,7 @@ void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escol
         fclose(dados);
     }
     else {
-        printf("Ocorreu um erro a abrir o ficheiro '%s'.", DADOS_TXT);
+        printf("Ocorreu um erro a abrir o ficheiro '%s'.", nome_ficheiro_dados);
     }
     
     indice_aluno = 0;
@@ -172,24 +173,22 @@ void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escol
         fclose(situacao_escolar);
     }
     else {
-        printf("Ocorreu um erro a abrir o ficheiro '%s'.", SITUACAO_ESCOLAR_TXT);
+        printf("Ocorreu um erro a abrir o ficheiro '%s'.", nome_ficheiro_escolar);
     }
 }
 
 void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats) {
-    
+    return;
 }
-
-void inicializar_structs(Estudante * aluno, Estatisticas * stats) {
+/*
+void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * stats, int n_alunos) {
+    for (int i = 0; i < n_alunos)
     aluno->codigo = 0;
-    aluno->ects = 0;
-    aluno->matriculas = 0;
     aluno->nacionalidade = '\0';
     aluno->nascimento.dia = 0; //Para sinalizar que ainda não foi alterada
     aluno->nascimento.mes = 0;
     aluno->nascimento.ano = 0;
     aluno->nome = '\0';
-    aluno->prescrever = '0';
 
     stats->finalistas = 0;
     stats->media = 0;
@@ -198,7 +197,7 @@ void inicializar_structs(Estudante * aluno, Estatisticas * stats) {
     stats->medias_matriculas = 0;
     stats->risco_prescrever = 0;
 }
-
+*/
 void limpar_buffer() {
     int lixo;
     while ((lixo = getchar()) != '\n' && lixo != EOF);

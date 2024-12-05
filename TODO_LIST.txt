@@ -4,13 +4,12 @@ DÚVIDAS:
 -Perguntar se a struct relacionada aos menus é correta
 -Rever a lógica de limpeza dos buffers
 -Devo definir macros para os limites das opcoes dos menus?
--Uso de uma variável "global" apenas para confirmar se os ficheiros estão a abrir corretamente ou se é melhor
 usar uma struct com variáveis de erro.
 -Manter o ficheiro aberto durante as operações em memória ou fecha-lo e reabri-lo mais tarde? Abrir. fechar. Abrir, fechar
 -Devemos assumir que os dados que estão nos ficheiros estaraão corretos?
--Inicializar as structs é uma boa ideia??
--Verificar se o uso da função atoi é correto ou devo usar outra como sscanf ou strtol || Devo validar entradas inválidas ao ler o ficheiro? Não seria suposto todas as entradas no ficheiro estarem corretas?
--NACIONALIDADES!!!!
+!-Verificar se o uso da função atoi é correto ou devo usar outra como sscanf ou strtol || Devo validar entradas inválidas ao ler o ficheiro? Não seria suposto todas as entradas no ficheiro estarem corretas?
+!-NACIONALIDADES!!!!
+!-Faz sentido inicializar as structs??
 
 
 -><-

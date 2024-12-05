@@ -5,6 +5,7 @@
 //Definir os nomes dos ficheiros como constantes(de modo a que não sejam alterados)
 #define DADOS_TXT "dados.txt"
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
+#define TAMANHO_INICIAL_ALUNO 1000
 #define TAMANHO_INICIAL_BUFFER 100
 #define SEPARADOR '\t'
 #define MAX_PARAMETROS 4 //De acordo com os dados atuais, são 4 parametros por linha, caso se aumente, este valor deve aumentar também.
@@ -65,6 +66,11 @@ typedef struct {
 
 
 //Protótipos das funções
+void remover_espacos(char * str);
+void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
+char * ler_linha(FILE * ficheiro, int * n_linhas);
+void carregar_dados(Estudante * aluno, Dados * escolares);
+void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats);
 
 void carregar_dados(FILE * ficheiro);
 void limpar_buffer();
