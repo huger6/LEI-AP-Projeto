@@ -5,10 +5,11 @@
 //Definir os nomes dos ficheiros como constantes(de modo a que não sejam alterados)
 #define DADOS_TXT "dados.txt"
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
-
 #define TAMANHO_INICIAL_BUFFER 100
-
 #define SEPARADOR '\t'
+#define PARAMETROS 4 //De acordo com os dados atuais, são 4 parametros por linha, caso se aumente, este valor deve aumentar também.
+
+
 
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
 extern const short ANO_ATUAL; //definimos o ano atual, ajustar consoante o ano;
@@ -33,11 +34,16 @@ typedef struct estudante {
     int codigo; //int para prevenir, caso o código tenha, imagine-se, 6 digitos
     char * nome; //Declaramos um ponteiro para posteriormente alocar memória dinamicamente consoante o tamanho do nome
     Data nascimento; 
-    char nacionalidade[5]; //Temos 5 nacionalidades. Dentro de cada posição do array colocamos um array de chars com a nacionalidade.
-    unsigned short matriculas; //unsigned porque matriculas sempre > 0 e short porque usa apenas 2 bytes em x dos 4 de um int
-    unsigned short ects; //Mesma lógica das matriculas~
-    char prescrever; 
+    char * nacionalidade[5]; //Temos 5 nacionalidades. Dentro de cada casa temos um char array que é o nome da nacionalidade  
 }Estudante;
+
+typedef struct dados_escolares {
+    int codigo;
+    unsigned short matriculas; //unsigned porque matriculas sempre > 0 e short porque usa apenas 2 bytes em x dos 4 de um int
+    unsigned short ects; //Mesma lógica das matriculas
+    float media_atual;
+    char prescrever;
+}Dados;
 
 //Struct para todos os dados estatísticos
 typedef struct estatisticas {

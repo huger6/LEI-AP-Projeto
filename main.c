@@ -6,8 +6,8 @@ int main() {
     //Colocar a consola em PT-PT (caracteres UTF8)
 	colocar_terminal_pt();
 	
-	//Lidar com os ficheiros
-
+	//Passar os arrays
+	inicializar_structs();
 
 	escolha_menus();
 

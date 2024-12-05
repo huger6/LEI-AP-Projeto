@@ -6,13 +6,12 @@ const short ANO_NASC_LIM_INF = 1908;
 //Funções
 
 void remover_espacos(char * str) {
+    if(str == NULL) return;
     char * inicio = str;
     char * fim = NULL;
 
     //Se o início conter um espaço, vai avançar o ponteiro uma casa, até essa casa deixar de ser um espaço.
-    while (*inicio == ' ') {
-        inicio++;
-    }
+    while (*inicio == ' ') inicio++;
 
     // Copiar a string sem espaços para o array inicial
     if (inicio != str) {
@@ -29,10 +28,13 @@ void remover_espacos(char * str) {
     *(fim + 1) = '\0';
 }
 
+//LIBERTAR A MEMÓRIA DE PARAMETROS
+void separar_parametros(const char * linha, char ** parametros, int * num_parametros) { // char ** parametros serve para armazenar os ponteiros dos parametros, de modo a que não sejam perdidos
+    if(linha == NULL || parametros == NULL || num_parametros == NULL) return;
+    char * inicio = linha; //Ponteiro para o inicio da linha, que não deve ser alterado
+    char * fim = NULL;
 
-void separar_parametros(char * linha) {
-    char * inicio = linha; //Ponteiro para o inicio da linha
-    char * fim == NULL;
+    int indice = 0; //Indice do array
 
     while(*inicio != '\0') { //Se não for o fim da linha entramos no loop
         fim = inicio; //
@@ -40,18 +42,34 @@ void separar_parametros(char * linha) {
         //Vamos veriricar se o ponteiro atual de fim é um separador ou o fim da linha, caso não seja avançamos
         while(*fim != SEPARADOR && *fim != '\0') fim++;
         //Se estamos aqui, é porque ou estamos num parametro ou a linha acabou
-        char temp = *fim;
-        *fim = '\0';
-
+        char temp = *fim; //Armazena o tab ou o nul char
+        *fim = '\0'; //vai terminar a string de inicio (ou seja, um parametro)
         remover_espacos(inicio);
-        *fim = temp;
-        inicio = (*fim == '\0') ? fim : fim + 1; //Verifica se já estamos no fim da string, se sim, inicio = fim, se não inicio = fim +1 (avança uma casa)
 
+        if (*inicio != '\0') {
+            //Alocamos memória para o parametro e copia o conteúdo
+            parametros[indice] = malloc(strlen(inicio) + 1); //Lembrar que parametros recebe um ponteiro.
+            if (parametros[indice] != NULL) {
+                strcpy(parametros[indice], inicio);
+                indice++;
+            }
+            else {
+                printf("Erro!\n");
+                //Libertar a memória alocada até ao indice atual
+                for (int i = 0; i < indice; i++) 
+                    free(parametros[i]); 
+                break;
+            }
+        }
+        *fim = temp; //Volta a colocar o tab ou '\0' onde estava 
+        inicio = (*fim == '\0') ? fim : fim + 1; //Verifica se já estamos no fim da string, se sim, inicio = fim, se não inicio = fim +1 (avança uma casa)
     }
+    *num_parametros = indice;
 }
 
 //Linha é alocada dinamicamente, pelo que deve ser libertada quando já não for necessária.
 char * ler_linha(FILE * ficheiro, int * n_linhas) {
+    if(ficheiro == NULL || n_linhas == NULL) return NULL;
     //n_linhas não será inicializado aqui
     char buffer[TAMANHO_INICIAL_BUFFER]; //Buffer para armazenar parte da linha
     size_t tamanho_total = 0; //Comprimento da linha; size_t pois é sempre >0 e evita conversões que podem levar a erros com outras funções
@@ -73,83 +91,134 @@ char * ler_linha(FILE * ficheiro, int * n_linhas) {
         tamanho_total += tamanho;
 
         //Verificamos se a linha está completa
-        if (buffer[tamanho - 1] == '\n') break; //se tudo tiver sido copiado, o ultimo caracter do buffer(e da linha tbm) será o '\n'
-
-        if (linha == NULL && feof(ficheiro)) {
-            printf("Erro ao ler o ficheiro.\n")
-            return NULL;
+        if (buffer[tamanho - 1] == '\n') {//se tudo tiver sido copiado, o ultimo caracter do buffer(e da linha tbm) será o '\n'
+            (*n_linhas)++;
+            return linha;
         }
-
-        (*n_linhas)++;
-        return linha; 
     }
 
+    if (linha && tamanho_total > 0) {
+        //Linha final sem '\n' mas tem conteudo (por ex: ultima linha)
+        (*n_linhas)++;
+        return linha;
+    }
+
+    //Se chegarmos aqui é porque aconteceu algum erro ou o ficheiro está vazio
+    free(linha);
+    return NULL;
 }
 FILE * abrir_ficheiro(const char * nome_ficheiro, const char * modo, char * modo_valido) {
-    *modo_valido = '0'; //Definir o modo como não válido
-    //Definir todos os modos de abertura possíveis
-    const char * modos_possíveis = {"r", "w", "a", "r+", "w+", "a+", "rb", "wb", "ab", "r+b", "w+b", "a+b"};
-    //Rever este comentário
-    int tamanho_modos = sizeof(modos_possíveis) / sizeof(modos_possíveis[0]); //tamanho do array em bytes a dividir pelo tamanho de um dos elementos (são todos iguais pois são ponteiros)
-
-    for(int i = 0; i < tamanho_modos; i++) {
-        if (strcmp(modo, modos_possíveis[i]) == 0) {
-            *modo_valido = '1';
-            break; //já não é necessário avançar no loop
-        }
-    }
-    
-    //Esta mensagem de erro é destinada ao programador, afinal é ele que vai escolher o modo de abertura
-    if (*modo_valido == '0') {
-        printf("Modo de abertura do ficheiro '%s' é inválido.\n", nome_ficheiro);
-        return NULL;
-    }
+    if(nome_ficheiro == NULL || modo == NULL || modo_valido ==  NULL) return NULL;
 
     FILE * ficheiro = fopen(nome_ficheiro, modo);
-    
-    if (ficheiro == NULL) return NULL;
+    //Se o modo de abertura for inválido, fopen irá retornar NULL
+    *modo_valido = (ficheiro != NULL) ? '1' : '0'; //*modo_valido será 0 caso seja inválido
+    if (ficheiro == NULL) {
+        printf("Erro ao abrir o ficheiro '%s'.",nome_ficheiro);
+        return NULL; 
+    }
+    //Mensagem é mais para o programador já que os users não escolhem o modo de abertura
+    if (*modo_valido == '0') {
+        print("O modo de abertura do ficheiro é inválido!\n");
+        return NULL;
+    }
 
     return ficheiro;
     
 }
-
-void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escolares, Estatisticas * stats) { 
+//Função recebe um array de estudantes e para estatísticas
+void carregar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escolares) { 
     FILE * dados;
     FILE * situacao_escolar;
     char modo_abertura_valido = '0'; //Poderia ser evitada pela criação de uma struct apenas para erros mas dada a simplicidade do program não é necessário
-    int n_linhas = 1;
+    int n_linhas = 0;
     char * linha = NULL; //Ponteiro para armazenar uma linha
 
     //Abrimos os ficheiros para ver
     dados = abrir_ficheiro(DADOS_TXT, "r", modo_abertura_valido);
-    situacao_escolar = abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "r", modo_abertura_valido);
 
-    if (dados == NULL || situacao_escolar == NULL) {
+    if (dados == NULL) {
         //Se o ponteiro é NULL, o ficheiro não existe, logo não há dados para ler
         fclose(dados); 
-        fclose(situacao_escolar);
         return; //Saímos da função
     }
-    //Se der NULL em todos os modos de abertura, quer dizer que há um erro crítico. Dar manage
-    //Se não der nulo nos outros modos de abertura quer dizer que o ficheiro não existia e foi criado
-    for(int i = 0; i < n_linhas; i++ ) {
-        linha = ler_linha(dados, n_linhas);
+
+    situacao_escolar = abrir_ficheiro(SITUACAO_ESCOLAR_TXT, "r", modo_abertura_valido);
+
+    if (situacao_escolar == NULL) {
+        fclose(situacao_escolar);
+        return;
+    }
+    
+    int num_parametros = 0; //Armazena o numero real de parametros
+    while ((linha = ler_linha(dados, &n_linhas)) != NULL) {
+        char * parametros[PARAMETROS] = {NULL}; //Array com PARAMETROS casas, onde cada pode armazenar um ponteiro para char (ou seja, uma string)
+        int num_parametros = 0; //Armazena o numero real de parametros
+
+        separar_parametros(linha, parametros, &num_parametros); //extrai os dados já formatados corretamente para parametros
+        //NOTA IMPORTANTE: PRECISAMOS DE USAR UM INDICE DE ALUNO CASO CONTRARIO VAMOS SOBREPOR DADOS
+        if(num_parametros == PARAMETROS) { //Só deve funcionar caso n PARAMETROS definidos seja igual ao numero de parametros encontrados
+            aluno->codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
+            strcpy(aluno->nome, parametros[1]); //nome é a segunda coluna nos dados.txt
+            strcpy(aluno->nascimento, parametros[2]);
+            strcpy(aluno->nacionalidade, parametros[3]);
+        }
         
+        //Libertamos a memória alocada para os parametros
+        for(int i = 0; i < num_parametros; i++) 
+            free(parametros[i]);
+
+        free(linha); //Libertamos a memória alocada para a linha presente
     }
 
+    n_linhas = 0;
+    while ((linha = ler_linha(situacao_escolar, &n_linhas)) != NULL) {
+        char * parametros[PARAMETROS] = {NULL}; //Array com PARAMETROS casas, onde cada pode armazenar um ponteiro para char (ou seja, uma string)
+        int num_parametros = 0; //Armazena o numero real de parametros
 
+        separar_parametros(linha, parametros, &num_parametros); //extrai os dados já formatados corretamente para parametros
 
-    
-    
+        if(num_parametros == PARAMETROS) { //Só deve funcionar caso n PARAMETROS definidos seja igual ao numero de parametros encontrados
+            escolares->codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
+            //TODO
+            strcpy(escolares->matriculas, parametros[1]); //nome é a segunda coluna nos dados.txt
+            strcpy(escolares->ects, parametros[2]);
+            strcpy(escolares->media_atual, parametros[3]);
+        }
+        
+        //Libertamos a memória alocada para os parametros
+        for(int i = 0; i < num_parametros; i++) 
+            free(parametros[i]);
+
+        free(linha); //Libertamos a memória alocada para a linha presente
+    }
     //Fechamos os ficheiros pois iremos efeturar todas as operações em memória
     fclose(dados);
     fclose(situacao_escolar);
 }
 
-void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Dados * escolares, Estatisticas * stats) {
+void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats) {
     
 }
 
+void inicializar_structs(Estudante * aluno, Estatisticas * stats) {
+    aluno->codigo = 0;
+    aluno->ects = 0;
+    aluno->matriculas = 0;
+    aluno->nacionalidade = '\0';
+    aluno->nascimento.dia = 0; //Para sinalizar que ainda não foi alterada
+    aluno->nascimento.mes = 0;
+    aluno->nascimento.ano = 0;
+    aluno->nome = '\0';
+    aluno->prescrever = '0';
+
+    stats->finalistas = 0;
+    stats->media = 0;
+    stats->media_idade_ano = 0;
+    stats->media_idade_nacionalidade = 0;
+    stats->medias_matriculas = 0;
+    stats->risco_prescrever = 0;
+}
 
 void limpar_buffer() {
     int lixo;
@@ -553,3 +622,4 @@ void ler_data(Estudante * aluno) {
         limpar_buffer(); //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
 	} while (erro == '1'); //Continuar a pedir a data sempre que esta for inválida
 }
+
