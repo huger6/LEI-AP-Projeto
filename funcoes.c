@@ -139,8 +139,8 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
                  //Como estamos a carregar as structs do estudante, o número de parametros lidos tem que ser igual ao esperado
                 (*aluno)[indice_aluno].codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
                 strcpy((*aluno)[indice_aluno].nome, parametros[1]); //nome é a segunda coluna nos dados.txt
-                strcpy((*aluno)[indice_aluno].nascimento, parametros[2]);
-                strcpy((*aluno)[indice_aluno].nacionalidade, parametros[3]);
+                ler_data(&(*aluno[indice_aluno]), parametros[2]); //Data nascimento
+                strcpy((*aluno)[indice_aluno].nacionalidade->nacionalidade, parametros[3]);
                 indice_aluno++; //Se os dados foram carregados, então passamos ao próximo aluno
             }
             
@@ -170,7 +170,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
 
                 if (indice_aluno >= *tamanho_escolares) {
                     *tamanho_escolares *= 2;
-                    *escolares = (Estudante *) realloc(*escolares, *tamanho_escolares * sizeof(Dados));
+                    *escolares = (Dados *) realloc(*escolares, *tamanho_escolares * sizeof(Dados));
                     if (!*escolares) {
                         printf("Ocorreu um erro a gerir a memória.\n");
                         fclose(dados);
@@ -207,11 +207,11 @@ void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * st
     for (int i = 0; i < n_alunos; i++) {
         //Struct estudante
         aluno[i].codigo = -1;
-        strcpy(aluno[i].nacionalidade, '\0');
+        strcpy(aluno[i].nacionalidade->nacionalidade, "-1");
         aluno[i].nascimento.dia = 0; //Para sinalizar que ainda não foi alterada
         aluno[i].nascimento.mes = 0;
         aluno[i].nascimento.ano = 0;
-        strcpy(aluno[i].nome, '\0');
+        strcpy(aluno[i].nome, "-1");
         //Struct dados
         escolares[i].codigo = -1;
         escolares[i].matriculas = -1;
@@ -605,8 +605,8 @@ void ler_data(Estudante * aluno, char * str) {
 	char data[11]; //Vamos usar o formato DD/MM/AAAA (10 caracteres + \0)
     char erro = '0'; //1 há erro
 
-	do {
-        if (strcmp(str, '\0') == 0) {
+	do {\
+        if (!str) { //Se str for NULL queremos ler a data
             erro = '0';
             printf("Data de nascimento (DD/MM/AAAA): ");
             if(fgets(data, sizeof(data), stdin) ==NULL) { //stdin porque é daí que lemos os dados; //fgets retorna um ponteiro para "data", logo verificamos se é NULL ocorreu um erro
@@ -634,6 +634,6 @@ void ler_data(Estudante * aluno, char * str) {
     
         erro = '0'; //Se nao for abrangido pelos continues, então não foi detetato nenhum erro, logo saimos do loop
         limpar_buffer(); //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
-	} while (erro == '1' && strcmp(str, '\0') == 0); //Continuar a pedir a data sempre que esta for inválida
+	} while (erro == '1' && !str); //Continuar a pedir a data sempre que esta for inválida
 }
 

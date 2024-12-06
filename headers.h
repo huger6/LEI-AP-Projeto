@@ -31,12 +31,16 @@ typedef struct data_nascimento {
     short ano;
 }Data;
 
+typedef struct nacionalidade {
+    char * nacionalidade; //Esta vai ser a nacionalidade
+} Nacionalidade;
+
 //Struct para tratar todos os dados relativos aos estudantes
 typedef struct estudante {
     int codigo; //int para prevenir, caso o código tenha, imagine-se, 6 digitos
     char * nome; //Declaramos um ponteiro para posteriormente alocar memória dinamicamente consoante o tamanho do nome
     Data nascimento; 
-    char * nacionalidade; //Averiguar
+    Nacionalidade * nacionalidade; //Criamos um array do tipo nacionalidade, que irá conter todas as nacionalidades
 }Estudante;
 
 typedef struct dados_escolares {

@@ -31,6 +31,10 @@ int main() {
 	free(escolares);
 	free(stats);
 	
+	for(int i = 0; i < 20; i++) {
+		printf("O nome do aluno é %d!\n", aluno[i].codigo);
+	}
+	printf("Ola");
 	//escolha_menus();
 	return 0;
 
