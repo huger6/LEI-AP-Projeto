@@ -19,21 +19,19 @@ int main() {
 		printf("A encerrar o programa.\n");
 		return 1; //Erro
 	}
+	inicializar_structs(aluno, escolares, stats, TAMANHO_INICIAL_ALUNO);
 	//Servirá para verificar se o tamanho atual de alunos excede ou não o alocado
 	tamanho_aluno = TAMANHO_INICIAL_ALUNO;
 	tamanho_escolares = TAMANHO_INICIAL_ALUNO;
 	tamanho_stats = TAMANHO_INICIAL_ALUNO;
+	carregar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, &aluno, &tamanho_aluno, &escolares, &tamanho_escolares);
 
 
-	escolha_menus();
+	free(aluno);
+	free(escolares);
+	free(stats);
+	
+	//escolha_menus();
+	return 0;
 
-
-
-
-
-
-
-
-
-	//Se quisermos sair do programa... if {...
 }

@@ -36,15 +36,15 @@ typedef struct estudante {
     int codigo; //int para prevenir, caso o código tenha, imagine-se, 6 digitos
     char * nome; //Declaramos um ponteiro para posteriormente alocar memória dinamicamente consoante o tamanho do nome
     Data nascimento; 
-    char * nacionalidade[5]; //Temos 5 nacionalidades. Dentro de cada casa temos um char array que é o nome da nacionalidade  
+    char * nacionalidade; //Averiguar
 }Estudante;
 
 typedef struct dados_escolares {
     int codigo;
     short matriculas; 
     short ects; 
-    float media_atual;
     short ano_atual;
+    float media_atual;
     char prescrever;
 }Dados;
 
@@ -69,10 +69,10 @@ typedef struct {
 void remover_espacos(char * str);
 void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
 char * ler_linha(FILE * ficheiro, int * n_linhas);
-void carregar_dados(Estudante * aluno, Dados * escolares);
 void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats);
+void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * stats, int n_alunos);
 
-void carregar_dados(FILE * ficheiro);
+void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Estudante ** aluno, int * tamanho_alunos, Dados ** escolares, int * tamanho_escolares);
 void limpar_buffer();
 void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup);
 void limpar_terminal();
@@ -89,6 +89,6 @@ void processar_estatisticas(Escolha * escolha);
 void processar_extras(Escolha * escolha);
 Escolha escolha_menus();
 char validar_data(short dia, short mes, short ano);
-void ler_data(Estudante * aluno);
+void ler_data(Estudante * aluno, char * str);
 
 #endif //Termina a condição

@@ -6,63 +6,7 @@ DÚVIDAS:
 -Devo definir macros para os limites das opcoes dos menus?
 usar uma struct com variáveis de erro.
 -Manter o ficheiro aberto durante as operações em memória ou fecha-lo e reabri-lo mais tarde? Abrir. fechar. Abrir, fechar
--Devemos assumir que os dados que estão nos ficheiros estaraão corretos?
-!-Verificar se o uso da função atoi é correto ou devo usar outra como sscanf ou strtol || Devo validar entradas inválidas ao ler o ficheiro? Não seria suposto todas as entradas no ficheiro estarem corretas?
-!-NACIONALIDADES!!!!
-!-Faz sentido inicializar as structs??
-
-
--><-
-void remover_espacos(char * str) {
-    char * inicio = str;
-    char * fim = NULL;
-
-    //Se o início conter um espaço, vai avançar o ponteiro uma casa, até essa casa deixar de ser um espaço.
-    while (*inicio == ' ') inicio++;
-
-    // Copiar a string sem espaços para o array inicial
-    if (inicio != str) {
-        memmove(str, inicio, strlen(inicio) + 1); //É uma versão melhorada do memcpy (evita a sobreposição)
-    }
-
-    //Ponteiro para o último caractere
-    fim = str + strlen(str) - 1;
-    while (fim > str && *fim == ' ') { //verifica se o fim tem um espaço em branco, se sim, anda com o ponteiro uma casa para trás e repete
-        fim--;
-    }
-
-    //Colocamos o nul char no final, de modo a sinalizar o fim da string. 
-    *(fim + 1) = '\0';
-}
-
-
-void separar_parametros(char * linha) {
-    char * inicio = linha; //Ponteiro para o inicio da linha
-    char * fim = NULL;
-
-    int indice = 0; //Indice do array
-
-    while(*inicio != '\0') { //Se não for o fim da linha entramos no loop
-        fim = inicio; //
-
-        //Vamos veriricar se o ponteiro atual de fim é um separador ou o fim da linha, caso não seja avançamos
-        while(*fim != SEPARADOR && *fim != '\0') fim++;
-        //Se estamos aqui, é porque ou estamos num parametro ou a linha acabou
-        char temp = *fim; //Armazena o tab ou o nul char
-        *fim = '\0'; //vai terminar a string de inicio (ou seja, um parametro)
-        remover_espacos(inicio);
-
-        if (*inicio != '\0') {
-            linha[indice] = inicio; //Guarda o ponteiro de inicio na posição indice POSSÍVEL ERRO AQUI
-            indice++;
-        }
-        *fim = temp; //Volta a colocar o tab ou '\0' onde estava 
-        inicio = (*fim == '\0') ? fim : fim + 1; //Verifica se já estamos no fim da string, se sim, inicio = fim, se não inicio = fim +1 (avança uma casa)
-    }
-}
-
--><-
-
+-Devemos assumir que os dados que estão nos ficheiros estaraão corretos? Alguns, como espaços e no caso do user inserir espaço entre os nomes
 
 ______________________________________________________________________________________________________________
 
@@ -87,3 +31,6 @@ A IMPLEMENTAR:
 -mecanismo de avanço página a página: printar 20, pausa, enter, repeat
 -DEVEMOS GUARDAR EM FICHEIROS TXT E BINÁRIO!! DEVE SER UMA OPÇÃO
 -Talvez seja uma boa ideia voltar a criar uma struct para os dados escolares
+-Nacionalidades devem ser variadas, e não devem ser verificadas
+-Uso de atoi e strtol esta correto. Se falharem, devemos passar a linha
+-Fazer a verificação na leitura se não tem nenhum tab, se tiver, classificar a entrada como inválida.
