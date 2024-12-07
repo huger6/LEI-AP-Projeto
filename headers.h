@@ -91,7 +91,7 @@ void processar_consultar_dados(Escolha * escolha);
 void processar_estatisticas(Escolha * escolha);
 void processar_extras(Escolha * escolha);
 Escolha escolha_menus();
-char validar_data(short dia, short mes, short ano);
-void ler_data(Estudante * aluno, char * str);
+int validar_data(short dia, short mes, short ano, const char modo);
+void ler_data(Estudante * aluno, char * str, const char modo);
 
 #endif //Termina a condição

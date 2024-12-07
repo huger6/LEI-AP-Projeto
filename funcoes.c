@@ -119,6 +119,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
 
     //Esta secção vai copiar, linha a linha, o conteúdo do ficheiro para a memória, nomeadamente na struct Estudante
     if(dados) { //apenas se a abertura tiver sido bem sucedida
+        printf("Abri dados\n");
         while ((linha = ler_linha(dados, &n_linhas)) != NULL) {
             char * parametros[MAX_PARAMETROS] = {NULL}; //Array com PARAMETROS casas, onde cada pode armazenar um ponteiro para char (ou seja, uma string)
             int num_parametros = 0; //Armazena o numero real de parametros
@@ -130,16 +131,26 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
                 if (indice_aluno >= *tamanho_alunos) {
                     *tamanho_alunos *= 2;
                     *aluno = (Estudante *) realloc(*aluno, *tamanho_alunos * sizeof(Estudante));
-                    if (!*aluno) {
+
+                    if (!(*aluno)) {
                         printf("Ocorreu um erro a gerir a memória.\n"); //Averiguar melhor 
                         fclose(dados);
                         return;
+                    }
+                    for(int i = indice_aluno; i < *tamanho_alunos; i++) {
+                        (*aluno)[i].nacionalidade = (char *) malloc (MAX_STRING_NACIONALIDADE * sizeof(char));
+                        (*aluno)[i].nome = (char *) malloc (TAMANHO_INICIAL_ALUNO * sizeof(char));
+                        if (!(*aluno)[i].nacionalidade || !(*aluno)[i].nome) {
+                            printf("Ocorreu um erro a gerir a memória.\n"); //Averiguar melhor 
+                            fclose(dados);
+                            return;
+                        }
                     }
                 }
                  //Como estamos a carregar as structs do estudante, o número de parametros lidos tem que ser igual ao esperado
                 (*aluno)[indice_aluno].codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
                 strcpy((*aluno)[indice_aluno].nome, parametros[1]); //nome é a segunda coluna nos dados.txt
-                ler_data(&(*aluno[indice_aluno]), parametros[2]); //Data nascimento
+                ler_data(&((*aluno)[indice_aluno]), parametros[2]); //Data nascimento
                 strcpy((*aluno)[indice_aluno].nacionalidade, parametros[3]);
                 indice_aluno++; //Se os dados foram carregados, então passamos ao próximo aluno
             }
@@ -216,10 +227,8 @@ void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * st
             printf("Ocorreu um erro ao alocar memória. A encerrar.\n");
             return;
         }
-        for (int j = 0; j < n_alunos; j++) {
-            strcpy(aluno[i].nacionalidade, "-1");
-            strcpy(aluno[i].nome, "-1");
-        }
+        strcpy(aluno[i].nacionalidade, "-1");
+        strcpy(aluno[i].nome, "-1");
         //Struct dados
         escolares[i].codigo = -1;
         escolares[i].matriculas = -1;
@@ -576,9 +585,10 @@ Escolha escolha_menus() {
     } while (escolha.menu_atual == 'P'); 
 }
 
-char validar_data(short dia, short mes, short ano) {
+//modo '1' para imprimir mensagens de erro, '0' para não imprimir
+int validar_data(short dia, short mes, short ano, const char modo) {
     if (ano < 1 || mes < 1 || mes > 12 || dia < 1) { //Limites dos anos são os que foram considerados mais realistas
-        printf("Por favor, insira uma data válida.\n");
+        if (modo == '1') printf("Por favor, insira uma data válida.\n");
         return 0;
     }
     /*Apenas se podem inscrever alunos com mais de 16 anos (sensivelmente, porque devido ao mes de nascimento pode nao ser bem assim)
@@ -586,7 +596,7 @@ char validar_data(short dia, short mes, short ano) {
     que por natureza, não têm de ser todos iguais ou ser inscritos com a mesma idade.
     */
     if (ano < ANO_NASC_LIM_INF || ano > ANO_ATUAL - 16) {
-        printf("O ano inserido é inválido. Insira um ano entre %d e %d", ANO_NASC_LIM_INF, ANO_ATUAL);
+        if (modo == '1') printf("O ano inserido é inválido. Insira um ano entre %d e %d.\n", ANO_NASC_LIM_INF, ANO_ATUAL);
         return 0;
     }
 
@@ -601,47 +611,61 @@ char validar_data(short dia, short mes, short ano) {
     }
 
     if (dia > dias_por_mes[mes - 1]) {
-        printf("O dia é inválido! O mês de %s tem apenas %hd dias.\n", nome_do_mes[mes - 1], dias_por_mes[mes -1]);
+        if (modo == '1') printf("O dia é inválido! O mês de %s tem apenas %hd dias.\n", nome_do_mes[mes - 1], dias_por_mes[mes -1]);
         return 0; //Falso
     }
     //Se não retornou 0(F), é V
     return 1;
 }
-//Se for para ler, usar str = '\0'
-void ler_data(Estudante * aluno, char * str) {
+//Se for para ler, usar str = '\0', modo('1'/'0') para verificar se queremos imprimir mensagens de erro
+void ler_data(Estudante * aluno, char * str, const char modo) {
 
-	char data[11]; //Vamos usar o formato DD/MM/AAAA (10 caracteres + \0)
+	char data[11]; //Vamos usar o formato DD-MM-AAAA (10 caracteres + \0)
     char erro = '0'; //1 há erro
 
-	do {\
+    short dia_temp, mes_temp, ano_temp; //Variáveis temporárias para armazenar os valores lidos
+	do {
         if (!str) { //Se str for NULL queremos ler a data
             erro = '0';
-            printf("Data de nascimento (DD/MM/AAAA): ");
+            printf("Data de nascimento (DD-MM-AAAA): ");
             if(fgets(data, sizeof(data), stdin) ==NULL) { //stdin porque é daí que lemos os dados; //fgets retorna um ponteiro para "data", logo verificamos se é NULL ocorreu um erro
                 limpar_buffer();
-                printf("Ocorreu um erro ao tentar ler a data de nascimento!");
+                printf("Ocorreu um erro ao tentar ler a data de nascimento!\n");
                 erro = '1';
-                continue; //O continue faz com que o loop avance para a proxima iteração
+                continue; //O continue faz com que o loop avance para a proxima iteração (aqui podemos usar porque não há perigo de ficar um loop infinito com !str)
                 //Nota: o uso do fgets faz com que o buffer nao rebente, pois ele so le ate ao limite de sizeof(data)-1(para o \0), apenas temos de limpar o buffer depois
             }
         }
-        else strcpy(data, str);
+        else {
+            strcpy(data, str);
+        }
+        
+        
         //O sscanf lê as x entradas conforme o padrão apresentado
-    	if (sscanf(data, "%hd/%hd/%hd", &aluno->nascimento.dia, &aluno->nascimento.mes, &aluno->nascimento.ano) != 3) { //sscanf tenta ler 3 shorts
+    	if (sscanf(data, "%hd-%hd-%hd", &dia_temp, &mes_temp, &ano_temp) != 3) { //sscanf tenta ler 3 shorts para as var temp
+            //Aqui não se usa && erro == '0'porque só pode ser 0 se !str, e nesse caso há um continue
             //Caso nao consiga, o formato é inválido
-            printf("Formato inválido! Use o formato DD/MM/AAAA.\n");
+            if (modo == '1') printf("Formato inválido! Use o formato DD-MM-AAAA.\n");
             limpar_buffer();
             erro = '1';
-            continue;
-        }      
-        if ((!validar_data(aluno->nascimento.dia, aluno->nascimento.mes, aluno->nascimento.ano))) { //Se já houver erro, não há necessidade de validar
-            limpar_buffer();
-            erro = '1'; //A mensagem de erro deve estar dentro de validar, de modo a especificar o que falhou
-            continue;
         }
-    
-        erro = '0'; //Se nao for abrangido pelos continues, então não foi detetato nenhum erro, logo saimos do loop
-        limpar_buffer(); //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
+        //Sse data for válida é que passamos os dados à stuct
+        if (validar_data(dia_temp, mes_temp, ano_temp, modo) && erro == '0') {
+            aluno->nascimento.dia = dia_temp;
+            aluno->nascimento.mes = mes_temp;
+            aluno->nascimento.ano = ano_temp;
+        } 
+        else erro = '1';
+
+        if(str && erro == '1') { //Caso contrário ficavamos num loop infinito
+            if (modo == '1') printf("Data inválida! A retornar.\n");
+            return;
+        }
 	} while (erro == '1' && !str); //Continuar a pedir a data sempre que esta for inválida
+    
+    if (!str) {
+        limpar_buffer();
+    } //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
 }
+
 

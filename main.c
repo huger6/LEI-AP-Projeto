@@ -23,6 +23,7 @@ int main() {
 	tamanho_aluno = TAMANHO_INICIAL_ALUNO;
 	tamanho_escolares = TAMANHO_INICIAL_ALUNO;
 	tamanho_stats = TAMANHO_INICIAL_ALUNO;
+	//Até aqui está tudo correto
 	carregar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, &aluno, &tamanho_aluno, &escolares, &tamanho_escolares);
 
 	for(int i = 0; i < 5; i++) {
