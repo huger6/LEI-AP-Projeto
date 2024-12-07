@@ -37,16 +37,16 @@ void separar_parametros(const char * linha, char ** parametros, int * num_parame
     int indice = 0; //Indice do array
 
     while(*inicio != '\0') { //Se não for o fim da linha entramos no loop
-        fim = inicio; //
+        fim = inicio; 
 
         //Vamos veriricar se o ponteiro atual de fim é um separador ou o fim da linha, caso não seja avançamos
-        while(*fim != SEPARADOR && *fim != '\0') fim++;
-        //Se estamos aqui, é porque ou estamos num parametro ou a linha acabou
-        char temp = *fim; //Armazena o tab ou o nul char
-        *fim = '\0'; //vai terminar a string de inicio (ou seja, um parametro)
+        while(*fim != SEPARADOR && *fim != '\0' && *fim != '\n') fim++;
+        //Aqui fim está a apontar para o separador, o fim da linha ou um \n (se bem que neste caso \n é o fim da linha
+        char temp = *fim; //Armazena o tab ou o nul charö
+        *fim = '\0'; //vai terminar a string de inicio (ou seja, um parametro); também corta o \n aqui, se exitir
         remover_espacos(inicio);
 
-        if (*inicio != '\0') {
+        if (*inicio != '\0') { //Se o inicio não for o fim da linha, então temos um parametro
             //Alocamos memória para o parametro e copia o conteúdo
             parametros[indice] = malloc(strlen(inicio) + 1); //Lembrar que parametros recebe um ponteiro.
             if (parametros[indice] != NULL) {
@@ -137,6 +137,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
                         fclose(dados);
                         return;
                     }
+                    //Se aumentamos o numero de alunos inicial, temos também de alocar novo espaço para o nome e nacionalidade dos novos alunos
                     for(int i = indice_aluno; i < *tamanho_alunos; i++) {
                         (*aluno)[i].nacionalidade = (char *) malloc (MAX_STRING_NACIONALIDADE * sizeof(char));
                         (*aluno)[i].nome = (char *) malloc (TAMANHO_INICIAL_ALUNO * sizeof(char));
@@ -150,7 +151,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
                  //Como estamos a carregar as structs do estudante, o número de parametros lidos tem que ser igual ao esperado
                 (*aluno)[indice_aluno].codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
                 strcpy((*aluno)[indice_aluno].nome, parametros[1]); //nome é a segunda coluna nos dados.txt
-                ler_data(&((*aluno)[indice_aluno]), parametros[2]); //Data nascimento
+                ler_data(&((*aluno)[indice_aluno]), parametros[2], '0'); //Data nascimento
                 strcpy((*aluno)[indice_aluno].nacionalidade, parametros[3]);
                 indice_aluno++; //Se os dados foram carregados, então passamos ao próximo aluno
             }

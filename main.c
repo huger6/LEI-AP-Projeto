@@ -26,8 +26,20 @@ int main() {
 	//Até aqui está tudo correto
 	carregar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, &aluno, &tamanho_aluno, &escolares, &tamanho_escolares);
 
-	for(int i = 0; i < 5; i++) {
+	for(int i = 0; i < 10; i++) {
 		printf("O código do aluno é %d!\n", aluno[i].codigo);
+		printf("O nome do aluno é %s!\n", aluno[i].nome);
+		printf("A data de nascimento do aluno é %hd-%hd-%hd!\n", aluno[i].nascimento.dia, aluno[i].nascimento.mes, aluno[i].nascimento.ano);
+		printf("A nacionalidade do aluno é %s!\n", aluno[i].nacionalidade);
+	}
+
+	for(int i = 0; i < 10; i++) {
+		printf("O código do aluno é %d!\n", escolares[i].codigo);
+		printf("O número de matrículas do aluno é %hd!\n", escolares[i].matriculas);
+		printf("O número de ECTS do aluno é %hd!\n", escolares[i].ects);
+		printf("O ano atual do aluno é %hd!\n", escolares[i].ano_atual);
+		printf("A média atual do aluno é %.2f!\n", escolares[i].media_atual);
+		printf("O aluno está em risco de prescrição? %c\n", escolares[i].prescrever);
 	}
 
 	free(aluno);

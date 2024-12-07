@@ -36,3 +36,15 @@ A IMPLEMENTAR:
 -Devemos assumir que os dados que estão nos ficheiros estaraão corretos? Alguns, como espaços e no caso do user inserir espaço entre os nomes
 -Talvez seja benéfico adicionar mais caracteres na leitura da data de nascimento
 -O que fazer no caso de um dado estar inválido?
+
+______________________________________________________________________________________________________________
+
+BUGS:
+
+-Parametro 4 (nacionalidade) está a ser guardado com um \n no final
+
+
+______________________________________________________________________________________________________________
+
+
+A função separar_parametros estava a funcionar bem mas estava a deixar um \n colado a nacionalidade no fim
