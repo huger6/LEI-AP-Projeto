@@ -11,6 +11,9 @@
 #define MAX_PARAMETROS 4 //De acordo com os dados atuais, são 4 parametros por linha, caso se aumente, este valor deve aumentar também.
 #define PARAMETROS_ESTUDANTE 4
 #define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
+#define MAX_NACIONALIDADES 206 //Número máximo de países
+#define MAX_STRING_NACIONALIDADE 100 //Definimos o número máximo de chars que uma nacionalidade pode ter
+#define TAMANHO_INICIAL_NOME 50 
 
 
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
@@ -31,16 +34,12 @@ typedef struct data_nascimento {
     short ano;
 }Data;
 
-typedef struct nacionalidade {
-    char * nacionalidade; //Esta vai ser a nacionalidade
-} Nacionalidade;
-
 //Struct para tratar todos os dados relativos aos estudantes
 typedef struct estudante {
     int codigo; //int para prevenir, caso o código tenha, imagine-se, 6 digitos
     char * nome; //Declaramos um ponteiro para posteriormente alocar memória dinamicamente consoante o tamanho do nome
     Data nascimento; 
-    Nacionalidade * nacionalidade; //Criamos um array do tipo nacionalidade, que irá conter todas as nacionalidades
+    char * nacionalidade; //Criamos um array do tipo nacionalidade, que irá conter todas as nacionalidades
 }Estudante;
 
 typedef struct dados_escolares {

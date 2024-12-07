@@ -6,7 +6,6 @@ DÚVIDAS:
 -Devo definir macros para os limites das opcoes dos menus?
 usar uma struct com variáveis de erro.
 -Manter o ficheiro aberto durante as operações em memória ou fecha-lo e reabri-lo mais tarde? Abrir. fechar. Abrir, fechar
--Devemos assumir que os dados que estão nos ficheiros estaraão corretos? Alguns, como espaços e no caso do user inserir espaço entre os nomes
 
 ______________________________________________________________________________________________________________
 
@@ -34,3 +33,4 @@ A IMPLEMENTAR:
 -Nacionalidades devem ser variadas, e não devem ser verificadas
 -Uso de atoi e strtol esta correto. Se falharem, devemos passar a linha
 -Fazer a verificação na leitura se não tem nenhum tab, se tiver, classificar a entrada como inválida.
+-Devemos assumir que os dados que estão nos ficheiros estaraão corretos? Alguns, como espaços e no caso do user inserir espaço entre os nomes

@@ -140,7 +140,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
                 (*aluno)[indice_aluno].codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
                 strcpy((*aluno)[indice_aluno].nome, parametros[1]); //nome é a segunda coluna nos dados.txt
                 ler_data(&(*aluno[indice_aluno]), parametros[2]); //Data nascimento
-                strcpy((*aluno)[indice_aluno].nacionalidade->nacionalidade, parametros[3]);
+                strcpy((*aluno)[indice_aluno].nacionalidade, parametros[3]);
                 indice_aluno++; //Se os dados foram carregados, então passamos ao próximo aluno
             }
             
@@ -153,7 +153,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
         fclose(dados);
     }
     else {
-        printf("Ocorreu um erro a abrir o ficheiro '%s'.", nome_ficheiro_dados);
+        printf("Ocorreu um erro a abrir o ficheiro '%s'.\n", nome_ficheiro_dados);
     }
     
     indice_aluno = 0;
@@ -195,7 +195,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
         fclose(situacao_escolar);
     }
     else {
-        printf("Ocorreu um erro a abrir o ficheiro '%s'.", nome_ficheiro_escolar);
+        printf("Ocorreu um erro a abrir o ficheiro '%s'.\n", nome_ficheiro_escolar);
     }
 }
 
@@ -207,11 +207,19 @@ void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * st
     for (int i = 0; i < n_alunos; i++) {
         //Struct estudante
         aluno[i].codigo = -1;
-        strcpy(aluno[i].nacionalidade->nacionalidade, "-1");
         aluno[i].nascimento.dia = 0; //Para sinalizar que ainda não foi alterada
         aluno[i].nascimento.mes = 0;
         aluno[i].nascimento.ano = 0;
-        strcpy(aluno[i].nome, "-1");
+        aluno[i].nacionalidade = (char *) malloc (MAX_STRING_NACIONALIDADE * sizeof(char));
+        aluno[i].nome = (char *) malloc (TAMANHO_INICIAL_NOME * sizeof(char));
+        if(aluno[i].nacionalidade == NULL || aluno[i].nome == NULL) {
+            printf("Ocorreu um erro ao alocar memória. A encerrar.\n");
+            return;
+        }
+        for (int j = 0; j < n_alunos; j++) {
+            strcpy(aluno[i].nacionalidade, "-1");
+            strcpy(aluno[i].nome, "-1");
+        }
         //Struct dados
         escolares[i].codigo = -1;
         escolares[i].matriculas = -1;

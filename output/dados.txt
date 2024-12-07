@@ -1,0 +1,2000 @@
+1234	Erick Barros	19-7-1990	Portuguesa
+1235	Alexandre Araujo	9-11-1992	Brasileira
+1236	Ana Beatriz Silva	16-9-1996	Portuguesa
+1237	Alana Sales	18-4-1992	Portuguesa
+1238	Emanuella Pires	17-10-1998	Portuguesa
+1239	Carolina Viana	3-11-2000	Portuguesa
+1240	Nicolas da Rosa	16-3-1995	Espanhola
+1241	Lais Lima	29-12-1992	Portuguesa
+1242	Lara Souza	14-10-1991	Brasileira
+1243	Sabrina Souza	14-2-1996	Francesa
+1244	Ana Clara Costa	28-9-1992	Portuguesa
+1245	Elisa Silva	23-3-2004	Portuguesa
+1246	Ana Julia Caldeira	3-2-1990	Francesa
+1247	Caua Cardoso	21-8-1997	Portuguesa
+1248	Julia Barbosa	26-9-1992	Guineense
+1249	Ana Julia Santos	13-6-1999	Portuguesa
+1250	Yasmin das Neves	13-7-1992	Portuguesa
+1251	Marcelo Carvalho	2-7-1999	Portuguesa
+1252	Caroline Fogaca	16-6-1997	Brasileira
+1253	Gabrielly da Luz	13-9-1996	Portuguesa
+1254	Luiz Gustavo Dias	19-3-2002	Portuguesa
+1255	Melissa da Rocha	20-2-2004	Portuguesa
+1256	Maria Alice Jesus	2-10-2004	Timorense
+1257	Thales Aragao	20-12-1996	Portuguesa
+1258	Leandro Ribeiro	23-5-1991	Portuguesa
+1259	Helena da Mata	17-7-2003	Portuguesa
+1260	Bernardo Barbosa	27-12-1991	Guineense
+1261	Andre Almeida	21-10-1994	Mocambicana
+1262	Eloah Alves	1-10-1997	Portuguesa
+1263	Lucca Martins	7-10-1994	Portuguesa
+1264	Fernanda Lima	10-2-1995	Portuguesa
+1265	Ana Sophia Gomes	12-3-1996	Brasileira
+1266	Breno Melo	17-10-1991	Angolana
+1267	Ana Julia Cunha	8-3-2003	Portuguesa
+1268	Noah da Luz	4-8-2004	Portuguesa
+1269	Pedro Henrique Novaes	16-4-2002	Portuguesa
+1270	Catarina Rezende	19-5-2003	Angolana
+1271	Joao Lucas da Cunha	24-2-2002	Italiana
+1272	Alexandre Rocha	8-12-1992	Portuguesa
+1273	Pedro Henrique Lima	16-11-1993	Portuguesa
+1274	Davi Lucas Castro	22-6-1994	Portuguesa
+1275	Emanuelly da Cruz	7-6-1995	Portuguesa
+1276	Helena Lopes	27-7-1996	Portuguesa
+1277	Alana Correia	19-7-2002	Portuguesa
+1278	Lorena Cardoso	12-11-2001	Portuguesa
+1279	Luiz Otavio Castro	19-9-2002	Portuguesa
+1280	Davi Lucas da Mata	11-7-1990	Portuguesa
+1281	Joao Teixeira	18-2-1995	Portuguesa
+1282	Kamilly Duarte	13-11-2003	Portuguesa
+1283	Emanuella Barbosa	7-4-1994	Portuguesa
+1284	Maysa Ferreira	13-12-1992	Portuguesa
+1285	Maria Fernanda da Costa	18-6-1992	Portuguesa
+1286	Alicia Freitas	25-4-1997	Portuguesa
+1287	Luana Farias	12-7-2003	Mocambicana
+1288	Rafael Correia	29-8-2002	Brasileira
+1289	Manuela da Luz	25-5-1998	Brasileira
+1290	Caue Farias	23-2-2002	Francesa
+1291	Joao Lucas Peixoto	22-7-1999	Portuguesa
+1292	Joao Freitas	30-1-2003	Portuguesa
+1293	Lara Melo	17-5-1993	Portuguesa
+1294	Renan Peixoto	7-1-1992	Portuguesa
+1295	Raquel Azevedo	19-7-2004	Portuguesa
+1296	Marcela Rodrigues	5-11-1995	Portuguesa
+1297	Joao Guilherme Fernandes	29-10-1993	Portuguesa
+1298	Marcos Vinicius Azevedo	28-1-1996	Brasileira
+1299	Cecilia da Cruz	7-5-2001	Portuguesa
+1300	Luna Silveira	10-5-1994	Portuguesa
+1301	Fernanda Pinto	17-11-1998	Brasileira
+1302	Vitor Hugo Oliveira	30-5-1995	Mocambicana
+1303	Joana Rezende	6-1-1993	Portuguesa
+1304	Ana Clara Mendes	27-11-1998	Portuguesa
+1305	Mariana Costela	29-2-1995	Angolana
+1306	Eloah Alves	17-9-2004	Portuguesa
+1307	Julia da Mota	16-6-1992	Portuguesa
+1308	 Natalia Viana	3-11-1991	Portuguesa
+1309	Marcela Carvalho	23-8-1998	Portuguesa
+1310	Anthony Pires	9-3-2002	Portuguesa
+1311	Leandro Novaes	1-10-1991	Brasileira
+1312	Kevin Nascimento	23-8-2001	Portuguesa
+1313	Pedro Henrique da Paz	1-2-1994	Brasileira
+1314	Gabriel Costela	17-3-1994	Portuguesa
+1315	Davi Lucca Dias	7-3-1996	Mocambicana
+1316	Amanda Goncalves	30-9-1993	Mocambicana
+1317	Emanuel Barros	1-2-1994	Portuguesa
+1318	Anthony Alves	22-1-2004	Francesa
+1319	Gabrielly Mendes	29-1-1998	Portuguesa
+1320	Marcelo da Luz	14-7-2000	Portuguesa
+1321	Ana Julia Nogueira	2-2-2001	Portuguesa
+1322	Maria Fernanda das Neves	25-4-2000	Portuguesa
+1323	Maria Fernanda Rezende	7-3-1993	Brasileira
+1324	 Gustavo Henrique da Mota	3-7-2002	Brasileira
+1325	Luna Moreira	5-2-1993	Timorense
+1326	 Daniel das Neves	6-7-1991	Brasileira
+1327	Yasmin da Cruz	26-7-1990	Portuguesa
+1328	 Joao Gabriel Dias	11-6-1993	Portuguesa
+1329	Ana Julia Porto	27-1-2000	Portuguesa
+1330	 Sarah Cardoso	27-10-1999	Portuguesa
+1331	Isabel Costa	20-11-2003	Portuguesa
+1332	Bianca Duarte	27-3-2004	Portuguesa
+1333	Joao Vitor Costela	5-6-1990	Portuguesa
+1334	Julia Almeida	19-3-2000	Portuguesa
+1335	Pedro Lucas Araujo	1-9-2003	Portuguesa
+1336	Francisco da Cruz	25-7-1999	Brasileira
+1337	Nathan Peixoto	23-12-1994	Portuguesa
+1338	Maria Alice Caldeira	23-10-2000	Portuguesa
+1339	Alexandre da Cruz	26-1-1998	Mocambicana
+1340	Vicente Gomes	14-4-2004	Portuguesa
+1341	Julia Fernandes	23-10-1998	Portuguesa
+1342	Gabriela Almeida	11-12-2003	Espanhola
+1343	Ana Julia Nogueira	6-7-2004	Espanhola
+1344	Valentina Moraes	11-9-1994	Portuguesa
+1345	Luiz Otavio Moreira	7-9-1996	Portuguesa
+1346	Nicole Duarte	13-11-1996	Portuguesa
+1347	Sarah Melo	6-8-1993	Italiana
+1348	Barbara da Paz	2-3-2002	Mocambicana
+1349	Francisco Ferreira	27-9-1995	Portuguesa
+1350	Cecilia Pereira	18-1-2002	Portuguesa
+1351	Stella Rodrigues	5-9-1993	Brasileira
+1352	Leandro Lima	27-11-1994	Timorense
+1353	Thiago Correia	2-7-1991	Francesa
+1354	Ana Luiza Costa	1-4-2004	Portuguesa
+1355	Lais da Luz	24-2-1992	Timorense
+1356	Giovanna Ribeiro	3-2-1998	Portuguesa
+1357	Gabriela da Luz	12-6-2002	Brasileira
+1358	 Eduarda Mendes	25-9-2001	Portuguesa
+1359	Lucas Gabriel Novaes	25-10-2002	Portuguesa
+1360	Diogo Peixoto	26-1-2000	Portuguesa
+1361	Agatha Farias	1-11-1998	Francesa
+1362	Antonio Correia	3-11-1998	Portuguesa
+1363	Rodrigo da Rocha	2-2-1994	Portuguesa
+1364	Catarina Azevedo	21-4-2001	Portuguesa
+1365	Juliana Castro	18-4-2003	Portuguesa
+1366	Maria Sophia Sales	25-6-1997	Portuguesa
+1367	Eduarda Nunes	12-11-2001	Guineense
+1368	Agatha Jesus	20-2-1990	Angolana
+1369	Joana Araujo	9-11-1996	Portuguesa
+1370	 Maria Vitoria Moura	8-10-2004	Brasileira
+1371	Kamilly Alves	5-5-1990	Angolana
+1372	Diego da Mota	23-5-1991	Portuguesa
+1373	Maria Vitoria Moura	12-7-1998	Portuguesa
+1374	Ana Vitoria Cardoso	22-10-1991	Portuguesa
+1375	Eduardo Mendes	15-11-1997	Portuguesa
+1376	Lucas Gabriel da Paz	4-8-2004	Portuguesa
+1377	Erick Ramos	13-3-1998	Espanhola
+1378	Vitor Hugo Silva	27-12-2003	Portuguesa
+1379	Lucas Gabriel Silva	26-9-1995	Portuguesa
+1380	Daniela da Mota	4-12-2004	Italiana
+1381	Joao Pedro Mendes	12-2-1993	Angolana
+1382	Ana Carolina Fogaca	12-6-2001	Espanhola
+1383	Davi Lucas Monteiro	5-3-1994	Portuguesa
+1384	Valentina Monteiro	19-12-2001	Brasileira
+1385	Enzo Gabriel da Rocha	7-2-1992	Portuguesa
+1386	Andre Jesus	18-11-2003	Portuguesa
+1387	Amanda da Rocha	26-4-1998	Mocambicana
+1388	Caue da Luz	28-3-1997	Portuguesa
+1389	Marcelo Goncalves	18-8-1994	Portuguesa
+1390	Barbara da Rosa	27-4-1993	Portuguesa
+1391	Luiz Gustavo Jesus	7-10-1993	Espanhola
+1392	Ana Martins	14-2-2002	Portuguesa
+1393	Davi Lucca das Neves	10-7-2000	Portuguesa
+1394	 Yasmin Costa	13-7-1992	Francesa
+1395	Emanuella Fogaca	25-5-2000	Italiana
+1396	Danilo Porto	6-1-1997	Portuguesa
+1397	Carolina Fernandes	30-7-2004	Italiana
+1398	Maria Clara Cunha	27-7-1996	Portuguesa
+1399	Pedro Miguel Rezende	27-9-1994	Portuguesa
+1400	Lorenzo Dias	8-9-2001	Portuguesa
+1401	Eduardo da Cunha	5-2-1990	Portuguesa
+1402	Melissa Fogaca	15-3-1994	Portuguesa
+1403	Sophie Rezende	7-6-1990	Portuguesa
+1404	Otavio Alves	18-7-1994	Portuguesa
+1405	Ana Carolina Novaes	3-9-2001	Portuguesa
+1406	Luiz Gustavo Nunes	9-3-1990	Portuguesa
+1407	Diego Ribeiro	2-4-1999	Portuguesa
+1408	 Enrico Aragao	28-10-2001	Guineense
+1409	Alicia Correia	26-11-1993	Portuguesa
+1410	Marcelo Nascimento	10-6-2000	Portuguesa
+1411	Maria Eduarda Dias	26-6-2004	Portuguesa
+1412	Gabriela Rezende	24-5-1993	Francesa
+1413	Paulo Jesus	27-11-1992	Portuguesa
+1414	Diogo Mendes	6-9-1994	Francesa
+1415	Pietra da Rosa	30-3-1998	Portuguesa
+1416	Guilherme Jesus	7-2-2003	Portuguesa
+1417	Fernando Correia	23-7-1996	Portuguesa
+1418	Joao Vitor Lima	15-9-1999	Portuguesa
+1419	 Ana Clara da Rocha	8-8-1995	Portuguesa
+1420	Raquel Caldeira	22-12-1994	Italiana
+1421	Luna Souza	19-2-2004	Guineense
+1422	Murilo Pereira	25-12-1999	Portuguesa
+1423	Levi Jesus	16-3-1999	Portuguesa
+1424	Alexandre Novaes	3-11-2001	Espanhola
+1425	Laura Lopes	2-9-1996	Espanhola
+1426	Rafael Duarte	8-12-1998	Mocambicana
+1427	Daniela Correia	18-5-1998	Portuguesa
+1428	Emanuelly Nascimento	2-10-2000	Portuguesa
+1429	Davi Lucca Rocha	11-5-1998	Portuguesa
+1430	Maria Cecilia Gomes	13-12-2003	Portuguesa
+1431	Igor Novaes	21-5-1992	Brasileira
+1432	Clarice da Mata	22-1-2001	Portuguesa
+1433	 Enzo das Neves	1-10-1994	Brasileira
+1434	Raul Jesus	28-4-2001	Portuguesa
+1435	Lucca Carvalho	2-11-1995	Mocambicana
+1436	Juliana Rezende	29-12-1998	Portuguesa
+1437	Calebe da Rocha	7-6-1991	Francesa
+1438	Clarice Ramos	8-9-1994	Portuguesa
+1439	Sarah Costa	2-2-2002	Portuguesa
+1440	Ana Julia Nunes	3-12-2002	Portuguesa
+1441	 Laura da Conceicao	28-6-2003	Brasileira
+1442	Igor da Costa	1-12-2001	Portuguesa
+1443	Joao Miguel Rezende	30-8-2002	Mocambicana
+1444	Joao Guilherme Pereira	10-4-1999	Portuguesa
+1445	 Mariane Monteiro	19-3-1992	Portuguesa
+1446	Raul da Paz	14-6-1991	Portuguesa
+1447	 Joaquim da Luz	20-1-1992	Portuguesa
+1448	Diogo Cardoso	28-11-1997	Portuguesa
+1449	Maria Eduarda Monteiro	30-7-1993	Portuguesa
+1450	Ana Laura Dias	18-12-1991	Portuguesa
+1451	Emanuelly Carvalho	11-11-2003	Portuguesa
+1452	Lucca Alves	7-11-2001	Portuguesa
+1453	Thales Barbosa	10-4-1991	Timorense
+1454	 Enzo Gabriel Pires	5-8-1996	Portuguesa
+1455	 Maria Julia Araujo	28-11-1995	Guineense
+1456	Marcelo Gomes	25-8-2003	Portuguesa
+1457	Maria Luiza Fogaca	25-11-1991	Brasileira
+1458	Vitoria Moura	11-3-1993	Portuguesa
+1459	Yasmin Rodrigues	17-3-2003	Portuguesa
+1460	Diogo Goncalves	21-10-1999	Portuguesa
+1461	Carlos Eduardo Freitas	3-5-1996	Portuguesa
+1462	 Bernardo Gomes	4-5-1991	Portuguesa
+1463	Maria Eduarda Caldeira	19-2-2001	Portuguesa
+1464	Rebeca Lopes	24-7-2000	Portuguesa
+1465	 Heitor Barbosa	19-7-1992	Portuguesa
+1466	Levi Ribeiro	9-9-2002	Portuguesa
+1467	 Maria Eduarda da Cruz	14-5-1995	Timorense
+1468	Ana Sophia da Mata	19-4-1996	Angolana
+1469	Joao Lucas Rezende	26-9-1992	Portuguesa
+1470	Otavio Costela	24-4-1992	Portuguesa
+1471	Renan Costela	29-7-1998	Portuguesa
+1472	Miguel Pires	26-6-1999	Portuguesa
+1473	 Rafael Caldeira	21-8-1990	Guineense
+1474	Isadora Barbosa	6-10-1992	Portuguesa
+1475	Heloisa Pereira	24-10-1997	Portuguesa
+1476	Carlos Eduardo Mendes	19-8-2001	Brasileira
+1477	Isis da Conceicao	2-6-1998	Portuguesa
+1478	Danilo Aragao	26-10-1992	Portuguesa
+1479	Maria Fernanda Silva	23-7-2000	Portuguesa
+1480	Isabella Ramos	28-4-1996	Portuguesa
+1481	Maria Luiza Rocha	24-9-2001	Portuguesa
+1482	Isadora Costela	25-3-1999	Timorense
+1483	Amanda Ribeiro	24-5-2001	Portuguesa
+1484	 Alana Cardoso	19-2-1997	Portuguesa
+1485	Maria Sophia Dias	30-1-1994	Portuguesa
+1486	Stella Souza	6-5-2003	Portuguesa
+1487	Fernando Pires	20-7-1991	Portuguesa
+1488	Beatriz Barros	18-12-1991	Espanhola
+1489	Davi Porto	30-3-2001	Brasileira
+1490	 Kevin Novaes	17-9-1992	Portuguesa
+1491	Joao Lucas Novaes	19-9-1993	Guineense
+1492	Larissa Costa	29-9-2003	Portuguesa
+1493	Lucca Fogaca	15-1-2002	Portuguesa
+1494	Maysa Monteiro	22-5-1991	Portuguesa
+1495	 Amanda Pinto	9-5-1996	Portuguesa
+1496	 Kaique Dias	3-8-1992	Portuguesa
+1497	 Joao Felipe Araujo	8-6-1993	Italiana
+1498	Davi Luiz da Luz	27-4-2004	Italiana
+1499	Juan Santos	16-3-1999	Portuguesa
+1500	 Marina Barros	29-6-2002	Portuguesa
+1501	Luiz Felipe Rocha	11-5-1993	Brasileira
+1502	Alana Pereira	22-5-1998	Portuguesa
+1503	Danilo Fogaca	15-5-1991	Portuguesa
+1504	Danilo da Rocha	13-1-1990	Portuguesa
+1505	Marina da Rosa	27-5-2003	Portuguesa
+1506	Marcos Vinicius Novaes	12-10-1998	Italiana
+1507	Vicente Costa	15-10-1994	Portuguesa
+1508	Lais Carvalho	14-3-1990	Portuguesa
+1509	Caue Rezende	8-5-1995	Portuguesa
+1510	Luna Peixoto	20-3-1991	Brasileira
+1511	Alexandre Mendes	14-1-2003	Portuguesa
+1512	Ana Sophia Melo	15-12-2001	Portuguesa
+1513	Yuri Cardoso	6-8-2000	Portuguesa
+1514	 Eduarda Lopes	6-5-2001	Portuguesa
+1515	Rafaela da Cruz	5-7-2003	Portuguesa
+1516	 Marcela da Rosa	21-1-1995	Portuguesa
+1517	Pietra Goncalves	23-8-1991	Portuguesa
+1518	Maria Fernanda Lopes	2-8-1999	Portuguesa
+1519	 Camila da Costa	19-2-2000	Timorense
+1520	Nathan Novaes	20-11-1990	Portuguesa
+1521	Maria Alice Teixeira	25-3-1992	Francesa
+1522	 Enrico Monteiro	17-6-2001	Portuguesa
+1523	Alicia Viana	7-10-2003	Francesa
+1524	 Elisa Lima	8-9-1997	Portuguesa
+1525	Paulo Novaes	19-9-1992	Francesa
+1526	 Thiago da Cruz	30-10-1995	Portuguesa
+1527	Lavinia Barbosa	18-8-2003	Mocambicana
+1528	Eduarda Lima	15-10-1995	Portuguesa
+1529	 Rodrigo Campos	26-8-2000	Portuguesa
+1530	Maysa da Luz	13-6-1996	Portuguesa
+1531	Pietra da Luz	23-9-1994	Portuguesa
+1532	Maria Vitoria da Luz	21-10-2003	Portuguesa
+1533	Ana Sophia Rezende	6-9-1995	Portuguesa
+1534	Kaique da Rocha	3-12-1996	Portuguesa
+1535	Vitor Gabriel Peixoto	6-11-2004	Portuguesa
+1536	Sabrina Peixoto	26-12-2001	Guineense
+1537	Thomas Novaes	16-2-1996	Portuguesa
+1538	Luiz Fernando da Luz	16-10-1998	Portuguesa
+1539	Vinicius Caldeira	23-9-2001	Portuguesa
+1540	Davi Duarte	15-8-2004	Angolana
+1541	Bryan Rocha	4-2-1991	Mocambicana
+1542	Alice Correia	21-6-2000	Portuguesa
+1543	Esther Costa	23-6-1993	Portuguesa
+1544	 Clara Sales	15-3-1997	Brasileira
+1545	Pietra Cunha	28-3-1992	Francesa
+1546	Noah Pires	27-4-1992	Portuguesa
+1547	Luana Lima	7-8-1993	Brasileira
+1548	Diego Fogaca	10-3-1995	Portuguesa
+1549	Raquel Silva	21-6-2000	Guineense
+1550	Theo Peixoto	28-2-1996	Portuguesa
+1551	 Mariane Mendes	6-1-2003	Portuguesa
+1552	 Julia Costa	9-2-1996	Portuguesa
+1553	 Fernanda da Rosa	30-4-1993	Portuguesa
+1554	Isaac Fogaca	5-12-1994	Angolana
+1555	Lara Campos	23-10-2004	Timorense
+1556	 Caue Sales	23-1-1990	Mocambicana
+1557	 Vitor Gabriel Nogueira	25-10-1996	Portuguesa
+1558	Ana Julia Goncalves	25-10-1998	Portuguesa
+1559	Clara Costa	5-11-1997	Brasileira
+1560	Ana da Cunha	12-5-1992	Portuguesa
+1561	Maysa da Mota	26-4-2001	Portuguesa
+1562	 Eduardo Souza	6-1-1992	Portuguesa
+1563	 Maysa Nogueira	23-2-1998	Portuguesa
+1564	Isaac da Rocha	2-8-2002	Brasileira
+1565	Lavinia Monteiro	28-7-1997	Portuguesa
+1566	Diego Pereira	4-10-1992	Portuguesa
+1567	Ana Luiza Almeida	16-11-1992	Timorense
+1568	Levi Caldeira	3-11-1992	Italiana
+1569	Elisa Lopes	7-8-1991	Portuguesa
+1570	Davi Luiz da Cruz	22-3-1990	Portuguesa
+1571	Isabel Goncalves	10-4-2001	Portuguesa
+1572	Maria Fernanda Duarte	11-5-1995	Portuguesa
+1573	Joaquim Nogueira	20-2-2001	Brasileira
+1574	Gabriela da Luz	16-8-1997	Portuguesa
+1575	Larissa Moura	12-3-2002	Angolana
+1576	Joao Miguel da Luz	22-5-1990	Brasileira
+1577	Isadora Silveira	30-8-1996	Portuguesa
+1578	Diego Caldeira	22-6-2001	Portuguesa
+1579	Maria Eduarda Santos	11-11-1999	Portuguesa
+1580	Natalia Ramos	2-11-1997	Angolana
+1581	Anthony Barbosa	21-1-1998	Portuguesa
+1582	 Enzo Gabriel Ribeiro	16-1-2003	Angolana
+1583	Arthur Cavalcanti	6-10-1997	Portuguesa
+1584	Murilo Cardoso	15-1-1990	Portuguesa
+1585	Manuela Costela	9-7-1999	Portuguesa
+1586	Pietro Cavalcanti	22-3-1997	Portuguesa
+1587	Beatriz Monteiro	20-8-1996	Portuguesa
+1588	Sophie Teixeira	22-8-1997	Mocambicana
+1589	Renan Nogueira	13-1-1991	Portuguesa
+1590	Leandro da Mata	15-12-1995	Portuguesa
+1591	 Caue da Paz	25-2-1990	Portuguesa
+1592	Isaac Almeida	13-12-1994	Francesa
+1593	Rodrigo da Conceicao	16-7-1999	Portuguesa
+1594	Matheus Dias	1-4-2002	Angolana
+1595	 Vinicius Moraes	2-5-1991	Brasileira
+1596	Lucas Gabriel Costela	2-4-1993	Portuguesa
+1597	 Ana Julia Silveira	6-11-2002	Mocambicana
+1598	Renan Vieira	14-7-2003	Mocambicana
+1599	Lorena Nunes	9-7-2003	Portuguesa
+1600	Isaac Teixeira	28-6-2004	Brasileira
+1601	Pedro Miguel da Mota	22-10-1999	Portuguesa
+1602	Luiz Gustavo Costa	3-4-2004	Portuguesa
+1603	Diogo Silva	11-12-2000	Espanhola
+1604	Stephany Moreira	26-11-2002	Portuguesa
+1605	Maria Vitoria Farias	6-9-2001	Portuguesa
+1606	Luna da Cunha	23-4-1994	Portuguesa
+1607	 Marina Pinto	12-5-1999	Portuguesa
+1608	Livia da Paz	17-8-1997	Portuguesa
+1609	Bruno Freitas	8-7-1992	Portuguesa
+1610	Amanda Barros	18-12-1994	Portuguesa
+1611	Emanuel Cavalcanti	3-8-1998	Guineense
+1612	Lavinia Silveira	15-1-1992	Portuguesa
+1613	Fernando Rocha	6-8-1990	Portuguesa
+1614	 Paulo Santos	10-2-1998	Brasileira
+1615	Ana Laura Cunha	21-11-1995	Italiana
+1616	 Arthur Fernandes	15-12-1999	Portuguesa
+1617	Amanda Nunes	12-6-1994	Timorense
+1618	 Pietra da Rosa	25-9-1997	Portuguesa
+1619	Enrico Barros	8-3-2000	Portuguesa
+1620	Joao Miguel Lopes	1-12-1999	Espanhola
+1621	Lavinia Lopes	27-10-1990	Italiana
+1622	Pedro Henrique Sales	19-3-2001	Espanhola
+1623	Pietro Pires	27-3-1995	Francesa
+1624	Bianca Moraes	4-6-2002	Italiana
+1625	Davi Lucca Farias	6-11-1992	Portuguesa
+1626	Maria Sophia Pereira	26-10-1993	Portuguesa
+1627	Eduarda Cardoso	20-2-1994	Francesa
+1628	Isabella Moura	22-8-1991	Portuguesa
+1629	Antonio Sales	3-2-2000	Guineense
+1630	Levi Silveira	24-4-2004	Portuguesa
+1631	 Melissa Fogaca	2-6-1992	Portuguesa
+1632	Maria Jesus	21-10-2001	Portuguesa
+1633	Ian Pires	13-3-1998	Portuguesa
+1634	Maria Vitoria da Mata	6-5-1991	Portuguesa
+1635	Bruna Silveira	5-7-1992	Portuguesa
+1636	Joao Felipe Pinto	18-6-1996	Portuguesa
+1637	Guilherme Nunes	6-5-2004	Portuguesa
+1638	Igor da Mata	29-11-1997	Portuguesa
+1639	 Carolina Freitas	30-3-1999	Brasileira
+1640	Bianca Silveira	21-6-2002	Guineense
+1641	 Sarah Alves	24-8-1997	Portuguesa
+1642	Larissa Azevedo	27-10-1990	Portuguesa
+1643	Natalia da Conceicao	2-3-2003	Portuguesa
+1644	Bernardo Lima	1-7-1996	Portuguesa
+1645	Enrico Cardoso	9-9-1990	Portuguesa
+1646	Agatha Ferreira	30-9-1990	Portuguesa
+1647	Anthony Martins	14-10-1994	Portuguesa
+1648	 Gustavo Porto	1-7-1996	Portuguesa
+1649	Olivia Freitas	3-12-1996	Angolana
+1650	Julia Pires	25-3-1996	Portuguesa
+1651	Joana Porto	30-6-2000	Mocambicana
+1652	Ian Novaes	28-11-2003	Guineense
+1653	Elisa Moura	23-4-1999	Angolana
+1654	 Vitor Gabriel Rodrigues	9-10-1990	Espanhola
+1655	Bruna Teixeira	26-1-1996	Portuguesa
+1656	Gustavo Henrique Farias	2-10-1992	Portuguesa
+1657	 Giovanna da Mota	3-4-1993	Portuguesa
+1658	 Kaique Costa	30-9-1998	Timorense
+1659	Livia Correia	11-7-1991	Francesa
+1660	Kamilly Porto	29-8-1995	Portuguesa
+1661	Erick Nogueira	8-8-1997	Portuguesa
+1662	Fernando Campos	19-5-2003	Portuguesa
+1663	Yuri Azevedo	16-1-2002	Portuguesa
+1664	Luigi Pires	25-5-2002	Timorense
+1665	Stella da Cunha	3-9-2003	Francesa
+1666	Davi Luiz Duarte	9-1-1995	Portuguesa
+1667	 Ana Clara Azevedo	3-8-1998	Portuguesa
+1668	 Guilherme das Neves	25-10-2004	Portuguesa
+1669	Gabrielly Dias	6-5-1998	Portuguesa
+1670	Raquel Nogueira	18-12-2000	Portuguesa
+1671	Maria Cecilia Nascimento	23-4-1995	Angolana
+1672	Julia da Mata	2-10-1998	Portuguesa
+1673	Calebe das Neves	3-10-2000	Portuguesa
+1674	Rebeca Alves	16-3-1992	Portuguesa
+1675	Thiago Viana	4-10-1998	Portuguesa
+1676	Bianca Ferreira	24-9-2001	Portuguesa
+1677	 Lavinia Sales	24-12-1992	Portuguesa
+1678	Maria Clara Farias	8-4-1994	Portuguesa
+1679	Vitor Cardoso	27-10-1994	Portuguesa
+1680	Isis Silva	8-10-1993	Portuguesa
+1681	Luna Cardoso	30-4-1999	Portuguesa
+1682	Livia Silveira	25-6-1991	Portuguesa
+1683	Arthur Peixoto	7-2-1991	Brasileira
+1684	Emanuelly Melo	5-11-1996	Portuguesa
+1685	Pedro Lucas Fernandes	5-12-1997	Italiana
+1686	Samuel Barros	14-5-1997	Portuguesa
+1687	Augusto Souza	19-10-2003	Portuguesa
+1688	Francisco Silva	6-10-2001	Portuguesa
+1689	Nicolas Porto	8-11-2002	Portuguesa
+1690	Lorenzo da Conceicao	26-3-1991	Portuguesa
+1691	Ian Moura	25-5-1995	Portuguesa
+1692	Maria Clara Freitas	21-2-1995	Portuguesa
+1693	Joao Guilherme Farias	4-1-2001	Portuguesa
+1694	Maria Eduarda Oliveira	16-3-1990	Portuguesa
+1695	Erick Rezende	26-4-1992	Portuguesa
+1696	Lorena Pinto	20-12-2003	Portuguesa
+1697	Marcos Vinicius da Rocha	29-12-1991	Portuguesa
+1698	Valentina Fogaca	22-2-2001	Portuguesa
+1699	Cecilia Rezende	23-12-1998	Portuguesa
+1700	Juliana Moreira	12-2-2002	Portuguesa
+1701	Bernardo Pires	19-8-2003	Portuguesa
+1702	Ana Teixeira	9-12-1998	Brasileira
+1703	Isaac Cardoso	15-11-2000	Portuguesa
+1704	Benjamin da Mata	25-1-1991	Francesa
+1705	Levi Moura	16-2-2004	Portuguesa
+1706	 Luiz Felipe da Conceicao	15-8-1996	Portuguesa
+1707	Sarah Carvalho	9-11-1994	Portuguesa
+1708	Marcelo Rocha	6-10-1998	Portuguesa
+1709	Isis da Mata	19-2-1994	Francesa
+1710	Rodrigo Silva	27-6-2003	Portuguesa
+1711	Maria Eduarda Cardoso	5-12-1997	Portuguesa
+1712	Leticia Rocha	18-7-1996	Guineense
+1713	Davi Lucca Rodrigues	12-11-2001	Portuguesa
+1714	Pietra Nascimento	19-5-1998	Portuguesa
+1715	Erick Fernandes	10-5-1999	Portuguesa
+1716	Joao Gabriel Gomes	4-7-1992	Portuguesa
+1717	Matheus da Rocha	24-4-1998	Portuguesa
+1718	Caua Vieira	20-9-2004	Portuguesa
+1719	Joao Miguel Campos	18-11-1997	Portuguesa
+1720	Raul Mendes	14-7-2002	Portuguesa
+1721	Bruna Fogaca	25-3-1990	Portuguesa
+1722	Ana Livia Alves	5-10-1995	Portuguesa
+1723	Lucas da Rosa	26-12-1995	Portuguesa
+1724	Isabella Peixoto	12-6-1998	Portuguesa
+1725	Marina Costa	17-8-1992	Portuguesa
+1726	Lucas Alves	4-10-1993	Portuguesa
+1727	Larissa Pereira	4-4-2003	Portuguesa
+1728	 Augusto da Luz	8-5-2001	Portuguesa
+1729	Lais Cardoso	6-12-1998	Guineense
+1730	Yasmin da Paz	22-3-1993	Portuguesa
+1731	Danilo Gomes	20-12-1999	Brasileira
+1732	 Gustavo Henrique Rocha	20-3-1996	Portuguesa
+1733	Clarice da Cruz	6-6-2001	Brasileira
+1734	Gabriela Cavalcanti	10-4-1993	Portuguesa
+1735	Samuel Martins	5-8-1997	Portuguesa
+1736	Antonio Alves	11-6-2000	Portuguesa
+1737	Fernando Viana	6-11-1991	Portuguesa
+1738	Vitor da Cunha	17-4-2000	Portuguesa
+1739	Vinicius Pereira	8-7-1991	Portuguesa
+1740	Mariana da Mota	8-10-1994	Francesa
+1741	Samuel da Mata	11-3-1995	Timorense
+1742	 Vitoria da Conceicao	26-6-1996	Brasileira
+1743	Nina Dias	11-7-2001	Portuguesa
+1744	Thomas Pinto	7-7-2004	Portuguesa
+1745	Caroline Alves	30-4-1999	Portuguesa
+1746	Larissa Alves	21-7-1999	Portuguesa
+1747	 Leticia Cunha	10-5-1996	Portuguesa
+1748	Ana Clara Cardoso	14-4-2000	Portuguesa
+1749	Guilherme Sales	26-12-2000	Portuguesa
+1750	Alexia Fogaca	23-1-2003	Portuguesa
+1751	Francisco Fernandes	18-12-1996	Portuguesa
+1752	Bianca Ramos	11-6-2003	Portuguesa
+1753	 Fernanda Farias	23-7-1997	Portuguesa
+1754	 Ana Julia Souza	26-3-1994	Brasileira
+1755	Ana Costela	24-1-1996	Portuguesa
+1756	Caio Teixeira	8-4-1998	Portuguesa
+1757	 Kevin das Neves	23-4-2004	Portuguesa
+1758	Emanuella Santos	25-5-2004	Portuguesa
+1759	 Vinicius Correia	28-10-1990	Portuguesa
+1760	 Davi Luiz Fogaca	30-12-2004	Portuguesa
+1761	Paulo Carvalho	24-3-2004	Portuguesa
+1762	Maysa Moreira	29-4-1996	Brasileira
+1763	Agatha Azevedo	3-7-2003	Portuguesa
+1764	Carlos Eduardo das Neves	25-5-2002	Portuguesa
+1765	Alice Lima	22-5-1998	Brasileira
+1766	Enrico Lima	14-7-1998	Portuguesa
+1767	 Mariana Santos	22-7-1996	Timorense
+1768	Erick da Cunha	12-4-2001	Portuguesa
+1769	Enzo Gabriel Silva	23-12-1998	Portuguesa
+1770	Lara Correia	5-10-2004	Portuguesa
+1771	Emanuel Nunes	23-12-1992	Portuguesa
+1772	 Fernando Costela	4-3-1992	Brasileira
+1773	 Pietro Mendes	2-1-1996	Brasileira
+1774	Ana Teixeira	16-10-2002	Portuguesa
+1775	Vinicius Porto	14-12-2001	Portuguesa
+1776	 Stella Araujo	28-12-1997	Portuguesa
+1777	Joao Gabriel da Rosa	3-1-2000	Portuguesa
+1778	 Isabella da Rosa	11-3-1999	Portuguesa
+1779	 Maite Moura	15-11-1990	Mocambicana
+1780	Milena da Paz	13-3-2004	Portuguesa
+1781	Amanda Santos	1-9-1998	Guineense
+1782	Esther Silva	4-5-2001	Portuguesa
+1783	Joao Lucas Cardoso	20-9-1998	Mocambicana
+1784	Sarah Duarte	21-2-2003	Portuguesa
+1785	Gustavo Henrique Porto	24-12-2004	Portuguesa
+1786	Ana Julia Nunes	8-2-1999	Portuguesa
+1787	 Lucas Gabriel Araujo	26-10-1996	Portuguesa
+1788	 Kamilly Pires	11-11-1993	Guineense
+1789	Bruno Lopes	16-6-2004	Portuguesa
+1790	Marcela Novaes	10-2-1998	Portuguesa
+1791	Joao Pedro Pires	27-6-1998	Portuguesa
+1792	Benjamin da Rosa	30-1-1991	Portuguesa
+1793	Augusto Freitas	29-8-1999	Portuguesa
+1794	Ana Sophia Nogueira	2-7-1997	Portuguesa
+1795	Henrique Pinto	19-8-1995	Portuguesa
+1796	 Luiz Felipe da Costa	10-7-1999	Portuguesa
+1797	Matheus Nogueira	19-1-1993	Portuguesa
+1798	Leonardo Cardoso	13-4-1992	Brasileira
+1799	Isaac Ferreira	20-9-2002	Portuguesa
+1800	Marcelo Martins	8-2-2002	Portuguesa
+1801	Thomas Barros	3-11-1994	Guineense
+1802	Elisa da Costa	18-8-1997	Portuguesa
+1803	Catarina Rezende	15-2-2004	Portuguesa
+1804	Daniel Nogueira	12-8-1996	Angolana
+1805	Joao Guilherme da Paz	12-3-1990	Portuguesa
+1806	Catarina da Rosa	10-10-2002	Portuguesa
+1807	Erick Dias	16-10-1995	Portuguesa
+1808	 Lorenzo das Neves	17-8-1995	Portuguesa
+1809	Joao Guilherme Pinto	25-7-2003	Portuguesa
+1810	Sarah Costela	6-5-1993	Portuguesa
+1811	Davi Luiz Moreira	26-7-1990	Brasileira
+1812	Stephany Cavalcanti	21-11-1995	Portuguesa
+1813	Isabelly Martins	30-6-2000	Espanhola
+1814	Lucca Fernandes	19-5-2003	Brasileira
+1815	Joana Campos	9-7-1999	Brasileira
+1816	Thiago Souza	7-9-1996	Portuguesa
+1817	 Calebe Costa	5-5-2003	Portuguesa
+1818	 Alexandre da Mata	27-12-1999	Portuguesa
+1819	Gustavo Henrique Barbosa	23-3-1999	Espanhola
+1820	Eduarda Gomes	25-2-1998	Portuguesa
+1821	Heloisa Pinto	2-1-1995	Espanhola
+1822	Diogo Martins	7-8-2001	Portuguesa
+1823	Lais Monteiro	5-3-2002	Portuguesa
+1824	Rodrigo Ribeiro	25-12-2001	Portuguesa
+1825	Pedro Moraes	18-4-1996	Portuguesa
+1826	Maria Eduarda Ramos	13-10-1998	Portuguesa
+1827	Joaquim Moraes	15-2-1990	Italiana
+1828	Joaquim das Neves	21-7-1995	Portuguesa
+1829	Brenda da Mata	6-6-1997	Portuguesa
+1830	Ana Julia Viana	8-2-1995	Brasileira
+1831	Nina Pereira	10-3-2000	Portuguesa
+1832	 Joana Correia	9-12-1991	Angolana
+1833	Leticia da Cunha	28-10-1998	Portuguesa
+1834	Luna Correia	1-1-1998	Portuguesa
+1835	Luiza Correia	30-1-1991	Portuguesa
+1836	 Sofia Fogaca	21-6-1990	Portuguesa
+1837	Luna Moura	4-6-1994	Brasileira
+1838	Joao Pedro Ferreira	18-3-1993	Portuguesa
+1839	 Yago da Paz	3-8-1995	Portuguesa
+1840	Lucas Moreira	21-10-1998	Angolana
+1841	Pietro Pereira	2-2-1990	Portuguesa
+1842	Henrique da Costa	19-9-1990	Portuguesa
+1843	Lucca Nogueira	19-9-2004	Portuguesa
+1844	 Gustavo Porto	23-1-2001	Portuguesa
+1845	Danilo Caldeira	20-4-1990	Portuguesa
+1846	Benjamin Silveira	9-11-1992	Portuguesa
+1847	Emanuel da Cunha	14-4-1991	Angolana
+1848	 Nicolas Teixeira	1-11-1999	Portuguesa
+1849	Nicole Melo	9-4-2002	Portuguesa
+1850	Caua Caldeira	4-2-1991	Portuguesa
+1851	Nicolas Costela	8-5-2000	Angolana
+1852	 Vitor Gabriel Goncalves	27-8-1996	Portuguesa
+1853	Antonio Souza	30-9-1993	Portuguesa
+1854	Fernando Silva	9-3-1992	Portuguesa
+1855	Maria Clara Freitas	4-1-1992	Portuguesa
+1856	Samuel Araujo	20-11-1999	Portuguesa
+1857	Bruna Pereira	19-5-1993	Portuguesa
+1858	Camila Carvalho	15-7-1992	Portuguesa
+1859	Daniel Costa	7-12-2002	Portuguesa
+1860	 Stephany Moura	13-4-1992	Guineense
+1861	Ana Julia Almeida	4-3-1995	Portuguesa
+1862	 Guilherme Teixeira	18-4-1992	Portuguesa
+1863	 Murilo Fogaca	29-11-1991	Portuguesa
+1864	Diogo Araujo	4-10-1993	Portuguesa
+1865	Joao Lucas Souza	6-3-1991	Guineense
+1866	Alice Monteiro	27-9-2003	Portuguesa
+1867	Isabel Ramos	29-3-1995	Espanhola
+1868	Nathan Cavalcanti	20-3-1993	Portuguesa
+1869	 Daniela Castro	22-10-1993	Portuguesa
+1870	Joao Lucas da Mota	20-7-1994	Portuguesa
+1871	Marina Castro	4-6-1998	Portuguesa
+1872	Camila Rodrigues	30-2-1992	Portuguesa
+1873	Otavio Duarte	27-11-1999	Brasileira
+1874	Nathan Cardoso	25-4-1995	Portuguesa
+1875	Gustavo Teixeira	29-6-2000	Portuguesa
+1876	Levi Cardoso	27-1-1999	Portuguesa
+1877	 Thales Souza	26-11-1999	Portuguesa
+1878	Davi Luiz Carvalho	11-4-2002	Brasileira
+1879	Enrico Santos	18-11-1997	Portuguesa
+1880	Sophie Fernandes	4-1-2001	Angolana
+1881	Pedro Henrique da Luz	7-4-2003	Espanhola
+1882	Diego Ribeiro	18-7-1998	Portuguesa
+1883	Joao Vitor Nascimento	8-8-1992	Portuguesa
+1884	Ana Clara Vieira	27-10-1991	Portuguesa
+1885	 Daniel Dias	20-2-2004	Portuguesa
+1886	Larissa Silva	7-9-1993	Portuguesa
+1887	Sophia Costa	3-3-2001	Espanhola
+1888	Brenda Campos	26-8-2002	Portuguesa
+1889	Murilo Santos	15-12-2001	Portuguesa
+1890	Luiz Felipe Santos	11-8-1996	Portuguesa
+1891	Camila Pires	29-11-1997	Portuguesa
+1892	Caua Rodrigues	29-7-1999	Portuguesa
+1893	Ana Luiza Lima	30-3-2000	Guineense
+1894	Julia Jesus	23-10-2004	Portuguesa
+1895	Leticia Pinto	8-10-1990	Portuguesa
+1896	 Luiza Santos	13-10-2002	Portuguesa
+1897	Sofia Goncalves	7-2-1995	Portuguesa
+1898	Davi Lucca Porto	12-7-2004	Portuguesa
+1899	Sarah Ferreira	24-10-1994	Portuguesa
+1900	Anthony Ramos	14-2-1993	Timorense
+1901	Caroline Novaes	20-3-1992	Portuguesa
+1902	Henrique Ribeiro	3-5-2001	Portuguesa
+1903	 Ana Laura Aragao	15-12-1995	Italiana
+1904	Leonardo Nascimento	2-6-1996	Portuguesa
+1905	Maria Julia Pereira	14-7-2004	Portuguesa
+1906	Clarice Campos	3-3-2003	Portuguesa
+1907	Gabriel Barbosa	18-5-1997	Portuguesa
+1908	Maria Vitoria Martins	6-6-1990	Portuguesa
+1909	Pedro Caldeira	27-1-2002	Mocambicana
+1910	Julia Costela	25-8-2004	Portuguesa
+1911	 Alicia Teixeira	17-2-1993	Portuguesa
+1912	Larissa Moraes	1-10-1996	Portuguesa
+1913	Joana Silveira	4-4-2004	Brasileira
+1914	 Camila Cunha	29-3-2003	Brasileira
+1915	Valentina da Luz	13-5-1990	Portuguesa
+1916	Maria Luiza Rocha	14-7-2001	Guineense
+1917	Melissa Rodrigues	19-10-2004	Portuguesa
+1918	Maria Julia Oliveira	16-12-2000	Portuguesa
+1919	Maria Luiza Dias	18-6-1995	Portuguesa
+1920	Ana Beatriz Barros	10-8-2002	Italiana
+1921	Otavio Pires	4-5-1994	Portuguesa
+1922	Isis Lopes	11-10-2002	Italiana
+1923	 Lucca Caldeira	5-5-1997	Brasileira
+1924	Carlos Eduardo Porto	21-10-1992	Italiana
+1925	 Ian da Paz	25-5-1992	Portuguesa
+1926	Joao Miguel Porto	22-9-2002	Portuguesa
+1927	Gabriel Cardoso	18-3-1996	Angolana
+1928	Larissa Ramos	11-10-1993	Portuguesa
+1929	Guilherme Novaes	10-8-1990	Timorense
+1930	Clara Carvalho	30-9-2001	Francesa
+1931	Lucas Gabriel Aragao	21-9-2000	Portuguesa
+1932	Rafael Pereira	20-3-1991	Portuguesa
+1933	Camila Costa	13-7-1991	Brasileira
+1934	Evelyn da Costa	5-5-2004	Portuguesa
+1935	Pietro Goncalves	2-3-1994	Brasileira
+1936	 Ana Beatriz Moura	19-11-1992	Portuguesa
+1937	Pedro Lucas Carvalho	2-2-2002	Portuguesa
+1938	Luiz Otavio Porto	18-4-1992	Portuguesa
+1939	Gabrielly Campos	20-5-1994	Portuguesa
+1940	Bruna Sales	26-3-2001	Portuguesa
+1941	Isis Costela	2-8-1996	Brasileira
+1942	Miguel Rodrigues	25-2-2003	Portuguesa
+1943	Rebeca Silveira	24-12-1990	Portuguesa
+1944	Eduarda Nascimento	1-4-1993	Portuguesa
+1945	 Anthony Nogueira	26-1-1993	Portuguesa
+1946	Luiz Gustavo Rodrigues	28-9-1999	Brasileira
+1947	 Gabriel Costela	23-11-2002	Italiana
+1948	Davi Lucca Duarte	29-2-1995	Portuguesa
+1949	Rafaela Pires	20-11-1999	Portuguesa
+1950	Luna Martins	18-12-1999	Portuguesa
+1951	Maria Alice Barbosa	22-1-1996	Portuguesa
+1952	Samuel Barros	4-8-2003	Guineense
+1953	Melissa Nunes	2-9-1998	Portuguesa
+1954	 Augusto Oliveira	7-2-1997	Portuguesa
+1955	Marcelo Nunes	22-5-2000	Portuguesa
+1956	Theo da Mota	24-4-1993	Portuguesa
+1957	Larissa Dias	24-2-1991	Portuguesa
+1958	Caua Lima	3-9-1990	Portuguesa
+1959	Mariane Martins	4-6-1992	Portuguesa
+1960	Stephany Almeida	17-7-1996	Portuguesa
+1961	Ian Porto	5-1-1993	Angolana
+1962	Joao Miguel Vieira	4-4-2003	Portuguesa
+1963	Igor da Mata	21-6-1995	Italiana
+1964	Rebeca Rocha	18-9-1999	Portuguesa
+1965	Alicia Dias	11-4-2004	Brasileira
+1966	Lavinia Duarte	12-4-1992	Guineense
+1967	Luiz Felipe Dias	19-6-2003	Brasileira
+1968	 Alana Correia	21-6-1991	Brasileira
+1969	Davi Lucca Barros	5-12-2000	Mocambicana
+1970	Maria Vitoria Sales	3-7-1995	Portuguesa
+1971	 Pedro Henrique Azevedo	21-6-1990	Brasileira
+1972	Daniela Santos	21-1-2000	Guineense
+1973	Gabrielly Araujo	3-4-2002	Portuguesa
+1974	Fernanda Nascimento	7-2-1993	Portuguesa
+1975	 Marcos Vinicius Martins	17-8-1992	Portuguesa
+1976	 Milena Sales	9-8-2003	Portuguesa
+1977	Joao Guilherme da Rosa	2-1-1994	Guineense
+1978	Joao Miguel da Luz	18-6-1996	Portuguesa
+1979	Yasmin Viana	8-4-2002	Portuguesa
+1980	Gabriel Pires	3-7-1999	Portuguesa
+1981	Leandro Silva	13-12-2004	Portuguesa
+1982	 Juan Ferreira	10-7-1994	Brasileira
+1983	Giovanna Pinto	13-1-1999	Portuguesa
+1984	 Marcela Teixeira	19-2-1990	Portuguesa
+1985	 Joao Felipe Lopes	27-12-1990	Portuguesa
+1986	Carolina Cunha	10-9-2001	Portuguesa
+1987	 Milena Fogaca	19-6-1996	Timorense
+1988	 Otavio Martins	8-5-2002	Portuguesa
+1989	Heitor Cavalcanti	15-4-1996	Portuguesa
+1990	Lorena Pinto	26-9-1990	Portuguesa
+1991	Julia Moraes	18-6-1998	Portuguesa
+1992	Isabella Oliveira	23-4-2002	Portuguesa
+1993	Rafael Silveira	11-6-1996	Portuguesa
+1994	 Luiz Otavio Correia	26-11-2004	Espanhola
+1995	Yago Dias	23-4-1994	Angolana
+1996	Luiz Miguel Nunes	29-11-1994	Angolana
+1997	Maria Vitoria da Rocha	20-7-2000	Brasileira
+1998	Joao Lucas Duarte	29-6-2004	Portuguesa
+1999	Nicole Martins	17-4-1993	Portuguesa
+2000	Leonardo da Rocha	16-9-2004	Portuguesa
+2001	 Isadora Rocha	2-2-1993	Portuguesa
+2002	Theo Correia	6-1-1991	Portuguesa
+2003	Gustavo Henrique Martins	26-1-1997	Timorense
+2004	Caue Costela	15-8-1991	Brasileira
+2005	Thales Campos	21-12-2004	Portuguesa
+2006	Vitor Gabriel Farias	1-7-2003	Guineense
+2007	 Bianca Cardoso	4-8-1992	Portuguesa
+2008	Alexia Moura	20-7-2004	Portuguesa
+2009	Augusto Caldeira	30-10-1991	Angolana
+2010	Andre Viana	28-6-2004	Portuguesa
+2011	 Isaac Teixeira	20-8-2004	Portuguesa
+2012	Yasmin Melo	19-9-1997	Francesa
+2013	Maria Clara Farias	15-7-1990	Portuguesa
+2014	Carolina Porto	15-7-2000	Portuguesa
+2015	Carlos Eduardo Ramos	4-8-2003	Mocambicana
+2016	Gabriel Costa	20-8-2003	Brasileira
+2017	Larissa Silveira	24-5-2001	Portuguesa
+2018	Calebe Silveira	30-12-1995	Francesa
+2019	Luiz Henrique Cavalcanti	10-9-1992	Espanhola
+2020	Livia Pereira	3-11-1995	Portuguesa
+2021	Antonio Caldeira	8-11-2000	Portuguesa
+2022	Ana Sophia Ramos	2-12-1997	Mocambicana
+2023	Eduardo Rodrigues	30-9-1998	Portuguesa
+2024	Leonardo Lima	12-10-2000	Portuguesa
+2025	Olivia Rocha	13-7-1990	Espanhola
+2026	Luiz Felipe das Neves	7-3-1994	Portuguesa
+2027	Diogo Viana	6-12-2003	Portuguesa
+2028	Marcos Vinicius Almeida	19-10-1994	Mocambicana
+2029	Lorenzo Carvalho	8-12-1992	Espanhola
+2030	Esther Nunes	30-12-1996	Portuguesa
+2031	Lucas Barros	17-2-1998	Portuguesa
+2032	Maria Cecilia Lopes	20-12-1991	Portuguesa
+2033	Matheus Pereira	26-6-2002	Portuguesa
+2034	Luiz Felipe Barros	20-11-1992	Portuguesa
+2035	Amanda Pereira	21-5-1997	Portuguesa
+2036	Luigi Azevedo	5-2-1995	Portuguesa
+2037	Heloisa Pereira	8-2-2000	Portuguesa
+2038	Catarina da Rocha	4-7-1994	Brasileira
+2039	Ana Vitoria Sales	17-10-1997	Portuguesa
+2040	 Maysa Nunes	12-12-1990	Portuguesa
+2041	Emanuella da Paz	9-10-1993	Portuguesa
+2042	Matheus Viana	12-5-1992	Portuguesa
+2043	Yasmin Novaes	13-6-1997	Portuguesa
+2044	Caua Nogueira	21-12-2001	Portuguesa
+2045	Esther Teixeira	16-2-2004	Portuguesa
+2046	Nathan Novaes	27-10-1997	Angolana
+2047	Ana Beatriz Dias	12-12-2001	Timorense
+2048	Carlos Eduardo Oliveira	19-5-2001	Brasileira
+2049	Luiz Felipe Nunes	22-4-1997	Portuguesa
+2050	Davi da Mata	4-4-2002	Portuguesa
+2051	Ian Lopes	4-12-2003	Portuguesa
+2052	Benjamin Novaes	9-7-1995	Portuguesa
+2053	Benicio Farias	11-9-2000	Portuguesa
+2054	 Catarina Fernandes	7-9-1999	Portuguesa
+2055	Leandro da Mata	23-7-1995	Portuguesa
+2056	Maria Fernanda Pires	13-4-2002	Angolana
+2057	 Maria Alice Cardoso	19-11-2002	Mocambicana
+2058	Davi Lucca Fernandes	28-9-1990	Portuguesa
+2059	Lucca Moura	25-6-1993	Portuguesa
+2060	 Renan Porto	5-5-2001	Portuguesa
+2061	 Laura Novaes	18-11-1993	Portuguesa
+2062	Daniela Lima	28-7-1998	Brasileira
+2063	 Larissa Costela	5-9-1991	Portuguesa
+2064	Yasmin Fogaca	10-1-2001	Portuguesa
+2065	Joao Guilherme Barros	18-3-1997	Espanhola
+2066	 Maria Eduarda Almeida	8-4-1998	Portuguesa
+2067	Marcos Vinicius Rocha	9-1-1999	Portuguesa
+2068	 Sophie Costa	11-9-2004	Portuguesa
+2069	Gustavo Pires	17-2-2000	Portuguesa
+2070	Joao Mendes	5-4-1991	Portuguesa
+2071	Rafaela Alves	4-10-1998	Portuguesa
+2072	Valentina Mendes	17-10-2000	Portuguesa
+2073	Livia Vieira	26-9-1990	Brasileira
+2074	Emanuella Silveira	12-11-2001	Portuguesa
+2075	Vinicius Rocha	13-2-1992	Portuguesa
+2076	 Bianca da Paz	26-1-1996	Portuguesa
+2077	Nina Fogaca	18-10-1995	Francesa
+2078	Maysa Dias	5-12-2002	Portuguesa
+2079	Maria Sophia Carvalho	23-8-2004	Portuguesa
+2080	Luna Farias	27-10-1990	Portuguesa
+2081	Ana Clara Castro	13-8-1997	Portuguesa
+2082	Renan Castro	10-9-1995	Guineense
+2083	 Maria Luiza Goncalves	7-11-1992	Espanhola
+2084	Joao Gabriel Rezende	26-6-2000	Portuguesa
+2085	Noah Mendes	8-12-1997	Francesa
+2086	Sabrina Lima	27-7-1992	Portuguesa
+2087	Joao Lucas Ramos	12-1-1996	Mocambicana
+2088	Antonio Castro	21-4-2002	Portuguesa
+2089	Arthur Mendes	15-9-1990	Portuguesa
+2090	Pedro Jesus	14-11-2003	Portuguesa
+2091	Clara Cavalcanti	26-9-2003	Portuguesa
+2092	Sofia Lima	27-8-2001	Portuguesa
+2093	Heloisa Barbosa	28-4-2004	Italiana
+2094	Rodrigo Barbosa	21-5-1999	Italiana
+2095	Vitoria da Conceicao	27-6-2001	Angolana
+2096	 Marina Oliveira	23-3-2001	Brasileira
+2097	Pietro da Paz	11-2-1990	Portuguesa
+2098	Juliana Rodrigues	13-11-2003	Portuguesa
+2099	Leonardo Ferreira	16-4-2002	Brasileira
+2100	Raul Ferreira	14-7-2004	Espanhola
+2101	 Caue Cunha	14-11-1993	Portuguesa
+2102	Amanda Silveira	1-2-2002	Portuguesa
+2103	Leticia da Costa	18-7-1997	Espanhola
+2104	Heloisa da Cruz	2-10-1996	Portuguesa
+2105	Diego Correia	30-4-1994	Italiana
+2106	Ana Mendes	15-3-1996	Portuguesa
+2107	Rodrigo Barros	26-4-1997	Portuguesa
+2108	Renan Melo	4-8-1999	Italiana
+2109	 Vitoria Castro	20-9-2001	Portuguesa
+2110	 Manuela Lima	27-6-1994	Portuguesa
+2111	Stella da Rosa	15-6-1994	Portuguesa
+2112	Luiza das Neves	5-4-2004	Portuguesa
+2113	Ana Julia Melo	3-9-1996	Portuguesa
+2114	Carlos Eduardo Cardoso	17-2-1994	Portuguesa
+2115	Eduardo Martins	5-5-2003	Portuguesa
+2116	Marcela Carvalho	15-10-2003	Portuguesa
+2117	Leandro Rocha	10-9-1991	Mocambicana
+2118	Maria Fernanda Fogaca	25-7-2001	Portuguesa
+2119	 Thales Melo	22-12-1997	Portuguesa
+2120	Carolina Barbosa	15-10-2002	Angolana
+2121	Francisco Rodrigues	6-1-1996	Brasileira
+2122	 Brenda Nunes	2-2-1998	Espanhola
+2123	Lucas Lopes	9-6-1995	Espanhola
+2124	Antonio Novaes	11-11-1995	Portuguesa
+2125	Samuel Fogaca	26-1-1990	Portuguesa
+2126	Maria da Mota	7-2-2003	Portuguesa
+2127	Pedro Henrique da Mota	24-8-2002	Italiana
+2128	Joao Miguel Lopes	13-1-1998	Portuguesa
+2129	 Matheus Correia	10-11-1990	Portuguesa
+2130	Stephany Melo	1-7-1995	Portuguesa
+2131	Amanda Monteiro	29-9-1997	Portuguesa
+2132	Heloisa da Costa	7-12-1999	Brasileira
+2133	Davi Sales	24-1-2001	Brasileira
+2134	Joao Miguel Nascimento	27-3-1995	Portuguesa
+2135	Maria Clara Porto	19-9-1990	Brasileira
+2136	Barbara Almeida	24-10-1999	Portuguesa
+2137	Eduardo Ribeiro	29-11-1999	Timorense
+2138	Lais Costa	4-6-1992	Brasileira
+2139	 Rebeca Freitas	4-12-1994	Portuguesa
+2140	Bruna Caldeira	9-9-1993	Portuguesa
+2141	Marcelo Campos	24-12-1998	Portuguesa
+2142	Mariana da Mata	14-7-1999	Angolana
+2143	Anthony Cavalcanti	24-2-1996	Portuguesa
+2144	 Diego Alves	18-4-1994	Portuguesa
+2145	Vinicius Nunes	10-3-1995	Portuguesa
+2146	Alexandre da Cruz	24-8-2003	Portuguesa
+2147	Gustavo Henrique Porto	25-12-1992	Espanhola
+2148	Luigi Rezende	24-2-1992	Guineense
+2149	Leticia Cardoso	4-12-1998	Portuguesa
+2150	Guilherme Correia	27-10-1996	Portuguesa
+2151	Eduarda Moraes	13-6-1994	Portuguesa
+2152	Evelyn Vieira	14-10-2001	Portuguesa
+2153	Emilly Moreira	12-9-1995	Portuguesa
+2154	 Joao Gabriel da Costa	16-4-2001	Portuguesa
+2155	Lucca Moura	7-4-1997	Portuguesa
+2156	Joao da Mota	4-7-2003	Angolana
+2157	Raquel Santos	19-11-1994	Brasileira
+2158	Lavinia Alves	27-11-1994	Timorense
+2159	Cecilia Rodrigues	18-6-2004	Portuguesa
+2160	Cecilia Ramos	5-2-1999	Portuguesa
+2161	Luiz Otavio Correia	30-6-1992	Brasileira
+2162	 Luana Azevedo	2-7-1994	Portuguesa
+2163	Kevin Aragao	2-4-1997	Portuguesa
+2164	Valentina Teixeira	20-8-1994	Portuguesa
+2165	Lorenzo Fogaca	14-12-1992	Portuguesa
+2166	Joao da Luz	14-3-2004	Brasileira
+2167	Maria Sophia Pereira	21-2-1994	Portuguesa
+2168	Eloah Lima	25-9-1992	Francesa
+2169	Igor da Conceicao	22-3-1992	Portuguesa
+2170	Laura Ramos	30-8-1993	Portuguesa
+2171	 Joao Lucas Lima	10-2-2001	Portuguesa
+2172	Theo Pinto	8-1-2001	Portuguesa
+2173	Maria Cecilia da Costa	2-10-1994	Mocambicana
+2174	Rafaela Rodrigues	30-6-2000	Portuguesa
+2175	Vitor Barros	26-11-2004	Portuguesa
+2176	Breno Dias	2-10-1997	Portuguesa
+2177	Calebe Jesus	8-10-2004	Italiana
+2178	 Fernanda Barros	18-1-1997	Portuguesa
+2179	Maria Alice das Neves	27-7-1996	Brasileira
+2180	Isadora Melo	10-6-1993	Portuguesa
+2181	 Joao Miguel Peixoto	16-4-2003	Angolana
+2182	Stephany Castro	22-1-2000	Timorense
+2183	Benjamin da Cruz	18-11-2003	Portuguesa
+2184	Leandro Nunes	2-2-2001	Espanhola
+2185	Alice Souza	4-12-1998	Portuguesa
+2186	Alicia Silveira	7-7-1991	Portuguesa
+2187	 Enzo Gabriel Fernandes	5-1-2000	Portuguesa
+2188	Emanuel Melo	3-8-1996	Portuguesa
+2189	Joana Cunha	3-9-1990	Brasileira
+2190	Laura Nogueira	14-6-2004	Portuguesa
+2191	Lucca da Cruz	1-9-1997	Portuguesa
+2192	 Leticia Pires	24-3-2004	Portuguesa
+2193	Pedro Lucas Gomes	27-10-2000	Portuguesa
+2194	Melissa da Paz	14-12-1990	Portuguesa
+2195	Alexia Correia	19-6-1990	Portuguesa
+2196	Samuel da Rosa	12-5-1998	Portuguesa
+2197	Marcos Vinicius Mendes	29-10-2003	Portuguesa
+2198	Emanuelly Costa	11-10-1998	Angolana
+2199	Isabelly Moura	20-10-1995	Portuguesa
+2200	Evelyn Campos	6-9-1999	Portuguesa
+2201	Luiz Fernando Cardoso	7-12-2003	Portuguesa
+2202	 Sophia Freitas	29-11-1990	Portuguesa
+2203	Kevin Ribeiro	11-3-1995	Portuguesa
+2204	 Clarice Moreira	5-10-2001	Italiana
+2205	Alice Costela	18-5-1998	Brasileira
+2206	Nathan Barbosa	15-2-1994	Portuguesa
+2207	Esther da Rosa	25-7-1994	Portuguesa
+2208	Isaac Nogueira	28-9-2004	Portuguesa
+2209	Elisa Monteiro	25-6-2003	Portuguesa
+2210	Maria Alice Ferreira	4-5-2002	Angolana
+2211	 Caue Costa	16-6-2003	Portuguesa
+2212	Enzo da Costa	5-4-2000	Portuguesa
+2213	Rafael Martins	10-10-2001	Portuguesa
+2214	Natalia Fernandes	10-4-2003	Brasileira
+2215	Helena Pinto	20-2-2000	Angolana
+2216	 Juliana da Paz	30-9-1992	Portuguesa
+2217	Juliana Fogaca	3-5-1993	Portuguesa
+2218	Stephany Goncalves	4-11-2004	Brasileira
+2219	Nicolas Oliveira	11-8-1996	Portuguesa
+2220	Andre Pinto	21-6-1999	Angolana
+2221	Beatriz Peixoto	11-3-1991	Portuguesa
+2222	 Livia Aragao	20-1-1997	Portuguesa
+2223	Emilly da Cruz	17-8-1992	Portuguesa
+2224	Evelyn Aragao	3-10-1999	Portuguesa
+2225	Daniela Vieira	5-8-2002	Portuguesa
+2226	Emanuelly da Costa	18-9-1999	Angolana
+2227	Alexia Fernandes	12-8-1996	Portuguesa
+2228	Ana Beatriz Silveira	11-3-2001	Portuguesa
+2229	 Ana Costela	4-11-2004	Timorense
+2230	Yasmin Nogueira	21-1-1995	Brasileira
+2231	Ana Julia Vieira	21-3-2000	Portuguesa
+2232	Bruna Correia	19-8-1996	Portuguesa
+2233	Murilo Ribeiro	21-9-1991	Brasileira
+2234	Felipe Barbosa	15-6-1999	Espanhola
+2235	Daniel Pinto	13-7-2004	Portuguesa
+2236	Thiago Mendes	5-2-1993	Francesa
+2237	Paulo Fogaca	26-12-1997	Mocambicana
+2238	Ana Julia Gomes	17-7-1998	Portuguesa
+2239	Lara Barbosa	26-1-2004	Brasileira
+2240	Arthur Martins	18-2-1995	Brasileira
+2241	Fernanda Pires	2-1-1991	Portuguesa
+2242	 Ana Luiza Moura	17-2-1990	Portuguesa
+2243	Juliana Cavalcanti	28-2-1991	Portuguesa
+2244	 Melissa Silveira	17-8-1995	Portuguesa
+2245	Maria Vitoria Oliveira	24-11-1992	Portuguesa
+2246	Gustavo Henrique Correia	12-4-1994	Portuguesa
+2247	Evelyn Porto	20-2-2002	Portuguesa
+2248	Barbara Cardoso	23-8-2002	Portuguesa
+2249	Enrico Oliveira	20-1-1998	Portuguesa
+2250	 Levi das Neves	20-6-1994	Portuguesa
+2251	Marcela Peixoto	22-1-1994	Portuguesa
+2252	Lucas Gabriel Carvalho	30-10-1999	Brasileira
+2253	Sabrina Castro	25-5-2002	Italiana
+2254	Felipe Pinto	30-1-2004	Angolana
+2255	Gustavo Ribeiro	4-12-1990	Brasileira
+2256	Beatriz da Luz	4-8-2000	Portuguesa
+2257	 Arthur Souza	16-5-1993	Portuguesa
+2258	Anthony Silveira	12-7-1997	Portuguesa
+2259	Caua da Cunha	5-5-1999	Portuguesa
+2260	Ana da Rocha	13-7-1994	Mocambicana
+2261	Heitor da Mota	4-5-1990	Mocambicana
+2262	Pietro Moreira	21-5-1997	Italiana
+2263	 Maria Julia Sales	1-9-1998	Brasileira
+2264	Eduarda Caldeira	26-1-2003	Portuguesa
+2265	Maria Vitoria Teixeira	3-11-1998	Portuguesa
+2266	Nathan Barros	3-1-1994	Portuguesa
+2267	Alana Melo	6-1-1995	Portuguesa
+2268	Vitor Nascimento	9-9-2004	Portuguesa
+2269	Juliana Sales	4-2-1992	Brasileira
+2270	Ana Vitoria Farias	26-12-1993	Mocambicana
+2271	Henrique Duarte	7-8-1990	Portuguesa
+2272	 Lara Moraes	11-8-2004	Portuguesa
+2273	Isabella da Cunha	29-4-1994	Portuguesa
+2274	 Luana Melo	12-6-2003	Portuguesa
+2275	Isabella da Mata	26-6-1992	Portuguesa
+2276	 Giovanna Pires	2-3-2004	Mocambicana
+2277	Amanda Peixoto	21-8-2001	Brasileira
+2278	 Lucas Cardoso	4-3-1993	Francesa
+2279	Lorenzo da Cunha	19-2-2002	Portuguesa
+2280	Diogo Alves	1-12-1999	Portuguesa
+2281	Joao Vitor Cardoso	8-12-1993	Portuguesa
+2282	Bryan Nascimento	11-4-2000	Mocambicana
+2283	Diego Cardoso	9-9-1997	Portuguesa
+2284	Gustavo Souza	5-7-1991	Brasileira
+2285	Ana Livia Teixeira	23-8-2002	Portuguesa
+2286	Evelyn Pinto	8-2-1995	Portuguesa
+2287	Alana Azevedo	4-7-2004	Portuguesa
+2288	 Paulo Caldeira	19-9-1992	Portuguesa
+2289	Emanuel Vieira	1-6-1995	Portuguesa
+2290	Ana Sophia Castro	23-9-1996	Portuguesa
+2291	Davi Lucca Rocha	11-8-2000	Portuguesa
+2292	Levi Barbosa	25-9-1997	Portuguesa
+2293	Heloisa da Cunha	3-12-1993	Portuguesa
+2294	Laura Farias	11-2-2002	Portuguesa
+2295	Luana Caldeira	30-9-2001	Portuguesa
+2296	Maite Peixoto	16-11-1997	Portuguesa
+2297	Leticia da Mata	29-6-2000	Timorense
+2298	Joao Gabriel da Luz	12-6-1999	Angolana
+2299	Rafael Teixeira	4-8-2004	Italiana
+2300	 Nicole Duarte	19-9-1996	Portuguesa
+2301	Ana Laura Cardoso	13-8-1994	Portuguesa
+2302	Stella Porto	24-6-2002	Portuguesa
+2303	Thiago Dias	12-7-1994	Portuguesa
+2304	Enrico Martins	23-12-2001	Portuguesa
+2305	 Diego Peixoto	12-11-2003	Portuguesa
+2306	Sabrina Ramos	10-6-1997	Portuguesa
+2307	 Vitor Gabriel Pires	25-2-2001	Portuguesa
+2308	Matheus Correia	21-4-1990	Portuguesa
+2309	Luigi Porto	5-3-2002	Espanhola
+2310	Raquel Pinto	12-4-1990	Portuguesa
+2311	 Davi Luiz Silveira	30-3-2001	Timorense
+2312	 Eduardo Moreira	9-2-1997	Portuguesa
+2313	Emanuelly Costa	25-2-1998	Portuguesa
+2314	 Murilo Rodrigues	5-8-1997	Portuguesa
+2315	Lucca Viana	20-3-1992	Portuguesa
+2316	Luiz Fernando Aragao	5-5-1996	Timorense
+2317	Eloah Peixoto	28-1-1990	Francesa
+2318	Eloah Santos	6-12-1998	Portuguesa
+2319	Maria Julia Lopes	28-3-1990	Portuguesa
+2320	Lorenzo da Conceicao	17-5-1996	Portuguesa
+2321	Alicia Nascimento	9-2-2000	Portuguesa
+2322	Alexandre Porto	17-11-1991	Italiana
+2323	 Ana Sophia Campos	12-12-1999	Portuguesa
+2324	Lucas Silveira	19-12-1993	Brasileira
+2325	Anthony Monteiro	24-3-1999	Portuguesa
+2326	 Gustavo Cavalcanti	25-8-2000	Brasileira
+2327	Lucas Gabriel Correia	26-1-1993	Portuguesa
+2328	 Emanuelly Rezende	26-8-1991	Portuguesa
+2329	Eduarda Teixeira	8-11-2000	Portuguesa
+2330	Stella Alves	28-6-1995	Mocambicana
+2331	 Gabriel Barros	24-3-1997	Portuguesa
+2332	Yago Melo	8-12-1990	Portuguesa
+2333	Maria Luiza da Conceicao	5-10-1998	Brasileira
+2334	 Marcos Vinicius Castro	11-10-2001	Portuguesa
+2335	Joao Guilherme Porto	12-8-1996	Italiana
+2336	Yago Ferreira	19-11-1990	Portuguesa
+2337	Julia Nogueira	3-10-1998	Portuguesa
+2338	Vitor Gabriel Dias	30-3-1999	Portuguesa
+2339	Pedro Lucas Caldeira	29-10-1997	Portuguesa
+2340	Gustavo Henrique Barros	15-8-1995	Portuguesa
+2341	Lucas Gabriel Cunha	4-6-2002	Portuguesa
+2342	Benjamin Costa	3-8-1995	Portuguesa
+2343	Maite Goncalves	8-7-2002	Portuguesa
+2344	Mariane Martins	14-5-1998	Portuguesa
+2345	Maria Luiza Ramos	24-11-1993	Brasileira
+2346	Livia Sales	8-10-1991	Portuguesa
+2347	Joao Guilherme Barbosa	19-12-1993	Portuguesa
+2348	Rebeca Souza	5-4-1993	Portuguesa
+2349	Joao Almeida	30-12-2002	Guineense
+2350	Carlos Eduardo da Luz	9-7-1990	Portuguesa
+2351	Joana Santos	9-1-2001	Portuguesa
+2352	 Leticia da Cunha	25-9-1994	Portuguesa
+2353	 Stephany Lima	11-4-2000	Portuguesa
+2354	Sophia Viana	29-11-1995	Portuguesa
+2355	Sophie Jesus	12-3-1993	Portuguesa
+2356	 Maria Fernanda Barros	5-12-2001	Espanhola
+2357	Joao Pedro Costela	14-8-1991	Portuguesa
+2358	Julia Moura	28-1-2003	Portuguesa
+2359	Bianca Fogaca	26-1-1998	Mocambicana
+2360	 Luiz Gustavo Campos	18-2-2000	Portuguesa
+2361	 Luiz Fernando Oliveira	11-4-1994	Portuguesa
+2362	Sophia Vieira	7-11-2001	Italiana
+2363	Helena Jesus	14-3-1994	Portuguesa
+2364	Raquel Araujo	25-9-2002	Portuguesa
+2365	 Ana Vitoria Silva	20-4-1991	Portuguesa
+2366	Pietra Nascimento	20-3-1994	Portuguesa
+2367	Davi Lucca Ribeiro	22-8-1996	Francesa
+2368	Ana Vitoria Barros	25-7-2003	Francesa
+2369	Isabel Santos	21-1-1993	Portuguesa
+2370	Olivia Alves	5-12-1999	Portuguesa
+2371	Eloah Castro	26-7-1999	Portuguesa
+2372	Danilo Pinto	7-3-2001	Portuguesa
+2373	 Nicolas Alves	13-10-1992	Mocambicana
+2374	Bernardo Pinto	3-7-1998	Portuguesa
+2375	Leonardo Monteiro	23-9-1996	Portuguesa
+2376	Joao Felipe Rodrigues	27-2-1996	Francesa
+2377	Beatriz Costa	7-11-1996	Guineense
+2378	Ana Livia Moraes	19-6-2004	Portuguesa
+2379	Amanda das Neves	16-2-2002	Portuguesa
+2380	Joao Gabriel Nunes	25-1-1992	Brasileira
+2381	Luiza Cavalcanti	10-2-1996	Brasileira
+2382	Luiza Santos	6-9-1991	Portuguesa
+2383	Natalia Vieira	28-3-2000	Portuguesa
+2384	Bruno Freitas	18-3-1990	Portuguesa
+2385	Francisco Gomes	30-6-1990	Portuguesa
+2386	 Nina Aragao	10-8-2001	Portuguesa
+2387	Leonardo Goncalves	23-3-1994	Portuguesa
+2388	 Cecilia das Neves	21-2-1996	Portuguesa
+2389	Lucas Gabriel da Rosa	8-2-1994	Portuguesa
+2390	Vitoria Cavalcanti	5-2-1990	Portuguesa
+2391	Maite da Rosa	7-11-2002	Brasileira
+2392	Diogo Goncalves	10-2-1995	Brasileira
+2393	Caroline Pires	14-5-2002	Mocambicana
+2394	Ryan Santos	4-3-1990	Portuguesa
+2395	Joao Felipe Mendes	15-3-2001	Portuguesa
+2396	Fernando Caldeira	17-4-2001	Portuguesa
+2397	Antonio da Cruz	25-12-1997	Portuguesa
+2398	Caio Correia	1-7-1999	Portuguesa
+2399	Yasmin Castro	28-4-1994	Portuguesa
+2400	Joao Gabriel da Cruz	7-5-1991	Mocambicana
+2401	Nina Carvalho	27-1-2003	Portuguesa
+2402	Caue da Rocha	23-9-1993	Angolana
+2403	 Heloisa Ramos	2-3-1992	Portuguesa
+2404	Maria Luiza Rezende	28-2-1999	Angolana
+2405	Felipe Melo	15-3-2004	Portuguesa
+2406	Maysa da Paz	1-5-2004	Brasileira
+2407	 Luiz Otavio Farias	16-7-1994	Espanhola
+2408	Sophia das Neves	19-10-1998	Portuguesa
+2409	 Giovanna Novaes	9-1-1994	Italiana
+2410	 Laura Nunes	29-4-1998	Brasileira
+2411	Arthur Fogaca	18-7-1997	Portuguesa
+2412	 Davi Lucca da Luz	8-6-1995	Portuguesa
+2413	Maria Alice Pires	25-12-2002	Portuguesa
+2414	Leandro Martins	23-8-1999	Portuguesa
+2415	Valentina Castro	5-9-1993	Portuguesa
+2416	Henrique Oliveira	2-10-1992	Portuguesa
+2417	Maysa Porto	20-2-1991	Portuguesa
+2418	Maria Fernanda Araujo	26-11-1991	Portuguesa
+2419	Ana Julia Sales	5-4-2002	Portuguesa
+2420	Clarice Cardoso	24-7-1997	Portuguesa
+2421	Yago Almeida	19-6-1994	Portuguesa
+2422	Raul Nogueira	15-9-1992	Portuguesa
+2423	 Bernardo Martins	5-5-1996	Portuguesa
+2424	Evelyn Oliveira	3-7-1994	Portuguesa
+2425	Vicente Barros	22-2-1992	Italiana
+2426	Brenda Viana	12-5-2001	Portuguesa
+2427	Thomas Caldeira	26-11-1996	Portuguesa
+2428	Maria Vitoria Peixoto	23-2-1991	Portuguesa
+2429	Vitor Caldeira	3-3-1995	Portuguesa
+2430	Noah Pinto	8-12-1997	Portuguesa
+2431	 Murilo Porto	23-9-2001	Portuguesa
+2432	Sofia Viana	26-5-1994	Portuguesa
+2433	 Bernardo Pereira	3-9-1997	Portuguesa
+2434	Daniel Duarte	12-2-1994	Portuguesa
+2435	Caroline Moura	21-3-1997	Portuguesa
+2436	Rafael Farias	17-10-2004	Portuguesa
+2437	 Heitor Moura	9-8-1998	Francesa
+2438	Julia Monteiro	18-9-1992	Portuguesa
+2439	Ana das Neves	19-4-1995	Portuguesa
+2440	Bruno Novaes	10-8-1996	Portuguesa
+2441	Joao Guilherme Alves	4-10-2000	Portuguesa
+2442	 Isabella da Costa	27-2-1998	Portuguesa
+2443	Melissa Melo	12-5-2004	Portuguesa
+2444	Davi Ribeiro	5-10-1990	Portuguesa
+2445	 Melissa Rodrigues	24-12-1991	Portuguesa
+2446	Joao Pedro Rodrigues	23-2-1990	Angolana
+2447	Murilo Martins	8-1-1997	Portuguesa
+2448	Emanuella Cunha	13-5-1990	Timorense
+2449	Davi Almeida	28-8-1991	Italiana
+2450	Marcos Vinicius da Mota	24-12-1990	Portuguesa
+2451	Maria Sophia Ramos	4-2-1996	Portuguesa
+2452	Antonio da Luz	1-9-1994	Brasileira
+2453	Luiz Gustavo Cunha	9-5-1997	Portuguesa
+2454	Ana Laura Vieira	4-1-1993	Portuguesa
+2455	Daniela Cavalcanti	18-12-2000	Portuguesa
+2456	Rebeca Cardoso	2-5-1992	Portuguesa
+2457	Heitor Pereira	4-3-2001	Portuguesa
+2458	 Luiz Miguel Rocha	7-2-1995	Mocambicana
+2459	Barbara Fernandes	7-2-1998	Guineense
+2460	Kamilly Azevedo	11-6-1996	Portuguesa
+2461	Catarina da Mota	21-5-2002	Brasileira
+2462	Samuel Araujo	15-10-1993	Brasileira
+2463	Andre da Rosa	17-8-2003	Portuguesa
+2464	Gustavo Henrique Nascimento	4-9-1994	Portuguesa
+2465	Lorena Moraes	29-10-2000	Portuguesa
+2466	Pedro Henrique Oliveira	22-4-2000	Portuguesa
+2467	Amanda Santos	3-5-1994	Portuguesa
+2468	Marina Ramos	18-8-2001	Portuguesa
+2469	Rafaela Rocha	14-7-1996	Brasileira
+2470	Gabriel Barros	6-12-1996	Portuguesa
+2471	Camila Rezende	21-7-1990	Portuguesa
+2472	Lorena da Mata	29-10-1990	Portuguesa
+2473	Ana Melo	15-5-1990	Portuguesa
+2474	Eloah Monteiro	1-4-1992	Portuguesa
+2475	Brenda da Luz	3-5-1995	Portuguesa
+2476	Joao Miguel Goncalves	9-5-1990	Portuguesa
+2477	Maria Sophia Lima	10-9-2000	Francesa
+2478	 Daniel Nunes	25-5-1995	Portuguesa
+2479	Marcelo da Mata	30-12-1990	Portuguesa
+2480	Nicole Porto	3-2-1997	Brasileira
+2481	Yago Novaes	6-11-2003	Portuguesa
+2482	Thomas Barros	28-3-1999	Portuguesa
+2483	Livia Ferreira	2-7-1997	Portuguesa
+2484	Alicia Cavalcanti	18-12-1994	Francesa
+2485	Yasmin Rocha	15-8-1996	Portuguesa
+2486	Davi Lucas Castro	22-2-1994	Portuguesa
+2487	Thales Carvalho	29-11-1993	Brasileira
+2488	Joaquim Cavalcanti	22-10-1990	Portuguesa
+2489	Pedro Porto	1-8-1996	Brasileira
+2490	Joana Ferreira	3-6-1999	Brasileira
+2491	 Bryan Dias	9-4-1990	Timorense
+2492	Valentina da Rocha	14-8-2004	Portuguesa
+2493	 Bernardo da Mota	14-2-1997	Portuguesa
+2494	Lavinia Fogaca	19-1-1999	Portuguesa
+2495	Maria Alice da Rocha	28-1-2004	Mocambicana
+2496	Cecilia Moura	22-5-1994	Timorense
+2497	Kaique da Mota	6-4-2003	Guineense
+2498	Luana Moura	12-7-1991	Francesa
+2499	Juan Azevedo	8-5-1997	Portuguesa
+2500	Gabriel Barbosa	27-12-1990	Brasileira
+2501	Eduardo Cardoso	29-7-1992	Portuguesa
+2502	Alicia Barros	20-11-1995	Portuguesa
+2503	Alexia Cavalcanti	15-3-1996	Portuguesa
+2504	Carlos Eduardo Teixeira	29-2-1994	Portuguesa
+2505	Julia Cunha	14-5-2002	Portuguesa
+2506	 Luiz Henrique Azevedo	4-6-1999	Portuguesa
+2507	 Rafael Costa	3-10-1992	Portuguesa
+2508	Catarina da Mata	9-3-1999	Italiana
+2509	Pietro Moreira	28-8-1994	Portuguesa
+2510	Olivia Carvalho	14-5-2000	Timorense
+2511	Carlos Eduardo Pinto	20-3-1995	Portuguesa
+2512	Clarice Pinto	6-11-1995	Espanhola
+2513	Natalia Lima	13-12-2004	Portuguesa
+2514	Maria Julia Melo	13-3-2004	Portuguesa
+2515	Sabrina Pires	11-5-1990	Angolana
+2516	 Stella Azevedo	1-8-1996	Portuguesa
+2517	Alana Rocha	12-12-1996	Guineense
+2518	 Thales Lima	25-11-1996	Portuguesa
+2519	Gabriel Fernandes	29-4-1993	Portuguesa
+2520	Gabrielly da Mota	18-1-1995	Portuguesa
+2521	Mirella da Rocha	2-1-2000	Angolana
+2522	Lavinia Lima	7-8-1992	Portuguesa
+2523	Olivia Azevedo	22-6-1994	Portuguesa
+2524	Manuela Peixoto	7-9-1992	Portuguesa
+2525	 Valentina Viana	22-6-2002	Portuguesa
+2526	 Renan da Cruz	21-7-2000	Portuguesa
+2527	Luigi Farias	26-8-2000	Portuguesa
+2528	 Joaquim Castro	27-7-1995	Portuguesa
+2529	Sophie das Neves	16-1-1997	Portuguesa
+2530	Leonardo Azevedo	23-2-2004	Mocambicana
+2531	 Larissa Moreira	10-9-2001	Italiana
+2532	Anthony Moreira	4-5-1999	Brasileira
+2533	Caua Sales	14-11-1995	Portuguesa
+2534	 Camila das Neves	28-3-2001	Italiana
+2535	 Matheus da Conceicao	14-1-1996	Portuguesa
+2536	Evelyn da Mata	23-9-1994	Francesa
+2537	Alexandre da Rosa	1-3-1999	Portuguesa
+2538	 Ana Carolina Correia	18-9-2000	Portuguesa
+2539	Emanuella Cunha	19-2-2000	Portuguesa
+2540	Kamilly Viana	15-11-1991	Portuguesa
+2541	Cecilia Lima	21-9-2000	Portuguesa
+2542	Beatriz Martins	17-6-1991	Portuguesa
+2543	 Raul Castro	13-2-2001	Portuguesa
+2544	Maria Alice Costa	30-12-1990	Portuguesa
+2545	Bianca Moreira	21-11-1994	Brasileira
+2546	Davi Lucas Almeida	14-9-2000	Brasileira
+2547	Renan Fogaca	3-1-2003	Portuguesa
+2548	Calebe Costela	2-7-1991	Portuguesa
+2549	Yago Souza	1-7-1992	Portuguesa
+2550	Maria Fernanda Pinto	26-4-2000	Portuguesa
+2551	Matheus Lopes	6-6-2002	Portuguesa
+2552	Davi Luiz Pereira	18-2-2002	Portuguesa
+2553	 Joao Pedro Lopes	25-5-1998	Portuguesa
+2554	Raul da Conceicao	21-3-1990	Portuguesa
+2555	 Stephany Fernandes	22-10-2002	Portuguesa
+2556	Leonardo Martins	21-11-1995	Espanhola
+2557	Kaique da Luz	18-8-2004	Portuguesa
+2558	Bianca da Rocha	16-8-1994	Portuguesa
+2559	Sophia da Cruz	11-8-1999	Mocambicana
+2560	Bianca Nascimento	22-4-1999	Guineense
+2561	Lorena Moura	30-12-1996	Portuguesa
+2562	Ana Laura Santos	28-3-1990	Portuguesa
+2563	 Brenda Freitas	11-1-1991	Portuguesa
+2564	 Maria Luiza Dias	8-7-1999	Portuguesa
+2565	Alana Campos	8-7-1997	Brasileira
+2566	Raul Aragao	6-2-1991	Francesa
+2567	Augusto Porto	11-12-1997	Portuguesa
+2568	 Alana Pires	16-2-1996	Portuguesa
+2569	Miguel Monteiro	25-3-1993	Portuguesa
+2570	Maria da Mata	10-7-1996	Portuguesa
+2571	Joao Felipe Porto	9-9-2004	Portuguesa
+2572	 Vitoria Oliveira	22-5-2003	Portuguesa
+2573	Enzo Moreira	8-12-1997	Portuguesa
+2574	Catarina Pinto	25-9-2000	Portuguesa
+2575	Caue Rocha	3-5-2003	Italiana
+2576	Rafael Moraes	16-12-1996	Brasileira
+2577	Pedro Henrique da Rosa	27-4-2003	Portuguesa
+2578	 Livia Porto	23-12-2002	Portuguesa
+2579	Lucas Gabriel Jesus	26-5-2002	Portuguesa
+2580	 Luiz Otavio Moreira	6-6-1994	Brasileira
+2581	Davi Caldeira	10-5-2001	Portuguesa
+2582	Thomas da Rocha	19-4-2004	Espanhola
+2583	Vitor Gabriel da Mota	18-6-1994	Portuguesa
+2584	Brenda Dias	26-7-1995	Portuguesa
+2585	Pedro Henrique Cunha	25-1-1996	Portuguesa
+2586	Milena Moreira	12-6-1993	Portuguesa
+2587	Luigi Cardoso	15-1-1994	Portuguesa
+2588	Igor Barros	30-9-1999	Portuguesa
+2589	 Caroline Vieira	11-8-1996	Portuguesa
+2590	Pietro Campos	3-8-1990	Portuguesa
+2591	Maria Sophia Santos	10-2-1996	Portuguesa
+2592	Pedro Lucas da Luz	9-6-1994	Portuguesa
+2593	Pietro Rocha	9-5-2002	Brasileira
+2594	Lavinia Silva	28-1-1992	Portuguesa
+2595	 Paulo Carvalho	17-3-1990	Portuguesa
+2596	Isis Goncalves	25-10-1998	Portuguesa
+2597	Pietra Melo	23-6-2001	Portuguesa
+2598	Eduarda Souza	30-3-2002	Portuguesa
+2599	 Luigi Martins	17-10-2001	Francesa
+2600	Lorenzo Costela	1-11-2004	Portuguesa
+2601	Rafaela Castro	8-4-2002	Portuguesa
+2602	 Eloah Ribeiro	4-7-1997	Angolana
+2603	 Isis Moura	7-6-1994	Portuguesa
+2604	Maria Vitoria Correia	22-7-1996	Portuguesa
+2605	Alicia Campos	20-12-1990	Brasileira
+2606	 Caue Moura	26-4-1997	Brasileira
+2607	Marcos Vinicius Pinto	13-7-2002	Portuguesa
+2608	Ian Ferreira	29-1-2002	Portuguesa
+2609	Alicia Cunha	23-5-1999	Portuguesa
+2610	Noah Pires	7-7-1993	Portuguesa
+2611	 Erick Carvalho	28-5-1993	Portuguesa
+2612	Rodrigo Pereira	1-4-2002	Guineense
+2613	Caroline Oliveira	22-11-2001	Italiana
+2614	Mariane Barbosa	29-1-2004	Portuguesa
+2615	Pedro Lucas Moura	1-6-2002	Portuguesa
+2616	Davi Sales	27-1-1999	Portuguesa
+2617	Luigi Teixeira	16-1-2000	Espanhola
+2618	Maria Azevedo	11-10-1994	Portuguesa
+2619	Benjamin da Mata	30-4-2001	Brasileira
+2620	Pedro Lucas Monteiro	15-2-1998	Brasileira
+2621	Gustavo Henrique Peixoto	1-6-1993	Portuguesa
+2622	 Erick Castro	11-3-1998	Mocambicana
+2623	Antonio da Mata	25-7-1995	Portuguesa
+2624	 Caroline Gomes	5-6-1992	Portuguesa
+2625	 Alana Monteiro	28-1-1999	Portuguesa
+2626	Melissa Caldeira	2-6-1992	Brasileira
+2627	Gabriela Cardoso	12-12-2003	Portuguesa
+2628	Enzo Gabriel Pires	21-2-1996	Guineense
+2629	Maite Moura	29-11-2002	Espanhola
+2630	 Yuri Jesus	24-7-2001	Portuguesa
+2631	Breno da Cruz	1-8-1996	Portuguesa
+2632	Thomas Barbosa	6-3-1992	Brasileira
+2633	 Maria Julia Pires	17-12-1999	Portuguesa
+2634	Matheus da Mota	15-5-2001	Portuguesa
+2635	Levi Oliveira	20-8-1990	Portuguesa
+2636	Sophie Freitas	16-9-1992	Portuguesa
+2637	Leonardo Souza	20-6-1994	Portuguesa
+2638	Maria Fernandes	7-10-2001	Portuguesa
+2639	Joana Nunes	16-3-1992	Guineense
+2640	Davi Luiz da Conceicao	20-2-2000	Italiana
+2641	Gabriel Jesus	15-3-2003	Timorense
+2642	Samuel Freitas	5-5-1993	Portuguesa
+2643	Emanuella da Luz	10-3-2000	Portuguesa
+2644	Barbara Monteiro	18-8-1997	Portuguesa
+2645	Raul Barros	21-9-1995	Portuguesa
+2646	Pedro Miguel Rezende	28-6-1997	Portuguesa
+2647	Gabrielly Moreira	11-2-1996	Brasileira
+2648	Luna Goncalves	7-5-1991	Portuguesa
+2649	 Sofia Ferreira	29-9-2001	Portuguesa
+2650	Isaac Porto	30-3-1996	Brasileira
+2651	Lucca Farias	9-9-1997	Brasileira
+2652	Nina da Paz	23-12-1996	Portuguesa
+2653	Ana Livia Pereira	20-3-1991	Portuguesa
+2654	Joao Miguel Nogueira	11-9-2004	Brasileira
+2655	Caue Rezende	12-4-2000	Portuguesa
+2656	Joao Felipe Teixeira	18-6-1999	Portuguesa
+2657	Marina Pires	29-2-1997	Portuguesa
+2658	Danilo Nogueira	16-8-2003	Portuguesa
+2659	 Arthur Oliveira	20-7-1992	Portuguesa
+2660	Luiz Miguel Monteiro	16-3-1998	Portuguesa
+2661	Yuri Silva	11-11-1998	Italiana
+2662	Ana Julia Freitas	28-4-1998	Portuguesa
+2663	Maysa da Cunha	15-10-2003	Brasileira
+2664	Noah Costa	6-11-2001	Portuguesa
+2665	Ana Santos	14-3-1991	Portuguesa
+2666	Lavinia Oliveira	10-5-1992	Espanhola
+2667	Heitor Almeida	29-3-2002	Portuguesa
+2668	Sophie Pinto	27-12-1999	Portuguesa
+2669	Leandro Vieira	23-6-1990	Portuguesa
+2670	Camila Rocha	23-12-1991	Portuguesa
+2671	 Gabriela da Mota	30-1-2001	Portuguesa
+2672	Pedro Viana	14-11-1991	Portuguesa
+2673	Rebeca Cardoso	29-9-1990	Portuguesa
+2674	Ana Carolina Rodrigues	8-4-2001	Brasileira
+2675	Noah Costa	18-10-1990	Portuguesa
+2676	Francisco da Mata	2-11-1993	Guineense
+2677	 Joao Gabriel da Rocha	20-5-1997	Mocambicana
+2678	Isabella Melo	1-9-2003	Brasileira
+2679	Benjamin Monteiro	17-9-2000	Portuguesa
+2680	 Paulo Nascimento	24-6-2002	Angolana
+2681	Daniela da Luz	18-4-1991	Portuguesa
+2682	Davi Lucca Silva	7-4-1990	Portuguesa
+2683	Caua da Conceicao	13-5-1993	Portuguesa
+2684	Alana Duarte	17-3-1998	Portuguesa
+2685	Joao Lucas Silveira	15-12-2001	Francesa
+2686	Kamilly da Luz	5-5-2003	Portuguesa
+2687	Raquel Alves	30-10-2001	Angolana
+2688	 Heitor Pereira	21-7-2004	Espanhola
+2689	Isabella Pires	13-7-1997	Portuguesa
+2690	Carlos Eduardo Peixoto	11-5-1994	Portuguesa
+2691	Juliana Costela	5-5-1999	Portuguesa
+2692	 Emanuelly Alves	29-1-2002	Portuguesa
+2693	Esther Viana	5-10-1996	Portuguesa
+2694	Pedro Henrique Santos	18-5-1993	Italiana
+2695	Luiz Felipe Silva	5-8-2000	Portuguesa
+2696	Maria Cecilia Cardoso	29-6-1994	Portuguesa
+2697	Marcela Fernandes	3-9-2001	Portuguesa
+2698	Diego da Cruz	22-6-1996	Portuguesa
+2699	Alana Rocha	29-12-2001	Angolana
+2700	Manuela da Cunha	16-9-2001	Portuguesa
+2701	Maria Clara Fernandes	29-2-1992	Portuguesa
+2702	Bernardo Castro	30-11-2003	Espanhola
+2703	Maria Luiza da Paz	4-12-1999	Portuguesa
+2704	 Kamilly Barros	12-3-1996	Portuguesa
+2705	Ian Ferreira	14-7-2003	Portuguesa
+2706	Benjamin Dias	27-7-1993	Brasileira
+2707	Ana Laura da Mata	27-9-1994	Guineense
+2708	Brenda Nogueira	23-12-1996	Portuguesa
+2709	Pedro Lucas Campos	13-11-1992	Portuguesa
+2710	Caroline Rodrigues	29-6-2004	Portuguesa
+2711	Raul Correia	11-2-2000	Portuguesa
+2712	Joao Felipe Castro	25-6-2001	Francesa
+2713	Rafaela Sales	12-5-1992	Portuguesa
+2714	Daniela Silva	26-3-2004	Espanhola
+2715	Davi Lucca da Conceicao	17-10-2004	Portuguesa
+2716	Marina Freitas	19-8-2000	Portuguesa
+2717	Heloisa Mendes	30-2-1991	Portuguesa
+2718	Ana Viana	6-9-1993	Portuguesa
+2719	Bernardo da Rocha	18-5-1999	Portuguesa
+2720	Joao Pedro da Costa	9-9-2001	Portuguesa
+2721	Maria Luiza da Mota	2-2-1998	Portuguesa
+2722	Bruna Cunha	27-10-2002	Timorense
+2723	Heitor Pereira	4-12-1994	Portuguesa
+2724	 Maite Fogaca	28-7-1997	Angolana
+2725	Melissa Nogueira	26-8-1997	Espanhola
+2726	Ana Luiza Moura	2-10-1991	Portuguesa
+2727	Igor Pereira	19-7-2003	Portuguesa
+2728	Samuel Carvalho	27-10-1997	Portuguesa
+2729	Juan da Cruz	8-11-2001	Portuguesa
+2730	Carolina Costela	19-6-1999	Portuguesa
+2731	Anthony Correia	19-6-1994	Portuguesa
+2732	Ana Beatriz da Paz	24-1-1998	Portuguesa
+2733	Joao Guilherme Sales	1-11-2002	Guineense
+2734	Enzo Gabriel Costa	14-5-1998	Portuguesa
+2735	Carolina da Cruz	3-7-2000	Portuguesa
+2736	Ana Laura Moura	22-5-2003	Portuguesa
+2737	Daniel Aragao	15-3-1996	Portuguesa
+2738	Felipe Nogueira	15-8-2003	Portuguesa
+2739	Barbara Cardoso	30-7-1999	Brasileira
+2740	Juliana Fogaca	12-1-2004	Italiana
+2741	 Leandro Aragao	8-9-1995	Portuguesa
+2742	Breno Nogueira	29-9-1997	Brasileira
+2743	Rafael Oliveira	19-2-2001	Italiana
+2744	Luiz Miguel Correia	19-5-1997	Portuguesa
+2745	 Alana Araujo	19-10-2003	Portuguesa
+2746	Murilo Fogaca	3-9-1995	Portuguesa
+2747	Caue Oliveira	14-10-1994	Portuguesa
+2748	Elisa Farias	1-12-1997	Portuguesa
+2749	Marina Freitas	4-10-1994	Portuguesa
+2750	Maite Fernandes	6-6-2000	Espanhola
+2751	Lavinia Oliveira	19-10-1994	Portuguesa
+2752	Nicolas Barros	22-1-2003	Angolana
+2753	Daniela Moura	7-8-1993	Portuguesa
+2754	Luigi Carvalho	28-3-1993	Portuguesa
+2755	Francisco Pinto	30-12-1997	Portuguesa
+2756	Elisa Santos	5-3-1992	Guineense
+2757	 Bryan da Mota	8-5-1991	Portuguesa
+2758	 Ana Vitoria Ferreira	2-1-1992	Brasileira
+2759	Theo Sales	25-2-1990	Brasileira
+2760	 Alice da Conceicao	12-3-1994	Portuguesa
+2761	Joao Correia	12-8-1998	Portuguesa
+2762	 Rodrigo Jesus	9-2-2004	Timorense
+2763	Theo Ferreira	9-2-1990	Portuguesa
+2764	Helena Porto	9-12-1994	Brasileira
+2765	Pedro Lucas Pereira	23-9-1992	Portuguesa
+2766	Helena Vieira	22-12-2004	Portuguesa
+2767	Nicolas Cardoso	16-1-1990	Brasileira
+2768	Alice Araujo	15-9-1992	Portuguesa
+2769	Evelyn Fogaca	29-5-1995	Portuguesa
+2770	Lucca da Rosa	1-3-2002	Francesa
+2771	Felipe Fernandes	20-3-1995	Portuguesa
+2772	Theo Jesus	15-4-2000	Portuguesa
+2773	Camila da Cunha	4-6-1990	Portuguesa
+2774	Luana da Mota	3-6-2001	Portuguesa
+2775	Vitor Hugo Duarte	7-12-1998	Portuguesa
+2776	Caroline Ribeiro	9-6-1997	Angolana
+2777	Pedro Miguel Cardoso	17-6-2002	Portuguesa
+2778	Matheus Barbosa	9-10-2004	Brasileira
+2779	Vitor Gabriel Moura	25-10-1993	Portuguesa
+2780	 Carolina Pereira	12-5-2004	Portuguesa
+2781	Emanuelly Monteiro	15-5-1990	Portuguesa
+2782	Agatha Rodrigues	28-11-1993	Portuguesa
+2783	Catarina Monteiro	26-2-1996	Portuguesa
+2784	 Caue Campos	25-8-2003	Portuguesa
+2785	Ian Monteiro	11-11-1993	Portuguesa
+2786	Andre Pinto	14-8-2000	Portuguesa
+2787	 Alexandre da Rocha	9-1-1999	Portuguesa
+2788	 Guilherme Nogueira	2-8-1998	Portuguesa
+2789	 Lara Lopes	24-10-2001	Portuguesa
+2790	Valentina Martins	24-12-2002	Mocambicana
+2791	Noah Costela	22-1-1995	Portuguesa
+2792	Isabella Nascimento	19-6-2002	Portuguesa
+2793	Daniel Araujo	25-4-1992	Portuguesa
+2794	Maria Sophia Freitas	25-3-2004	Mocambicana
+2795	Joao Miguel da Conceicao	20-12-2001	Angolana
+2796	Eduarda Rezende	9-12-1999	Portuguesa
+2797	Thiago Teixeira	7-7-2003	Portuguesa
+2798	Igor das Neves	29-11-1998	Portuguesa
+2799	Olivia Alves	25-3-2002	Portuguesa
+2800	Maria Cecilia Lima	16-4-1993	Portuguesa
+2801	Nicolas Nogueira	11-4-1999	Portuguesa
+2802	Otavio Nunes	25-4-1997	Portuguesa
+2803	Joao Pedro Ribeiro	11-3-1998	Mocambicana
+2804	Pedro Henrique Cunha	3-12-2002	Mocambicana
+2805	Calebe Souza	4-5-2001	Portuguesa
+2806	Paulo Alves	7-9-1991	Portuguesa
+2807	Isadora Carvalho	28-4-1992	Brasileira
+2808	Isabella Carvalho	8-9-1995	Portuguesa
+2809	Elisa da Mata	16-2-1997	Portuguesa
+2810	Maria Silveira	4-6-1999	Portuguesa
+2811	Noah Melo	16-1-1999	Espanhola
+2812	 Maria Alice Gomes	30-6-1995	Brasileira
+2813	Theo Viana	17-7-2004	Italiana
+2814	Laura Ribeiro	12-6-1996	Portuguesa
+2815	Isis da Mota	13-7-1993	Francesa
+2816	Kamilly Carvalho	18-6-1998	Timorense
+2817	Luiz Felipe Rodrigues	6-10-1990	Guineense
+2818	Stella Nunes	21-4-1992	Francesa
+2819	Ana Julia Barbosa	1-6-2001	Portuguesa
+2820	 Maria Cecilia Alves	17-7-2002	Guineense
+2821	 Isabel Nunes	4-12-1992	Portuguesa
+2822	Alice Moreira	18-8-2001	Portuguesa
+2823	Carlos Eduardo Viana	17-1-2001	Brasileira
+2824	Ana Vitoria Santos	4-6-2000	Portuguesa
+2825	Maria Cecilia Moura	30-5-1999	Portuguesa
+2826	Sophia Alves	10-6-1998	Portuguesa
+2827	 Sofia Castro	2-1-1991	Portuguesa
+2828	Diogo Moreira	29-4-1995	Portuguesa
+2829	 Beatriz Rocha	4-5-1999	Portuguesa
+2830	Isis Ferreira	8-4-1991	Portuguesa
+2831	Davi Ribeiro	11-12-1992	Portuguesa
+2832	Luiz Miguel Cardoso	9-6-1990	Portuguesa
+2833	Alicia Ribeiro	9-10-1998	Portuguesa
+2834	Guilherme Novaes	15-10-2004	Portuguesa
+2835	Joao Felipe Melo	1-9-2000	Brasileira
+2836	Marcos Vinicius da Mata	19-1-2001	Portuguesa
+2837	Laura Campos	14-12-1990	Portuguesa
+2838	Isis Araujo	2-6-2004	Angolana
+2839	Joao Gabriel Goncalves	19-9-1993	Portuguesa
+2840	 Theo Melo	18-5-2000	Guineense
+2841	Lucca Dias	27-10-1994	Portuguesa
+2842	Lorena da Mota	29-8-1991	Portuguesa
+2843	 Enrico Carvalho	6-10-2002	Espanhola
+2844	Pietro Fernandes	18-11-1999	Portuguesa
+2845	Emanuella da Cunha	4-11-1993	Portuguesa
+2846	Diego Oliveira	10-5-2002	Portuguesa
+2847	Gustavo Cardoso	14-7-1992	Espanhola
+2848	Henrique Cardoso	10-11-1993	Portuguesa
+2849	 Ana Sophia Ramos	9-3-2000	Portuguesa
+2850	Joao Gabriel Nascimento	29-4-1998	Portuguesa
+2851	Vitoria Carvalho	11-9-2002	Portuguesa
+2852	Mariane Campos	20-7-1997	Portuguesa
+2853	 Miguel Sales	6-2-2000	Portuguesa
+2854	Alice Pires	21-2-2003	Brasileira
+2855	Isadora Moraes	8-1-1991	Portuguesa
+2856	Nicolas Nascimento	3-7-1993	Mocambicana
+2857	Rafael Barros	19-1-1993	Portuguesa
+2858	 Ana Sophia Jesus	2-8-1997	Portuguesa
+2859	Joao Lucas Cardoso	17-6-1996	Portuguesa
+2860	Lucas Gabriel Peixoto	22-9-1999	Portuguesa
+2861	Gabriel Castro	13-3-2002	Portuguesa
+2862	Joao Porto	23-11-1991	Mocambicana
+2863	Maria Vieira	20-1-1992	Portuguesa
+2864	Yasmin da Conceicao	10-10-1993	Angolana
+2865	Sophia Castro	30-9-2004	Portuguesa
+2866	Luiz Fernando da Mota	30-11-2003	Portuguesa
+2867	Nathan Santos	8-9-1994	Portuguesa
+2868	Vitoria Moraes	16-7-1995	Brasileira
+2869	Ana Sophia Fernandes	3-2-1994	Portuguesa
+2870	Eloah Rodrigues	7-4-2000	Portuguesa
+2871	Lucca da Paz	25-7-1999	Portuguesa
+2872	Vinicius Farias	12-5-1998	Brasileira
+2873	Otavio Pinto	14-10-1995	Portuguesa
+2874	Gabriel Viana	7-3-2000	Portuguesa
+2875	Lorena Costela	24-11-1999	Portuguesa
+2876	Joao Miguel Pereira	2-11-2002	Portuguesa
+2877	Stephany Ramos	21-10-2000	Portuguesa
+2878	Vinicius Santos	7-4-2001	Portuguesa
+2879	Joao Felipe Viana	17-10-1999	Portuguesa
+2880	Brenda Souza	15-4-1994	Italiana
+2881	Maria Julia Goncalves	19-2-2001	Portuguesa
+2882	Lavinia Caldeira	18-10-1994	Portuguesa
+2883	Maria Julia Souza	13-8-2003	Timorense
+2884	Yasmin Freitas	17-9-1991	Portuguesa
+2885	Luiz Gustavo Moreira	25-11-2001	Portuguesa
+2886	Helena Sales	9-12-2002	Portuguesa
+2887	 Clarice Moreira	14-9-2001	Portuguesa
+2888	Yasmin Rezende	7-6-1990	Brasileira
+2889	Alexandre Santos	25-2-1992	Portuguesa
+2890	Kamilly Farias	3-6-1997	Portuguesa
+2891	 Caua da Cunha	17-11-1999	Portuguesa
+2892	Diego da Paz	30-5-1992	Portuguesa
+2893	 Leandro Costa	1-4-1999	Portuguesa
+2894	Joao Pedro das Neves	30-3-1990	Portuguesa
+2895	Maite Ramos	14-9-1999	Italiana
+2896	 Yago Nascimento	4-8-1993	Portuguesa
+2897	Eduarda Teixeira	6-5-1993	Mocambicana
+2898	 Clara Nogueira	6-3-1990	Portuguesa
+2899	Luigi da Cruz	26-8-2002	Espanhola
+2900	Maria Luiza da Mata	21-2-1999	Portuguesa
+2901	Elisa da Conceicao	14-12-2001	Portuguesa
+2902	 Davi Fernandes	5-12-1995	Portuguesa
+2903	Stella Lima	24-1-1992	Portuguesa
+2904	 Pietra Carvalho	19-11-1997	Portuguesa
+2905	 Joao Miguel da Costa	2-10-1995	Portuguesa
+2906	Sofia Moreira	23-4-1991	Portuguesa
+2907	 Clarice da Luz	18-9-1995	Portuguesa
+2908	Alexandre Fogaca	29-3-1995	Portuguesa
+2909	Vitoria Farias	14-8-1991	Guineense
+2910	Fernanda Fogaca	4-12-1999	Portuguesa
+2911	Joao Vitor Nogueira	24-1-2002	Portuguesa
+2912	Fernando Silveira	28-9-1997	Portuguesa
+2913	Augusto Nascimento	8-1-1998	Portuguesa
+2914	 Leonardo Porto	24-5-2004	Portuguesa
+2915	Danilo Lima	20-2-1998	Angolana
+2916	Theo Rodrigues	21-9-1991	Timorense
+2917	Thomas Nunes	11-2-1994	Portuguesa
+2918	Isaac Araujo	24-2-1995	Portuguesa
+2919	Carlos Eduardo Silveira	30-3-2002	Brasileira
+2920	Ryan da Conceicao	13-1-2000	Espanhola
+2921	 Henrique Castro	9-9-1995	Portuguesa
+2922	Nicole Nunes	14-5-2000	Portuguesa
+2923	Pedro Costela	5-3-2000	Brasileira
+2924	Yuri Costela	30-3-2001	Angolana
+2925	Amanda Viana	26-10-1994	Portuguesa
+2926	Lorena Melo	7-6-2004	Portuguesa
+2927	Murilo Fernandes	2-7-2000	Portuguesa
+2928	Luiz Gustavo Pires	21-8-1991	Portuguesa
+2929	Joao Miguel Monteiro	30-11-1991	Portuguesa
+2930	Leonardo Freitas	22-8-1992	Mocambicana
+2931	Kaique Rocha	2-6-1999	Brasileira
+2932	Leticia Moreira	6-11-2001	Portuguesa
+2933	Thales da Conceicao	5-12-1993	Portuguesa
+2934	 Joao Lucas Ribeiro	27-9-2002	Italiana
+2935	Marcela Costela	20-7-1991	Portuguesa
+2936	Stephany Goncalves	6-2-2000	Italiana
+2937	Eduardo Fogaca	13-2-1992	Brasileira
+2938	 Renan Rezende	22-4-1997	Portuguesa
+2939	Vicente Aragao	20-4-1991	Italiana
+2940	Andre Rodrigues	19-4-2000	Guineense
+2941	Ana Luiza Sales	14-9-1993	Portuguesa
+2942	Lucas Moreira	16-1-2003	Portuguesa
+2943	Renan da Costa	5-9-1999	Portuguesa
+2944	Luiz Henrique Nogueira	25-7-1993	Portuguesa
+2945	Emanuella Peixoto	25-6-1998	Portuguesa
+2946	Davi Lucca Pereira	1-11-2004	Brasileira
+2947	 Caroline Viana	17-1-1993	Francesa
+2948	Davi Lucas Farias	18-1-2000	Portuguesa
+2949	Raul Goncalves	25-9-1998	Portuguesa
+2950	Isadora Cavalcanti	19-10-1995	Portuguesa
+2951	Leticia Porto	26-4-2004	Italiana
+2952	Lorena da Mota	16-7-1999	Brasileira
+2953	Sabrina da Costa	22-9-1997	Portuguesa
+2954	Davi Lucca Cardoso	2-9-1994	Portuguesa
+2955	Lavinia Fogaca	7-8-1997	Portuguesa
+2956	Ana Clara Novaes	4-5-1999	Portuguesa
+2957	Ryan Campos	8-7-1994	Portuguesa
+2958	Yago Goncalves	4-11-2003	Portuguesa
+2959	Maite Gomes	12-2-1994	Portuguesa
+2960	 Joao Felipe Barros	18-12-1996	Portuguesa
+2961	Levi Nogueira	12-10-1998	Portuguesa
+2962	Luiz Miguel Pereira	23-8-2001	Portuguesa
+2963	Joao Pinto	1-10-2003	Portuguesa
+2964	Yasmin Souza	20-2-1990	Portuguesa
+2965	Elisa Mendes	25-1-2001	Portuguesa
+2966	 Bianca Vieira	29-10-2003	Angolana
+2967	Thomas Castro	15-4-1996	Portuguesa
+2968	Thomas Pinto	15-3-1992	Portuguesa
+2969	Ana Sophia Lopes	8-10-2004	Angolana
+2970	 Clarice da Mata	14-6-2002	Portuguesa
+2971	Gabrielly da Cunha	14-3-2002	Portuguesa
+2972	 Lais Campos	10-12-1995	Brasileira
+2973	Vitor Hugo Santos	3-6-1992	Portuguesa
+2974	Clarice Dias	11-3-1995	Portuguesa
+2975	 Emilly Fogaca	1-3-1993	Portuguesa
+2976	Francisco da Conceicao	6-3-1992	Francesa
+2977	Yasmin Lopes	14-3-2004	Portuguesa
+2978	Vitoria Goncalves	21-8-2000	Portuguesa
+2979	Pedro Freitas	10-7-2001	Portuguesa
+2980	Thiago Costela	22-4-1999	Portuguesa
+2981	Larissa Souza	12-5-2004	Portuguesa
+2982	Leticia Goncalves	10-4-1991	Portuguesa
+2983	Gabrielly da Cruz	2-2-1997	Brasileira
+2984	Julia Campos	14-7-1997	Portuguesa
+2985	Erick Teixeira	19-2-2001	Portuguesa
+2986	Nicolas Duarte	22-4-1993	Portuguesa
+2987	Calebe Silveira	5-2-1996	Portuguesa
+2988	Juliana Cardoso	25-8-2001	Portuguesa
+2989	Emilly Cardoso	13-1-2002	Brasileira
+2990	 Vitor Nunes	14-1-1996	Portuguesa
+2991	Benjamin Nascimento	8-10-1992	Portuguesa
+2992	Erick Nunes	3-10-1994	Portuguesa
+2993	Ana Sophia Peixoto	5-6-1995	Portuguesa
+2994	Eduardo Nogueira	1-8-1994	Portuguesa
+2995	Valentina Nunes	1-12-2003	Portuguesa
+2996	Isabella Carvalho	8-2-1993	Portuguesa
+2997	 Joana Araujo	10-12-2004	Portuguesa
+2998	Fernanda Melo	28-2-1997	Portuguesa
+2999	Kevin Silveira	23-1-1993	Portuguesa
+3000	Julia Cavalcanti	13-5-1999	Portuguesa
+3001	Alice Freitas	3-7-2001	Portuguesa
+3002	Valentina Alves	16-5-1997	Portuguesa
+3003	Maria Fernanda da Luz	24-2-2001	Portuguesa
+3004	Agatha Freitas	19-11-1999	Portuguesa
+3005	Natalia Ferreira	2-11-1990	Portuguesa
+3006	 Ana Alves	26-11-1992	Portuguesa
+3007	Felipe Ferreira	2-2-2001	Portuguesa
+3008	Maite Freitas	18-5-1999	Portuguesa
+3009	 Luiz Otavio da Cruz	5-12-2003	Portuguesa
+3010	Joana da Cunha	3-2-2004	Guineense
+3011	Alana Fernandes	13-6-2004	Brasileira
+3012	Eduarda Nunes	17-11-1992	Portuguesa
+3013	 Leonardo Dias	25-12-1998	Portuguesa
+3014	Yago Duarte	1-1-1996	Portuguesa
+3015	Maria Luiza Azevedo	10-6-2000	Portuguesa
+3016	Felipe Duarte	10-7-1995	Guineense
+3017	Isabelly Silva	20-3-1991	Portuguesa
+3018	Maria Fernanda Nunes	24-7-2002	Portuguesa
+3019	Isadora da Mota	20-9-1995	Portuguesa
+3020	Natalia Gomes	13-10-1993	Portuguesa
+3021	Esther Costa	8-4-1998	Portuguesa
+3022	Heitor Costela	6-12-1995	Portuguesa
+3023	Laura Fogaca	4-9-1996	Portuguesa
+3024	Luiza Lima	11-1-2002	Portuguesa
+3025	Daniel da Cruz	30-10-1992	Espanhola
+3026	Maria Vitoria Cunha	5-10-2001	Portuguesa
+3027	 Joao Vitor Farias	14-1-1994	Guineense
+3028	Ana Julia Peixoto	28-10-1997	Mocambicana
+3029	Maria Clara Silveira	17-11-1994	Portuguesa
+3030	Mariana Rodrigues	9-9-1998	Portuguesa
+3031	Clarice Fernandes	19-12-1991	Portuguesa
+3032	 Vitoria da Cunha	4-4-1999	Espanhola
+3033	Felipe Mendes	17-2-2003	Portuguesa
+3034	Levi da Mata	23-8-2000	Portuguesa
+3035	Melissa da Rosa	5-9-1998	Brasileira
+3036	Ana Luiza Silva	26-2-2003	Portuguesa
+3037	Helena Nunes	7-7-1993	Portuguesa
+3038	Vitoria Rezende	11-8-2003	Brasileira
+3039	Emanuel Silveira	26-9-1991	Portuguesa
+3040	Maria Fernanda Peixoto	11-3-1998	Portuguesa
+3041	Barbara da Paz	29-5-2003	Brasileira
+3042	 Maria Cecilia Moura	29-9-2004	Portuguesa
+3043	 Camila Silva	12-12-2001	Brasileira
+3044	Emanuel Rocha	16-11-2001	Portuguesa
+3045	 Lais Azevedo	6-9-1991	Portuguesa
+3046	Isabella Goncalves	26-10-1992	Portuguesa
+3047	 Catarina Caldeira	5-8-1996	Francesa
+3048	Isadora Lopes	25-7-2000	Brasileira
+3049	Isadora Rocha	10-4-1991	Timorense
+3050	Raquel das Neves	26-2-2002	Portuguesa
+3051	Barbara Silva	13-7-1996	Portuguesa
+3052	Caroline Rocha	13-4-2000	Portuguesa
+3053	Kamilly Ferreira	9-11-1990	Portuguesa
+3054	Gabrielly Melo	12-12-1994	Portuguesa
+3055	 Leandro da Conceicao	9-11-1992	Portuguesa
+3056	Luna Nascimento	4-8-2003	Portuguesa
+3057     Olivia Porto	7-9-2003	Angolana
+3058    Davi Lucca Nogueira	25-9-1996	Espanhola
+3059	Pedro Silveira	1-1-1994	Portuguesa
+3060	Daniela Rocha	8-11-1992	Portuguesa
+3061	Luiz Otavio Almeida	19-2-2000	Portuguesa
+3062	Giovanna Ferreira	21-5-2001	Portuguesa
+3063	Anthony Souza	18-8-1991	Portuguesa
+3064	Helena Sales	17-5-1994	Portuguesa
+3065	Yago da Cunha	26-7-1994	Portuguesa
+3066	Isis Azevedo	27-5-1999	Guineense
+3067	Julia Fernandes	2-7-1998	Portuguesa
+3068	Amanda Martins	19-8-2001	Portuguesa
+3069	Sofia Oliveira	24-1-2001	Portuguesa
+3070	Pedro Miguel Duarte	20-12-1993	Portuguesa
+3071	Larissa da Cunha	17-12-2003	Portuguesa
+3072	 Eloah Araujo	29-7-2001	Portuguesa
+3073	Joao Felipe Alves	7-2-1998	Portuguesa
+3074	Ana Laura Rezende	27-12-1994	Portuguesa
+3075	 Lucca Duarte	27-10-1994	Portuguesa
+3076	Joaquim Ramos	18-12-1997	Portuguesa
+3077	Enrico Nascimento	15-3-1999	Timorense
+3078	Emanuelly Pinto	11-12-1992	Portuguesa
+3079	Leandro da Rocha	25-7-1996	Brasileira
+3080	Marina Goncalves	17-10-1991	Portuguesa
+3081	Alice Gomes	23-12-1995	Portuguesa
+3082	Luigi Costela	4-1-2004	Portuguesa
+3083	Ana Laura Moreira	22-4-2003	Portuguesa
+3084	Esther Jesus	30-6-2001	Portuguesa
+3085	Nicole da Costa	23-4-2002	Portuguesa
+3086	Maysa Teixeira	15-3-2002	Brasileira
+3087	Cecilia Freitas	1-5-1998	Portuguesa
+3088     Thales Ramos	2-3-1998	Brasileira
+3089	 Alana Campos	19-5-2000	Portuguesa
+3090	Benicio Dias	14-7-1998	Francesa
+3091	Erick Ribeiro	12-2-2000	Portuguesa
+3092	Clara Pires	24-3-1998	Portuguesa
+3093	Mariana Pinto	10-8-2004	Portuguesa
+3094	Matheus Costela	1-1-1992	Italiana
+3095	 Emilly Moreira	25-1-1994	Brasileira
+3096	 Joao Gabriel da Luz	16-9-1991	Mocambicana
+3097	Thiago Ferreira	5-5-1997	Portuguesa
+3098	Maria Luiza Aragao	9-11-1992	Portuguesa
+3099	Ana Luiza da Cunha	24-3-1995	Portuguesa
+3100	Barbara Alves	5-10-1990	Portuguesa
+3101	Ian Castro	23-3-2000	Portuguesa
+3102	Marcela Nogueira	4-7-1996	Portuguesa
+3103	Valentina Novaes	10-10-1998	Portuguesa
+3104	Emanuelly Correia	11-8-1996	Portuguesa
+3105	Gustavo Henrique Vieira	11-8-1994	Portuguesa
+3106	 Ryan Nascimento	14-9-1991	Brasileira
+3107	Eduarda Cardoso	3-9-1996	Portuguesa
+3108	Natalia Goncalves	4-3-2004	Portuguesa
+3109	 Davi Correia	24-4-2000	Portuguesa
+3110	Anthony Nogueira	15-9-1996	Timorense
+3111	Ana Barbosa	11-10-2001	Portuguesa
+3112	Andre Oliveira	15-12-1991	Portuguesa
+3113	 Ana Fogaca	30-5-1996	Espanhola
+3114	Yago Oliveira	3-3-1991	Portuguesa
+3115	 Miguel Moraes	1-11-1996	Portuguesa
+3116	Sophie da Mata	28-7-1990	Portuguesa
+3117	Camila da Mota	8-1-1995	Portuguesa
+3118	Vitoria Fernandes	17-8-1994	Portuguesa
+3119	Maria Alice Freitas	12-8-1990	Portuguesa
+3120	Milena Melo	19-3-1994	Portuguesa
+3121	Isadora Costa	21-12-1990	Portuguesa
+3122	Enzo Novaes	12-5-1998	Portuguesa
+3123	Luna Nogueira	9-3-2001	Portuguesa
+3124	Lavinia Pereira	13-2-2003	Italiana
+3125	Henrique Nogueira	11-9-1991	Brasileira
+3126	Bruno Ramos	21-9-1993	Portuguesa
+3127	Beatriz Lopes	4-5-2003	Mocambicana
+3128	Valentina Ferreira	25-7-1990	Francesa
+3129	Laura Dias	7-9-1990	Portuguesa
+3130	Juliana Ramos	28-12-2000	Portuguesa
+3131	Rebeca Monteiro	7-12-2001	Portuguesa
+3132	Andre Cunha	23-2-1993	Francesa
+3133	 Enrico Peixoto	25-8-1999	Portuguesa
+3134	Igor Pinto	3-2-1991	Portuguesa
+3135	 Davi Lucca Cavalcanti	14-11-1997	Espanhola
+3136	Sarah Barros	2-6-1997	Portuguesa
+3137	Danilo Barbosa	28-12-1997	Portuguesa
+3138	Juan Lima	24-1-1998	Portuguesa
+3139	Joao Barros	22-9-1995	Portuguesa
+3140	Helena Freitas	28-12-1990	Portuguesa
+3141	Alexandre Pires	1-11-2002	Portuguesa
+3142	Evelyn Nascimento	12-4-1996	Portuguesa
+3143	Paulo Silva	9-5-1995	Brasileira
+3144	Raul Goncalves	8-5-2000	Portuguesa
+3145	Sarah Costa	5-10-1994	Portuguesa
+3146	Ana Vitoria Correia	30-5-2003	Portuguesa
+3147	Barbara Barros	19-11-1998	Portuguesa
+3148	Ana Beatriz Castro	12-9-1995	Portuguesa
+3149	Mariana das Neves	5-1-1998	Portuguesa
+3150	Marcos Vinicius Sales	13-1-2003	Guineense
+3151	Lara Novaes	2-3-1998	Portuguesa
+3152	Fernando Oliveira	24-8-2003	Timorense
+3153	 Maite Gomes	9-6-2003	Portuguesa
+3154	 Noah da Rosa	12-10-1992	Mocambicana
+3155	Larissa da Mota	8-10-2004	Portuguesa
+3156	 Emanuella Araujo	21-11-1996	Portuguesa
+3157	Pietra Souza	8-12-1997	Portuguesa
+3158	Nicolas Pereira	29-7-1997	Portuguesa
+3159	Maria Clara Rodrigues	23-1-1996	Brasileira
+3160	Joao Pedro Moreira	8-4-1999	Brasileira
+3161	Luiz Otavio Duarte	24-8-1995	Portuguesa
+3162	Lara Oliveira	9-10-2002	Portuguesa
+3163	Maria Vitoria Araujo	7-7-2000	Portuguesa
+3164	Nathan Oliveira	10-9-1993	Timorense
+3165	Heloisa Santos	25-5-1990	Francesa
+3166	Andre Ferreira	14-1-1999	Portuguesa
+3167	Bruno Porto	14-6-2000	Portuguesa
+3168	Clara Carvalho	8-4-1995	Timorense
+3169	Bernardo Carvalho	19-12-2003	Portuguesa
+3170	Levi Martins	24-5-2002	Portuguesa
+3171	Bruna Dias	5-12-2001	Portuguesa
+3172	 Camila Fogaca	9-1-1994	Portuguesa
+3173	Pietro Jesus	16-10-1990	Angolana
+3174	Kaique Jesus	15-12-1995	Portuguesa
+3175	 Luiz Gustavo Cardoso	13-3-2003	Portuguesa
+3176	 Caua Silva	25-4-1997	Portuguesa
+3177	Nicolas Ribeiro	20-9-2002	Portuguesa
+3178	Manuela da Conceicao	4-5-1995	Mocambicana
+3179	Carlos Eduardo Melo	7-8-1990	Portuguesa
+3180	Amanda Moreira	14-8-2001	Portuguesa
+3181	Thales Rodrigues	18-5-2002	Portuguesa
+3182	Diego Ferreira	6-2-1995	Portuguesa
+3183	Alicia da Cunha	8-4-1993	Guineense
+3184	Rafael Araujo	11-7-2003	Angolana
+3185	Benicio Lima	20-9-1993	Brasileira
+3186	Vinicius Rodrigues	16-4-1997	Portuguesa
+3187	Isaac Azevedo	26-9-1997	Portuguesa
+3188	Ana Sophia Ribeiro	26-3-2003	Portuguesa
+3189	Sophia Mendes	9-10-1992	Portuguesa
+3190	Sabrina Alves	24-12-1990	Portuguesa
+3191	Igor Lima	7-10-1996	Brasileira
+3192	 Murilo Barros	19-3-2000	Mocambicana
+3193	 Isadora Moraes	18-4-1998	Portuguesa
+3194	Joao Vitor Cunha	20-12-1990	Portuguesa
+3195	 Raquel Rodrigues	25-11-2004	Portuguesa
+3196	Davi Luiz da Rocha	17-1-2002	Portuguesa
+3197	Ana Carolina da Luz	30-1-1992	Francesa
+3198	Bernardo Nogueira	14-10-1998	Portuguesa
+3199	Ana Livia Monteiro	26-3-1997	Portuguesa
+3200	Maysa Cardoso	4-2-1991	Portuguesa
+3201	Thiago da Cruz	22-1-1995	Portuguesa
+3202	Renan Cavalcanti	27-8-1998	Portuguesa
+3203	Benjamin da Cunha	12-1-1990	Guineense
+3204	Emanuella Oliveira	9-6-2001	Portuguesa
+3205	Isaac Novaes	12-3-1990	Timorense
+3206	Emilly Oliveira	13-5-1994	Portuguesa
+3207	Sofia Castro	26-5-2002	Portuguesa
+3208	Sophie das Neves	22-6-1993	Portuguesa
+3209	 Joao Barbosa	13-12-1999	Francesa
+3210	Marcos Vinicius Pires	12-5-1991	Portuguesa
+3211	Elisa Pereira	9-9-2000	Portuguesa
+3212	 Vitor Gabriel Almeida	14-4-1994	Angolana
+3213	Kevin da Cunha	23-12-1993	Portuguesa
+3214	Caroline Cardoso	8-7-1990	Portuguesa
+3215	Gabriela Silveira	9-12-1998	Francesa
+3216	Bernardo Peixoto	10-8-1995	Portuguesa
+3217	Nicole da Costa	4-8-1999	Guineense
+3218	Erick Duarte	25-6-2000	Portuguesa
+3219	Lucas Gabriel da Cruz	21-10-2004	Portuguesa
+3220	 Gabriel Carvalho	14-3-1991   Brasileira
+3221	Juliana Moreira	1-12-1998	Portuguesa
+3222	Emanuel Farias	22-10-2003	Brasileira
+3223	 Thales Jesus	2-2-1990	Portuguesa
+3224	Andre Silva	30-12-1991	Mocambicana
+3225	Danilo Moreira	28-10-2002	Portuguesa
+3226	 Luiz Gustavo da Luz	12-9-1992	Portuguesa
+3227	Caue Cardoso	11-11-1992	Brasileira
+3228	Ian Teixeira	23-6-1990	Mocambicana
+3229	Igor Mendes	29-6-1991	Portuguesa
+3230	Amanda Mendes	13-3-1998	Espanhola
+3231	Caua Martins	17-2-1993	Portuguesa
+3232	Joao Gabriel Ferreira	5-11-1994	Portuguesa
+3233	Luiza Ribeiro	13-6-1991	Portuguesa
