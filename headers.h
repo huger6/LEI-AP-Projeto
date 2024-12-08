@@ -74,6 +74,8 @@ void separar_parametros(const char * linha, char ** parametros, int * num_parame
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
 void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats);
 void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * stats, int n_alunos);
+void pressione_enter();
+void colocar_terminal_pt();
 
 void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Estudante ** aluno, int * tamanho_alunos, Dados ** escolares, int * tamanho_escolares);
 void limpar_buffer();
@@ -92,6 +94,8 @@ void processar_estatisticas(Escolha * escolha);
 void processar_extras(Escolha * escolha);
 Escolha escolha_menus();
 int validar_data(short dia, short mes, short ano, const char modo);
-void ler_data(Estudante * aluno, char * str, const char modo);
+void ler_data(Estudante *aluno, char *str, const char modo);
+
+int validar_codigo(aluno, indice)(Estudante *aluno, int indice);
 
 #endif //Termina a condição

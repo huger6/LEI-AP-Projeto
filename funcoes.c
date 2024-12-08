@@ -68,9 +68,10 @@ void separar_parametros(const char * linha, char ** parametros, int * num_parame
 }
 
 //Linha é alocada dinamicamente, pelo que deve ser libertada quando já não for necessária.
-//Lê uma linha completa do ficheiro/teclado(ficheiro = stdin) sem que haja a possibilidade de ficar algo por ler
+//Lê uma linha completa do ficheiro/teclado(ficheiro = stdin) sem que haja a possibilidade de ficar algo por ler\
+//n_linhas NULL se não estivermos a ler de um ficheiro
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
-    if(ficheiro == NULL || n_linhas == NULL) return NULL;
+    if(ficheiro == NULL) return NULL;
     //n_linhas não será inicializado aqui
     char buffer[TAMANHO_INICIAL_BUFFER]; //Buffer para armazenar parte da linha
     size_t tamanho_total = 0; //Comprimento da linha; size_t pois é sempre >0 e evita conversões que podem levar a erros com outras funções
@@ -93,14 +94,14 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
 
         //Verificamos se a linha está completa
         if (buffer[tamanho - 1] == '\n') {//se tudo tiver sido copiado, o ultimo caracter do buffer(e da linha tbm) será o '\n'
-            (*n_linhas)++;
+            if (n_linhas != NULL) (*n_linhas)++;
             return linha;
         }
     }
 
     if (linha && tamanho_total > 0) {
         //Linha final sem '\n' mas tem conteudo (por ex: ultima linha)
-        (*n_linhas)++;
+        if (n_linhas != NULL) (*n_linhas)++;
         return linha;
     }
 
@@ -128,25 +129,12 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
             if(num_parametros == PARAMETROS_ESTUDANTE) {
                 //Verificamos se o indice é igual ou superior ao tamanho do array, se sim, aumentamos o tamanho do array
                 if (indice_aluno >= *tamanho_alunos) {
-                    *tamanho_alunos *= 2;
-                    *aluno = (Estudante *) realloc(*aluno, *tamanho_alunos * sizeof(Estudante));
-
-                    if (!(*aluno)) {
+                    if (!realocar_structs(aluno, escolares, tamanho_alunos, sizeof(Estudante))) {
                         printf("Ocorreu um erro a gerir a memória.\n"); //Averiguar melhor 
                         fclose(dados);
                         return;
                     }
-                    //Se aumentamos o numero de alunos inicial, temos também de alocar novo espaço para o nome e nacionalidade dos novos alunos
-                    for(int i = indice_aluno; i < *tamanho_alunos; i++) {
-                        (*aluno)[i].nacionalidade = (char *) malloc (MAX_STRING_NACIONALIDADE * sizeof(char));
-                        (*aluno)[i].nome = (char *) malloc (TAMANHO_INICIAL_ALUNO * sizeof(char));
-                        if (!(*aluno)[i].nacionalidade || !(*aluno)[i].nome) {
-                            printf("Ocorreu um erro a gerir a memória.\n"); //Averiguar melhor 
-                            fclose(dados);
-                            return;
-                        }
-                    }
-                    //FALTA INICIALIZAR A MEMÓRIA ALOCADA
+                    //A realocação dos campos de nacionalidade e nome são feitas em realocar_structs
                 }
                  //Como estamos a carregar as structs do estudante, o número de parametros lidos tem que ser igual ao esperado
                 (*aluno)[indice_aluno].codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
@@ -181,14 +169,11 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
             if(num_parametros == PARAMETROS_DADOS_ESCOLARES) {
 
                 if (indice_aluno >= *tamanho_alunos) {
-                    *tamanho_alunos *= 2;
-                    *escolares = (Dados *) realloc(*escolares, *tamanho_alunos * sizeof(Dados));
-                    if (!*escolares) {
+                    if (!realocar_structs(aluno, escolares, tamanho_alunos)) {
                         printf("Ocorreu um erro a gerir a memória.\n");
-                        fclose(dados);
+                        fclose(situacao_escolar);
                         return;
                     }
-                    //FALTA INICIALIZAR A MEMÓRIA ALOCADA
                 }
                 (*escolares)[indice_aluno].codigo = atoi(parametros[0]); //codigo
                 (*escolares)[indice_aluno].matriculas = atoi(parametros[1]); //matriculas
@@ -215,17 +200,24 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
 void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats) {
     return;
 }
-//Colocamos os valores a -1 (ints/floats) ou a '\0' (strings) ou '0'(char) para dizer que ainda nada foi introduzido
-void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * stats, int n_alunos) {
-    for (int i = 0; i < n_alunos; i++) {
+//Inicializar com valores nitidamente inválidos. Usar indice_atual = 0 para inicializar pela primeira vez, depois usar a última posição válida ocupada + 1
+void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * stats, int indice_atual, const int tamanho_aluno) {
+    if (!aluno || !escolares || !stats || tamanho_aluno <= 0 || indice_atual < 0) return;
+
+    for (int i = indice_atual; i < tamanho_aluno; i++) {
         //Struct estudante
         aluno[i].codigo = -1;
         aluno[i].nascimento.dia = 0; //Para sinalizar que ainda não foi alterada
         aluno[i].nascimento.mes = 0;
         aluno[i].nascimento.ano = 0;
+        //Aloca memória para guardar a nacionalidade e o nome
         aluno[i].nacionalidade = (char *) malloc (MAX_STRING_NACIONALIDADE * sizeof(char));
         aluno[i].nome = (char *) malloc (TAMANHO_INICIAL_NOME * sizeof(char));
         if(aluno[i].nacionalidade == NULL || aluno[i].nome == NULL) {
+            for(int j = indice_atual; j < i; j++) {
+                free(aluno[j].nacionalidade);
+                free(aluno[j].nome);
+            }
             printf("Ocorreu um erro ao alocar memória. A encerrar.\n");
             return;
         }
@@ -247,14 +239,31 @@ void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * st
         stats[i].risco_prescrever = 0;
     }
 }
-//Retorna -1 se não encontrar espaço livre
-int encontrar_espaco_livre(Estudante *aluno, Dados * escolares, int tamanho) {
-    for(int i = 0; i < tamanho; i++) {
-        if(aluno[i].codigo == -1 && escolares[i].codigo == -1) {  //Posição livre
-            return i;
-        }
+//Duplica o espaço atual. Não inicializa o espaço alocado. Não adereça erros.
+int realocar_espaco(void ** estrutura, int * tamanho_alunos, int tamanho_tipo) {
+    //estrutura é void mas ainda aponto para o endereço de aluno/escolares,...
+    void * temp = realloc(*estrutura, *tamanho_alunos * tamanho_tipo);
+    //temp é void mas contém o novo bloco de memória do tipo passado em estrutura
+    if (!temp) {
+        return 0; //Erros devem ser tratados na função
     }
-    return -1;  //Não encontrou espaço
+    *estrutura = temp; //aqui atualiza-se o ponteiro original
+    return 1;
+}
+
+//Aloca memória para todas as structs se stats != NULL. Não endereça erros
+int realocar_structs(Estudante ** aluno, Dados ** escolares, int * tamanho_alunos) {
+    if(!aluno || !escolares || !tamanho_alunos) return 0;
+    int indice = *tamanho_alunos; //Guardar o índice para realocar os campos das structs
+    *tamanho_alunos *= 2; //Duplicar tamanho do array
+    //A função está à espera de um argumento do tipo void **, logo temos de fazer o cast para evitar erros
+    if(!realocar_espaco((void**)aluno, *tamanho_alunos, sizeof(Estudante))) return 0;
+    if(!realocar_espaco((void**)escolares, *tamanho_alunos, sizeof(Dados))) return 0;
+    //Note-se que a verificação para falhas na realocação é feita em realocar_espaco
+    //Alocar strings para novos elementos Estudante
+    //Inicializar novos elementos (é feita a alocação para os campos nacionalidade e nome)
+    inicializar_structs(*aluno, *escolares, indice, *tamanho_alunos);
+    return 1; 
 }
 
 void limpar_buffer() {
@@ -271,8 +280,25 @@ void validacao_menus(short * valido, const char opcao, const char limInf, const 
         validacao_numero_menu(limInf, limSup); 
     }
 }
-
-
+//Modo '1' para validar 
+int validar_codigo(int * codigo, Estudante * aluno, Dados * escolares, int * tamanho, const char modo) {
+    if(*codigo < 0) {
+        limpar_buffer();
+        if (modo == '1') {
+            printf("Código inválido! Insira um número inteiro positivo.\n");
+            pressione_enter();
+        }
+        return 0;
+    }
+    if(*codigo == procurar_codigo(*codigo, aluno, escolares, *tamanho)) {
+        limpar_buffer();
+        if (modo == '1') {
+            printf("Código já existente! Insira um código diferente.\n");
+            pressione_enter();
+        }
+        return 1;
+    }
+}
 //Limpar o terminal consoante o sistema operativo
 void limpar_terminal() {
     #ifdef _WIN32 //_WIN32 é uma variável local automaticamente pre-definida pelo windows em todos os sistemas
@@ -306,20 +332,23 @@ void colocar_terminal_pt() {
     #endif
 }
 
+void pressione_enter() {
+    printf("Pressione Enter para continuar.\n");
+    while (getchar() != '\n'); //Caso o user escreva algo e não enter limpar buffer
+}
+
 //Esta função é um pouco "inutil" neste momento. Foi desenhada para tratar erros com ints
 void validacao_input_menu(const char limInf, const char limSup) {
     limpar_buffer();  // Limpar o buffer de entrada (o que foi escrito incorretamente)
-	printf("Entrada inválida! Introduza um número do menu (%c a %c)\n", limInf, limSup);
-	printf("Pressione Enter para continuar.\n");
-	if (getchar() != '\n') limpar_buffer(); //Caso o user escreva algo e não enter limpar buffer
+	printf("Entrada inválida! Introduza um número do menu (%c a %c)\n", limInf, limSup); 
+    pressione_enter();
 	limpar_terminal();
 }
 
 void validacao_numero_menu(const char limInf, const char limSup) {
     limpar_buffer();
 	printf("Por favor, escolha um número do menu (%c a %c).\n", limInf, limSup);
-	printf("Pressione Enter para continuar.\n");
-	if (getchar() != '\n') limpar_buffer(); 
+	pressione_enter();
 	limpar_terminal();
 }
 
@@ -679,27 +708,75 @@ void ler_data(Estudante * aluno, char * str, const char modo) {
     } //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
 }
 
-//Retorna uma string
-//tipo é o nome do 
 
-void inserir_estudante(Estudante * aluno, Dados * escolares, int * tamanho_alunos) {
-    int indice = encontrar_espaco_livre(aluno, escolares, *tamanho_alunos); //Verifica se há espaço livre
-    if (indice == -1) {
-        tamanho_alunos *= 2; //Duplicar o tamanho do array
-        aluno = (Estudante *) realloc(aluno, *tamanho_alunos * sizeof(Estudante));
-        escolares = (Dados *) realloc(escolares, *tamanho_alunos * sizeof(Dados));
-        if(!aluno || !escolares) {
-            printf("Ocorreu um erro ao alocar memória. A encerrar.\n");
+//Implementa uma procura binária
+int procurar_codigo(int codigo, Estudante * aluno, Dados * escolares, int tamanho) {
+    int limInf, limSup, meio;
+    limInf = 0;
+    limSup = tamanho - 1;
+
+    while (limSup >= limInf) {
+        meio = (int)(limSup + limInf) / 2;
+        if (aluno[meio].codigo == codigo && escolares[meio].codigo == codigo) return meio; //Dá return do índice
+        else {
+            if (aluno[meio].codigo < codigo) limInf = meio + 1;
+            else limSup = meio - 1;
+        }
+    }
+    return -1; //Estão todos cheios ou o código não existe
+}
+
+void inserir_estudante(Estudante ** aluno, Dados ** escolares, int * tamanho_alunos) {
+    int indice = procurar_codigo(-1, *aluno, *escolares, *tamanho_alunos); //Verifica se há espaço livre
+    if (indice == -1) { //Trata os casos em que não há espaço livre
+        if (!realocar_structs(aluno, escolares, NULL)) {
+            printf("Ocorreu um erro ao alocar memória para o aluno. A retornar.\n");
             return;
         }
-        inicializar_structs
     }
     char repetir = '0';
     limpar_buffer();
     do {
+        limpar_terminal(); //Caso de repetição
         repetir = '0';
-        printf("Insira o código do estudante: ");
-        scanf("%d", &aluno[*tamanho_alunos].codigo);
+        do {
+            int codigo_temp = -1; 
+            limpar_terminal();
+            printf("Insira o código do estudante: ");
+            if (scanf("%d", &codigo_temp) != 1) {
+                printf("Código inválido! Insira um número inteiro positivo.\n");
+                limpar_buffer();
+                pressione_enter();
+                continue;
+            }
+
+            if (!validar_codigo(&codigo_temp, aluno, escolares, indice)) {
+                limpar_buffer();
+                pressione_enter();
+                continue;
+            }
+            //Se for válido, passamos o valor para a struct
+            aluno[indice].codigo = codigo_temp;
+            break; //Se não for inválido saimos do loop
+        } while (1);
+        
+        do {
+            printf("Insira o nome do estudante: ");
+            aluno[indice].nome = ler_linha_txt(stdin, NULL);
+            limpar_buffer();
+        } while( aluno[indice].nome == NULL);
+
+        do {
+            printf("Insira a data de nascimento do estudante (DD-MM-AAAA): ");
+            ler_data(&aluno[indice], NULL, '1');
+            limpar_buffer();
+        } while (aluno[indice].nascimento.dia == 0); //Apenas verificamos um pois em ler_data a data só é copiada para as structs se toda ela for válida
+        
+        do {
+            printf("Quer inserir mais estudantes? (1 - Sim, 0 - Não): ");
+            scanf(" %c", &repetir);
+            limpar_buffer();
+        } while (repetir != '1' && repetir != '0');
     }while(repetir == '1');
 }
 

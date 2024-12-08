@@ -1,13 +1,14 @@
 DÚVIDAS:
 -Verificar se a leitura da data de nascimento está correta
 -Verificar se o método que estamos a usar para retornar a opcao dos menus é correta.
--Perguntar se a struct relacionada aos menus é correta
 -Rever a lógica de limpeza dos buffers
 -Devo definir macros para os limites das opcoes dos menus?
 usar uma struct com variáveis de erro.
 -Manter o ficheiro aberto durante as operações em memória ou fecha-lo e reabri-lo mais tarde? Abrir. fechar. Abrir, fechar
 !!Usar shorts é boa ideia??
 !!!Os ficheiros podem ter alunos diferentes????
+-Podemos trabalhar essencialmente com os códigos e assumir que se o código está livre, os outros parametros também o estão??
+-Usar uma struct para guardar o estado do programa, como erros, e caso seja crítico, sair do mesmo
 ______________________________________________________________________________________________________________
 
 NOTAS:
@@ -49,3 +50,11 @@ ________________________________________________________________________________
 
 
 A função separar_parametros estava a funcionar bem mas estava a deixar um \n colado a nacionalidade no fim
+
+
+______________________________________________________________________________________________________________
+
+FUTURAMENTE:
+
+-opcao linguagem
+-introduzir uma struct para o uso de várias escolas, cada com uma das outras structs
