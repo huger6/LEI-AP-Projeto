@@ -2,6 +2,9 @@
 #include "funcoes.c"
 //NOTA IMPORTANTE: para dar run temos que abrir o projeto em terminal integrado e depois de estar na main, dar compile run.
 //": Para os ficheiros abrirem corretamente têm que estar na pasta output
+
+//TODO AMANHA: Função inserir_estudante; fazer o inicializar_structs funcionar de forma generalizada, para poder inicializar os dados sempre que se faz um realloc
+//Na função carregar dados, não são inicializadas algumas casas do array  (VER COMENTÁRIO NO CÓDIGO)
 int main() {
 	int tamanho_aluno, tamanho_escolares, tamanho_stats;
     //Colocar a consola em PT-PT (caracteres UTF8)
@@ -26,21 +29,7 @@ int main() {
 	//Até aqui está tudo correto
 	carregar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, &aluno, &tamanho_aluno, &escolares, &tamanho_escolares);
 
-	for(int i = 0; i < 10; i++) {
-		printf("O código do aluno é %d!\n", aluno[i].codigo);
-		printf("O nome do aluno é %s!\n", aluno[i].nome);
-		printf("A data de nascimento do aluno é %hd-%hd-%hd!\n", aluno[i].nascimento.dia, aluno[i].nascimento.mes, aluno[i].nascimento.ano);
-		printf("A nacionalidade do aluno é %s!\n", aluno[i].nacionalidade);
-	}
-
-	for(int i = 0; i < 10; i++) {
-		printf("O código do aluno é %d!\n", escolares[i].codigo);
-		printf("O número de matrículas do aluno é %hd!\n", escolares[i].matriculas);
-		printf("O número de ECTS do aluno é %hd!\n", escolares[i].ects);
-		printf("O ano atual do aluno é %hd!\n", escolares[i].ano_atual);
-		printf("A média atual do aluno é %.2f!\n", escolares[i].media_atual);
-		printf("O aluno está em risco de prescrição? %c\n", escolares[i].prescrever);
-	}
+	escolha_menus();
 
 	free(aluno);
 	free(escolares);

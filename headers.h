@@ -7,7 +7,7 @@
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
 #define TAMANHO_INICIAL_ALUNO 1000
 #define TAMANHO_INICIAL_BUFFER 100
-#define SEPARADOR '\t'
+#define SEPARADOR '\t' //FOI ALTERADO NO STRTOK
 #define MAX_PARAMETROS 4 //De acordo com os dados atuais, são 4 parametros por linha, caso se aumente, este valor deve aumentar também.
 #define PARAMETROS_ESTUDANTE 4
 #define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
@@ -71,7 +71,7 @@ typedef struct {
 //Protótipos das funções
 void remover_espacos(char * str);
 void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
-char * ler_linha(FILE * ficheiro, int * n_linhas);
+char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
 void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats);
 void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * stats, int n_alunos);
 

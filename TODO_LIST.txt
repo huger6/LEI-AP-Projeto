@@ -7,6 +7,7 @@ DÚVIDAS:
 usar uma struct com variáveis de erro.
 -Manter o ficheiro aberto durante as operações em memória ou fecha-lo e reabri-lo mais tarde? Abrir. fechar. Abrir, fechar
 !!Usar shorts é boa ideia??
+!!!Os ficheiros podem ter alunos diferentes????
 ______________________________________________________________________________________________________________
 
 NOTAS:

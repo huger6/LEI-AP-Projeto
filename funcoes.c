@@ -68,8 +68,8 @@ void separar_parametros(const char * linha, char ** parametros, int * num_parame
 }
 
 //Linha é alocada dinamicamente, pelo que deve ser libertada quando já não for necessária.
-//Lê uma linha completa do ficheiro sem que haja a possibilidade de ficar algo por ler
-char * ler_linha(FILE * ficheiro, int * n_linhas) {
+//Lê uma linha completa do ficheiro/teclado(ficheiro = stdin) sem que haja a possibilidade de ficar algo por ler
+char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
     if(ficheiro == NULL || n_linhas == NULL) return NULL;
     //n_linhas não será inicializado aqui
     char buffer[TAMANHO_INICIAL_BUFFER]; //Buffer para armazenar parte da linha
@@ -109,7 +109,7 @@ char * ler_linha(FILE * ficheiro, int * n_linhas) {
     return NULL;
 }
 //Função recebe o ponteiro de um ponteiro para permitir a realocação do array caso necessário
-void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Estudante ** aluno, int * tamanho_alunos, Dados ** escolares, int * tamanho_escolares) { 
+void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Estudante ** aluno, Dados ** escolares, int * tamanho_alunos) { 
 
     FILE * dados = fopen(nome_ficheiro_dados, "r");
     FILE * situacao_escolar = fopen(nome_ficheiro_escolar, "r");
@@ -119,8 +119,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
 
     //Esta secção vai copiar, linha a linha, o conteúdo do ficheiro para a memória, nomeadamente na struct Estudante
     if(dados) { //apenas se a abertura tiver sido bem sucedida
-        printf("Abri dados\n");
-        while ((linha = ler_linha(dados, &n_linhas)) != NULL) {
+        while ((linha = ler_linha_txt(dados, &n_linhas)) != NULL) {
             char * parametros[MAX_PARAMETROS] = {NULL}; //Array com PARAMETROS casas, onde cada pode armazenar um ponteiro para char (ou seja, uma string)
             int num_parametros = 0; //Armazena o numero real de parametros
 
@@ -147,6 +146,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
                             return;
                         }
                     }
+                    //FALTA INICIALIZAR A MEMÓRIA ALOCADA
                 }
                  //Como estamos a carregar as structs do estudante, o número de parametros lidos tem que ser igual ao esperado
                 (*aluno)[indice_aluno].codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
@@ -172,7 +172,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
     n_linhas = 0;
 
     if(situacao_escolar) {
-        while ((linha = ler_linha(situacao_escolar, &n_linhas)) != NULL) {
+        while ((linha = ler_linha_txt(situacao_escolar, &n_linhas)) != NULL) {
             char * parametros[MAX_PARAMETROS] = {NULL};
             int num_parametros = 0; 
 
@@ -180,14 +180,15 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
 
             if(num_parametros == PARAMETROS_DADOS_ESCOLARES) {
 
-                if (indice_aluno >= *tamanho_escolares) {
-                    *tamanho_escolares *= 2;
-                    *escolares = (Dados *) realloc(*escolares, *tamanho_escolares * sizeof(Dados));
+                if (indice_aluno >= *tamanho_alunos) {
+                    *tamanho_alunos *= 2;
+                    *escolares = (Dados *) realloc(*escolares, *tamanho_alunos * sizeof(Dados));
                     if (!*escolares) {
                         printf("Ocorreu um erro a gerir a memória.\n");
                         fclose(dados);
                         return;
                     }
+                    //FALTA INICIALIZAR A MEMÓRIA ALOCADA
                 }
                 (*escolares)[indice_aluno].codigo = atoi(parametros[0]); //codigo
                 (*escolares)[indice_aluno].matriculas = atoi(parametros[1]); //matriculas
@@ -245,6 +246,15 @@ void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * st
         stats[i].medias_matriculas = 0;
         stats[i].risco_prescrever = 0;
     }
+}
+//Retorna -1 se não encontrar espaço livre
+int encontrar_espaco_livre(Estudante *aluno, Dados * escolares, int tamanho) {
+    for(int i = 0; i < tamanho; i++) {
+        if(aluno[i].codigo == -1 && escolares[i].codigo == -1) {  //Posição livre
+            return i;
+        }
+    }
+    return -1;  //Não encontrou espaço
 }
 
 void limpar_buffer() {
@@ -669,4 +679,27 @@ void ler_data(Estudante * aluno, char * str, const char modo) {
     } //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
 }
 
+//Retorna uma string
+//tipo é o nome do 
+
+void inserir_estudante(Estudante * aluno, Dados * escolares, int * tamanho_alunos) {
+    int indice = encontrar_espaco_livre(aluno, escolares, *tamanho_alunos); //Verifica se há espaço livre
+    if (indice == -1) {
+        tamanho_alunos *= 2; //Duplicar o tamanho do array
+        aluno = (Estudante *) realloc(aluno, *tamanho_alunos * sizeof(Estudante));
+        escolares = (Dados *) realloc(escolares, *tamanho_alunos * sizeof(Dados));
+        if(!aluno || !escolares) {
+            printf("Ocorreu um erro ao alocar memória. A encerrar.\n");
+            return;
+        }
+        inicializar_structs
+    }
+    char repetir = '0';
+    limpar_buffer();
+    do {
+        repetir = '0';
+        printf("Insira o código do estudante: ");
+        scanf("%d", &aluno[*tamanho_alunos].codigo);
+    }while(repetir == '1');
+}
 
