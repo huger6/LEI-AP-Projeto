@@ -5,10 +5,16 @@
 //Definir os nomes dos ficheiros como constantes(de modo a que não sejam alterados)
 #define DADOS_TXT "dados.txt"
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
-
+#define TAMANHO_INICIAL_ALUNO 1000
 #define TAMANHO_INICIAL_BUFFER 100
+#define SEPARADOR '\t' //FOI ALTERADO NO STRTOK
+#define MAX_PARAMETROS 4 //De acordo com os dados atuais, são 4 parametros por linha, caso se aumente, este valor deve aumentar também.
+#define PARAMETROS_ESTUDANTE 4
+#define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
+#define MAX_NACIONALIDADES 206 //Número máximo de países
+#define MAX_STRING_NACIONALIDADE 100 //Definimos o número máximo de chars que uma nacionalidade pode ter
+#define TAMANHO_INICIAL_NOME 50 
 
-#define SEPARADOR '\t'
 
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
 extern const short ANO_ATUAL; //definimos o ano atual, ajustar consoante o ano;
@@ -19,6 +25,7 @@ extern const short ANO_NASC_LIM_INF; //definimos o limite inferior como o ano de
 #include <windows.h> 
 #include <locale.h>
 #include <string.h>
+#include <ctype.h> //Para fazer verificações relativas aos dados introduzidos
 
 
 //Structs
@@ -33,11 +40,17 @@ typedef struct estudante {
     int codigo; //int para prevenir, caso o código tenha, imagine-se, 6 digitos
     char * nome; //Declaramos um ponteiro para posteriormente alocar memória dinamicamente consoante o tamanho do nome
     Data nascimento; 
-    char nacionalidade[5]; //Temos 5 nacionalidades. Dentro de cada posição do array colocamos um array de chars com a nacionalidade.
-    unsigned short matriculas; //unsigned porque matriculas sempre > 0 e short porque usa apenas 2 bytes em x dos 4 de um int
-    unsigned short ects; //Mesma lógica das matriculas~
-    char prescrever; 
+    char * nacionalidade; //Criamos um array do tipo nacionalidade, que irá conter todas as nacionalidades
 }Estudante;
+
+typedef struct dados_escolares {
+    int codigo;
+    short matriculas; 
+    short ects; 
+    short ano_atual;
+    float media_atual;
+    char prescrever;
+}Dados;
 
 //Struct para todos os dados estatísticos
 typedef struct estatisticas {
@@ -57,8 +70,15 @@ typedef struct {
 
 
 //Protótipos das funções
+void remover_espacos(char * str);
+void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
+char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
+void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats);
+void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * stats, int n_alunos);
+void pressione_enter();
+void colocar_terminal_pt();
 
-void carregar_dados(FILE * ficheiro);
+void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Estudante ** aluno, int * tamanho_alunos, Dados ** escolares, int * tamanho_escolares);
 void limpar_buffer();
 void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup);
 void limpar_terminal();
@@ -74,7 +94,9 @@ void processar_consultar_dados(Escolha * escolha);
 void processar_estatisticas(Escolha * escolha);
 void processar_extras(Escolha * escolha);
 Escolha escolha_menus();
-char validar_data(short dia, short mes, short ano);
-void ler_data(Estudante * aluno);
+int validar_data(short dia, short mes, short ano, const char modo);
+void ler_data(Estudante *aluno, char *str, const char modo);
+
+int validar_codigo(aluno, indice)(Estudante *aluno, int indice);
 
 #endif //Termina a condição
