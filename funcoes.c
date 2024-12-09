@@ -296,8 +296,9 @@ int validar_codigo(int * codigo, Estudante * aluno, Dados * escolares, int * tam
             printf("Código já existente! Insira um código diferente.\n");
             pressione_enter();
         }
-        return 1;
+        return 0;
     }
+    return 1;
 }
 //Limpar o terminal consoante o sistema operativo
 void limpar_terminal() {
@@ -729,34 +730,35 @@ int procurar_codigo(int codigo, Estudante * aluno, Dados * escolares, int tamanh
 void inserir_estudante(Estudante ** aluno, Dados ** escolares, int * tamanho_alunos) {
     int indice = procurar_codigo(-1, *aluno, *escolares, *tamanho_alunos); //Verifica se há espaço livre
     if (indice == -1) { //Trata os casos em que não há espaço livre
-        if (!realocar_structs(aluno, escolares, NULL)) {
+        if (!realocar_structs(aluno, escolares, tamanho_alunos)) {
             printf("Ocorreu um erro ao alocar memória para o aluno. A retornar.\n");
             return;
         }
     }
-    char repetir = '0';
+    char repetir = 'n'; //s/n
     limpar_buffer();
     do {
         limpar_terminal(); //Caso de repetição
-        repetir = '0';
+        repetir = 'n';
         do {
             int codigo_temp = -1; 
             limpar_terminal();
             printf("Insira o código do estudante: ");
-            if (scanf("%d", &codigo_temp) != 1) {
+            if (scanf("%d", &codigo_temp) != 1) { //Verifica entradas inválidas como letras
                 printf("Código inválido! Insira um número inteiro positivo.\n");
                 limpar_buffer();
                 pressione_enter();
                 continue;
             }
 
-            if (!validar_codigo(&codigo_temp, aluno, escolares, indice)) {
+            if (!validar_codigo(&codigo_temp, aluno, escolares, *tamanho_alunos, '1')) {
                 limpar_buffer();
                 pressione_enter();
                 continue;
             }
             //Se for válido, passamos o valor para a struct
-            aluno[indice].codigo = codigo_temp;
+            (*aluno)[indice].codigo = codigo_temp;
+            (*escolares)[indice].codigo = codigo_temp;
             break; //Se não for inválido saimos do loop
         } while (1);
         
@@ -773,10 +775,19 @@ void inserir_estudante(Estudante ** aluno, Dados ** escolares, int * tamanho_alu
         } while (aluno[indice].nascimento.dia == 0); //Apenas verificamos um pois em ler_data a data só é copiada para as structs se toda ela for válida
         
         do {
-            printf("Quer inserir mais estudantes? (1 - Sim, 0 - Não): ");
+            printf("Quer inserir mais estudantes? (S/N): ");
             scanf(" %c", &repetir);
+            if (repetir == 's' || repetir == 'S') {
+                repetir = 's';
+                break;
+            }
+            else if (repetir == 'n' || repetir == 'N') {
+                repetir == 'n';
+                break;
+            }
             limpar_buffer();
-        } while (repetir != '1' && repetir != '0');
-    }while(repetir == '1');
+            //se repetir for s ou S, então sai do loop pois cumpre a condição do while
+        } while (repetir != 's' && repetir != 'S' && repetir != 'n' && repetir != 'N');
+    }while(repetir == 's');
 }
 
