@@ -77,7 +77,7 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
     size_t tamanho_total = 0; //Comprimento da linha; size_t pois é sempre >0 e evita conversões que podem levar a erros com outras funções
     char * linha = NULL;
 
-    while (fgets(buffer, sizeof(buffer), ficheiro)) { //fgets le ate buffer -1 caracteres ou \n ou EOF
+    while (fgets(buffer, sizeof(buffer), ficheiro)) { //fgets le ate buffer -1 caracteres ou '\n' ou EOF
         size_t tamanho = strlen(buffer); //Calcula o tamanho do texto lido
         //NOTA IMPORTANTE: se o ponteiro passado para realloc for nulo, ele funciona como o malloc
         char * temp = realloc(linha, tamanho_total + tamanho + 1); //+1 para o nul char
@@ -178,8 +178,8 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
                 (*escolares)[indice_aluno].codigo = atoi(parametros[0]); //codigo
                 (*escolares)[indice_aluno].matriculas = atoi(parametros[1]); //matriculas
                 (*escolares)[indice_aluno].ects = atoi(parametros[2]); //ects
-                (*escolares)[indice_aluno].media_atual = strtof(parametros[3], NULL); //media; usamos null pois o segundo parametro seria um ponteiro para 
-                //guardar o resto da string que não foi lida, o que não é de interesse aqui logo passamos NULL
+                (*escolares)[indice_aluno].media_atual = strtof(parametros[3], NULL); //media
+                //IMPORTANTE: AO PASSAR NULL, ESTAMOS A DESCARTAR O RESTO DA STRING QUE NÃO FOI LIDA, E ISSO PODE SER UM TAB!!
                 (*escolares)[indice_aluno].ano_atual = atoi(parametros[4]); //ano atual
                 indice_aluno++;
             }
@@ -296,6 +296,25 @@ int validar_codigo(int * codigo, Estudante * aluno, Dados * escolares, int * tam
             printf("Código já existente! Insira um código diferente.\n");
             pressione_enter();
         }
+        return 0;
+    }
+    return 1;
+}
+
+int validar_nome(char * nome, Estudante * aluno, int * tamanho_alunos, const char modo) {
+    if (!nome) {
+        if (modo == '1') printf("Nome inválido!\n");
+        return 0;
+    }
+    if (strlen(nome) > TAMANHO_INICIAL_NOME - 1) {
+        //tratar do realloc 
+    }
+    for (int i = 0; i < strlen(nome); i++) {
+        if (nome[i] == SEPARADOR) return 0;
+    }
+
+    if (!isalpha(nome[i]) && nome[i] != ' ' && nome[i] != '-') {
+        if (modo == '1') printf("Nome contém caracteres inválidos!\n");
         return 0;
     }
     return 1;
@@ -763,9 +782,15 @@ void inserir_estudante(Estudante ** aluno, Dados ** escolares, int * tamanho_alu
         } while (1);
         
         do {
+            char * nome_temp = {NULL};
             printf("Insira o nome do estudante: ");
-            aluno[indice].nome = ler_linha_txt(stdin, NULL);
-            limpar_buffer();
+            nome_temp = ler_linha_txt(stdin, NULL);
+            if(!validar_nome(nome_temp, '1')) {
+                limpar_buffer();
+                pressione_enter();
+                continue;
+            }
+            (*aluno)[indice].nome = nome_temp;
         } while( aluno[indice].nome == NULL);
 
         do {

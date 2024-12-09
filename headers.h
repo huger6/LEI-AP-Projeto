@@ -25,6 +25,7 @@ extern const short ANO_NASC_LIM_INF; //definimos o limite inferior como o ano de
 #include <windows.h> 
 #include <locale.h>
 #include <string.h>
+#include <ctype.h> //Para fazer verificações relativas aos dados introduzidos
 
 
 //Structs
