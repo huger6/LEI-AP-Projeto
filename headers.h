@@ -5,7 +5,8 @@
 //Definir os nomes dos ficheiros como constantes(de modo a que não sejam alterados)
 #define DADOS_TXT "dados.txt"
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
-#define TAMANHO_INICIAL_ALUNO 1000
+#define ERROS_TXT "erros.txt" //Ficheiro onde serão armazenados todos os erros provenientes da leitura de dados(para evitar a eliminação dos mesmos)
+#define TAMANHO_INICIAL_ARRAYS 1000
 #define TAMANHO_INICIAL_BUFFER 100
 #define SEPARADOR '\t' //FOI ALTERADO NO STRTOK
 #define MAX_PARAMETROS 4 //De acordo com os dados atuais, são 4 parametros por linha, caso se aumente, este valor deve aumentar também.
@@ -61,6 +62,17 @@ typedef struct estatisticas {
     float media_idade_ano;
     int risco_prescrever;
 }Estatisticas;
+
+//Os arrays destas structs DEVEM ser ORDENADOS
+typedef struct uni{
+    Estudante * aluno;
+    int tamanho_aluno; //tamanho atual do array aluno
+    int capacidade_aluno; //tamanho alocado do array aluno
+    Dados * escolares; 
+    int tamanho_escolares;
+    int capacidade_escolares;
+    Estatisticas stats;
+} Uni;
 
 typedef struct {
     char menu_atual;   // Identificar o menu (P-Principal, G-Gerir estudantes,C-Consultar Dados, E-Estatísticas, X-Extras, S-Sair)

@@ -1,14 +1,8 @@
 DÚVIDAS:
--Verificar se a leitura da data de nascimento está correta
--Verificar se o método que estamos a usar para retornar a opcao dos menus é correta.
--Rever a lógica de limpeza dos buffers
--Devo definir macros para os limites das opcoes dos menus?
-usar uma struct com variáveis de erro.
 -Manter o ficheiro aberto durante as operações em memória ou fecha-lo e reabri-lo mais tarde? Abrir. fechar. Abrir, fechar
-!!Usar shorts é boa ideia??
-!!!Os ficheiros podem ter alunos diferentes????
+!!!Os ficheiros podem ter alunos diferentes???? Pode haver alunos sem situacao escolar mas vice versa nao
 -Podemos trabalhar essencialmente com os códigos e assumir que se o código está livre, os outros parametros também o estão??
--Usar uma struct para guardar o estado do programa, como erros, e caso seja crítico, sair do mesmo
+-Usar uma struct para guardar o estado do programa, como erros, e caso seja crítico, sair do mesmo, NÂO É NECESSÁRIO
 ______________________________________________________________________________________________________________
 
 NOTAS:
@@ -24,12 +18,9 @@ A IMPLEMENTAR:
 -Pedir confirmação antes de sair do programa
 -Para a ultima pergunta podemos usar um array dentro de um array, basicamente aquilo é uma matriz, ou entao fazer da forma "convencional"
 -REVER METODO LER INPUTS!!
--Carregar os dados todos para a ram no inicio do programa
--Fazer a divisao de win e linux na questao do terminal
 -LIMPAR O BUFFER APÓS CADA OPERAÇÃO BÁSICA
--Talvez seja melhor implementar as operações básicas na main. averiguar como poderia ser feito.
 -Dar uma vista de olhos pelas mensagens de erro e talvez aprimorá-las
--mecanismo de avanço página a página: printar 20, pausa, enter, repeat
+-mecanismo de avanço página a página: printar 20, pausa, enter, repeat (ver depois)
 -DEVEMOS GUARDAR EM FICHEIROS TXT E BINÁRIO!! DEVE SER UMA OPÇÃO
 -Talvez seja uma boa ideia voltar a criar uma struct para os dados escolares
 -Nacionalidades devem ser variadas, e não devem ser verificadas
@@ -37,13 +28,17 @@ A IMPLEMENTAR:
 -Fazer a verificação na leitura se não tem nenhum tab, se tiver, classificar a entrada como inválida.
 -Devemos assumir que os dados que estão nos ficheiros estaraão corretos? Alguns, como espaços e no caso do user inserir espaço entre os nomes
 -Talvez seja benéfico adicionar mais caracteres na leitura da data de nascimento
--O que fazer no caso de um dado estar inválido?
-
+-O que fazer no caso de um dado estar inválido? COPIAR PARA UM FICHEIRO DE ERROS
+!!-Procurar código com procura binária e ordenar sempre o vetor após cada edição do estudante
+-Na listagem com avanço página a página, podemos fazer com que cada 20 linhas sejam guardadas num array novo (em baixo)
+ex: temos 201 linhas para listar, fazíamos 201 % 20 = 1, e depois fazíamos for (int i = 0; i < (201-1)/20;i++) e aí guardavamos um array com a info,
+e depois obtemos o último array com 1 linha apenas, e com isso, através dos índices dos i's, podemos fazer com que o user avance ou ande para trás na pag
+poderia ser criado uma espécie de legenda para o user saber os comandos
+-Vamos ASSUMIR que se o aluno não for eliminado, O CÓDIGO NÃO PODERÁ SER ALTERADO
 ______________________________________________________________________________________________________________
 
 BUGS:
 
--Parametro 4 (nacionalidade) está a ser guardado com um \n no final
 
 
 ______________________________________________________________________________________________________________

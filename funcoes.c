@@ -110,7 +110,7 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
     return NULL;
 }
 //Função recebe o ponteiro de um ponteiro para permitir a realocação do array caso necessário
-void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Estudante ** aluno, Dados ** escolares, int * tamanho_alunos) { 
+void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Uni * bd) { 
 
     FILE * dados = fopen(nome_ficheiro_dados, "r");
     FILE * situacao_escolar = fopen(nome_ficheiro_escolar, "r");
@@ -280,9 +280,9 @@ void validacao_menus(short * valido, const char opcao, const char limInf, const 
         validacao_numero_menu(limInf, limSup); 
     }
 }
-//Modo '1' para validar 
-int validar_codigo(int * codigo, Estudante * aluno, Dados * escolares, int * tamanho, const char modo) {
-    if(*codigo < 0) {
+//Modo '1' para printar mensagens de erro e também para escolher o tipo de validação, se '1' estamos a inserir estudante, se '0' a carregar dados
+int validar_codigo(int codigo, Uni * bd, const char modo) {
+    if(codigo < 0) {
         limpar_buffer();
         if (modo == '1') {
             printf("Código inválido! Insira um número inteiro positivo.\n");
@@ -290,15 +290,36 @@ int validar_codigo(int * codigo, Estudante * aluno, Dados * escolares, int * tam
         }
         return 0;
     }
-    if(*codigo == procurar_codigo(*codigo, aluno, escolares, *tamanho)) {
+
+    int temp = procurar_codigo_e_validar(codigo, bd);
+
+    if(temp == codigo) {
         limpar_buffer();
         if (modo == '1') {
-            printf("Código já existente! Insira um código diferente.\n");
+            printf("O código já existe! Insira um código diferente.\n");
             pressione_enter();
         }
         return 0;
     }
-    return 1;
+    //Se não existir o código podesmos usá-lo(-1). Se não existir em aluno, também não faz mal, porque o vamos adicionar
+    else if ((temp == -1 || temp == -2)&&(modo == '1')) {
+        limpar_buffer();
+        return 1;
+    }
+    return 0; //qualquer outro caso
+}
+
+void ordenar_ao_inserir(int codigo, Uni * bd) {
+    //Ordenar aluno
+    int indice = procurar_codigo_aluno(codigo, bd); //podemos chamar esta porque sempre que introduzimos dados verificamos se reune as condições necessárias
+    if (indice == )
+
+    //Ordenar escolares
+
+}
+
+void ordenar_ao_eliminar(int codigo, Uni * bd) {
+
 }
 
 int validar_nome(char * nome, Estudante * aluno, int * tamanho_alunos, const char modo) {
@@ -728,32 +749,58 @@ void ler_data(Estudante * aluno, char * str, const char modo) {
     } //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
 }
 
+//Nas duas funções seguintes não se trata o caso de -1 pois o vetor estará sempre ordenado, então os dados serão sempre ajustados
+//automaticamente sem precisar de procurar por espaços em branco
 
-//Implementa uma procura binária
-int procurar_codigo(int codigo, Estudante * aluno, Dados * escolares, int tamanho) {
+//O CÓDIGO DE ESTUDANTE E DADOS DEVE ESTAR CONFIRMADO**
+//APENAS PARA A STRUCT DADOS
+int procurar_codigo_aluno(int codigo, Uni * bd) {
     int limInf, limSup, meio;
     limInf = 0;
-    limSup = tamanho - 1;
+    limSup = bd->tamanho_aluno - 1;
 
     while (limSup >= limInf) {
-        meio = (int)(limSup + limInf) / 2;
-        if (aluno[meio].codigo == codigo && escolares[meio].codigo == codigo) return meio; //Dá return do índice
+        meio = (limSup + limInf) / 2;
+        if (bd->aluno[meio].codigo == codigo) return meio; //Dá return do índice
         else {
-            if (aluno[meio].codigo < codigo) limInf = meio + 1;
+            if (bd->aluno[meio].codigo < codigo) limInf = meio + 1;
             else limSup = meio - 1;
         }
     }
     return -1; //Estão todos cheios ou o código não existe
 }
 
-void inserir_estudante(Estudante ** aluno, Dados ** escolares, int * tamanho_alunos) {
-    int indice = procurar_codigo(-1, *aluno, *escolares, *tamanho_alunos); //Verifica se há espaço livre
-    if (indice == -1) { //Trata os casos em que não há espaço livre
-        if (!realocar_structs(aluno, escolares, tamanho_alunos)) {
+int procurar_codigo_escolares(int codigo, Uni * bd ) {
+    int limInf, limSup, meio;
+    limInf = 0;
+    limSup = bd->tamanho_escolares - 1;
+
+    while (limSup >= limInf) {
+        meio = (limSup + limInf) / 2;
+        if (bd->escolares[meio].codigo == codigo) return meio; //Dá return do índice
+        else {
+            if (bd->escolares[meio].codigo < codigo) limInf = meio + 1;
+            else limSup = meio - 1;
+        }
+    }
+    return -1; //Não há esse código
+}
+//Procura o código na struct de dados e já faz a validação se está ou não em 
+int procurar_codigo_e_validar(int codigo, Uni * bd) {
+    int indice_aluno = procurar_codigo_aluno(codigo, bd); //verifica se existe em aluno
+    if (indice_aluno == -1) return -2; //Se o código não exitir em aluno, não o podemos introduzir porque não podemos ter dados escolares sem a ficha pessoal
+
+    return procurar_codigo_escolares(codigo, bd);
+}
+
+void inserir_estudante(Uni * bd) {
+    if (bd->capacidade_aluno < bd->tamanho_aluno) { //Trata os casos em que não há espaço livre
+        if (!realocar_structs(bd)) { //AAA
             printf("Ocorreu um erro ao alocar memória para o aluno. A retornar.\n");
             return;
         }
     }
+    int indice = 0;
     char repetir = 'n'; //s/n
     limpar_buffer();
     do {
@@ -767,17 +814,19 @@ void inserir_estudante(Estudante ** aluno, Dados ** escolares, int * tamanho_alu
                 printf("Código inválido! Insira um número inteiro positivo.\n");
                 limpar_buffer();
                 pressione_enter();
-                continue;
+                continue; //Continue faz com que salte o resto do loop e passe à próxima iteração
             }
 
-            if (!validar_codigo(&codigo_temp, aluno, escolares, *tamanho_alunos, '1')) {
+            if (!validar_codigo(codigo_temp, bd, '1')) {
                 limpar_buffer();
                 pressione_enter();
                 continue;
             }
             //Se for válido, passamos o valor para a struct
-            (*aluno)[indice].codigo = codigo_temp;
-            (*escolares)[indice].codigo = codigo_temp;
+            bd->aluno[bd->tamanho_aluno].codigo = codigo_temp;
+            bd->tamanho_aluno += 1;
+            bd->escolares[bd->tamanho_escolares].codigo = codigo_temp;
+            bd->tamanho_escolares += 1;
             break; //Se não for inválido saimos do loop
         } while (1);
         
@@ -815,4 +864,3 @@ void inserir_estudante(Estudante ** aluno, Dados ** escolares, int * tamanho_alu
         } while (repetir != 's' && repetir != 'S' && repetir != 'n' && repetir != 'N');
     }while(repetir == 's');
 }
-
