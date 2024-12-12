@@ -290,8 +290,14 @@ int validar_codigo(int codigo, Uni * bd, const char modo) {
         }
         return 0;
     }
-
-    int temp = procurar_codigo_e_validar(codigo, bd);
+    if (modo == '1') {
+        int temp = procurar_codigo_e_validar(codigo, bd);
+    }
+    //Necessário para evitar ciclos viciosos de procura em que o array não está ordenado.
+    //Neste caso, na primeira ordenação, é necessário usar Bubble sort ou merge sort
+    else if (modo == '0') {
+        int temp = 
+    }
 
     if(temp == codigo) {
         limpar_buffer();
@@ -309,13 +315,32 @@ int validar_codigo(int codigo, Uni * bd, const char modo) {
     return 0; //qualquer outro caso
 }
 
+void ordenar_ao_carregar(int codigo, Uni * bd) {
+    //Ordenar o array ao carregar os dados.
+    //EVITAR DEPENDÊNCIAS DAS FUNÇÕES DE PROCURA DE CÓDIGO!!
+}
+
+//Altera o tamanho total do array. NÃO FAZ REALOCAÇÕES DE TAMANHO TOTAL
 void ordenar_ao_inserir(int codigo, Uni * bd) {
     //Ordenar aluno
-    int indice = procurar_codigo_aluno(codigo, bd); //podemos chamar esta porque sempre que introduzimos dados verificamos se reune as condições necessárias
-    if (indice == )
+    int indice_aluno = procurar_codigo_aluno(codigo - 1, bd); //podemos chamar esta porque sempre que introduzimos dados verificamos se reune as condições necessárias
+    if(indice_aluno < 0) indice_aluno = -(indice_aluno + 1);
 
+    for(int i = bd->tamanho_aluno; i > indice_aluno; i--) {
+            bd->aluno[i].codigo = bd->aluno[i - 1].codigo;
+        }
+    bd->aluno[indice_aluno].codigo = codigo;
+    bd->tamanho_aluno += 1; 
+    
     //Ordenar escolares
+    int indice_escolares = procurar_codigo_escolares(codigo - 1, bd);
+    if (indice_escolares < 0) indice_escolares = -(indice_escolares + 1);
 
+    for(int i = bd->tamanho_escolares; i > indice_escolares; i--) {
+        bd->escolares[i].codigo = bd->escolares[i - 1].codigo;
+    }
+    bd->escolares[indice_escolares].codigo = codigo;
+    bd->tamanho_escolares += 1;
 }
 
 void ordenar_ao_eliminar(int codigo, Uni * bd) {
@@ -752,9 +777,10 @@ void ler_data(Estudante * aluno, char * str, const char modo) {
 //Nas duas funções seguintes não se trata o caso de -1 pois o vetor estará sempre ordenado, então os dados serão sempre ajustados
 //automaticamente sem precisar de procurar por espaços em branco
 
-//O CÓDIGO DE ESTUDANTE E DADOS DEVE ESTAR CONFIRMADO**
-//APENAS PARA A STRUCT DADOS
+//Arrays devem estar ordenados. Os códigos devem ser sempre > 0.
+//Dá return -2 caso o código pedido < codigo indice 0 do array.
 int procurar_codigo_aluno(int codigo, Uni * bd) {
+    if (bd->aluno[0].codigo > codigo) return -2; //Se o array está sempre ordenado e o codigo é menor que que do array 0, então não existe e está abaixo do indice zero
     int limInf, limSup, meio;
     limInf = 0;
     limSup = bd->tamanho_aluno - 1;
@@ -767,7 +793,8 @@ int procurar_codigo_aluno(int codigo, Uni * bd) {
             else limSup = meio - 1;
         }
     }
-    return -1; //Estão todos cheios ou o código não existe
+    return -(limInf + 1); //Retorna a posição de inserção + 1(fazer < 0 para verificar código)
+    //o +1 está a precaver no caso de limInf ser 0, para distinguir do return de um indice
 }
 
 int procurar_codigo_escolares(int codigo, Uni * bd ) {
@@ -783,9 +810,9 @@ int procurar_codigo_escolares(int codigo, Uni * bd ) {
             else limSup = meio - 1;
         }
     }
-    return -1; //Não há esse código
+    return -(limInf + 1); //Não há esse código
 }
-//Procura o código na struct de dados e já faz a validação se está ou não em 
+//Faz a validação se todos os dados em escolares estão em aluno
 int procurar_codigo_e_validar(int codigo, Uni * bd) {
     int indice_aluno = procurar_codigo_aluno(codigo, bd); //verifica se existe em aluno
     if (indice_aluno == -1) return -2; //Se o código não exitir em aluno, não o podemos introduzir porque não podemos ter dados escolares sem a ficha pessoal
