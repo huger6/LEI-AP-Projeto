@@ -4,12 +4,12 @@
 //": Para os ficheiros abrirem corretamente têm que estar na pasta output
 //carregar_dados: ao lidar com erros, só incrementamos indice se nao houver erro
 
-//TODO AMANHA: ordenar os arrays nos dois casos de eliminação e inserção
+//TODO: linha 978 funcoes.c ; rever inicializar_structs
 int main() {
 	int tamanho_aluno, tamanho_escolares;
 	int indice_atual = 0; //Vai ser útil para gerir mais eficientemente a introdução/eliminação de estudantes
     //Colocar a consola em PT-PT (caracteres UTF8)
-	colocar_terminal_pt();
+	colocar_terminal_utf8();
 	
 	//Criamos um array de cada struct para armzenar TAMANHO_INICIAL_ARRAYS alunos
 	Uni bd;
@@ -27,7 +27,7 @@ int main() {
 		return 1; //Erro
 	}
 
-	inicializar_structs(aluno, escolares, stats, indice_atual, TAMANHO_INICIAL_ARRAYS);
+	inicializar_structs(bd, indice_atual);
 	//Servirá para verificar se o tamanho atual de alunos excede ou não o alocado
 	tamanho_aluno = TAMANHO_INICIAL_ARRAYS; //Variável que irá manter o tamanho do array de alunos
 	tamanho_escolares = TAMANHO_INICIAL_ARRAYS;

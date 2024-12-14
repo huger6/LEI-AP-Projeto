@@ -33,18 +33,14 @@ A IMPLEMENTAR:
 -Na listagem com avanço página a página, podemos fazer com que cada 20 linhas sejam guardadas num array novo (em baixo)
 ex: temos 201 linhas para listar, fazíamos 201 % 20 = 1, e depois fazíamos for (int i = 0; i < (201-1)/20;i++) e aí guardavamos um array com a info,
 e depois obtemos o último array com 1 linha apenas, e com isso, através dos índices dos i's, podemos fazer com que o user avance ou ande para trás na pag
-poderia ser criado uma espécie de legenda para o user saber os comandos
+poderia ser criado uma espécie de legenda para o user saber os comandos (possível, mas para melhor eficiência não usar arrays)
 -Vamos ASSUMIR que se o aluno não for eliminado, O CÓDIGO NÃO PODERÁ SER ALTERADO
+-Carregar, ordenar e depois validar o codigo de escolares
+-Usar o merge sort porque mantém a ordem inicial
+-Mais eficiente e escolhemos esta porque por norma não haverá muitos duplicados
 ______________________________________________________________________________________________________________
 
 BUGS:
-
-
-
-______________________________________________________________________________________________________________
-
-
-A função separar_parametros estava a funcionar bem mas estava a deixar um \n colado a nacionalidade no fim
 
 
 ______________________________________________________________________________________________________________
@@ -52,4 +48,3 @@ ________________________________________________________________________________
 FUTURAMENTE:
 
 -opcao linguagem
--introduzir uma struct para o uso de várias escolas, cada com uma das outras structs

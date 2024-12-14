@@ -5,7 +5,6 @@ Funcoes a modificar
 
 inserir_estudante():
 - Implementar inserção ordenada
-- Atualizar parâmetros para usar BaseDados
 
 carregar_dados():
 - Modificar para manter arrays ordenados durante carregamento

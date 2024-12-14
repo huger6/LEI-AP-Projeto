@@ -8,7 +8,7 @@
 #define ERROS_TXT "erros.txt" //Ficheiro onde serão armazenados todos os erros provenientes da leitura de dados(para evitar a eliminação dos mesmos)
 #define TAMANHO_INICIAL_ARRAYS 1000
 #define TAMANHO_INICIAL_BUFFER 100
-#define SEPARADOR '\t' //FOI ALTERADO NO STRTOK
+#define SEPARADOR '\t' 
 #define MAX_PARAMETROS 4 //De acordo com os dados atuais, são 4 parametros por linha, caso se aumente, este valor deve aumentar também.
 #define PARAMETROS_ESTUDANTE 4
 #define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
@@ -88,7 +88,7 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
 void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats);
 void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * stats, int n_alunos);
 void pressione_enter();
-void colocar_terminal_pt();
+void colocar_terminal_utf8();
 
 void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Estudante ** aluno, int * tamanho_alunos, Dados ** escolares, int * tamanho_escolares);
 void limpar_buffer();
