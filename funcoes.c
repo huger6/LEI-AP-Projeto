@@ -21,14 +21,14 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
         char * temp = realloc(linha, tamanho_total + tamanho + 1); //+1 para o nul char
         if (temp == NULL) {
             free(linha);
-            printf("Ocorreu um erro ao alocar memória. A encerrar a aplicação.\n");
             return NULL;
         }
         linha = temp; //atualizar o ponteiro linha para apontar para a nova memória
 
         //Copiar o conteúdo lido para a linha total
-        strcpy(linha + tamanho_total, buffer);
+        memmove(linha + tamanho_total, buffer, tamanho); //linha + tamanho_total é um ponteiro para a posição da memória seguinte para onde a próxima parte de buffer será copiada
         tamanho_total += tamanho;
+        linha[tamanho_total] = '\0'; //Se houver mais que uma leitura, o primeiro char da segunda leitura de fgets irá substituir o nul char, pelo que fica sempre no fim
 
         //Verificamos se a linha está completa
         if (buffer[tamanho - 1] == '\n') {//se tudo tiver sido copiado, o ultimo caracter do buffer(e da linha tbm) será o '\n'
@@ -136,50 +136,85 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
     }
 }
 
-void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats) {
+void guardar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd) {
+    FILE * aluno = fopen(nome_ficheiro_dados, "w");
+    FILE * dados = fopen(nome_ficheiro_escolares, "w");
+
+    if (!aluno) {
+            printf("Ocorreu um erro ao abrir o ficheiro %s para guardar os dados.\n", nome_ficheiro_dados);
+    }
+    else {
+        for(int i = 0; i < bd->tamanho_aluno; i++) {
+            fprintf(aluno, "%d%c%s%c%02hd-%02hd-%04hd%c%s\n",
+                bd->aluno[i].codigo, SEPARADOR,
+                bd->aluno[i].nome, SEPARADOR,
+                bd->aluno[i].nascimento.dia, bd->aluno[i].nascimento.mes, bd->aluno[i].nascimento.ano, SEPARADOR, 
+                bd->aluno[i].nacionalidade);
+            }
+        fclose(aluno);
+    }
+        
+    if (!dados) {
+        printf("Ocorreu um erro ao abrir o ficheiro %s para guardar os dados.\n", nome_ficheiro_escolares);
+        return; //Já não há mais nada a guardar
+    }
+    for(int i = 0; i < bd->tamanho_escolares; i++) {
+        fprintf(dados, "%d%c%hd%c%hd%c%hd%.1f\n",
+            bd->escolares[i].codigo, SEPARADOR,
+            bd->escolares[i].matriculas, SEPARADOR,
+            bd->escolares[i].ects, SEPARADOR, 
+            bd->escolares[i].ano_atual, SEPARADOR,
+            bd->escolares[i].media_atual);
+    }
+    fclose(dados);
     return;
 }
 
 //Gestão de memória
 
 //Inicializar com valores nitidamente inválidos. Usar indice_atual = 0 para inicializar pela primeira vez, depois usar a última posição válida ocupada + 1
-void inicializar_structs(Uni * bd, int indice_atual) {
-    if (!bd->aluno || !bd->escolares || !bd->stats || bd->tamanho_aluno <= 0 || indice_atual < 0) return;
+void inicializar_structs(Uni * bd) {
+    if (!bd || !bd->aluno || !bd->escolares) return;
 
-    for (int i = indice_atual; i < bd->tamanho_aluno; i++) {
+    for (int i = bd->tamanho_aluno; i < bd->capacidade_aluno; i++) {
         //Struct estudante
-        bd->aluno[i].codigo = -1;
-        bd->aluno[i].nascimento.dia = 0; //Para sinalizar que ainda não foi alterada
-        bd->aluno[i].nascimento.mes = 0;
-        bd->aluno[i].nascimento.ano = 0;
-        //Aloca memória para guardar a nacionalidade e o nome
+        //Aloca memória para guardar a nacionalidade e o nome (primeiro pois pode falhar, e seria escusado inicializar outras coisas antes)
         bd->aluno[i].nacionalidade = (char *) malloc (MAX_STRING_NACIONALIDADE * sizeof(char));
         bd->aluno[i].nome = (char *) malloc (TAMANHO_INICIAL_NOME * sizeof(char));
         if(bd->aluno[i].nacionalidade == NULL || bd->aluno[i].nome == NULL) {
-            for(int j = indice_atual; j < i; j++) {
-                free(aluno[j].nacionalidade);
-                free(aluno[j].nome);
+            for(int j = bd->tamanho_aluno; j < i; j++) {
+                free(bd->aluno[j].nacionalidade);
+                free(bd->aluno[j].nome);
             }
             printf("Ocorreu um erro ao alocar memória. A encerrar.\n");
             return;
         }
+        bd->aluno[i].codigo = -1;
+        bd->aluno[i].nascimento.dia = 0; //Para sinalizar que ainda não foi alterada
+        bd->aluno[i].nascimento.mes = 0;
+        bd->aluno[i].nascimento.ano = 0;
         strcpy(bd->aluno[i].nacionalidade, "-1");
         strcpy(bd->aluno[i].nome, "-1");
-        //Struct dados
+    }
+    //Struct dados
+    for(int i = bd->tamanho_escolares; i < bd->capacidade_escolares; i++) {
         bd->escolares[i].codigo = -1;
         bd->escolares[i].matriculas = -1;
         bd->escolares[i].ects = -1;
         bd->escolares[i].ano_atual = -1;
         bd->escolares[i].media_atual = -1;
         bd->escolares[i].prescrever = '0';
-        //Struct estatísticas
-        bd->stats[i].finalistas = 0;
-        bd->stats[i].media = 0;
-        bd->stats[i].media_idade_ano = 0;
-        bd->stats[i].media_idade_nacionalidade = 0;
-        bd->stats[i].medias_matriculas = 0;
-        bd->stats[i].risco_prescrever = 0;
     }
+    //Structs tem uma função especial pois não é um array.
+}
+
+void inicializar_estatisticas(Estatisticas * stats) {
+    stats->finalistas = 0;
+    stats->media = 0;
+    stats->media_idade_ano = 0;
+    stats->media_idade_nacionalidade = 0;
+    stats->medias_matriculas = 0;
+    stats->risco_prescrever = 0;
 }
 //Duplica o espaço atual. Não inicializa o espaço alocado. modo = '1' para endereçar erros.
 int realocar_aluno(Uni * bd, const char modo) {
@@ -225,12 +260,13 @@ int realocar_nome(Estudante * aluno, const char modo) {
 //Procura e validações
 
 //Retorna o índice a positivo se encontrar. A negativo se não encontrar, mas é a posição onde deveria ser inserido
+//limSup = bd->tamanho_aluno (padrao). Se estivermos a inserir, usar limSup = bd->tamanho_aluno - n_insercoes(para ignorar os elementos acabados de inserir)
 int procurar_codigo_aluno(int codigo, Uni * bd) {
     if (!bd || !bd->aluno || bd->tamanho_aluno <= 0) {
         return -1;
     }
     if (bd->aluno[0].codigo > codigo) return -2; //Se o array está sempre ordenado e o codigo é menor que que do array 0, então não existe e está abaixo do indice zero
-    int limInf, limSup, meio;
+    int limInf, meio, limSup;
     limInf = 0;
     limSup = bd->tamanho_aluno - 1;
 
@@ -246,7 +282,7 @@ int procurar_codigo_aluno(int codigo, Uni * bd) {
     //o +1 está a precaver no caso de limInf ser 0, para distinguir do return de um indice
 }
 
-int procurar_codigo_escolares(int codigo, Uni * bd ) {
+int procurar_codigo_escolares(int codigo, Uni * bd,) {
     if (bd->escolares[0].codigo > codigo) return -2;
     int limInf, limSup, meio;
     limInf = 0;
@@ -264,6 +300,7 @@ int procurar_codigo_escolares(int codigo, Uni * bd ) {
 }
 
 //Modo '1' para printar mensagens de erro
+//Valida codigo e retorna a posição de inserção de ALUNO APENAS
 int validar_codigo_ao_inserir(int codigo, Uni * bd) {
     if(codigo < 0) {
         limpar_buffer();
@@ -281,8 +318,7 @@ int validar_codigo_ao_inserir(int codigo, Uni * bd) {
     }
     //Se não existir o código podesmos usá-lo(<0).
     else if (temp < 0) {
-        limpar_buffer();
-        return 1;
+        return temp; //Retornamos a posição onde será inserido
     }
     return 0; //qualquer outro caso
 }
@@ -434,11 +470,11 @@ void merge_aluno(Uni * bd, int inicio, int meio, int fim) {
 
     while(indice_esquerda < tamanho_esquerda && indice_direita < tamanho_direita) {
         if (esquerda[indice_esquerda].codigo <= direita[indice_direita].codigo) { 
-            bd->aluno[indice] = esquerda[i]; //Estamos a copiar todo o conteúdo da struct, logo já fica tudo ordenado, e não apenas o código
+            bd->aluno[indice] = esquerda[indice_esquerda]; //Estamos a copiar todo o conteúdo da struct, logo já fica tudo ordenado, e não apenas o código
             indice_esquerda++;
         }
         else {
-            bd->aluno[indice] = direita[j];
+            bd->aluno[indice] = direita[indice_direita];
             indice_direita++;
         }
         indice++; 
@@ -532,36 +568,25 @@ void merge_sort_escolares(Uni * bd, int inicio, int fim) {
     }
 } //Termina aqui o bloco da implementação de merge sort
 
-//Altera o tamanho total do array. NÃO FAZ REALOCAÇÕES DE TAMANHO TOTAL
+//NÃO FAZ REALOCAÇÕES DE TAMANHO TOTAL
 //Insere o código do aluno
-void ordenar_ao_inserir(int codigo, Uni * bd) {
+void ordenar_ao_inserir(int codigo, Uni * bd, int indice_aluno, int indice_escolares) {
     //Ordenar aluno
-    int indice_aluno = procurar_codigo_aluno(codigo - 1, bd); //podemos chamar esta porque sempre que introduzimos dados verificamos se reune as condições necessárias
-    if(indice_aluno >= 0) return; //Neste caso o código já existe, logo não o podemos adicinar
-    indice_aluno = -(indice_aluno + 1);
-
     for(int i = bd->tamanho_aluno; i > indice_aluno; i--) {
-            bd->aluno[i].codigo = bd->aluno[i - 1].codigo;
-        }
+        bd->aluno[i] = bd->aluno[i - 1]; //Copiamos a struct inteira
+    }
     bd->aluno[indice_aluno].codigo = codigo;
-    bd->tamanho_aluno += 1; 
-    
     //Ordenar escolares
-    int indice_escolares = procurar_codigo_escolares(codigo - 1, bd);
-    if (indice_escolares >= 0) return;
-    indice_escolares = -(indice_escolares + 1);
-
     for(int i = bd->tamanho_escolares; i > indice_escolares; i--) {
-        bd->escolares[i].codigo = bd->escolares[i - 1].codigo;
+        bd->escolares[i] = bd->escolares[i - 1].;
     }
     bd->escolares[indice_escolares].codigo = codigo;
-    bd->tamanho_escolares += 1;
 }
 
 //Altera o tamanho total do array. NÃO FAZ REALOCAÇÕES DE TAMANHO TOTAL
 //Insere o código do aluno
 void ordenar_ao_eliminar(int codigo, Uni * bd) {
-    int indice_aluno = procurar_codigo_aluno(codigo - 1, bd);
+    int indice_aluno = procurar_codigo_aluno(codigo, bd);
     if (indice_aluno < 0) return; //o código não existe
 
     //i começa no índice que queremos eliminar(vai ser substituído)
@@ -855,7 +880,7 @@ Escolha escolha_menus() {
 
 //Inserção/leitura de dados
 
-//Se for para ler, usar str = '\0', modo('1'/'0') para verificar se queremos imprimir mensagens de erro
+//Se for para ler, usar str = NULL, modo('1'/'0') para verificar se queremos imprimir mensagens de erro
 void ler_data(Estudante * aluno, char * str, const char modo) {
 
 	char data[11]; //Vamos usar o formato DD-MM-AAAA (10 caracteres + \0)
@@ -918,32 +943,41 @@ void inserir_estudante(Uni * bd) {
                 printf("Ocorreu um erro ao alocar memória para o aluno. A retornar.\n");
                 return;
             }
+            inicializar_structs(bd, bd->tamanho_aluno);
         }
+        int posicao_insercao_aluno;
+        int posicao_insercao_escolares;
         limpar_terminal(); //Caso de repetição
         repetir = 'n';
         do {
-            int codigo_temp = -1; 
+            int codigo_temp = -1;
+            int valido = 0;
             limpar_terminal();
             printf("Insira o código do estudante: ");
             if (scanf("%d", &codigo_temp) != 1) { //Verifica entradas inválidas como letras
                 printf("Código inválido! Insira um número inteiro positivo.\n");
-                pressione_enter();
                 limpar_buffer();
+                pressione_enter();
                 continue; //Continue faz com que salte o resto do loop e passe à próxima iteração
             }
-
-            if (!validar_codigo_ao_inserir(codigo_temp, bd)) {
+            
+            posicao_insercao_aluno = validar_codigo_ao_inserir(codigo_temp, bd);
+            posicao_insercao_escolares = procurar_codigo_escolares(codigo_temp, bd);
+            if(posicao_insercao_aluno < 0) { //Não se verifica escolares pois nunca há códigos em escolares que não estejam em aluno
+                posicao_insercao_aluno = -(posicao_insercao_aluno + 1);
+            }
+            else {
                 limpar_buffer();
                 continue;
             }
-            //Se for válido, passamos o valor para a struct
-            bd->aluno[bd->tamanho_aluno].codigo = codigo_temp;
-            bd->escolares[bd->tamanho_escolares].codigo = codigo_temp;
+
+            //Esta função já adiciona o código à struct na posição passada.
+            ordenar_ao_inserir(codigo_temp, bd, posicao_insercao_aluno, posicao_insercao_escolares);
             break; 
         } while (1);
         
         do {
-            char * nome_temp = {NULL};
+            char * nome_temp = NULL;
             printf("Insira o nome do estudante: ");
             nome_temp = ler_linha_txt(stdin, NULL);
             if(!validar_nome(nome_temp,bd, '1')) {
@@ -952,30 +986,108 @@ void inserir_estudante(Uni * bd) {
                 free(nome_temp);
                 continue;
             }
-            bd->aluno[bd->tamanho_aluno].nome = nome_temp;
+            strcpy(bd->aluno[posicao_insercao_aluno].nome, nome_temp);
             free(nome_temp);
             break;
         } while(1);
 
         do {
             printf("Insira a data de nascimento do estudante (DD-MM-AAAA): ");
-            ler_data(bd->aluno[bd->tamanho_aluno], NULL, '1');
+            ler_data(bd->aluno[posicao_insercao_aluno], NULL, '1');
             limpar_buffer();
-        } while (bd->aluno[bd->tamanho_aluno].nascimento.dia == 0); //Apenas verificamos um pois em ler_data a data só é copiada para as structs se toda ela for válida
+        } while (bd->aluno[posicao_insercao_aluno].nascimento.dia == 0); //Apenas verificamos um pois em ler_data a data só é copiada para as structs se toda ela for válida
         
         do {
-            char nacionalidade_temp = {NULL};
+            char * nacionalidade_temp = NULL;
             printf("Insira a nacionalidade do estudante: ");
             nacionalidade_temp = ler_linha_txt(stdin, NULL);
+
             if(!validar_nacionalidade(nacionalidade_temp, bd, '1')) {
-                bd->aluno[bd->tamanho_aluno].nacionalidade = nacionalidade_temp;
                 limpar_buffer();
-                break;
+                pressione_enter();
+                free(nacionalidade_temp);
+                continue;
             }
-            limpar_buffer();
+            strcpy(bd->aluno[posicao_insercao_aluno].nacionalidade, nacionalidade_temp);
+            free(nacionalidade_temp);
+            break;
         } while(1);
 
-    	//Continuar a pedir os dados de escolares
+    	do {
+            short matriculas_temp = 0;
+            printf("Insira o número de matrículas do estudante: ");
+            if (scanf("%hd", &matriculas_temp) != 1) { //Verifica entradas inválidas como letras
+                printf("Número de matrículas inválido! Insira um número inteiro positivo.\n");
+                limpar_buffer();
+                pressione_enter();
+                continue; //Continue faz com que salte o resto do loop e passe à próxima iteração
+            }
+            if (matriculas_temp < 0 || matriculas_temp > MAX_MATRICULAS) {
+                printf("Número de matrículas é inválido. Deve estar entre 0 e %d.\n", MAX_MATRICULAS);
+                limpar_buffer();
+                pressione_enter();
+                continue;
+            }
+            bd->escolares[posicao_insercao_escolares].matriculas = matriculas_temp;
+            break;
+        } while(1);
+
+        do {
+            short ects_temp = 0;
+            printf("Insira o número de créditos ECTS do estudante: ");
+            if (scanf("%hd", &ects_temp) != 1) { //Verifica entradas inválidas como letras
+                printf("Créditos ECTS inválido! Insira um número inteiro positivo.\n");
+                limpar_buffer();
+                pressione_enter();
+                continue; //Continue faz com que salte o resto do loop e passe à próxima iteração
+            }
+            if (ects_temp < 0 || ects_temp > MAX_ECTS) {
+                printf("O número de créditos ECTS é inválido. Deve estar entre 0 e %d.\n", MAX_ECTS);
+                limpar_buffer();
+                pressione_enter();
+                continue;
+            }
+            bd->escolares[posicao_insercao_escolares].ects = ects_temp;
+            break;
+        } while(1);
+
+        do {
+            short ano_atual_temp = 0;
+            printf("Insira o ano atual do estudante: ");
+            if (scanf("%hd", &ano_atual_temp) != 1) { //Verifica entradas inválidas como letras
+                printf("Ano atual inválido! Insira um número inteiro positivo.\n");
+                limpar_buffer();
+                pressione_enter();
+                continue; //Continue faz com que salte o resto do loop e passe à próxima iteração
+            }
+            if (ano_atual_temp < 0 || ano_atual_temp > MAX_ANO_ATUAL) {
+                printf("O ano atual é inválido. Deve estar entre 0 e %d.\n", MAX_ANO_ATUAL);
+                limpar_buffer();
+                pressione_enter();
+                continue;
+            }
+            bd->escolares[posicao_insercao_escolares].ano_atual = ano_atual_temp;
+            break;
+        } while (1);
+
+        do {
+            float media_temp = 0.0;
+            printf("Insira a média atual do estudante: ");
+            if (scanf("%f", &media_temp) != 1) { //Verifica entradas inválidas como letras
+                printf("Média atual inválido! Insira um número entre 0 e 20.\n");
+                limpar_buffer();
+                pressione_enter();
+                continue; //Continue faz com que salte o resto do loop e passe à próxima iteração
+            }
+            if (media_temp < 0 || media_temp > 20) {
+                printf("A média atual é inválida. Deve estar entre 0 e 20.\n");
+                limpar_buffer();
+                pressione_enter();
+                continue;
+            }
+            bd->escolares[posicao_insercao_escolares].media_atual = media_temp;
+            break;
+        } while(1);
 
         //Incrementar o tamanho dos arrays
         bd->tamanho_aluno += 1;
@@ -984,18 +1096,19 @@ void inserir_estudante(Uni * bd) {
         do {
             printf("Quer inserir mais estudantes? (S/N): ");
             scanf(" %c", &repetir);
+            limpar_buffer();
             if (repetir == 's' || repetir == 'S') {
                 repetir = 's';
                 break;
             }
             else if (repetir == 'n' || repetir == 'N') {
-                repetir == 'n';
-                break;
+                //A ordenação já foi feita
+                return;
             }
-            limpar_buffer();
-        } while (repetir != 's' && repetir != 'S' && repetir != 'n' && repetir != 'N');
-        //se repetir for s ou S, então sai do loop pois cumpre a condição do while
-    }while(repetir == 's');
+            printf("Opção inválida. Use S ou N.\n");
+            pressione_enter();
+        } while (1);
+    }while(1); //Não precisamos de verificar repetir pois só chega aqui se repetir == 's'
 }
 
 //Funções auxiliares

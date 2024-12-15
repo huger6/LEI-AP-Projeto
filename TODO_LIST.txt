@@ -38,6 +38,7 @@ poderia ser criado uma espécie de legenda para o user saber os comandos (possí
 -Carregar, ordenar e depois validar o codigo de escolares
 -Usar o merge sort porque mantém a ordem inicial
 -Mais eficiente e escolhemos esta porque por norma não haverá muitos duplicados
+-Para o menu podemos usar a struct atual dentro de Uni e definir vários char, tipo p, g, e, x, ...
 ______________________________________________________________________________________________________________
 
 BUGS:

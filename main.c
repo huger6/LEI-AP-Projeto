@@ -4,10 +4,8 @@
 //": Para os ficheiros abrirem corretamente têm que estar na pasta output
 //carregar_dados: ao lidar com erros, só incrementamos indice se nao houver erro
 
-//TODO: linha 978 funcoes.c ; rever inicializar_structs
+//TODO: atualizar carregar dados usando merge sort e bd
 int main() {
-	int tamanho_aluno, tamanho_escolares;
-	int indice_atual = 0; //Vai ser útil para gerir mais eficientemente a introdução/eliminação de estudantes
     //Colocar a consola em PT-PT (caracteres UTF8)
 	colocar_terminal_utf8();
 	
@@ -19,7 +17,6 @@ int main() {
 	(Dados) bd.escolares = (Dados *) malloc(TAMANHO_INICIAL_ARRAYS * sizeof(Dados));
 	bd.tamanho_escolares = 0;
 	bd.capacidade_escolares = TAMANHO_INICIAL_ARRAYS;
-	(Estatisticas) bd.stats = (Estatisticas *) malloc(sizeof(Estatisticas)); //Apenas vai haver uma aba de estatisticas, a não ser que entre em jogo outra struct, por exemplo, escola
 
 	if (!bd.aluno || !bd.escolares || !bd.stats) {
 		printf("Ocorreu um erro ao alocar memória para os alunos.\n");
@@ -27,18 +24,18 @@ int main() {
 		return 1; //Erro
 	}
 
-	inicializar_structs(bd, indice_atual);
+	inicializar_structs(bd);
+	inicializar_estatisticas(&bd.stats);
 	//Servirá para verificar se o tamanho atual de alunos excede ou não o alocado
-	tamanho_aluno = TAMANHO_INICIAL_ARRAYS; //Variável que irá manter o tamanho do array de alunos
-	tamanho_escolares = TAMANHO_INICIAL_ARRAYS;
+	bd.tamanho_aluno = TAMANHO_INICIAL_ARRAYS; //Variável que irá manter o tamanho do array de alunos
+	bd.tamanho_escolares = TAMANHO_INICIAL_ARRAYS;
 	//Até aqui está tudo correto
-	carregar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, &aluno, &escolares, &tamanho_aluno);
+	carregar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, &bd);
 
 	escolha_menus();
 
-	free(aluno);
-	free(escolares);
-	free(stats);
+	free(bd.aluno);
+	free(bd.escolares);
 	
 	
 	return 0;

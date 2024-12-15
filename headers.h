@@ -15,6 +15,9 @@
 #define MAX_NACIONALIDADES 206 //Número máximo de países
 #define MAX_STRING_NACIONALIDADE 100 //Definimos o número máximo de chars que uma nacionalidade pode ter
 #define TAMANHO_INICIAL_NOME 50 
+#define MAX_MATRICULAS 20 //Limite razoável de matrículas(pode ser alterado)
+#define MAX_ECTS 400
+#define MAX_ANO_ATUAL 8
 
 
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
@@ -86,7 +89,7 @@ void remover_espacos(char * str);
 void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
 void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats);
-void inicializar_structs(Estudante * aluno, Dados * escolares, Estatisticas * stats, int n_alunos);
+void inicializar_structs(Uni * bd);
 void pressione_enter();
 void colocar_terminal_utf8();
 
