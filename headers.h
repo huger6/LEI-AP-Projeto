@@ -13,11 +13,16 @@
 #define PARAMETROS_ESTUDANTE 4
 #define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
 #define MAX_NACIONALIDADES 206 //Número máximo de países
-#define MAX_STRING_NACIONALIDADE 100 //Definimos o número máximo de chars que uma nacionalidade pode ter
+#define MAX_STRING_NACIONALIDADE 101 //Definimos o número máximo de chars que uma nacionalidade pode ter
 #define TAMANHO_INICIAL_NOME 50 
 #define MAX_MATRICULAS 20 //Limite razoável de matrículas(pode ser alterado)
 #define MAX_ECTS 400
 #define MAX_ANO_ATUAL 8
+#define TAMANHO_INICIAL_ERRO 10
+#define MAX_INT 2147483647
+#define MIN_INT -2147483648
+#define MAX_SHORT 32767
+#define MIN_SHORT -32768
 
 
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória

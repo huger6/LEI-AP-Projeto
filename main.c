@@ -2,9 +2,8 @@
 #include "funcoes.c"
 //NOTA IMPORTANTE: para dar run temos que abrir o projeto em terminal integrado e depois de estar na main, dar compile run.
 //": Para os ficheiros abrirem corretamente têm que estar na pasta output
-//carregar_dados: ao lidar com erros, só incrementamos indice se nao houver erro
 
-//TODO: atualizar carregar dados usando merge sort e bd
+//TODO: 250LINE
 int main() {
     //Colocar a consola em PT-PT (caracteres UTF8)
 	colocar_terminal_utf8();

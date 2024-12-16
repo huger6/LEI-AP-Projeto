@@ -39,6 +39,7 @@ poderia ser criado uma espécie de legenda para o user saber os comandos (possí
 -Usar o merge sort porque mantém a ordem inicial
 -Mais eficiente e escolhemos esta porque por norma não haverá muitos duplicados
 -Para o menu podemos usar a struct atual dentro de Uni e definir vários char, tipo p, g, e, x, ...
+-Realçar o erro na linha em erros.txt
 ______________________________________________________________________________________________________________
 
 BUGS:
@@ -49,3 +50,16 @@ ________________________________________________________________________________
 FUTURAMENTE:
 
 -opcao linguagem
+
+
+______________________________________________________________________________________________________________
+
+A ANOTAR NO RELATÓRIO
+
+-Tentámos usar o menor num de librarias extra possível.
+-separar_parametros podia ter sido substituido por strtok mas nós já tinhamos feito a função antes de saber da existência dessa função no moodle, então acabamos por deixa la no código
+
+-O error management na questão dos files podia ter sido melhor se usassemos a biblioteca errno.h
+-O código está estruturado de modo a possibilitar a adição de novas features no futuro.
+-Nacionalidade apesar do array estar limitado, está estruturado no código de modo a que seja fácil fazer a sua realocação, apenas seria necessário fazer uma função para o efeito.
+-Em carregar_dados, foi utilizado a var primeiro_erro como alternativa a criar um array e guardar lá os erros(poupa memória)

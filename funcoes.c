@@ -50,37 +50,89 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
 
 //Função recebe o ponteiro de um ponteiro para permitir a realocação do array caso necessário
 void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Uni * bd) { 
-
     FILE * dados = fopen(nome_ficheiro_dados, "r");
     FILE * situacao_escolar = fopen(nome_ficheiro_escolar, "r");
+    FILE * erros = fopen(ERROS_TXT, "a"); //Vai anexar ao ficheiro de erros os erros encontrados
     int n_linhas = 0;
     char * linha = NULL; //Ponteiro para armazenar uma linha
-    int indice_aluno = 0;
+    char primeiro_erro = '1'; //'1' significa que ainda não houve erro. 
 
     //Esta secção vai copiar, linha a linha, o conteúdo do ficheiro para a memória, nomeadamente na struct Estudante
     if(dados) { //apenas se a abertura tiver sido bem sucedida
+        int codigo_temp; //Necessário para passar para string_para_int
         while ((linha = ler_linha_txt(dados, &n_linhas)) != NULL) {
+            char erro = '0'; //diferente de primeiro_erro pois este vai marcar se existe um erro em geral e não apenas o primeiro
             char * parametros[MAX_PARAMETROS] = {NULL}; //Array com PARAMETROS casas, onde cada pode armazenar um ponteiro para char (ou seja, uma string)
             int num_parametros = 0; //Armazena o numero real de parametros
-
             separar_parametros(linha, parametros, &num_parametros); //extrai os dados já formatados corretamente para parametros
             
             if(num_parametros == PARAMETROS_ESTUDANTE) {
                 //Verificamos se o indice é igual ou superior ao tamanho do array, se sim, aumentamos o tamanho do array
-                if (indice_aluno >= *tamanho_alunos) {
-                    if (!realocar_structs(aluno, escolares, tamanho_alunos, sizeof(Estudante))) {
+                if (bd->tamanho_aluno >= bd->capacidade_aluno) {
+                    if (!realocar_aluno(bd, '0')) {
                         printf("Ocorreu um erro a gerir a memória.\n"); //Averiguar melhor 
+                        for(int i = 0; i < num_parametros; i++) //Libertar a memória para os parâmetros alocados dinamicamente até ao momento
+                            free(parametros[i]);
+                        free(linha);
                         fclose(dados);
                         return;
                     }
-                    //A realocação dos campos de nacionalidade e nome são feitas em realocar_structs
+                    //A realocação do campos de nome é feita em validar_nome
                 }
                  //Como estamos a carregar as structs do estudante, o número de parametros lidos tem que ser igual ao esperado
-                (*aluno)[indice_aluno].codigo = atoi(parametros[0]); //atoi é uma função que converte strings para ints
-                strcpy((*aluno)[indice_aluno].nome, parametros[1]); //nome é a segunda coluna nos dados.txt
-                ler_data(&((*aluno)[indice_aluno]), parametros[2], '0'); //Data nascimento
-                strcpy((*aluno)[indice_aluno].nacionalidade, parametros[3]);
-                indice_aluno++; //Se os dados foram carregados, então passamos ao próximo aluno
+                 //Código
+                if (!string_para_int(parametros[0], codigo_temp)) { //APENAS SE VERIFICA SE O CÓDIGO DE FACTO É VÁLIDO DEPOIS DE CARREGAR TUDO E ORDENAR TUDO
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
+                    erro = '1';
+                    fprintf(erros,"Linha %d: %s\n",n_linhas, linha);
+                    fprintf(erros, "Razão: O código é inválido!\n\n");
+                }
+                else if(codigo_temp <= 0) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
+                    erro = '1';
+                    fprintf(erros,"Linha %d: %s\n",n_linhas, linha);
+                    fprintf(erros, "Razão: O código é inválido!Deve ser maior que 0.\n\n");
+                }
+                //Nome
+                if (!validar_nome(parametros[1], '0')) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: O nome é inválido!\n\n");
+                }
+                //Data de nascimento
+                ler_data(&(bd->aluno[bd->tamanho_aluno]), parametros[2], '0');
+                if (bd->aluno[bd->tamanho_aluno].nascimento.dia == 0) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: A data de nascimento é inválida!\n\n");
+                }
+                //Nacionalidade
+                if (!validar_nacionalidade(parametros[3], '0')) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: A nacionalidade é inválida!\n\n");
+                }
+                //Copiar os parâmetros caso não haja erros
+                if (erro == '0') { //ainda não houve erros
+                    bd->aluno[bd->tamanho_aluno].codigo = codigo_temp; 
+                    strcpy(bd->aluno[bd->tamanho_aluno].nome, parametros[1]);
+                    //Data de nascimento já é copiada se for válida.
+                    strcpy(bd->aluno[bd->tamanho_aluno].nacionalidade, parametros[3]);
+                    bd->tamanho_aluno += 1; //Aumentar o tamanho do array
+                }
+            }
+            else if (num_parametros < PARAMETROS_ESTUDANTE) {
+                verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
+                fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
+                fprintf(erros, "Razão: A linha tem parâmetros insuficientes.\n\n"); //Separar cada erro com uma linha
+            }
+            else {
+                verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
+                fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
+                fprintf(erros, "Razão: A linha tem parâmetros a mais.\n\n");
             }
             
             //Libertamos a memória alocada para os parametros
@@ -90,37 +142,125 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
             free(linha); //Libertamos a memória alocada para a linha presente
         }
         fclose(dados);
+        //Ordenar o array de aluno
+        merge_sort_aluno(bd, 0, bd->tamanho_aluno);
     }
     else {
         printf("Ocorreu um erro a abrir o ficheiro '%s'.\n", nome_ficheiro_dados);
     }
     
-    indice_aluno = 0;
     n_linhas = 0;
+    primeiro_erro = '1';
 
-    if(situacao_escolar) {
+    if(situacao_escolar) { //apenas se a abertura tiver sido bem sucedida
+        int codigo_temp;
+        short matriculas_temp;
+        short ects_temp;
+        short ano_atual_temp;
+        float media_temp;
         while ((linha = ler_linha_txt(situacao_escolar, &n_linhas)) != NULL) {
-            char * parametros[MAX_PARAMETROS] = {NULL};
+            char erro = '0'; 
+            char * parametros[MAX_PARAMETROS] = {NULL}; 
             int num_parametros = 0; 
-
-            separar_parametros(linha, parametros, &num_parametros); 
-
+            separar_parametros(linha, parametros, &num_parametros);
+            
             if(num_parametros == PARAMETROS_DADOS_ESCOLARES) {
-
-                if (indice_aluno >= *tamanho_alunos) {
-                    if (!realocar_structs(aluno, escolares, tamanho_alunos)) {
-                        printf("Ocorreu um erro a gerir a memória.\n");
+                //Verificamos se o indice é igual ou superior ao tamanho do array, se sim, aumentamos o tamanho do array
+                if (bd->tamanho_escolares >= bd->capacidade_escolares) {
+                    if (!realocar_escolares(bd, '0')) {
+                        printf("Ocorreu um erro a gerir a memória.\n"); //Averiguar melhor 
+                        for(int i = 0; i < num_parametros; i++) 
+                            free(parametros[i]);
+                        free(linha);
                         fclose(situacao_escolar);
                         return;
                     }
                 }
-                (*escolares)[indice_aluno].codigo = atoi(parametros[0]); //codigo
-                (*escolares)[indice_aluno].matriculas = atoi(parametros[1]); //matriculas
-                (*escolares)[indice_aluno].ects = atoi(parametros[2]); //ects
-                (*escolares)[indice_aluno].media_atual = strtof(parametros[3], NULL); //media
-                //IMPORTANTE: AO PASSAR NULL, ESTAMOS A DESCARTAR O RESTO DA STRING QUE NÃO FOI LIDA, E ISSO PODE SER UM TAB!!
-                (*escolares)[indice_aluno].ano_atual = atoi(parametros[4]); //ano atual
-                indice_aluno++;
+                 //Código
+                if (!string_para_int(parametros[0], codigo_temp)) { 
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n",n_linhas, linha);
+                    fprintf(erros, "Razão: O código é inválido!\n\n");
+                }
+                else if(codigo_temp <= 0) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n",n_linhas, linha);
+                    fprintf(erros, "Razão: O código é inválido!Deve ser maior que 0.\n\n");
+                }
+                //Matriculas
+                if (!string_para_short(parametros[1], matriculas_temp)) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: O número de matrículas é inválido!\n\n");
+                }
+                else if (matriculas_temp < 0 || matriculas_temp > MAX_MATRICULAS) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: O número de matrículas é inválido. Deve estar entre 0 e %d.\n\n", MAX_MATRICULAS);
+                }
+                //ECTS
+                if (!string_para_short(parametros[2], ects_temp)) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: O número de créditos é inválido!\n\n");
+                }
+                else if (ects_temp < 0 || ects_temp > MAX_ECTS) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: O número de créditos é inválido! Deve estar entre 0 e %d.\n\n", MAX_ECTS);
+                }
+                //Ano atual
+                if (!string_para_short(parametros[3], ano_atual_temp)) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: O ano atual é inválido!\n\n");
+                }
+                else if (ano_atual_temp < 1 || ano_atual_temp > MAX_ANO_ATUAL) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: O ano atual é inválido! Deve estar entre 1 e %d.\n\n", MAX_ANO_ATUAL);
+                }
+                //Media atual do aluno
+                if (!string_para_float(parametros[4], media_temp)) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: A nacionalidade é inválida!\n\n");
+                }
+                else if(media_temp < 0 || media_temp > 20) {
+                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                    erro = '1';
+                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    fprintf(erros, "Razão: A média é inválida! Deve estar entre 0 e 20.\n\n");
+                }
+                if (erro == '0') { //ainda não houve erros
+                    bd->escolares[bd->tamanho_escolares].codigo = codigo_temp; //Copiar código
+                    bd->escolares[bd->tamanho_escolares].matriculas = matriculas_temp;
+                    bd->escolares[bd->tamanho_escolares].ects = ects_temp;
+                    bd->escolares[bd->tamanho_escolares].ano_atual = ano_atual_temp;
+                    bd->escolares[bd->tamanho_escolares].media_atual = media_temp;
+                    //AQUI
+                    strcpy(bd->aluno[bd->tamanho_aluno].nacionalidade, parametros[3]);
+                    bd->tamanho_escolares += 1; //Aumentar o tamanho do array
+                }
+            }
+            else if (num_parametros < PARAMETROS_ESTUDANTE) {
+                verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
+                fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
+                fprintf(erros, "Razão: A linha tem parâmetros insuficientes.\n\n"); //Separar cada erro com uma linha
+            }
+            else {
+                verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
+                fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
+                fprintf(erros, "Razão: A linha tem parâmetros a mais.\n\n");
             }
             
             //Libertamos a memória alocada para os parametros
@@ -130,9 +270,11 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
             free(linha); //Libertamos a memória alocada para a linha presente
         }
         fclose(situacao_escolar);
+        //Ordenar o array de aluno
+        merge_sort_aluno(bd, 0, bd->tamanho_aluno);
     }
     else {
-        printf("Ocorreu um erro a abrir o ficheiro '%s'.\n", nome_ficheiro_escolar);
+        printf("Ocorreu um erro a abrir o ficheiro '%s'.\n", nome_ficheiro_dados);
     }
 }
 
@@ -253,7 +395,7 @@ int realocar_nome(Estudante * aluno, const char modo) {
         return 0;
     }
 
-    aluno.nome = temp;
+    aluno->nome = temp;
     return 1;
 }
 
@@ -282,7 +424,7 @@ int procurar_codigo_aluno(int codigo, Uni * bd) {
     //o +1 está a precaver no caso de limInf ser 0, para distinguir do return de um indice
 }
 
-int procurar_codigo_escolares(int codigo, Uni * bd,) {
+int procurar_codigo_escolares(int codigo, Uni * bd) {
     if (bd->escolares[0].codigo > codigo) return -2;
     int limInf, limSup, meio;
     limInf = 0;
@@ -366,7 +508,8 @@ int validar_data(short dia, short mes, short ano, const char modo) {
     return 1;
 }
 
-int validar_nome(char * nome, Uni * bd, const char modo) {
+//Realoca o array de nome. Pode ser usada ao carregar_dados
+int validar_nome(char * nome, const char modo) {
     if (!nome) {
         if (modo == '1') printf("Nome em branco!\n");
         return 0;
@@ -393,23 +536,23 @@ int validar_nome(char * nome, Uni * bd, const char modo) {
     return 1;
 }
 
-int validar_nacionalidade(char * nacionalidade, Uni * bd, const char modo) {
+int validar_nacionalidade(char * nacionalidade, const char modo) {
     if (!nacionalidade) {
         if (modo == '1') printf("Nacionalidade em branco!\n");
         return 0;
     }
     int comprimento = strlen(nacionalidade);
     if (comprimento > MAX_STRING_NACIONALIDADE - 1) {
-        if (modo == '1') printf("A nacionalidade é inválida. Insira uma nacionalidade com menos caracteres.\n");
+        if (modo == '1') printf("A nacionalidade é inválida. Insira uma nacionalidade com menos de %d caracteres.\n", MAX_STRING_NACIONALIDADE - 1);
         return 0;
     }
     for (int i = 0; i < comprimento; i++) {
-        if (nome[i] == SEPARADOR) {
+        if (nacionalidade[i] == SEPARADOR) {
             if (modo == '1') printf("O nome contém um caracter separador inválido (%c).\n", SEPARADOR);
             return 0;
         }
 
-        if (!isalpha(nome[i]) && nome[i] != ' ' && nome[i] != '-') { //isalpha apenas retorna válido a-z e A-Z, logo as outras condições validam espaços e hifens
+        if (!isalpha(nacionalidade[i]) && nacionalidade[i] != ' ' && nacionalidade[i] != '-') { //isalpha apenas retorna válido a-z e A-Z, logo as outras condições validam espaços e hifens
             if (modo == '1') printf("Nome contém caracteres inválidos!\n");
             return 0;
         }
@@ -462,7 +605,7 @@ void merge_aluno(Uni * bd, int inicio, int meio, int fim) {
         esquerda[i] = bd->aluno[inicio + i];
     
     for(int i = 0; i < tamanho_direita; i++) 
-        direita[i] = bd->aluno[meio + 1 + j];
+        direita[i] = bd->aluno[meio + 1 + i];
     
     int indice_esquerda = 0;
     int indice_direita = 0;
@@ -522,7 +665,7 @@ void merge_escolares(Uni * bd, int inicio, int meio, int fim) {
         esquerda[i] = bd->escolares[inicio + i];
     
     for(int i = 0; i < tamanho_direita; i++) 
-        direita[i] = bd->escolares[meio + 1 + j];
+        direita[i] = bd->escolares[meio + 1 + i];
     
     int indice_esquerda = 0;
     int indice_direita = 0;
@@ -530,11 +673,11 @@ void merge_escolares(Uni * bd, int inicio, int meio, int fim) {
 
     while(indice_esquerda < tamanho_esquerda && indice_direita < tamanho_direita) {
         if (esquerda[indice_esquerda].codigo <= direita[indice_direita].codigo) { 
-            bd->escolares[indice] = esquerda[i]; //Estamos a copiar todo o conteúdo da struct, logo já fica tudo ordenado, e não apenas o código
+            bd->escolares[indice] = esquerda[indice_esquerda]; //Estamos a copiar todo o conteúdo da struct, logo já fica tudo ordenado, e não apenas o código
             indice_esquerda++;
         }
         else {
-            bd->escolares[indice] = direita[j];
+            bd->escolares[indice] = direita[indice_direita];
             indice_direita++;
         }
         indice++; 
@@ -578,7 +721,7 @@ void ordenar_ao_inserir(int codigo, Uni * bd, int indice_aluno, int indice_escol
     bd->aluno[indice_aluno].codigo = codigo;
     //Ordenar escolares
     for(int i = bd->tamanho_escolares; i > indice_escolares; i--) {
-        bd->escolares[i] = bd->escolares[i - 1].;
+        bd->escolares[i] = bd->escolares[i - 1];
     }
     bd->escolares[indice_escolares].codigo = codigo;
 }
@@ -881,6 +1024,7 @@ Escolha escolha_menus() {
 //Inserção/leitura de dados
 
 //Se for para ler, usar str = NULL, modo('1'/'0') para verificar se queremos imprimir mensagens de erro
+//Insere e valida a data
 void ler_data(Estudante * aluno, char * str, const char modo) {
 
 	char data[11]; //Vamos usar o formato DD-MM-AAAA (10 caracteres + \0)
@@ -980,7 +1124,7 @@ void inserir_estudante(Uni * bd) {
             char * nome_temp = NULL;
             printf("Insira o nome do estudante: ");
             nome_temp = ler_linha_txt(stdin, NULL);
-            if(!validar_nome(nome_temp,bd, '1')) {
+            if(!validar_nome(nome_temp, '1')) {
                 limpar_buffer();
                 pressione_enter();
                 free(nome_temp);
@@ -1002,7 +1146,7 @@ void inserir_estudante(Uni * bd) {
             printf("Insira a nacionalidade do estudante: ");
             nacionalidade_temp = ler_linha_txt(stdin, NULL);
 
-            if(!validar_nacionalidade(nacionalidade_temp, bd, '1')) {
+            if(!validar_nacionalidade(nacionalidade_temp, '1')) {
                 limpar_buffer();
                 pressione_enter();
                 free(nacionalidade_temp);
@@ -1060,7 +1204,7 @@ void inserir_estudante(Uni * bd) {
                 pressione_enter();
                 continue; //Continue faz com que salte o resto do loop e passe à próxima iteração
             }
-            if (ano_atual_temp < 0 || ano_atual_temp > MAX_ANO_ATUAL) {
+            if (ano_atual_temp < 1 || ano_atual_temp > MAX_ANO_ATUAL) {
                 printf("O ano atual é inválido. Deve estar entre 0 e %d.\n", MAX_ANO_ATUAL);
                 limpar_buffer();
                 pressione_enter();
@@ -1216,6 +1360,65 @@ void colocar_terminal_utf8() {
             return;
         }
     #endif
+}
+
+void verificar_primeiro_erro(FILE * erros, char * primeiro_erro, const char * nome_ficheiro) {
+    //Não é necessário verificar se algum ponteiro é NULL porque já os utilizamos antes, logo sabemos que não são NULL
+    if (*primeiro_erro == '1') {
+        *primeiro_erro = '0';
+        fprintf(erros, "\n\n\n"); //Caso seja o primeiro erro queremos separar o ficheiro de erros com 3\n
+        fprintf(erros, "\tERROS AO LER O FICHEIRO %s\n\n", nome_ficheiro);
+    }
+}
+
+//Converte para int com validações de conversão. 
+int string_para_int(const char * str, int * resultado) {
+    char * ptr_fim;
+    long valor = strtol(str, &ptr_fim, 10);
+    
+    //Verificar erros de conversão
+    if (ptr_fim == str || *ptr_fim != '\0') {
+        return 0;  //Se o ponteiro de fim da str for igual ao ptr do inicio, não há um int; Se for diferente de nul char então também houve erro porque há caracteres indesejados
+    }
+    
+    //Como strtol converte para longs e nós só queremos ints, pode ler números mais altos que o int conseguiria guardar
+    if (valor > MAX_INT || valor < MIN_INT) {
+        return 0; 
+    }
+    
+    *resultado = (int) valor;
+    return 1;
+}
+
+int string_para_short(const char * str, short * resultado) {
+    char * ptr_fim;
+    long valor = strtol(str, &ptr_fim, 10);
+    
+    //Verificar erros de conversão
+    if (ptr_fim == str || *ptr_fim != '\0') {
+        return 0;  //Se o ponteiro de fim da str for igual ao ptr do inicio, não há um int; Se for diferente de nul char então também houve erro porque há caracteres indesejados
+    }
+    
+    //Como strtol converte para longs e nós só queremos ints, pode ler números mais altos que o int conseguiria guardar
+    if (valor > MAX_SHORT || valor < MIN_SHORT) {
+        return 0; 
+    }
+    
+    *resultado = (short) valor;
+    return 1;
+}
+
+int string_para_float(const char * str, float * resultado) {
+    char * ptr_fim;
+    float valor = strtof(str, &ptr_fim);
+    
+    //Verificar erros de conversão
+    if (ptr_fim == str || *ptr_fim != '\0') {
+        return 0;  //Se o ponteiro de fim da str for igual ao ptr do inicio, não há um int; Se for diferente de nul char então também houve erro porque há caracteres indesejados
+    }
+    //Já não há necessidade de verificar limites pois converte diretamente para float
+    *resultado = (float) valor;
+    return 1;
 }
 
 
