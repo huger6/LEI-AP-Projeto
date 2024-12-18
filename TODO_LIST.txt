@@ -8,6 +8,9 @@ ________________________________________________________________________________
 NOTAS:
 short - hd
 unsigned short - hu
+*(array)@num_elementos - Usar esta expressão na aba de watch ao dar debug para ver o conteúdo de cada elemento do array
+scanf deixa o \n no buffer
+ler_linha_txt le o \n do buffer
 
 //Se der NULL em todos os modos de abertura, quer dizer que há um erro crítico. Dar manage
 //Se não der nulo nos outros modos de abertura quer dizer que o ficheiro não existia e foi criado
@@ -40,9 +43,23 @@ poderia ser criado uma espécie de legenda para o user saber os comandos (possí
 -Mais eficiente e escolhemos esta porque por norma não haverá muitos duplicados
 -Para o menu podemos usar a struct atual dentro de Uni e definir vários char, tipo p, g, e, x, ...
 -Realçar o erro na linha em erros.txt
+-verificar_codigoss_escolares_sem_aluno pode ser mais eficiente(ver comentário)
+-
+
 ______________________________________________________________________________________________________________
 
 BUGS:
+
+O PRIMEIRO ELEMENTO DO ARRAY ESTÁ A FICAR EM BRANCO
+LIMPAR_BUFFER NA INSERÇÃO DE ESTUDANTES (do nome)
+faltam \n's antes das mensagens de erro nas validações.
+quando um código é inválido temos de colocar o pressione enter
+validar_nacionalidade está a dar uma mensagem seguida e temos de dar 2 espaços para avançar.
+ao inserir estudantes e clicar em repetir, o programa sai??
+-Nome: 1\n ; Nascimento: 2\n ; media_atual: 2\n
+-No ficheiro de erros, a ultima linha fica sem o \n 
+-ESTAMOS A USAR 
+
 
 
 ______________________________________________________________________________________________________________

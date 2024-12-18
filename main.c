@@ -3,35 +3,40 @@
 //NOTA IMPORTANTE: para dar run temos que abrir o projeto em terminal integrado e depois de estar na main, dar compile run.
 //": Para os ficheiros abrirem corretamente têm que estar na pasta output
 
-//TODO: 250LINE
+//TODO: verificar se ordenar_ao_inserir está bem. (TAMANHO)
 int main() {
     //Colocar a consola em PT-PT (caracteres UTF8)
 	colocar_terminal_utf8();
 	
 	//Criamos um array de cada struct para armzenar TAMANHO_INICIAL_ARRAYS alunos
-	Uni bd;
-	(Estudante) bd.aluno = (Estudante *) malloc(TAMANHO_INICIAL_ARRAYS * sizeof(Estudante));
+	Uni bd; //Pode ser fadcilmente alterado para guardar várias universidades
+	bd.aluno = (Estudante *) malloc(TAMANHO_INICIAL_ARRAYS * sizeof(Estudante));
 	bd.tamanho_aluno = 0;
 	bd.capacidade_aluno = TAMANHO_INICIAL_ARRAYS;
-	(Dados) bd.escolares = (Dados *) malloc(TAMANHO_INICIAL_ARRAYS * sizeof(Dados));
+
+	bd.escolares = (Dados *) malloc(TAMANHO_INICIAL_ARRAYS * sizeof(Dados));
 	bd.tamanho_escolares = 0;
 	bd.capacidade_escolares = TAMANHO_INICIAL_ARRAYS;
 
-	if (!bd.aluno || !bd.escolares || !bd.stats) {
+	if (!bd.aluno || !bd.escolares) {
 		printf("Ocorreu um erro ao alocar memória para os alunos.\n");
 		printf("A encerrar o programa.\n");
 		return 1; //Erro
 	}
 
-	inicializar_structs(bd);
-	inicializar_estatisticas(&bd.stats);
 	//Servirá para verificar se o tamanho atual de alunos excede ou não o alocado
-	bd.tamanho_aluno = TAMANHO_INICIAL_ARRAYS; //Variável que irá manter o tamanho do array de alunos
-	bd.tamanho_escolares = TAMANHO_INICIAL_ARRAYS;
-	//Até aqui está tudo correto
-	carregar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, &bd);
+	bd.capacidade_aluno = TAMANHO_INICIAL_ARRAYS; //Variável que irá manter o tamanho do array de alunos
+	bd.capacidade_escolares = TAMANHO_INICIAL_ARRAYS;
 
-	escolha_menus();
+	inicializar_aluno(&bd, bd.tamanho_aluno);
+	inicializar_escolares(&bd, bd.tamanho_escolares);
+	inicializar_estatisticas(&bd.stats);
+	
+	carregar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, &bd);
+	
+	printf("%d\n", bd.aluno[1].codigo);
+	pressione_enter();
+	escolha_menus(&bd);
 
 	free(bd.aluno);
 	free(bd.escolares);

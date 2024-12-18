@@ -9,7 +9,6 @@
 #define TAMANHO_INICIAL_ARRAYS 1000
 #define TAMANHO_INICIAL_BUFFER 100
 #define SEPARADOR '\t' 
-#define MAX_PARAMETROS 4 //De acordo com os dados atuais, são 4 parametros por linha, caso se aumente, este valor deve aumentar também.
 #define PARAMETROS_ESTUDANTE 4
 #define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
 #define MAX_NACIONALIDADES 206 //Número máximo de países
@@ -93,12 +92,40 @@ typedef struct {
 void remover_espacos(char * str);
 void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
-void guardar_dados(const char * nome_ficheiro, Estudante * aluno, Estatisticas * stats);
-void inicializar_structs(Uni * bd);
+void inicializar_aluno(Uni * bd, int indice_aluno);
+void inicializar_escolares(Uni * bd, int indice_escolares);
+void inicializar_estatisticas(Estatisticas * stats);
+int realocar_aluno(Uni * bd, const char modo);
+int realocar_escolares(Uni * bd, const char modo);
+int realocar_nome(Estudante * aluno, const char modo);
+int procurar_codigo_aluno(int codigo, Uni * bd);
+int procurar_codigo_escolares(int codigo, Uni * bd);
+int validar_codigo_ao_inserir(int codigo, Uni * bd);
+void verificar_codigos_duplicados(Uni * bd, FILE * erros, char * primeiro_erro);
+void verificar_codigos_escolares_sem_aluno(Uni * bd, FILE * erros, char * primeiro_erro);
+int validar_data(short dia, short mes, short ano, const char modo);
+int validar_nome(Estudante * aluno, char * nome, const char modo);
+int validar_nacionalidade(char * nacionalidade, const char modo);
+void merge_aluno(Uni * bd, int inicio, int meio, int fim);
+void merge_sort_aluno(Uni * bd, int inicio, int fim);
+void merge_escolares(Uni * bd, int inicio, int meio, int fim);
+void merge_sort_escolares(Uni * bd, int inicio, int fim);
+void ordenar_ao_inserir(int codigo, Uni * bd, int indice_aluno, int indice_escolares);
+void ordenar_ao_eliminar(int codigo, Uni * bd);
+void ler_data(Estudante * aluno, char * str, const char modo);
+void inserir_estudante(Uni * bd);
+
+
 void pressione_enter();
 void colocar_terminal_utf8();
+void verificar_primeiro_erro(FILE * erros, char * primeiro_erro, const char * nome_ficheiro);
+int string_para_int(const char * str, int * resultado);
+int string_para_short(const char * str, short * resultado);
+int string_para_float(const char * str, float * resultado);
 
-void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Estudante ** aluno, int * tamanho_alunos, Dados ** escolares, int * tamanho_escolares);
+
+void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Uni * bd);
+void guardar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd);
 void limpar_buffer();
 void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup);
 void limpar_terminal();
@@ -109,14 +136,10 @@ char menu_gerir_estudantes();
 char menu_consultar_dados();
 char menu_estatisticas();
 char menu_extras();
-void processar_gerir_estudantes(Escolha * escolha);
+void processar_gerir_estudantes(Uni * bd, Escolha * escolha);
 void processar_consultar_dados(Escolha * escolha);
 void processar_estatisticas(Escolha * escolha);
 void processar_extras(Escolha * escolha);
-Escolha escolha_menus();
-int validar_data(short dia, short mes, short ano, const char modo);
-void ler_data(Estudante *aluno, char *str, const char modo);
-
-int validar_codigo(aluno, indice)(Estudante *aluno, int indice);
+Escolha escolha_menus(Uni * bd);
 
 #endif //Termina a condição
