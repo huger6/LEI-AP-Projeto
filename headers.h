@@ -8,7 +8,7 @@
 #define ERROS_TXT "erros.txt" //Ficheiro onde serão armazenados todos os erros provenientes da leitura de dados(para evitar a eliminação dos mesmos)
 #define TAMANHO_INICIAL_ARRAYS 1000
 #define TAMANHO_INICIAL_BUFFER 100
-#define SEPARADOR '\t' 
+#define SEPARADOR '\t' //Necessário alterar em carregar_dados, nas mensagens de erro, caso seja mudado
 #define PARAMETROS_ESTUDANTE 4
 #define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
 #define MAX_NACIONALIDADES 206 //Número máximo de países
@@ -33,7 +33,7 @@ extern const short ANO_NASC_LIM_INF; //definimos o limite inferior como o ano de
 #include <windows.h> 
 #include <locale.h>
 #include <string.h>
-#include <ctype.h> //Para fazer verificações relativas aos dados introduzidos
+#include <ctype.h> //Para fazer verificações relativas aos dados introduzidos (isalpha)
 
 
 //Structs

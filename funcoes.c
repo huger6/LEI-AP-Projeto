@@ -22,7 +22,7 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
         char * temp = realloc(linha, tamanho_total + tamanho + 1); //+1 para o nul char
         if (temp == NULL) {
             free(linha);
-            return NULL;
+            return NULL; //VERIFICAR ISTO, POIS PODE ACABAR O LOOP EM CARREGAR MAIS CEDO QUE O SUPOSTO.
         }
         linha = temp; //atualizar o ponteiro linha para apontar para a nova memória
 
@@ -34,6 +34,7 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
         //Verificamos se a linha está completa
         if (buffer[tamanho - 1] == '\n') {//se tudo tiver sido copiado, o ultimo caracter do buffer(e da linha tbm) será o '\n'
             if (n_linhas != NULL) (*n_linhas)++;
+            linha[tamanho - 1] = '\0'; //Substitui o \n por \0
             return linha;
         }
     }
@@ -54,7 +55,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
     FILE * dados = fopen(nome_ficheiro_dados, "r");
     FILE * situacao_escolar = fopen(nome_ficheiro_escolar, "r");
     FILE * erros = fopen(ERROS_TXT, "a"); //Vai anexar ao ficheiro de erros os erros encontrados
-    fprintf(erros, "\n\n\n-----------------NOVA ITERAÇÃO DO PROGRAMA-----------------\n\n\n");
+    fprintf(erros, "-----------------NOVA ITERAÇÃO DO PROGRAMA-----------------\n\n\n");
     int n_linhas = 0;
     char * linha = NULL; //Ponteiro para armazenar uma linha
     char primeiro_erro = '1'; //'1' significa que ainda não houve erro. 
@@ -130,12 +131,12 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
             else if (num_parametros < PARAMETROS_ESTUDANTE) {
                 verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
                 fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
-                fprintf(erros, "Razão: A linha tem parâmetros insuficientes.\n\n"); //Separar cada erro com uma linha
+                fprintf(erros, "Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \\t (obrigatório)\n\n"); //Separar cada erro com uma linha
             }
             else {
                 verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
                 fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
-                fprintf(erros, "Razão: A linha tem parâmetros a mais.\n\n");
+                fprintf(erros, "Razão: A linha tem parâmetros a mais. Verifique se algum parâmetro contém um \\t (não pode).\n\n");
             }
             
             //Libertamos a memória alocada para os parametros
@@ -283,7 +284,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
     //Códigos que estejam em escolares mas não estejam em aluno
     verificar_codigos_duplicados(bd, erros, &primeiro_erro); //verifica duplicados em ambos os arrays
     verificar_codigos_escolares_sem_aluno(bd, erros, &primeiro_erro);
-    fprintf(erros, "----------------------FIM DE ITERAÇÃO----------------------");
+    fprintf(erros, "----------------------FIM DE ITERAÇÃO----------------------\n\n\n");
     fclose(erros);
 }
 
@@ -1347,11 +1348,11 @@ void remover_espacos(char * str) {
 //LIBERTAR A MEMÓRIA DE PARAMETROS
 void separar_parametros(const char * linha, char ** parametros, int * num_parametros) { // char ** parametros serve para armazenar os ponteiros dos parametros, de modo a que não sejam perdidos
     if(linha == NULL || parametros == NULL || num_parametros == NULL) return;
-    char * inicio = linha; //Ponteiro para o inicio da linha, que não deve ser alterado
+    char * inicio = strdup(linha); //Ponteiro para o inicio da linha, que não deve ser alterado
+    //!!NOTA IMPORTANTE - É feita uma cópia da linha pois caso contrário, caso a função tenha um erro em qualquer parte, a linha original será perdida!!
     char * fim = NULL;
     //Não colocamos *num_parametros = 0 pois esta função poderá ser chamada várias vezes numa linha, e não queremos alterar a var nesse caso
     int indice = 0; //Indice do array
-    *num_parametros = 0;
 
     while(*inicio != '\0') { //Se não for o fim da linha entramos no loop
         fim = inicio; 
@@ -1359,7 +1360,7 @@ void separar_parametros(const char * linha, char ** parametros, int * num_parame
         //Vamos veriricar se o ponteiro atual de fim é um separador ou o fim da linha, caso não seja avançamos
         while(*fim != SEPARADOR && *fim != '\0' && *fim != '\n') fim++;
         //Aqui fim está a apontar para o separador, o fim da linha ou um \n (se bem que neste caso \n é o fim da linha
-        char temp = *fim; //Armazena o tab ou o nul charö
+        char temp = *fim; //Armazena o tab ou o nul char
         *fim = '\0'; //vai terminar a string de inicio (ou seja, um parametro); também corta o \n aqui, se exitir
         remover_espacos(inicio);
 
@@ -1433,8 +1434,8 @@ void verificar_primeiro_erro(FILE * erros, char * primeiro_erro, const char * no
     //Não é necessário verificar se algum ponteiro é NULL porque já os utilizamos antes, logo sabemos que não são NULL
     if (*primeiro_erro == '1') {
         *primeiro_erro = '0';
-        fprintf(erros, "\n\n\n"); //Caso seja o primeiro erro queremos separar o ficheiro de erros com 3\n
-        fprintf(erros, "\tERROS AO LER O FICHEIRO %s\n\n", nome_ficheiro);
+        fprintf(erros, "\n\n"); //Caso seja o primeiro erro queremos separar o ficheiro de erros com 3\n
+        fprintf(erros, "\t\tERROS AO LER O FICHEIRO %s\n\n", nome_ficheiro);
     }
 }
 

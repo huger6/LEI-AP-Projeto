@@ -2,7 +2,7 @@ DÚVIDAS:
 -Manter o ficheiro aberto durante as operações em memória ou fecha-lo e reabri-lo mais tarde? Abrir. fechar. Abrir, fechar
 !!!Os ficheiros podem ter alunos diferentes???? Pode haver alunos sem situacao escolar mas vice versa nao
 -Podemos trabalhar essencialmente com os códigos e assumir que se o código está livre, os outros parametros também o estão??
--Usar uma struct para guardar o estado do programa, como erros, e caso seja crítico, sair do mesmo, NÂO É NECESSÁRIO
+-Verificar dúvida do bug da linha incompleta em erros.txt.
 ______________________________________________________________________________________________________________
 
 NOTAS:
@@ -57,9 +57,11 @@ quando um código é inválido temos de colocar o pressione enter
 validar_nacionalidade está a dar uma mensagem seguida e temos de dar 2 espaços para avançar.
 ao inserir estudantes e clicar em repetir, o programa sai??
 -Nome: 1\n ; Nascimento: 2\n ; media_atual: 2\n
--No ficheiro de erros, a ultima linha fica sem o \n 
--ESTAMOS A USAR 
-
+-No ficheiro de erros, a ultima linha fica sem o \n (acontece porque o \n é lido em ler_linha_txt (já nao))
+##
+-a linha com gabriel carvalho está a ser cortada ao meio aparentemente sem razaão alguma, é a única
+SE A LINHA TIVER A MESMA FORMATAÇÃO DE ESPAÇOS QUE A DO GABRIEL TAMBEM DA ERRO
+Se não houver espaço antes de Gabriel a linha já aparece toda(remover espacos deve estar a funcionar mal)
 
 
 ______________________________________________________________________________________________________________
@@ -80,3 +82,4 @@ A ANOTAR NO RELATÓRIO
 -O código está estruturado de modo a possibilitar a adição de novas features no futuro.
 -Nacionalidade apesar do array estar limitado, está estruturado no código de modo a que seja fácil fazer a sua realocação, apenas seria necessário fazer uma função para o efeito.
 -Em carregar_dados, foi utilizado a var primeiro_erro como alternativa a criar um array e guardar lá os erros(poupa memória)
+-A escrita em erros.txt estava a sair desformatada com os \n's, então modificamos a função ler_linha_txt para eliminar o \n no final, apesar das outras funções já terem essa funcionalidade(validações, separar_parametros, etc)

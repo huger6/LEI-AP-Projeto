@@ -1,8051 +1,6044 @@
-
-
-
 -----------------NOVA ITERAÇÃO DO PROGRAMA-----------------
 
 
 
 
-
-	ERROS AO LER O FICHEIRO dados.txt
+		ERROS AO LER O FICHEIRO dados.txt
 
 Linha 72: 1305	Mariana Costela	29-2-1995	Angolana
-
 Razão: A data de nascimento é inválida!
 
 Linha 639: 1872	Camila Rodrigues	30-2-1992	Portuguesa
-
 Razão: A data de nascimento é inválida!
 
 Linha 715: 1948	Davi Lucca Duarte	29-2-1995	Portuguesa
-
 Razão: A data de nascimento é inválida!
 
 Linha 1271: 2504	Carlos Eduardo Teixeira	29-2-1994	Portuguesa
-
 Razão: A data de nascimento é inválida!
 
 Linha 1424: 2657	Marina Pires	29-2-1997	Portuguesa
-
 Razão: A data de nascimento é inválida!
 
 Linha 1484: 2717	Heloisa Mendes	30-2-1991	Portuguesa
-
 Razão: A data de nascimento é inválida!
 
 Linha 1824 inválida: 3057     Olivia Porto	7-9-2003	Angolana
-
-Razão: A linha tem parâmetros insuficientes.
+Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \t (obrigatório)
 
 Linha 1825 inválida: 3058    Davi Lucca Nogueira	25-9-1996	Espanhola
-
-Razão: A linha tem parâmetros insuficientes.
+Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \t (obrigatório)
 
 Linha 1855 inválida: 3088     Thales Ramos	2-3-1998	Brasileira
+Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \t (obrigatório)
 
-Razão: A linha tem parâmetros insuficientes.
+Linha 1987 inválida: 3220	 Gabriel Carvalho	14-3-1991   Brasileira
+Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \t (obrigatório)
 
-Linha 1987 inválida: 3220	Gabriel Carvalho
-Razão: A linha tem parâmetros insuficientes.
+Linha 1988 inválida: 3221	Juliana Moreira	1-12-1998   Portuguesa
+Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \t (obrigatório)
 
 
 
-
-	ERROS AO LER O FICHEIRO situacao_Escolar_Estudantes.txt
+		ERROS AO LER O FICHEIRO situacao_Escolar_Estudantes.txt
 
 Linha 2: 1235	2	30	3	14,0
-
 Razão: A média é inválida!
 
 Linha 3: 1236	2	30	3	11,7
-
 Razão: A média é inválida!
 
 Linha 4: 1237	2	30	2	13,1
-
 Razão: A média é inválida!
 
 Linha 5: 1238	2	30	2	16,9
-
 Razão: A média é inválida!
 
 Linha 6: 1239	4	139	3	12,3
-
 Razão: A média é inválida!
 
 Linha 7: 1240	6	79	3	14,2
-
 Razão: A média é inválida!
 
 Linha 8: 1241	2	30	1	15,1
-
 Razão: A média é inválida!
 
 Linha 9: 1242	4	139	3	17,4
-
 Razão: A média é inválida!
 
 Linha 10: 1243	5	34	3	16,4
-
 Razão: A média é inválida!
 
 Linha 11: 1244	1	10	3	13,0
-
 Razão: A média é inválida!
 
 Linha 12: 1245	5	34	3	15,5
-
 Razão: A média é inválida!
 
 Linha 13: 1246	1	10	1	19,2
-
 Razão: A média é inválida!
 
 Linha 14: 1247	2	30	1	16,1
-
 Razão: A média é inválida!
 
 Linha 15: 1248	4	139	3	11,9
-
 Razão: A média é inválida!
 
 Linha 16: 1249	1	10	1	12,6
-
 Razão: A média é inválida!
 
 Linha 17: 1250	1	10	1	13,6
-
 Razão: A média é inválida!
 
 Linha 18: 1251	2	30	2	17,2
-
 Razão: A média é inválida!
 
 Linha 19: 1252	3	125	2	13,7
-
 Razão: A média é inválida!
 
 Linha 20: 1253	6	79	2	15,2
-
 Razão: A média é inválida!
 
 Linha 21: 1254	1	10	1	16,5
-
 Razão: A média é inválida!
 
 Linha 22: 1255	1	10	3	16,5
-
 Razão: A média é inválida!
 
 Linha 23: 1256	2	30	3	17,6
-
 Razão: A média é inválida!
 
 Linha 24: 1257	4	139	2	18,6
-
 Razão: A média é inválida!
 
 Linha 25: 1258	3	125	1	14,7
-
 Razão: A média é inválida!
 
 Linha 26: 1259	5	34	1	13,7
-
 Razão: A média é inválida!
 
 Linha 27: 1260	4	139	2	14,3
-
 Razão: A média é inválida!
 
 Linha 28: 1261	5	34	2	11,1
-
 Razão: A média é inválida!
 
 Linha 29: 1262	2	30	3	11,4
-
 Razão: A média é inválida!
 
 Linha 30: 1263	3	125	2	15,3
-
 Razão: A média é inválida!
 
 Linha 31: 1264	3	125	2	16,8
-
 Razão: A média é inválida!
 
 Linha 32: 1265	4	139	2	11,4
-
 Razão: A média é inválida!
 
 Linha 33: 1266	5	34	1	17,0
-
 Razão: A média é inválida!
 
 Linha 34: 1267	3	125	1	17,4
-
 Razão: A média é inválida!
 
 Linha 35: 1268	2	30	3	12,3
-
 Razão: A média é inválida!
 
 Linha 36: 1269	5	34	2	18,0
-
 Razão: A média é inválida!
 
 Linha 37: 1270	4	139	1	15,6
-
 Razão: A média é inválida!
 
 Linha 38: 1271	3	125	3	15,7
-
 Razão: A média é inválida!
 
 Linha 39: 1272	4	139	3	14,1
-
 Razão: A média é inválida!
 
 Linha 40: 1273	4	139	2	18,0
-
 Razão: A média é inválida!
 
 Linha 41: 1274	2	30	1	17,7
-
 Razão: A média é inválida!
 
 Linha 42: 1275	5	34	1	14,0
-
 Razão: A média é inválida!
 
 Linha 43: 1276	4	139	3	17,7
-
 Razão: A média é inválida!
 
 Linha 44: 1277	5	34	3	18,1
-
 Razão: A média é inválida!
 
 Linha 45: 1278	6	79	2	19,7
-
 Razão: A média é inválida!
 
 Linha 46: 1279	1	10	1	11,2
-
 Razão: A média é inválida!
 
 Linha 47: 1280	6	79	1	11,0
-
 Razão: A média é inválida!
 
 Linha 48: 1281	5	34	3	11,4
-
 Razão: A média é inválida!
 
 Linha 49: 1282	1	10	1	18,6
-
 Razão: A média é inválida!
 
 Linha 50: 1283	5	34	2	18,5
-
 Razão: A média é inválida!
 
 Linha 51: 1284	4	139	2	14,5
-
 Razão: A média é inválida!
 
 Linha 52: 1285	4	139	2	19,0
-
 Razão: A média é inválida!
 
 Linha 53: 1286	6	79	2	18,3
-
 Razão: A média é inválida!
 
 Linha 54: 1287	4	139	3	17,4
-
 Razão: A média é inválida!
 
 Linha 55: 1288	2	30	1	16,8
-
 Razão: A média é inválida!
 
 Linha 56: 1289	3	125	2	18,8
-
 Razão: A média é inválida!
 
 Linha 57: 1290	5	34	1	12,0
-
 Razão: A média é inválida!
 
 Linha 58: 1291	4	139	1	19,8
-
 Razão: A média é inválida!
 
 Linha 59: 1292	5	34	1	13,1
-
 Razão: A média é inválida!
 
 Linha 60: 1293	3	125	3	18,8
-
 Razão: A média é inválida!
 
 Linha 61: 1294	2	30	3	16,3
-
 Razão: A média é inválida!
 
 Linha 62: 1295	5	34	3	16,0
-
 Razão: A média é inválida!
 
 Linha 63: 1296	3	125	3	15,4
-
 Razão: A média é inválida!
 
 Linha 64: 1297	1	10	3	12,5
-
 Razão: A média é inválida!
 
 Linha 65: 1298	5	34	3	13,6
-
 Razão: A média é inválida!
 
 Linha 66: 1299	4	139	2	16,0
-
 Razão: A média é inválida!
 
 Linha 67: 1300	1	10	1	11,4
-
 Razão: A média é inválida!
 
 Linha 68: 1301	1	10	1	17,9
-
 Razão: A média é inválida!
 
 Linha 69: 1302	2	30	2	17,6
-
 Razão: A média é inválida!
 
 Linha 70: 1303	1	10	1	19,8
-
 Razão: A média é inválida!
 
 Linha 71: 1304	1	10	3	13,3
-
 Razão: A média é inválida!
 
 Linha 72: 1305	1	10	2	11,8
-
 Razão: A média é inválida!
 
 Linha 73: 1306	3	125	2	14,4
-
 Razão: A média é inválida!
 
 Linha 74: 1307	1	10	1	11,9
-
 Razão: A média é inválida!
 
 Linha 75: 1308	3	125	3	12,6
-
 Razão: A média é inválida!
 
 Linha 76: 1309	2	30	3	16,5
-
 Razão: A média é inválida!
 
 Linha 77: 1310	5	34	1	19,6
-
 Razão: A média é inválida!
 
 Linha 78: 1311	6	79	1	17,4
-
 Razão: A média é inválida!
 
 Linha 79: 1312	5	34	1	14,6
-
 Razão: A média é inválida!
 
 Linha 80: 1313	1	10	2	11,6
-
 Razão: A média é inválida!
 
 Linha 81: 1314	1	10	2	16,6
-
 Razão: A média é inválida!
 
 Linha 82: 1315	5	34	2	15,4
-
 Razão: A média é inválida!
 
 Linha 83: 1316	6	79	1	12,1
-
 Razão: A média é inválida!
 
 Linha 84: 1317	5	34	2	11,9
-
 Razão: A média é inválida!
 
 Linha 85: 1318	3	125	2	17,5
-
 Razão: A média é inválida!
 
 Linha 86: 1319	4	139	3	15,4
-
 Razão: A média é inválida!
 
 Linha 87: 1320	3	125	2	16,8
-
 Razão: A média é inválida!
 
 Linha 88: 1321	1	10	3	12,6
-
 Razão: A média é inválida!
 
 Linha 89: 1322	3	125	3	13,9
-
 Razão: A média é inválida!
 
 Linha 90: 1323	2	30	1	15,0
-
 Razão: A média é inválida!
 
 Linha 91: 1324	6	79	2	17,6
-
 Razão: A média é inválida!
 
 Linha 92: 1325	4	139	1	17,0
-
 Razão: A média é inválida!
 
 Linha 93: 1326	1	10	1	17,0
-
 Razão: A média é inválida!
 
 Linha 94: 1327	2	30	3	12,3
-
 Razão: A média é inválida!
 
 Linha 95: 1328	3	125	1	16,2
-
 Razão: A média é inválida!
 
 Linha 96: 1329	3	125	2	15,6
-
 Razão: A média é inválida!
 
 Linha 97: 1330	6	79	2	13,9
-
 Razão: A média é inválida!
 
 Linha 98: 1331	4	139	3	17,5
-
 Razão: A média é inválida!
 
 Linha 99: 1332	6	79	3	11,7
-
 Razão: A média é inválida!
 
 Linha 100: 1333	1	10	3	20,0
-
 Razão: A média é inválida!
 
 Linha 101: 1334	3	125	2	12,5
-
 Razão: A média é inválida!
 
 Linha 102: 1335	2	30	3	11,0
-
 Razão: A média é inválida!
 
 Linha 103: 1336	3	125	2	20,0
-
 Razão: A média é inválida!
 
 Linha 104: 1337	1	10	3	18,2
-
 Razão: A média é inválida!
 
 Linha 105: 1338	6	79	1	19,7
-
 Razão: A média é inválida!
 
 Linha 106: 1339	3	125	3	12,0
-
 Razão: A média é inválida!
 
 Linha 107: 1340	6	79	3	15,0
-
 Razão: A média é inválida!
 
 Linha 108: 1341	5	34	1	16,9
-
 Razão: A média é inválida!
 
 Linha 109: 1342	4	139	3	12,4
-
 Razão: A média é inválida!
 
 Linha 110: 1343	6	79	2	14,1
-
 Razão: A média é inválida!
 
 Linha 111: 1344	2	30	2	12,8
-
 Razão: A média é inválida!
 
 Linha 112: 1345	4	139	1	13,1
-
 Razão: A média é inválida!
 
 Linha 113: 1346	2	30	3	19,2
-
 Razão: A média é inválida!
 
 Linha 114: 1347	6	79	2	19,4
-
 Razão: A média é inválida!
 
 Linha 115: 1348	4	139	3	18,3
-
 Razão: A média é inválida!
 
 Linha 116: 1349	5	34	3	17,3
-
 Razão: A média é inválida!
 
 Linha 117: 1350	5	34	1	15,9
-
 Razão: A média é inválida!
 
 Linha 118: 1351	5	34	3	17,7
-
 Razão: A média é inválida!
 
 Linha 119: 1352	2	30	1	13,5
-
 Razão: A média é inválida!
 
 Linha 120: 1353	1	10	3	12,9
-
 Razão: A média é inválida!
 
 Linha 121: 1354	2	30	2	19,9
-
 Razão: A média é inválida!
 
 Linha 122: 1355	4	139	3	17,4
-
 Razão: A média é inválida!
 
 Linha 123: 1356	2	30	2	15,7
-
 Razão: A média é inválida!
 
 Linha 124: 1357	3	125	3	13,5
-
 Razão: A média é inválida!
 
 Linha 125: 1358	4	139	2	13,4
-
 Razão: A média é inválida!
 
 Linha 126: 1359	6	79	1	12,3
-
 Razão: A média é inválida!
 
 Linha 127: 1360	2	30	2	14,4
-
 Razão: A média é inválida!
 
 Linha 128: 1361	4	139	2	19,2
-
 Razão: A média é inválida!
 
 Linha 129: 1362	3	125	1	17,5
-
 Razão: A média é inválida!
 
 Linha 130: 1363	1	10	1	14,1
-
 Razão: A média é inválida!
 
 Linha 131: 1364	4	139	3	13,8
-
 Razão: A média é inválida!
 
 Linha 132: 1365	1	10	3	18,5
-
 Razão: A média é inválida!
 
 Linha 133: 1366	6	79	2	13,0
-
 Razão: A média é inválida!
 
 Linha 134: 1367	4	139	2	16,2
-
 Razão: A média é inválida!
 
 Linha 135: 1368	6	79	3	12,4
-
 Razão: A média é inválida!
 
 Linha 136: 1369	1	10	3	18,1
-
 Razão: A média é inválida!
 
 Linha 137: 1370	4	139	1	12,2
-
 Razão: A média é inválida!
 
 Linha 138: 1371	6	79	2	17,6
-
 Razão: A média é inválida!
 
 Linha 139: 1372	5	34	3	13,7
-
 Razão: A média é inválida!
 
 Linha 140: 1373	6	79	2	18,3
-
 Razão: A média é inválida!
 
 Linha 141: 1374	3	125	3	15,4
-
 Razão: A média é inválida!
 
 Linha 142: 1375	3	125	2	17,7
-
 Razão: A média é inválida!
 
 Linha 143: 1376	4	139	2	19,7
-
 Razão: A média é inválida!
 
 Linha 144: 1377	6	79	1	14,8
-
 Razão: A média é inválida!
 
 Linha 145: 1378	4	139	3	18,3
-
 Razão: A média é inválida!
 
 Linha 146: 1379	6	79	3	12,2
-
 Razão: A média é inválida!
 
 Linha 147: 1380	6	79	1	13,6
-
 Razão: A média é inválida!
 
 Linha 148: 1381	4	139	3	19,0
-
 Razão: A média é inválida!
 
 Linha 149: 1382	3	125	2	19,5
-
 Razão: A média é inválida!
 
 Linha 150: 1383	2	30	3	14,1
-
 Razão: A média é inválida!
 
 Linha 151: 1384	6	79	3	18,5
-
 Razão: A média é inválida!
 
 Linha 152: 1385	4	139	3	13,9
-
 Razão: A média é inválida!
 
 Linha 153: 1386	4	139	2	15,4
-
 Razão: A média é inválida!
 
 Linha 154: 1387	2	30	2	16,0
-
 Razão: A média é inválida!
 
 Linha 155: 1388	2	30	2	18,9
-
 Razão: A média é inválida!
 
 Linha 156: 1389	3	125	1	14,5
-
 Razão: A média é inválida!
 
 Linha 157: 1390	5	34	1	19,9
-
 Razão: A média é inválida!
 
 Linha 158: 1391	5	34	3	13,6
-
 Razão: A média é inválida!
 
 Linha 159: 1392	5	34	2	20,0
-
 Razão: A média é inválida!
 
 Linha 160: 1393	4	139	1	11,7
-
 Razão: A média é inválida!
 
 Linha 161: 1394	6	79	3	19,0
-
 Razão: A média é inválida!
 
 Linha 162: 1395	1	10	3	17,7
-
 Razão: A média é inválida!
 
 Linha 163: 1396	6	79	3	12,9
-
 Razão: A média é inválida!
 
 Linha 164: 1397	6	79	1	15,8
-
 Razão: A média é inválida!
 
 Linha 165: 1398	3	125	3	17,2
-
 Razão: A média é inválida!
 
 Linha 166: 1399	3	125	2	14,9
-
 Razão: A média é inválida!
 
 Linha 167: 1400	3	125	1	16,8
-
 Razão: A média é inválida!
 
 Linha 168: 1401	2	30	2	19,0
-
 Razão: A média é inválida!
 
 Linha 169: 1402	3	125	2	16,2
-
 Razão: A média é inválida!
 
 Linha 170: 1403	4	139	3	11,7
-
 Razão: A média é inválida!
 
 Linha 171: 1404	2	30	2	12,2
-
 Razão: A média é inválida!
 
 Linha 172: 1405	5	34	1	18,2
-
 Razão: A média é inválida!
 
 Linha 173: 1406	5	34	2	12,7
-
 Razão: A média é inválida!
 
 Linha 174: 1407	5	34	3	14,5
-
 Razão: A média é inválida!
 
 Linha 175: 1408	5	34	1	17,9
-
 Razão: A média é inválida!
 
 Linha 176: 1409	6	79	1	20,0
-
 Razão: A média é inválida!
 
 Linha 177: 1410	4	139	3	17,5
-
 Razão: A média é inválida!
 
 Linha 178: 1411	3	125	2	12,4
-
 Razão: A média é inválida!
 
 Linha 179: 1412	1	10	3	11,4
-
 Razão: A média é inválida!
 
 Linha 180: 1413	6	79	1	16,9
-
 Razão: A média é inválida!
 
 Linha 181: 1414	6	79	2	15,2
-
 Razão: A média é inválida!
 
 Linha 182: 1415	2	30	1	15,8
-
 Razão: A média é inválida!
 
 Linha 183: 1416	1	10	1	12,9
-
 Razão: A média é inválida!
 
 Linha 184: 1417	3	125	1	16,4
-
 Razão: A média é inválida!
 
 Linha 185: 1418	3	125	1	13,6
-
 Razão: A média é inválida!
 
 Linha 186: 1419	3	125	1	11,9
-
 Razão: A média é inválida!
 
 Linha 187: 1420	4	139	3	12,5
-
 Razão: A média é inválida!
 
 Linha 188: 1421	3	125	2	11,7
-
 Razão: A média é inválida!
 
 Linha 189: 1422	3	125	2	18,5
-
 Razão: A média é inválida!
 
 Linha 190: 1423	5	34	2	15,6
-
 Razão: A média é inválida!
 
 Linha 191: 1424	6	79	2	13,9
-
 Razão: A média é inválida!
 
 Linha 192: 1425	6	79	2	16,1
-
 Razão: A média é inválida!
 
 Linha 193: 1426	2	30	1	15,9
-
 Razão: A média é inválida!
 
 Linha 194: 1427	2	30	2	18,5
-
 Razão: A média é inválida!
 
 Linha 195: 1428	2	30	2	13,5
-
 Razão: A média é inválida!
 
 Linha 196: 1429	2	30	1	14,9
-
 Razão: A média é inválida!
 
 Linha 197: 1430	5	34	3	15,8
-
 Razão: A média é inválida!
 
 Linha 198: 1431	5	34	1	16,0
-
 Razão: A média é inválida!
 
 Linha 199: 1432	1	10	1	18,2
-
 Razão: A média é inválida!
 
 Linha 200: 1433	5	34	1	11,5
-
 Razão: A média é inválida!
 
 Linha 201: 1434	4	139	2	14,1
-
 Razão: A média é inválida!
 
 Linha 202: 1435	2	30	2	17,7
-
 Razão: A média é inválida!
 
 Linha 203: 1436	5	34	2	18,8
-
 Razão: A média é inválida!
 
 Linha 204: 1437	4	139	2	17,7
-
 Razão: A média é inválida!
 
 Linha 205: 1438	6	79	1	12,6
-
 Razão: A média é inválida!
 
 Linha 206: 1439	2	30	1	12,2
-
 Razão: A média é inválida!
 
 Linha 207: 1440	5	34	2	19,3
-
 Razão: A média é inválida!
 
 Linha 208: 1441	1	10	3	14,5
-
 Razão: A média é inválida!
 
 Linha 209: 1442	2	30	1	12,8
-
 Razão: A média é inválida!
 
 Linha 210: 1443	4	139	1	16,4
-
 Razão: A média é inválida!
 
 Linha 211: 1444	2	30	2	15,5
-
 Razão: A média é inválida!
 
 Linha 212: 1445	2	30	2	15,1
-
 Razão: A média é inválida!
 
 Linha 213: 1446	5	34	3	17,7
-
 Razão: A média é inválida!
 
 Linha 214: 1447	3	125	2	12,6
-
 Razão: A média é inválida!
 
 Linha 215: 1448	2	30	3	16,1
-
 Razão: A média é inválida!
 
 Linha 216: 1449	1	10	3	17,7
-
 Razão: A média é inválida!
 
 Linha 217: 1450	1	10	1	11,6
-
 Razão: A média é inválida!
 
 Linha 218: 1451	5	34	1	17,0
-
 Razão: A média é inválida!
 
 Linha 219: 1452	6	79	1	14,5
-
 Razão: A média é inválida!
 
 Linha 220: 1453	2	30	3	16,1
-
 Razão: A média é inválida!
 
 Linha 221: 1454	3	125	1	13,2
-
 Razão: A média é inválida!
 
 Linha 222: 1455	2	30	2	14,5
-
 Razão: A média é inválida!
 
 Linha 223: 1456	2	30	2	11,1
-
 Razão: A média é inválida!
 
 Linha 224: 1457	6	79	3	16,6
-
 Razão: A média é inválida!
 
 Linha 225: 1458	5	34	1	16,6
-
 Razão: A média é inválida!
 
 Linha 226: 1459	4	139	2	11,1
-
 Razão: A média é inválida!
 
 Linha 227: 1460	5	34	2	19,6
-
 Razão: A média é inválida!
 
 Linha 228: 1461	4	139	3	15,1
-
 Razão: A média é inválida!
 
 Linha 229: 1462	4	139	2	17,8
-
 Razão: A média é inválida!
 
 Linha 230: 1463	4	139	2	13,1
-
 Razão: A média é inválida!
 
 Linha 231: 1464	2	30	2	18,3
-
 Razão: A média é inválida!
 
 Linha 232: 1465	4	139	3	12,6
-
 Razão: A média é inválida!
 
 Linha 233: 1466	3	125	1	19,7
-
 Razão: A média é inválida!
 
 Linha 234: 1467	3	125	3	13,3
-
 Razão: A média é inválida!
 
 Linha 235: 1468	6	79	3	18,1
-
 Razão: A média é inválida!
 
 Linha 236: 1469	2	30	1	14,8
-
 Razão: A média é inválida!
 
 Linha 237: 1470	5	34	1	13,9
-
 Razão: A média é inválida!
 
 Linha 238: 1471	3	125	3	16,1
-
 Razão: A média é inválida!
 
 Linha 239: 1472	1	10	3	19,5
-
 Razão: A média é inválida!
 
 Linha 240: 1473	5	34	3	16,1
-
 Razão: A média é inválida!
 
 Linha 241: 1474	4	139	1	13,7
-
 Razão: A média é inválida!
 
 Linha 242: 1475	5	34	2	13,9
-
 Razão: A média é inválida!
 
 Linha 243: 1476	6	79	1	13,4
-
 Razão: A média é inválida!
 
 Linha 244: 1477	2	30	3	19,2
-
 Razão: A média é inválida!
 
 Linha 245: 1478	1	10	3	16,7
-
 Razão: A média é inválida!
 
 Linha 246: 1479	4	139	2	16,2
-
 Razão: A média é inválida!
 
 Linha 247: 1480	1	10	1	17,5
-
 Razão: A média é inválida!
 
 Linha 248: 1481	2	30	3	15,3
-
 Razão: A média é inválida!
 
 Linha 249: 1482	4	139	3	11,8
-
 Razão: A média é inválida!
 
 Linha 250: 1483	1	10	3	13,1
-
 Razão: A média é inválida!
 
 Linha 251: 1484	2	30	2	16,4
-
 Razão: A média é inválida!
 
 Linha 252: 1485	2	30	3	13,2
-
 Razão: A média é inválida!
 
 Linha 253: 1486	3	125	3	12,1
-
 Razão: A média é inválida!
 
 Linha 254: 1487	3	125	1	17,3
-
 Razão: A média é inválida!
 
 Linha 255: 1488	1	10	1	16,0
-
 Razão: A média é inválida!
 
 Linha 256: 1489	6	79	2	15,2
-
 Razão: A média é inválida!
 
 Linha 257: 1490	2	30	1	14,4
-
 Razão: A média é inválida!
 
 Linha 258: 1491	2	30	2	18,3
-
 Razão: A média é inválida!
 
 Linha 259: 1492	5	34	3	15,8
-
 Razão: A média é inválida!
 
 Linha 260: 1493	5	34	2	12,0
-
 Razão: A média é inválida!
 
 Linha 261: 1494	3	125	3	17,6
-
 Razão: A média é inválida!
 
 Linha 262: 1495	2	30	2	19,9
-
 Razão: A média é inválida!
 
 Linha 263: 1496	5	34	2	18,9
-
 Razão: A média é inválida!
 
 Linha 264: 1497	4	139	1	17,7
-
 Razão: A média é inválida!
 
 Linha 265: 1498	5	34	3	13,9
-
 Razão: A média é inválida!
 
 Linha 266: 1499	1	10	2	16,4
-
 Razão: A média é inválida!
 
 Linha 267: 1500	4	139	3	18,0
-
 Razão: A média é inválida!
 
 Linha 268: 1501	6	79	1	16,5
-
 Razão: A média é inválida!
 
 Linha 269: 1502	5	34	2	12,2
-
 Razão: A média é inválida!
 
 Linha 270: 1503	6	79	3	19,9
-
 Razão: A média é inválida!
 
 Linha 271: 1504	6	79	2	11,1
-
 Razão: A média é inválida!
 
 Linha 272: 1505	1	10	2	11,2
-
 Razão: A média é inválida!
 
 Linha 273: 1506	2	30	1	11,3
-
 Razão: A média é inválida!
 
 Linha 274: 1507	2	30	3	15,1
-
 Razão: A média é inválida!
 
 Linha 275: 1508	1	10	1	16,8
-
 Razão: A média é inválida!
 
 Linha 276: 1509	2	30	2	19,4
-
 Razão: A média é inválida!
 
 Linha 277: 1510	5	34	3	16,2
-
 Razão: A média é inválida!
 
 Linha 278: 1511	2	30	2	19,3
-
 Razão: A média é inválida!
 
 Linha 279: 1512	6	79	3	12,9
-
 Razão: A média é inválida!
 
 Linha 280: 1513	4	139	2	18,8
-
 Razão: A média é inválida!
 
 Linha 281: 1514	6	79	2	11,5
-
 Razão: A média é inválida!
 
 Linha 282: 1515	1	10	3	13,9
-
 Razão: A média é inválida!
 
 Linha 283: 1516	1	10	3	15,5
-
 Razão: A média é inválida!
 
 Linha 284: 1517	2	30	1	19,9
-
 Razão: A média é inválida!
 
 Linha 285: 1518	5	34	1	19,8
-
 Razão: A média é inválida!
 
 Linha 286: 1519	6	79	1	19,4
-
 Razão: A média é inválida!
 
 Linha 287: 1520	2	30	3	12,8
-
 Razão: A média é inválida!
 
 Linha 288: 1521	1	10	2	19,4
-
 Razão: A média é inválida!
 
 Linha 289: 1522	2	30	2	17,3
-
 Razão: A média é inválida!
 
 Linha 290: 1523	6	79	2	17,4
-
 Razão: A média é inválida!
 
 Linha 291: 1524	6	79	2	13,4
-
 Razão: A média é inválida!
 
 Linha 292: 1525	6	79	2	19,3
-
 Razão: A média é inválida!
 
 Linha 293: 1526	3	125	2	11,7
-
 Razão: A média é inválida!
 
 Linha 294: 1527	2	30	2	13,9
-
 Razão: A média é inválida!
 
 Linha 295: 1528	6	79	1	11,9
-
 Razão: A média é inválida!
 
 Linha 296: 1529	2	30	1	13,4
-
 Razão: A média é inválida!
 
 Linha 297: 1530	3	125	1	12,5
-
 Razão: A média é inválida!
 
 Linha 298: 1531	5	34	2	17,3
-
 Razão: A média é inválida!
 
 Linha 299: 1532	6	79	3	16,5
-
 Razão: A média é inválida!
 
 Linha 300: 1533	5	34	3	14,4
-
 Razão: A média é inválida!
 
 Linha 301: 1534	2	30	3	16,4
-
 Razão: A média é inválida!
 
 Linha 302: 1535	3	125	2	15,2
-
 Razão: A média é inválida!
 
 Linha 303: 1536	4	139	3	11,6
-
 Razão: A média é inválida!
 
 Linha 304: 1537	5	34	3	11,4
-
 Razão: A média é inválida!
 
 Linha 305: 1538	1	10	1	16,4
-
 Razão: A média é inválida!
 
 Linha 306: 1539	1	10	3	17,1
-
 Razão: A média é inválida!
 
 Linha 307: 1540	2	30	2	17,9
-
 Razão: A média é inválida!
 
 Linha 308: 1541	5	34	1	17,4
-
 Razão: A média é inválida!
 
 Linha 309: 1542	1	10	2	15,0
-
 Razão: A média é inválida!
 
 Linha 310: 1543	5	34	3	12,8
-
 Razão: A média é inválida!
 
 Linha 311: 1544	4	139	3	13,6
-
 Razão: A média é inválida!
 
 Linha 312: 1545	6	79	2	17,4
-
 Razão: A média é inválida!
 
 Linha 313: 1546	6	79	1	13,6
-
 Razão: A média é inválida!
 
 Linha 314: 1547	6	79	3	19,7
-
 Razão: A média é inválida!
 
 Linha 315: 1548	5	34	3	11,3
-
 Razão: A média é inválida!
 
 Linha 316: 1549	5	34	2	20,0
-
 Razão: A média é inválida!
 
 Linha 317: 1550	3	125	2	12,0
-
 Razão: A média é inválida!
 
 Linha 318: 1551	5	34	2	15,9
-
 Razão: A média é inválida!
 
 Linha 319: 1552	4	139	2	15,3
-
 Razão: A média é inválida!
 
 Linha 320: 1553	4	139	2	19,8
-
 Razão: A média é inválida!
 
 Linha 321: 1554	1	10	3	19,8
-
 Razão: A média é inválida!
 
 Linha 322: 1555	3	125	2	13,0
-
 Razão: A média é inválida!
 
 Linha 323: 1556	6	79	1	13,3
-
 Razão: A média é inválida!
 
 Linha 324: 1557	3	125	1	12,3
-
 Razão: A média é inválida!
 
 Linha 325: 1558	5	34	1	13,5
-
 Razão: A média é inválida!
 
 Linha 326: 1559	3	125	2	12,6
-
 Razão: A média é inválida!
 
 Linha 327: 1560	2	30	2	12,8
-
 Razão: A média é inválida!
 
 Linha 328: 1561	6	79	1	16,6
-
 Razão: A média é inválida!
 
 Linha 329: 1562	6	79	3	18,9
-
 Razão: A média é inválida!
 
 Linha 330: 1563	2	30	2	16,6
-
 Razão: A média é inválida!
 
 Linha 331: 1564	5	34	1	15,8
-
 Razão: A média é inválida!
 
 Linha 332: 1565	1	10	2	12,4
-
 Razão: A média é inválida!
 
 Linha 333: 1566	2	30	3	11,9
-
 Razão: A média é inválida!
 
 Linha 334: 1567	2	30	1	16,1
-
 Razão: A média é inválida!
 
 Linha 335: 1568	4	139	3	14,5
-
 Razão: A média é inválida!
 
 Linha 336: 1569	4	139	2	19,6
-
 Razão: A média é inválida!
 
 Linha 337: 1570	4	139	3	16,9
-
 Razão: A média é inválida!
 
 Linha 338: 1571	4	139	2	13,4
-
 Razão: A média é inválida!
 
 Linha 339: 1572	3	125	3	14,5
-
 Razão: A média é inválida!
 
 Linha 340: 1573	1	10	1	16,0
-
 Razão: A média é inválida!
 
 Linha 341: 1574	3	125	1	17,2
-
 Razão: A média é inválida!
 
 Linha 342: 1575	6	79	1	11,8
-
 Razão: A média é inválida!
 
 Linha 343: 1576	6	79	3	15,8
-
 Razão: A média é inválida!
 
 Linha 344: 1577	1	10	1	12,5
-
 Razão: A média é inválida!
 
 Linha 345: 1578	1	10	3	15,6
-
 Razão: A média é inválida!
 
 Linha 346: 1579	3	125	1	13,0
-
 Razão: A média é inválida!
 
 Linha 347: 1580	6	79	1	18,7
-
 Razão: A média é inválida!
 
 Linha 348: 1581	2	30	3	19,2
-
 Razão: A média é inválida!
 
 Linha 349: 1582	3	125	2	17,1
-
 Razão: A média é inválida!
 
 Linha 350: 1583	1	10	2	13,9
-
 Razão: A média é inválida!
 
 Linha 351: 1584	3	125	3	12,9
-
 Razão: A média é inválida!
 
 Linha 352: 1585	4	139	1	11,3
-
 Razão: A média é inválida!
 
 Linha 353: 1586	3	125	1	15,2
-
 Razão: A média é inválida!
 
 Linha 354: 1587	4	139	3	16,2
-
 Razão: A média é inválida!
 
 Linha 355: 1588	6	79	1	17,2
-
 Razão: A média é inválida!
 
 Linha 356: 1589	3	125	1	13,4
-
 Razão: A média é inválida!
 
 Linha 357: 1590	5	34	2	12,5
-
 Razão: A média é inválida!
 
 Linha 358: 1591	6	79	2	14,0
-
 Razão: A média é inválida!
 
 Linha 359: 1592	1	10	1	14,6
-
 Razão: A média é inválida!
 
 Linha 360: 1593	6	79	1	14,5
-
 Razão: A média é inválida!
 
 Linha 361: 1594	1	10	3	13,6
-
 Razão: A média é inválida!
 
 Linha 362: 1595	4	139	3	11,5
-
 Razão: A média é inválida!
 
 Linha 363: 1596	1	10	3	15,0
-
 Razão: A média é inválida!
 
 Linha 364: 1597	2	30	2	17,3
-
 Razão: A média é inválida!
 
 Linha 365: 1598	2	30	1	16,0
-
 Razão: A média é inválida!
 
 Linha 366: 1599	3	125	1	13,0
-
 Razão: A média é inválida!
 
 Linha 367: 1600	2	30	2	11,2
-
 Razão: A média é inválida!
 
 Linha 368: 1601	6	79	3	17,8
-
 Razão: A média é inválida!
 
 Linha 369: 1602	4	139	1	18,8
-
 Razão: A média é inválida!
 
 Linha 370: 1603	5	34	2	11,1
-
 Razão: A média é inválida!
 
 Linha 371: 1604	3	125	1	12,7
-
 Razão: A média é inválida!
 
 Linha 372: 1605	6	79	1	16,1
-
 Razão: A média é inválida!
 
 Linha 373: 1606	6	79	1	13,8
-
 Razão: A média é inválida!
 
 Linha 374: 1607	2	30	3	16,5
-
 Razão: A média é inválida!
 
 Linha 375: 1608	1	10	1	14,3
-
 Razão: A média é inválida!
 
 Linha 376: 1609	1	10	2	11,6
-
 Razão: A média é inválida!
 
 Linha 377: 1610	5	34	2	14,7
-
 Razão: A média é inválida!
 
 Linha 378: 1611	3	125	1	13,3
-
 Razão: A média é inválida!
 
 Linha 379: 1612	2	30	3	13,2
-
 Razão: A média é inválida!
 
 Linha 380: 1613	4	139	3	17,2
-
 Razão: A média é inválida!
 
 Linha 381: 1614	4	139	2	17,2
-
 Razão: A média é inválida!
 
 Linha 382: 1615	4	139	2	13,8
-
 Razão: A média é inválida!
 
 Linha 383: 1616	4	139	2	17,6
-
 Razão: A média é inválida!
 
 Linha 384: 1617	5	34	3	18,1
-
 Razão: A média é inválida!
 
 Linha 385: 1618	2	30	1	20,0
-
 Razão: A média é inválida!
 
 Linha 386: 1619	3	125	1	17,8
-
 Razão: A média é inválida!
 
 Linha 387: 1620	2	30	1	15,0
-
 Razão: A média é inválida!
 
 Linha 388: 1621	5	34	1	18,8
-
 Razão: A média é inválida!
 
 Linha 389: 1622	3	125	3	17,9
-
 Razão: A média é inválida!
 
 Linha 390: 1623	5	34	2	15,1
-
 Razão: A média é inválida!
 
 Linha 391: 1624	5	34	2	14,9
-
 Razão: A média é inválida!
 
 Linha 392: 1625	6	79	2	18,3
-
 Razão: A média é inválida!
 
 Linha 393: 1626	6	79	2	16,4
-
 Razão: A média é inválida!
 
 Linha 394: 1627	2	30	2	15,3
-
 Razão: A média é inválida!
 
 Linha 395: 1628	2	30	3	18,0
-
 Razão: A média é inválida!
 
 Linha 396: 1629	4	139	3	18,9
-
 Razão: A média é inválida!
 
 Linha 397: 1630	4	139	1	16,7
-
 Razão: A média é inválida!
 
 Linha 398: 1631	2	30	3	15,6
-
 Razão: A média é inválida!
 
 Linha 399: 1632	5	34	3	13,7
-
 Razão: A média é inválida!
 
 Linha 400: 1633	6	79	3	12,5
-
 Razão: A média é inválida!
 
 Linha 401: 1634	3	125	2	13,5
-
 Razão: A média é inválida!
 
 Linha 402: 1635	2	30	2	19,0
-
 Razão: A média é inválida!
 
 Linha 403: 1636	4	139	1	16,3
-
 Razão: A média é inválida!
 
 Linha 404: 1637	6	79	1	12,3
-
 Razão: A média é inválida!
 
 Linha 405: 1638	1	10	2	19,6
-
 Razão: A média é inválida!
 
 Linha 406: 1639	5	34	2	19,2
-
 Razão: A média é inválida!
 
 Linha 407: 1640	1	10	1	16,2
-
 Razão: A média é inválida!
 
 Linha 408: 1641	5	34	3	12,3
-
 Razão: A média é inválida!
 
 Linha 409: 1642	1	10	2	12,5
-
 Razão: A média é inválida!
 
 Linha 410: 1643	4	139	1	18,5
-
 Razão: A média é inválida!
 
 Linha 411: 1644	4	139	1	18,1
-
 Razão: A média é inválida!
 
 Linha 412: 1645	3	125	1	15,2
-
 Razão: A média é inválida!
 
 Linha 413: 1646	6	79	1	19,2
-
 Razão: A média é inválida!
 
 Linha 414: 1647	4	139	2	16,1
-
 Razão: A média é inválida!
 
 Linha 415: 1648	3	125	3	13,6
-
 Razão: A média é inválida!
 
 Linha 416: 1649	2	30	2	11,7
-
 Razão: A média é inválida!
 
 Linha 417: 1650	3	125	2	11,1
-
 Razão: A média é inválida!
 
 Linha 418: 1651	3	125	1	15,4
-
 Razão: A média é inválida!
 
 Linha 419: 1652	3	125	2	14,7
-
 Razão: A média é inválida!
 
 Linha 420: 1653	1	10	1	13,7
-
 Razão: A média é inválida!
 
 Linha 421: 1654	5	34	3	13,7
-
 Razão: A média é inválida!
 
 Linha 422: 1655	4	139	3	17,7
-
 Razão: A média é inválida!
 
 Linha 423: 1656	1	10	3	11,1
-
 Razão: A média é inválida!
 
 Linha 424: 1657	4	139	3	17,8
-
 Razão: A média é inválida!
 
 Linha 425: 1658	3	125	3	19,8
-
 Razão: A média é inválida!
 
 Linha 426: 1659	1	10	1	12,4
-
 Razão: A média é inválida!
 
 Linha 427: 1660	2	30	2	14,9
-
 Razão: A média é inválida!
 
 Linha 428: 1661	2	30	1	14,6
-
 Razão: A média é inválida!
 
 Linha 429: 1662	1	10	1	12,5
-
 Razão: A média é inválida!
 
 Linha 430: 1663	5	34	1	13,1
-
 Razão: A média é inválida!
 
 Linha 431: 1664	6	79	3	19,7
-
 Razão: A média é inválida!
 
 Linha 432: 1665	1	10	1	17,4
-
 Razão: A média é inválida!
 
 Linha 433: 1666	5	34	2	14,2
-
 Razão: A média é inválida!
 
 Linha 434: 1667	6	79	3	12,9
-
 Razão: A média é inválida!
 
 Linha 435: 1668	2	30	3	19,1
-
 Razão: A média é inválida!
 
 Linha 436: 1669	6	79	1	17,0
-
 Razão: A média é inválida!
 
 Linha 437: 1670	3	125	2	17,0
-
 Razão: A média é inválida!
 
 Linha 438: 1671	2	30	1	15,6
-
 Razão: A média é inválida!
 
 Linha 439: 1672	4	139	1	17,8
-
 Razão: A média é inválida!
 
 Linha 440: 1673	3	125	1	17,5
-
 Razão: A média é inválida!
 
 Linha 441: 1674	5	34	3	13,1
-
 Razão: A média é inválida!
 
 Linha 442: 1675	6	79	3	18,9
-
 Razão: A média é inválida!
 
 Linha 443: 1676	3	125	1	11,9
-
 Razão: A média é inválida!
 
 Linha 444: 1677	4	139	1	19,1
-
 Razão: A média é inválida!
 
 Linha 445: 1678	3	125	1	17,3
-
 Razão: A média é inválida!
 
 Linha 446: 1679	4	139	2	12,1
-
 Razão: A média é inválida!
 
 Linha 447: 1680	1	10	2	17,8
-
 Razão: A média é inválida!
 
 Linha 448: 1681	4	139	1	13,1
-
 Razão: A média é inválida!
 
 Linha 449: 1682	4	139	1	16,8
-
 Razão: A média é inválida!
 
 Linha 450: 1683	3	125	3	16,2
-
 Razão: A média é inválida!
 
 Linha 451: 1684	5	34	3	16,0
-
 Razão: A média é inválida!
 
 Linha 452: 1685	2	30	3	14,0
-
 Razão: A média é inválida!
 
 Linha 453: 1686	2	30	1	15,1
-
 Razão: A média é inválida!
 
 Linha 454: 1687	3	125	3	18,3
-
 Razão: A média é inválida!
 
 Linha 455: 1688	3	125	3	13,9
-
 Razão: A média é inválida!
 
 Linha 456: 1689	2	30	1	17,4
-
 Razão: A média é inválida!
 
 Linha 457: 1690	3	125	1	12,9
-
 Razão: A média é inválida!
 
 Linha 458: 1691	6	79	1	14,0
-
 Razão: A média é inválida!
 
 Linha 459: 1692	5	34	2	15,9
-
 Razão: A média é inválida!
 
 Linha 460: 1693	1	10	2	15,8
-
 Razão: A média é inválida!
 
 Linha 461: 1694	4	139	2	16,7
-
 Razão: A média é inválida!
 
 Linha 462: 1695	2	30	1	18,9
-
 Razão: A média é inválida!
 
 Linha 463: 1696	4	139	2	17,0
-
 Razão: A média é inválida!
 
 Linha 464: 1697	6	79	1	15,1
-
 Razão: A média é inválida!
 
 Linha 465: 1698	2	30	3	12,9
-
 Razão: A média é inválida!
 
 Linha 466: 1699	1	10	1	18,4
-
 Razão: A média é inválida!
 
 Linha 467: 1700	5	34	3	17,8
-
 Razão: A média é inválida!
 
 Linha 468: 1701	3	125	2	19,6
-
 Razão: A média é inválida!
 
 Linha 469: 1702	2	30	3	13,1
-
 Razão: A média é inválida!
 
 Linha 470: 1703	6	79	3	16,8
-
 Razão: A média é inválida!
 
 Linha 471: 1704	5	34	2	13,7
-
 Razão: A média é inválida!
 
 Linha 472: 1705	5	34	2	15,9
-
 Razão: A média é inválida!
 
 Linha 473: 1706	2	30	2	18,8
-
 Razão: A média é inválida!
 
 Linha 474: 1707	1	10	3	14,7
-
 Razão: A média é inválida!
 
 Linha 475: 1708	6	79	2	18,8
-
 Razão: A média é inválida!
 
 Linha 476: 1709	2	30	1	19,0
-
 Razão: A média é inválida!
 
 Linha 477: 1710	5	34	2	15,4
-
 Razão: A média é inválida!
 
 Linha 478: 1711	3	125	2	19,3
-
 Razão: A média é inválida!
 
 Linha 479: 1712	4	139	1	18,9
-
 Razão: A média é inválida!
 
 Linha 480: 1713	5	34	1	19,7
-
 Razão: A média é inválida!
 
 Linha 481: 1714	5	34	2	13,9
-
 Razão: A média é inválida!
 
 Linha 482: 1715	6	79	3	11,3
-
 Razão: A média é inválida!
 
 Linha 483: 1716	5	34	3	13,2
-
 Razão: A média é inválida!
 
 Linha 484: 1717	3	125	1	13,7
-
 Razão: A média é inválida!
 
 Linha 485: 1718	3	125	3	19,6
-
 Razão: A média é inválida!
 
 Linha 486: 1719	4	139	3	19,4
-
 Razão: A média é inválida!
 
 Linha 487: 1720	6	79	3	14,4
-
 Razão: A média é inválida!
 
 Linha 488: 1721	1	10	2	11,7
-
 Razão: A média é inválida!
 
 Linha 489: 1722	5	34	1	15,7
-
 Razão: A média é inválida!
 
 Linha 490: 1723	2	30	1	11,1
-
 Razão: A média é inválida!
 
 Linha 491: 1724	5	34	1	15,3
-
 Razão: A média é inválida!
 
 Linha 492: 1725	5	34	2	12,3
-
 Razão: A média é inválida!
 
 Linha 493: 1726	5	34	3	11,6
-
 Razão: A média é inválida!
 
 Linha 494: 1727	1	10	2	16,0
-
 Razão: A média é inválida!
 
 Linha 495: 1728	4	139	1	16,5
-
 Razão: A média é inválida!
 
 Linha 496: 1729	4	139	3	16,2
-
 Razão: A média é inválida!
 
 Linha 497: 1730	2	30	1	15,9
-
 Razão: A média é inválida!
 
 Linha 498: 1731	4	139	1	12,7
-
 Razão: A média é inválida!
 
 Linha 499: 1732	6	79	1	17,7
-
 Razão: A média é inválida!
 
 Linha 500: 1733	3	125	2	11,4
-
 Razão: A média é inválida!
 
 Linha 501: 1734	1	10	1	12,7
-
 Razão: A média é inválida!
 
 Linha 502: 1735	4	139	1	14,8
-
 Razão: A média é inválida!
 
 Linha 503: 1736	4	139	3	14,6
-
 Razão: A média é inválida!
 
 Linha 504: 1737	6	79	1	11,9
-
 Razão: A média é inválida!
 
 Linha 505: 1738	3	125	3	16,7
-
 Razão: A média é inválida!
 
 Linha 506: 1739	4	139	2	16,6
-
 Razão: A média é inválida!
 
 Linha 507: 1740	5	34	2	18,9
-
 Razão: A média é inválida!
 
 Linha 508: 1741	6	79	2	16,5
-
 Razão: A média é inválida!
 
 Linha 509: 1742	4	139	1	14,6
-
 Razão: A média é inválida!
 
 Linha 510: 1743	5	34	3	19,4
-
 Razão: A média é inválida!
 
 Linha 511: 1744	2	30	1	16,6
-
 Razão: A média é inválida!
 
 Linha 512: 1745	5	34	2	15,4
-
 Razão: A média é inválida!
 
 Linha 513: 1746	5	34	1	14,1
-
 Razão: A média é inválida!
 
 Linha 514: 1747	4	139	3	13,6
-
 Razão: A média é inválida!
 
 Linha 515: 1748	6	79	2	19,7
-
 Razão: A média é inválida!
 
 Linha 516: 1749	1	10	2	14,2
-
 Razão: A média é inválida!
 
 Linha 517: 1750	1	10	3	15,6
-
 Razão: A média é inválida!
 
 Linha 518: 1751	3	125	3	11,7
-
 Razão: A média é inválida!
 
 Linha 519: 1752	1	10	1	16,2
-
 Razão: A média é inválida!
 
 Linha 520: 1753	4	139	1	11,6
-
 Razão: A média é inválida!
 
 Linha 521: 1754	3	125	3	11,2
-
 Razão: A média é inválida!
 
 Linha 522: 1755	3	125	2	12,2
-
 Razão: A média é inválida!
 
 Linha 523: 1756	4	139	2	13,1
-
 Razão: A média é inválida!
 
 Linha 524: 1757	2	30	2	18,3
-
 Razão: A média é inválida!
 
 Linha 525: 1758	1	10	1	16,1
-
 Razão: A média é inválida!
 
 Linha 526: 1759	3	125	1	18,7
-
 Razão: A média é inválida!
 
 Linha 527: 1760	5	34	3	18,9
-
 Razão: A média é inválida!
 
 Linha 528: 1761	2	30	2	14,4
-
 Razão: A média é inválida!
 
 Linha 529: 1762	4	139	3	15,9
-
 Razão: A média é inválida!
 
 Linha 530: 1763	4	139	3	17,6
-
 Razão: A média é inválida!
 
 Linha 531: 1764	6	79	1	18,8
-
 Razão: A média é inválida!
 
 Linha 532: 1765	3	125	2	17,9
-
 Razão: A média é inválida!
 
 Linha 533: 1766	6	79	3	14,3
-
 Razão: A média é inválida!
 
 Linha 534: 1767	4	139	3	19,7
-
 Razão: A média é inválida!
 
 Linha 535: 1768	6	79	3	12,4
-
 Razão: A média é inválida!
 
 Linha 536: 1769	5	34	2	19,6
-
 Razão: A média é inválida!
 
 Linha 537: 1770	5	34	3	18,3
-
 Razão: A média é inválida!
 
 Linha 538: 1771	6	79	1	11,9
-
 Razão: A média é inválida!
 
 Linha 539: 1772	5	34	3	18,3
-
 Razão: A média é inválida!
 
 Linha 540: 1773	1	10	2	15,9
-
 Razão: A média é inválida!
 
 Linha 541: 1774	5	34	3	14,2
-
 Razão: A média é inválida!
 
 Linha 542: 1775	3	125	1	14,9
-
 Razão: A média é inválida!
 
 Linha 543: 1776	4	139	1	13,6
-
 Razão: A média é inválida!
 
 Linha 544: 1777	4	139	3	14,6
-
 Razão: A média é inválida!
 
 Linha 545: 1778	1	10	2	18,1
-
 Razão: A média é inválida!
 
 Linha 546: 1779	5	34	3	15,3
-
 Razão: A média é inválida!
 
 Linha 547: 1780	3	125	3	12,1
-
 Razão: A média é inválida!
 
 Linha 548: 1781	6	79	3	16,7
-
 Razão: A média é inválida!
 
 Linha 549: 1782	6	79	1	15,3
-
 Razão: A média é inválida!
 
 Linha 550: 1783	1	10	2	16,4
-
 Razão: A média é inválida!
 
 Linha 551: 1784	3	125	2	14,4
-
 Razão: A média é inválida!
 
 Linha 552: 1785	4	139	1	16,7
-
 Razão: A média é inválida!
 
 Linha 553: 1786	5	34	1	16,6
-
 Razão: A média é inválida!
 
 Linha 554: 1787	1	10	3	15,2
-
 Razão: A média é inválida!
 
 Linha 555: 1788	5	34	2	14,3
-
 Razão: A média é inválida!
 
 Linha 556: 1789	5	34	2	14,1
-
 Razão: A média é inválida!
 
 Linha 557: 1790	2	30	3	16,1
-
 Razão: A média é inválida!
 
 Linha 558: 1791	1	10	3	19,5
-
 Razão: A média é inválida!
 
 Linha 559: 1792	2	30	1	11,9
-
 Razão: A média é inválida!
 
 Linha 560: 1793	2	30	1	11,8
-
 Razão: A média é inválida!
 
 Linha 561: 1794	4	139	1	17,1
-
 Razão: A média é inválida!
 
 Linha 562: 1795	5	34	3	18,4
-
 Razão: A média é inválida!
 
 Linha 563: 1796	6	79	2	15,5
-
 Razão: A média é inválida!
 
 Linha 564: 1797	1	10	1	17,4
-
 Razão: A média é inválida!
 
 Linha 565: 1798	4	139	1	18,5
-
 Razão: A média é inválida!
 
 Linha 566: 1799	5	34	1	14,0
-
 Razão: A média é inválida!
 
 Linha 567: 1800	1	10	2	14,9
-
 Razão: A média é inválida!
 
 Linha 568: 1801	6	79	1	15,6
-
 Razão: A média é inválida!
 
 Linha 569: 1802	5	34	1	16,9
-
 Razão: A média é inválida!
 
 Linha 570: 1803	6	79	2	13,0
-
 Razão: A média é inválida!
 
 Linha 571: 1804	6	79	2	20,0
-
 Razão: A média é inválida!
 
 Linha 572: 1805	1	10	1	18,7
-
 Razão: A média é inválida!
 
 Linha 573: 1806	3	125	2	15,2
-
 Razão: A média é inválida!
 
 Linha 574: 1807	2	30	2	18,5
-
 Razão: A média é inválida!
 
 Linha 575: 1808	5	34	1	18,1
-
 Razão: A média é inválida!
 
 Linha 576: 1809	5	34	2	13,5
-
 Razão: A média é inválida!
 
 Linha 577: 1810	2	30	3	16,7
-
 Razão: A média é inválida!
 
 Linha 578: 1811	3	125	3	16,9
-
 Razão: A média é inválida!
 
 Linha 579: 1812	2	30	3	18,3
-
 Razão: A média é inválida!
 
 Linha 580: 1813	3	125	3	12,6
-
 Razão: A média é inválida!
 
 Linha 581: 1814	6	79	1	16,9
-
 Razão: A média é inválida!
 
 Linha 582: 1815	1	10	3	13,1
-
 Razão: A média é inválida!
 
 Linha 583: 1816	2	30	2	15,7
-
 Razão: A média é inválida!
 
 Linha 584: 1817	3	125	1	14,4
-
 Razão: A média é inválida!
 
 Linha 585: 1818	3	125	3	18,0
-
 Razão: A média é inválida!
 
 Linha 586: 1819	5	34	3	14,2
-
 Razão: A média é inválida!
 
 Linha 587: 1820	2	30	2	17,0
-
 Razão: A média é inválida!
 
 Linha 588: 1821	2	30	2	17,4
-
 Razão: A média é inválida!
 
 Linha 589: 1822	5	34	3	18,5
-
 Razão: A média é inválida!
 
 Linha 590: 1823	6	79	1	15,8
-
 Razão: A média é inválida!
 
 Linha 591: 1824	2	30	3	18,0
-
 Razão: A média é inválida!
 
 Linha 592: 1825	2	30	1	17,3
-
 Razão: A média é inválida!
 
 Linha 593: 1826	4	139	3	19,2
-
 Razão: A média é inválida!
 
 Linha 594: 1827	6	79	1	18,4
-
 Razão: A média é inválida!
 
 Linha 595: 1828	2	30	2	18,5
-
 Razão: A média é inválida!
 
 Linha 596: 1829	2	30	1	12,7
-
 Razão: A média é inválida!
 
 Linha 597: 1830	2	30	2	19,2
-
 Razão: A média é inválida!
 
 Linha 598: 1831	6	79	3	14,3
-
 Razão: A média é inválida!
 
 Linha 599: 1832	2	30	3	17,3
-
 Razão: A média é inválida!
 
 Linha 600: 1833	4	139	3	17,2
-
 Razão: A média é inválida!
 
 Linha 601: 1834	1	10	1	12,5
-
 Razão: A média é inválida!
 
 Linha 602: 1835	2	30	1	14,3
-
 Razão: A média é inválida!
 
 Linha 603: 1836	5	34	1	12,8
-
 Razão: A média é inválida!
 
 Linha 604: 1837	6	79	2	18,5
-
 Razão: A média é inválida!
 
 Linha 605: 1838	6	79	3	14,2
-
 Razão: A média é inválida!
 
 Linha 606: 1839	2	30	1	13,0
-
 Razão: A média é inválida!
 
 Linha 607: 1840	2	30	2	15,1
-
 Razão: A média é inválida!
 
 Linha 608: 1841	6	79	3	14,2
-
 Razão: A média é inválida!
 
 Linha 609: 1842	3	125	1	14,9
-
 Razão: A média é inválida!
 
 Linha 610: 1843	5	34	2	19,2
-
 Razão: A média é inválida!
 
 Linha 611: 1844	5	34	1	17,9
-
 Razão: A média é inválida!
 
 Linha 612: 1845	5	34	1	13,2
-
 Razão: A média é inválida!
 
 Linha 613: 1846	3	125	2	14,2
-
 Razão: A média é inválida!
 
 Linha 614: 1847	5	34	2	13,1
-
 Razão: A média é inválida!
 
 Linha 615: 1848	4	139	2	12,4
-
 Razão: A média é inválida!
 
 Linha 616: 1849	6	79	2	18,4
-
 Razão: A média é inválida!
 
 Linha 617: 1850	2	30	2	11,9
-
 Razão: A média é inválida!
 
 Linha 618: 1851	2	30	3	13,0
-
 Razão: A média é inválida!
 
 Linha 619: 1852	4	139	3	11,7
-
 Razão: A média é inválida!
 
 Linha 620: 1853	3	125	3	12,3
-
 Razão: A média é inválida!
 
 Linha 621: 1854	1	10	1	18,7
-
 Razão: A média é inválida!
 
 Linha 622: 1855	1	10	1	11,5
-
 Razão: A média é inválida!
 
 Linha 623: 1856	3	125	1	13,6
-
 Razão: A média é inválida!
 
 Linha 624: 1857	2	30	3	18,5
-
 Razão: A média é inválida!
 
 Linha 625: 1858	1	10	3	14,5
-
 Razão: A média é inválida!
 
 Linha 626: 1859	2	30	2	13,4
-
 Razão: A média é inválida!
 
 Linha 627: 1860	2	30	2	16,0
-
 Razão: A média é inválida!
 
 Linha 628: 1861	3	125	3	14,5
-
 Razão: A média é inválida!
 
 Linha 629: 1862	1	10	2	12,9
-
 Razão: A média é inválida!
 
 Linha 630: 1863	6	79	2	17,5
-
 Razão: A média é inválida!
 
 Linha 631: 1864	4	139	3	18,1
-
 Razão: A média é inválida!
 
 Linha 632: 1865	1	10	2	14,3
-
 Razão: A média é inválida!
 
 Linha 633: 1866	5	34	3	11,6
-
 Razão: A média é inválida!
 
 Linha 634: 1867	6	79	1	11,7
-
 Razão: A média é inválida!
 
 Linha 635: 1868	6	79	3	18,3
-
 Razão: A média é inválida!
 
 Linha 636: 1869	5	34	1	14,3
-
 Razão: A média é inválida!
 
 Linha 637: 1870	1	10	1	14,4
-
 Razão: A média é inválida!
 
 Linha 638: 1871	2	30	3	16,8
-
 Razão: A média é inválida!
 
 Linha 639: 1872	6	79	3	11,1
-
 Razão: A média é inválida!
 
 Linha 640: 1873	3	125	2	18,9
-
 Razão: A média é inválida!
 
 Linha 641: 1874	2	30	3	19,8
-
 Razão: A média é inválida!
 
 Linha 642: 1875	4	139	2	17,2
-
 Razão: A média é inválida!
 
 Linha 643: 1876	3	125	2	14,3
-
 Razão: A média é inválida!
 
 Linha 644: 1877	1	10	2	17,2
-
 Razão: A média é inválida!
 
 Linha 645: 1878	2	30	3	14,0
-
 Razão: A média é inválida!
 
 Linha 646: 1879	4	139	3	13,5
-
 Razão: A média é inválida!
 
 Linha 647: 1880	1	10	1	18,2
-
 Razão: A média é inválida!
 
 Linha 648: 1881	5	34	1	18,8
-
 Razão: A média é inválida!
 
 Linha 649: 1882	4	139	2	12,7
-
 Razão: A média é inválida!
 
 Linha 650: 1883	2	30	3	19,4
-
 Razão: A média é inválida!
 
 Linha 651: 1884	1	10	1	17,0
-
 Razão: A média é inválida!
 
 Linha 652: 1885	5	34	2	11,4
-
 Razão: A média é inválida!
 
 Linha 653: 1886	1	10	2	18,5
-
 Razão: A média é inválida!
 
 Linha 654: 1887	6	79	1	12,1
-
 Razão: A média é inválida!
 
 Linha 655: 1888	3	125	1	11,9
-
 Razão: A média é inválida!
 
 Linha 656: 1889	2	30	3	12,9
-
 Razão: A média é inválida!
 
 Linha 657: 1890	6	79	1	18,8
-
 Razão: A média é inválida!
 
 Linha 658: 1891	2	30	1	16,0
-
 Razão: A média é inválida!
 
 Linha 659: 1892	3	125	2	19,0
-
 Razão: A média é inválida!
 
 Linha 660: 1893	6	79	2	14,8
-
 Razão: A média é inválida!
 
 Linha 661: 1894	2	30	2	18,5
-
 Razão: A média é inválida!
 
 Linha 662: 1895	6	79	2	11,2
-
 Razão: A média é inválida!
 
 Linha 663: 1896	4	139	1	14,6
-
 Razão: A média é inválida!
 
 Linha 664: 1897	1	10	1	14,2
-
 Razão: A média é inválida!
 
 Linha 665: 1898	6	79	3	17,2
-
 Razão: A média é inválida!
 
 Linha 666: 1899	4	139	3	12,5
-
 Razão: A média é inválida!
 
 Linha 667: 1900	5	34	2	16,3
-
 Razão: A média é inválida!
 
 Linha 668: 1901	1	10	3	14,2
-
 Razão: A média é inválida!
 
 Linha 669: 1902	5	34	2	17,4
-
 Razão: A média é inválida!
 
 Linha 670: 1903	4	139	2	18,7
-
 Razão: A média é inválida!
 
 Linha 671: 1904	4	139	3	14,9
-
 Razão: A média é inválida!
 
 Linha 672: 1905	6	79	1	16,7
-
 Razão: A média é inválida!
 
 Linha 673: 1906	4	139	3	15,4
-
 Razão: A média é inválida!
 
 Linha 674: 1907	2	30	2	14,6
-
 Razão: A média é inválida!
 
 Linha 675: 1908	5	34	3	17,7
-
 Razão: A média é inválida!
 
 Linha 676: 1909	1	10	2	12,8
-
 Razão: A média é inválida!
 
 Linha 677: 1910	3	125	2	18,0
-
 Razão: A média é inválida!
 
 Linha 678: 1911	3	125	2	14,4
-
 Razão: A média é inválida!
 
 Linha 679: 1912	5	34	3	13,4
-
 Razão: A média é inválida!
 
 Linha 680: 1913	5	34	1	17,3
-
 Razão: A média é inválida!
 
 Linha 681: 1914	1	10	1	19,9
-
 Razão: A média é inválida!
 
 Linha 682: 1915	5	34	1	16,7
-
 Razão: A média é inválida!
 
 Linha 683: 1916	6	79	3	18,1
-
 Razão: A média é inválida!
 
 Linha 684: 1917	1	10	2	18,2
-
 Razão: A média é inválida!
 
 Linha 685: 1918	5	34	2	16,1
-
 Razão: A média é inválida!
 
 Linha 686: 1919	6	79	3	13,3
-
 Razão: A média é inválida!
 
 Linha 687: 1920	2	30	2	19,8
-
 Razão: A média é inválida!
 
 Linha 688: 1921	4	139	3	16,9
-
 Razão: A média é inválida!
 
 Linha 689: 1922	3	125	1	16,3
-
 Razão: A média é inválida!
 
 Linha 690: 1923	6	79	1	13,0
-
 Razão: A média é inválida!
 
 Linha 691: 1924	4	139	1	15,7
-
 Razão: A média é inválida!
 
 Linha 692: 1925	3	125	2	17,6
-
 Razão: A média é inválida!
 
 Linha 693: 1926	6	79	3	16,5
-
 Razão: A média é inválida!
 
 Linha 694: 1927	6	79	1	17,5
-
 Razão: A média é inválida!
 
 Linha 695: 1928	6	79	1	16,3
-
 Razão: A média é inválida!
 
 Linha 696: 1929	4	139	1	18,2
-
 Razão: A média é inválida!
 
 Linha 697: 1930	4	139	1	16,9
-
 Razão: A média é inválida!
 
 Linha 698: 1931	5	34	1	17,8
-
 Razão: A média é inválida!
 
 Linha 699: 1932	4	139	1	16,5
-
 Razão: A média é inválida!
 
 Linha 700: 1933	2	30	2	16,8
-
 Razão: A média é inválida!
 
 Linha 701: 1934	2	30	3	19,9
-
 Razão: A média é inválida!
 
 Linha 702: 1935	4	139	1	19,7
-
 Razão: A média é inválida!
 
 Linha 703: 1936	3	125	2	12,6
-
 Razão: A média é inválida!
 
 Linha 704: 1937	3	125	3	12,1
-
 Razão: A média é inválida!
 
 Linha 705: 1938	4	139	1	16,0
-
 Razão: A média é inválida!
 
 Linha 706: 1939	1	10	3	13,5
-
 Razão: A média é inválida!
 
 Linha 707: 1940	5	34	3	13,7
-
 Razão: A média é inválida!
 
 Linha 708: 1941	5	34	1	13,7
-
 Razão: A média é inválida!
 
 Linha 709: 1942	5	34	1	14,4
-
 Razão: A média é inválida!
 
 Linha 710: 1943	5	34	1	12,1
-
 Razão: A média é inválida!
 
 Linha 711: 1944	4	139	1	12,4
-
 Razão: A média é inválida!
 
 Linha 712: 1945	5	34	3	12,6
-
 Razão: A média é inválida!
 
 Linha 713: 1946	5	34	1	19,5
-
 Razão: A média é inválida!
 
 Linha 714: 1947	2	30	3	19,4
-
 Razão: A média é inválida!
 
 Linha 715: 1948	6	79	2	14,3
-
 Razão: A média é inválida!
 
 Linha 716: 1949	2	30	3	15,0
-
 Razão: A média é inválida!
 
 Linha 717: 1950	6	79	2	13,4
-
 Razão: A média é inválida!
 
 Linha 718: 1951	5	34	1	12,2
-
 Razão: A média é inválida!
 
 Linha 719: 1952	4	139	1	13,8
-
 Razão: A média é inválida!
 
 Linha 720: 1953	4	139	1	12,4
-
 Razão: A média é inválida!
 
 Linha 721: 1954	1	10	1	18,1
-
 Razão: A média é inválida!
 
 Linha 722: 1955	1	10	3	19,7
-
 Razão: A média é inválida!
 
 Linha 723: 1956	1	10	2	16,2
-
 Razão: A média é inválida!
 
 Linha 724: 1957	1	10	2	19,4
-
 Razão: A média é inválida!
 
 Linha 725: 1958	3	125	2	11,1
-
 Razão: A média é inválida!
 
 Linha 726: 1959	2	30	3	11,7
-
 Razão: A média é inválida!
 
 Linha 727: 1960	5	34	3	11,2
-
 Razão: A média é inválida!
 
 Linha 728: 1961	1	10	3	18,9
-
 Razão: A média é inválida!
 
 Linha 729: 1962	4	139	2	15,6
-
 Razão: A média é inválida!
 
 Linha 730: 1963	3	125	2	12,5
-
 Razão: A média é inválida!
 
 Linha 731: 1964	4	139	3	11,2
-
 Razão: A média é inválida!
 
 Linha 732: 1965	1	10	2	18,6
-
 Razão: A média é inválida!
 
 Linha 733: 1966	4	139	2	14,9
-
 Razão: A média é inválida!
 
 Linha 734: 1967	1	10	3	11,2
-
 Razão: A média é inválida!
 
 Linha 735: 1968	3	125	2	13,6
-
 Razão: A média é inválida!
 
 Linha 736: 1969	6	79	2	14,0
-
 Razão: A média é inválida!
 
 Linha 737: 1970	5	34	2	18,1
-
 Razão: A média é inválida!
 
 Linha 738: 1971	2	30	1	16,9
-
 Razão: A média é inválida!
 
 Linha 739: 1972	1	10	2	11,6
-
 Razão: A média é inválida!
 
 Linha 740: 1973	6	79	1	16,1
-
 Razão: A média é inválida!
 
 Linha 741: 1974	1	10	3	15,5
-
 Razão: A média é inválida!
 
 Linha 742: 1975	2	30	3	13,2
-
 Razão: A média é inválida!
 
 Linha 743: 1976	6	79	3	18,6
-
 Razão: A média é inválida!
 
 Linha 744: 1977	4	139	3	11,2
-
 Razão: A média é inválida!
 
 Linha 745: 1978	2	30	1	18,5
-
 Razão: A média é inválida!
 
 Linha 746: 1979	3	125	2	13,3
-
 Razão: A média é inválida!
 
 Linha 747: 1980	1	10	3	14,7
-
 Razão: A média é inválida!
 
 Linha 748: 1981	5	34	1	15,4
-
 Razão: A média é inválida!
 
 Linha 749: 1982	2	30	1	14,5
-
 Razão: A média é inválida!
 
 Linha 750: 1983	6	79	2	11,8
-
 Razão: A média é inválida!
 
 Linha 751: 1984	5	34	2	15,4
-
 Razão: A média é inválida!
 
 Linha 752: 1985	5	34	3	19,6
-
 Razão: A média é inválida!
 
 Linha 753: 1986	4	139	1	11,6
-
 Razão: A média é inválida!
 
 Linha 754: 1987	4	139	2	14,3
-
 Razão: A média é inválida!
 
 Linha 755: 1988	1	10	2	17,8
-
 Razão: A média é inválida!
 
 Linha 756: 1989	5	34	1	14,8
-
 Razão: A média é inválida!
 
 Linha 757: 1990	4	139	1	13,1
-
 Razão: A média é inválida!
 
 Linha 758: 1991	2	30	3	18,0
-
 Razão: A média é inválida!
 
 Linha 759: 1992	6	79	3	16,7
-
 Razão: A média é inválida!
 
 Linha 760: 1993	5	34	2	18,6
-
 Razão: A média é inválida!
 
 Linha 761: 1994	1	10	2	16,0
-
 Razão: A média é inválida!
 
 Linha 762: 1995	5	34	1	12,4
-
 Razão: A média é inválida!
 
 Linha 763: 1996	1	10	1	16,4
-
 Razão: A média é inválida!
 
 Linha 764: 1997	1	10	1	14,2
-
 Razão: A média é inválida!
 
 Linha 765: 1998	5	34	3	11,0
-
 Razão: A média é inválida!
 
 Linha 766: 1999	4	139	1	19,0
-
 Razão: A média é inválida!
 
 Linha 767: 2000	3	125	2	15,3
-
 Razão: A média é inválida!
 
 Linha 768: 2001	3	125	2	14,4
-
 Razão: A média é inválida!
 
 Linha 769: 2002	5	34	3	18,6
-
 Razão: A média é inválida!
 
 Linha 770: 2003	2	30	1	17,7
-
 Razão: A média é inválida!
 
 Linha 771: 2004	1	10	1	19,1
-
 Razão: A média é inválida!
 
 Linha 772: 2005	2	30	2	13,2
-
 Razão: A média é inválida!
 
 Linha 773: 2006	1	10	3	17,2
-
 Razão: A média é inválida!
 
 Linha 774: 2007	4	139	2	15,5
-
 Razão: A média é inválida!
 
 Linha 775: 2008	6	79	3	17,0
-
 Razão: A média é inválida!
 
 Linha 776: 2009	1	10	3	16,0
-
 Razão: A média é inválida!
 
 Linha 777: 2010	6	79	3	14,5
-
 Razão: A média é inválida!
 
 Linha 778: 2011	1	10	3	14,9
-
 Razão: A média é inválida!
 
 Linha 779: 2012	4	139	3	18,9
-
 Razão: A média é inválida!
 
 Linha 780: 2013	1	10	2	18,2
-
 Razão: A média é inválida!
 
 Linha 781: 2014	3	125	3	13,7
-
 Razão: A média é inválida!
 
 Linha 782: 2015	4	139	3	18,3
-
 Razão: A média é inválida!
 
 Linha 783: 2016	4	139	2	16,6
-
 Razão: A média é inválida!
 
 Linha 784: 2017	2	30	3	16,6
-
 Razão: A média é inválida!
 
 Linha 785: 2018	2	30	3	15,9
-
 Razão: A média é inválida!
 
 Linha 786: 2019	2	30	2	18,4
-
 Razão: A média é inválida!
 
 Linha 787: 2020	1	10	2	12,8
-
 Razão: A média é inválida!
 
 Linha 788: 2021	4	139	3	14,2
-
 Razão: A média é inválida!
 
 Linha 789: 2022	3	125	1	17,0
-
 Razão: A média é inválida!
 
 Linha 790: 2023	3	125	3	18,6
-
 Razão: A média é inválida!
 
 Linha 791: 2024	1	10	1	11,9
-
 Razão: A média é inválida!
 
 Linha 792: 2025	6	79	3	13,5
-
 Razão: A média é inválida!
 
 Linha 793: 2026	1	10	1	17,1
-
 Razão: A média é inválida!
 
 Linha 794: 2027	2	30	3	13,3
-
 Razão: A média é inválida!
 
 Linha 795: 2028	2	30	1	17,5
-
 Razão: A média é inválida!
 
 Linha 796: 2029	4	139	1	16,5
-
 Razão: A média é inválida!
 
 Linha 797: 2030	1	10	2	13,6
-
 Razão: A média é inválida!
 
 Linha 798: 2031	6	79	1	14,9
-
 Razão: A média é inválida!
 
 Linha 799: 2032	3	125	3	14,7
-
 Razão: A média é inválida!
 
 Linha 800: 2033	3	125	1	19,1
-
 Razão: A média é inválida!
 
 Linha 801: 2034	1	10	3	19,0
-
 Razão: A média é inválida!
 
 Linha 802: 2035	5	34	3	17,5
-
 Razão: A média é inválida!
 
 Linha 803: 2036	5	34	1	19,5
-
 Razão: A média é inválida!
 
 Linha 804: 2037	3	125	3	14,9
-
 Razão: A média é inválida!
 
 Linha 805: 2038	4	139	1	12,7
-
 Razão: A média é inválida!
 
 Linha 806: 2039	2	30	2	18,0
-
 Razão: A média é inválida!
 
 Linha 807: 2040	6	79	3	18,3
-
 Razão: A média é inválida!
 
 Linha 808: 2041	6	79	2	18,9
-
 Razão: A média é inválida!
 
 Linha 809: 2042	1	10	2	13,1
-
 Razão: A média é inválida!
 
 Linha 810: 2043	2	30	2	19,4
-
 Razão: A média é inválida!
 
 Linha 811: 2044	3	125	1	16,7
-
 Razão: A média é inválida!
 
 Linha 812: 2045	6	79	3	14,7
-
 Razão: A média é inválida!
 
 Linha 813: 2046	1	10	1	19,3
-
 Razão: A média é inválida!
 
 Linha 814: 2047	4	139	2	18,1
-
 Razão: A média é inválida!
 
 Linha 815: 2048	5	34	3	18,2
-
 Razão: A média é inválida!
 
 Linha 816: 2049	3	125	1	13,7
-
 Razão: A média é inválida!
 
 Linha 817: 2050	2	30	2	14,7
-
 Razão: A média é inválida!
 
 Linha 818: 2051	1	10	3	12,1
-
 Razão: A média é inválida!
 
 Linha 819: 2052	4	139	2	17,8
-
 Razão: A média é inválida!
 
 Linha 820: 2053	1	10	2	18,4
-
 Razão: A média é inválida!
 
 Linha 821: 2054	3	125	3	16,2
-
 Razão: A média é inválida!
 
 Linha 822: 2055	5	34	1	11,6
-
 Razão: A média é inválida!
 
 Linha 823: 2056	1	10	3	14,5
-
 Razão: A média é inválida!
 
 Linha 824: 2057	2	30	3	19,7
-
 Razão: A média é inválida!
 
 Linha 825: 2058	2	30	3	16,6
-
 Razão: A média é inválida!
 
 Linha 826: 2059	6	79	1	17,2
-
 Razão: A média é inválida!
 
 Linha 827: 2060	3	125	2	16,6
-
 Razão: A média é inválida!
 
 Linha 828: 2061	2	30	1	18,0
-
 Razão: A média é inválida!
 
 Linha 829: 2062	2	30	1	13,5
-
 Razão: A média é inválida!
 
 Linha 830: 2063	1	10	2	18,2
-
 Razão: A média é inválida!
 
 Linha 831: 2064	1	10	2	12,7
-
 Razão: A média é inválida!
 
 Linha 832: 2065	4	139	2	12,0
-
 Razão: A média é inválida!
 
 Linha 833: 2066	1	10	2	16,4
-
 Razão: A média é inválida!
 
 Linha 834: 2067	1	10	1	14,2
-
 Razão: A média é inválida!
 
 Linha 835: 2068	2	30	3	12,4
-
 Razão: A média é inválida!
 
 Linha 836: 2069	3	125	3	11,8
-
 Razão: A média é inválida!
 
 Linha 837: 2070	1	10	2	16,3
-
 Razão: A média é inválida!
 
 Linha 838: 2071	6	79	3	15,7
-
 Razão: A média é inválida!
 
 Linha 839: 2072	1	10	1	13,8
-
 Razão: A média é inválida!
 
 Linha 840: 2073	5	34	2	13,2
-
 Razão: A média é inválida!
 
 Linha 841: 2074	4	139	1	19,6
-
 Razão: A média é inválida!
 
 Linha 842: 2075	3	125	1	15,9
-
 Razão: A média é inválida!
 
 Linha 843: 2076	5	34	3	11,6
-
 Razão: A média é inválida!
 
 Linha 844: 2077	4	139	3	13,3
-
 Razão: A média é inválida!
 
 Linha 845: 2078	3	125	1	12,5
-
 Razão: A média é inválida!
 
 Linha 846: 2079	2	30	1	16,1
-
 Razão: A média é inválida!
 
 Linha 847: 2080	5	34	2	13,1
-
 Razão: A média é inválida!
 
 Linha 848: 2081	1	10	1	16,5
-
 Razão: A média é inválida!
 
 Linha 849: 2082	5	34	3	17,0
-
 Razão: A média é inválida!
 
 Linha 850: 2083	5	34	1	13,1
-
 Razão: A média é inválida!
 
 Linha 851: 2084	4	139	1	16,3
-
 Razão: A média é inválida!
 
 Linha 852: 2085	1	10	3	11,1
-
 Razão: A média é inválida!
 
 Linha 853: 2086	1	10	2	13,2
-
 Razão: A média é inválida!
 
 Linha 854: 2087	4	139	1	19,0
-
 Razão: A média é inválida!
 
 Linha 855: 2088	1	10	2	12,7
-
 Razão: A média é inválida!
 
 Linha 856: 2089	4	139	3	13,0
-
 Razão: A média é inválida!
 
 Linha 857: 2090	2	30	1	11,3
-
 Razão: A média é inválida!
 
 Linha 858: 2091	2	30	1	17,1
-
 Razão: A média é inválida!
 
 Linha 859: 2092	1	10	1	11,3
-
 Razão: A média é inválida!
 
 Linha 860: 2093	4	139	3	13,6
-
 Razão: A média é inválida!
 
 Linha 861: 2094	3	125	2	17,2
-
 Razão: A média é inválida!
 
 Linha 862: 2095	2	30	1	15,2
-
 Razão: A média é inválida!
 
 Linha 863: 2096	4	139	2	16,4
-
 Razão: A média é inválida!
 
 Linha 864: 2097	3	125	1	14,4
-
 Razão: A média é inválida!
 
 Linha 865: 2098	2	30	2	19,7
-
 Razão: A média é inválida!
 
 Linha 866: 2099	4	139	2	14,9
-
 Razão: A média é inválida!
 
 Linha 867: 2100	3	125	2	11,7
-
 Razão: A média é inválida!
 
 Linha 868: 2101	5	34	1	12,5
-
 Razão: A média é inválida!
 
 Linha 869: 2102	1	10	1	14,2
-
 Razão: A média é inválida!
 
 Linha 870: 2103	2	30	3	11,3
-
 Razão: A média é inválida!
 
 Linha 871: 2104	6	79	2	14,9
-
 Razão: A média é inválida!
 
 Linha 872: 2105	3	125	3	13,8
-
 Razão: A média é inválida!
 
 Linha 873: 2106	6	79	2	17,8
-
 Razão: A média é inválida!
 
 Linha 874: 2107	1	10	2	16,5
-
 Razão: A média é inválida!
 
 Linha 875: 2108	6	79	3	16,6
-
 Razão: A média é inválida!
 
 Linha 876: 2109	2	30	1	17,0
-
 Razão: A média é inválida!
 
 Linha 877: 2110	4	139	3	19,7
-
 Razão: A média é inválida!
 
 Linha 878: 2111	4	139	3	20,0
-
 Razão: A média é inválida!
 
 Linha 879: 2112	1	10	2	16,6
-
 Razão: A média é inválida!
 
 Linha 880: 2113	5	34	2	16,3
-
 Razão: A média é inválida!
 
 Linha 881: 2114	2	30	3	11,5
-
 Razão: A média é inválida!
 
 Linha 882: 2115	2	30	1	15,5
-
 Razão: A média é inválida!
 
 Linha 883: 2116	2	30	2	13,2
-
 Razão: A média é inválida!
 
 Linha 884: 2117	2	30	1	11,1
-
 Razão: A média é inválida!
 
 Linha 885: 2118	4	139	1	17,0
-
 Razão: A média é inválida!
 
 Linha 886: 2119	3	125	2	14,1
-
 Razão: A média é inválida!
 
 Linha 887: 2120	5	34	1	19,0
-
 Razão: A média é inválida!
 
 Linha 888: 2121	6	79	1	11,4
-
 Razão: A média é inválida!
 
 Linha 889: 2122	1	10	3	13,7
-
 Razão: A média é inválida!
 
 Linha 890: 2123	6	79	1	16,1
-
 Razão: A média é inválida!
 
 Linha 891: 2124	6	79	1	15,6
-
 Razão: A média é inválida!
 
 Linha 892: 2125	5	34	2	19,1
-
 Razão: A média é inválida!
 
 Linha 893: 2126	6	79	1	15,6
-
 Razão: A média é inválida!
 
 Linha 894: 2127	6	79	3	11,1
-
 Razão: A média é inválida!
 
 Linha 895: 2128	6	79	1	12,1
-
 Razão: A média é inválida!
 
 Linha 896: 2129	3	125	2	12,0
-
 Razão: A média é inválida!
 
 Linha 897: 2130	4	139	2	12,6
-
 Razão: A média é inválida!
 
 Linha 898: 2131	2	30	2	11,3
-
 Razão: A média é inválida!
 
 Linha 899: 2132	1	10	1	19,7
-
 Razão: A média é inválida!
 
 Linha 900: 2133	5	34	3	13,9
-
 Razão: A média é inválida!
 
 Linha 901: 2134	2	30	3	17,2
-
 Razão: A média é inválida!
 
 Linha 902: 2135	4	139	2	11,6
-
 Razão: A média é inválida!
 
 Linha 903: 2136	6	79	3	18,0
-
 Razão: A média é inválida!
 
 Linha 904: 2137	3	125	1	14,7
-
 Razão: A média é inválida!
 
 Linha 905: 2138	1	10	1	14,0
-
 Razão: A média é inválida!
 
 Linha 906: 2139	5	34	2	12,7
-
 Razão: A média é inválida!
 
 Linha 907: 2140	4	139	3	15,7
-
 Razão: A média é inválida!
 
 Linha 908: 2141	4	139	2	16,1
-
 Razão: A média é inválida!
 
 Linha 909: 2142	3	125	2	12,7
-
 Razão: A média é inválida!
 
 Linha 910: 2143	1	10	2	18,9
-
 Razão: A média é inválida!
 
 Linha 911: 2144	6	79	1	18,1
-
 Razão: A média é inválida!
 
 Linha 912: 2145	2	30	1	18,1
-
 Razão: A média é inválida!
 
 Linha 913: 2146	6	79	2	15,1
-
 Razão: A média é inválida!
 
 Linha 914: 2147	6	79	1	16,4
-
 Razão: A média é inválida!
 
 Linha 915: 2148	1	10	3	13,2
-
 Razão: A média é inválida!
 
 Linha 916: 2149	4	139	3	16,7
-
 Razão: A média é inválida!
 
 Linha 917: 2150	1	10	2	16,9
-
 Razão: A média é inválida!
 
 Linha 918: 2151	3	125	3	13,9
-
 Razão: A média é inválida!
 
 Linha 919: 2152	5	34	2	19,3
-
 Razão: A média é inválida!
 
 Linha 920: 2153	4	139	2	11,2
-
 Razão: A média é inválida!
 
 Linha 921: 2154	5	34	3	14,9
-
 Razão: A média é inválida!
 
 Linha 922: 2155	6	79	2	17,3
-
 Razão: A média é inválida!
 
 Linha 923: 2156	5	34	2	14,7
-
 Razão: A média é inválida!
 
 Linha 924: 2157	1	10	1	17,8
-
 Razão: A média é inválida!
 
 Linha 925: 2158	2	30	2	11,9
-
 Razão: A média é inválida!
 
 Linha 926: 2159	1	10	3	13,5
-
 Razão: A média é inválida!
 
 Linha 927: 2160	3	125	2	12,8
-
 Razão: A média é inválida!
 
 Linha 928: 2161	5	34	2	19,0
-
 Razão: A média é inválida!
 
 Linha 929: 2162	6	79	3	17,3
-
 Razão: A média é inválida!
 
 Linha 930: 2163	3	125	2	18,9
-
 Razão: A média é inválida!
 
 Linha 931: 2164	2	30	2	12,5
-
 Razão: A média é inválida!
 
 Linha 932: 2165	2	30	2	19,5
-
 Razão: A média é inválida!
 
 Linha 933: 2166	4	139	2	16,5
-
 Razão: A média é inválida!
 
 Linha 934: 2167	5	34	3	18,7
-
 Razão: A média é inválida!
 
 Linha 935: 2168	6	79	2	19,4
-
 Razão: A média é inválida!
 
 Linha 936: 2169	6	79	1	13,7
-
 Razão: A média é inválida!
 
 Linha 937: 2170	3	125	1	16,3
-
 Razão: A média é inválida!
 
 Linha 938: 2171	2	30	1	15,7
-
 Razão: A média é inválida!
 
 Linha 939: 2172	1	10	3	13,1
-
 Razão: A média é inválida!
 
 Linha 940: 2173	1	10	3	12,6
-
 Razão: A média é inválida!
 
 Linha 941: 2174	6	79	3	18,8
-
 Razão: A média é inválida!
 
 Linha 942: 2175	1	10	1	13,6
-
 Razão: A média é inválida!
 
 Linha 943: 2176	6	79	1	18,5
-
 Razão: A média é inválida!
 
 Linha 944: 2177	6	79	2	17,4
-
 Razão: A média é inválida!
 
 Linha 945: 2178	4	139	1	18,2
-
 Razão: A média é inválida!
 
 Linha 946: 2179	6	79	3	17,7
-
 Razão: A média é inválida!
 
 Linha 947: 2180	4	139	3	19,8
-
 Razão: A média é inválida!
 
 Linha 948: 2181	6	79	3	19,1
-
 Razão: A média é inválida!
 
 Linha 949: 2182	5	34	2	11,6
-
 Razão: A média é inválida!
 
 Linha 950: 2183	6	79	3	18,9
-
 Razão: A média é inválida!
 
 Linha 951: 2184	4	139	2	17,2
-
 Razão: A média é inválida!
 
 Linha 952: 2185	1	10	2	19,4
-
 Razão: A média é inválida!
 
 Linha 953: 2186	2	30	3	13,1
-
 Razão: A média é inválida!
 
 Linha 954: 2187	3	125	1	16,5
-
 Razão: A média é inválida!
 
 Linha 955: 2188	5	34	1	19,8
-
 Razão: A média é inválida!
 
 Linha 956: 2189	2	30	2	19,5
-
 Razão: A média é inválida!
 
 Linha 957: 2190	6	79	1	11,2
-
 Razão: A média é inválida!
 
 Linha 958: 2191	4	139	3	12,8
-
 Razão: A média é inválida!
 
 Linha 959: 2192	1	10	1	15,9
-
 Razão: A média é inválida!
 
 Linha 960: 2193	1	10	1	19,4
-
 Razão: A média é inválida!
 
 Linha 961: 2194	4	139	3	12,2
-
 Razão: A média é inválida!
 
 Linha 962: 2195	2	30	1	18,5
-
 Razão: A média é inválida!
 
 Linha 963: 2196	2	30	3	17,6
-
 Razão: A média é inválida!
 
 Linha 964: 2197	6	79	3	11,6
-
 Razão: A média é inválida!
 
 Linha 965: 2198	4	139	3	13,2
-
 Razão: A média é inválida!
 
 Linha 966: 2199	4	139	2	19,0
-
 Razão: A média é inválida!
 
 Linha 967: 2200	6	79	3	13,8
-
 Razão: A média é inválida!
 
 Linha 968: 2201	3	125	3	18,2
-
 Razão: A média é inválida!
 
 Linha 969: 2202	5	34	1	14,1
-
 Razão: A média é inválida!
 
 Linha 970: 2203	6	79	1	14,5
-
 Razão: A média é inválida!
 
 Linha 971: 2204	1	10	3	15,3
-
 Razão: A média é inválida!
 
 Linha 972: 2205	2	30	3	13,0
-
 Razão: A média é inválida!
 
 Linha 973: 2206	3	125	3	17,9
-
 Razão: A média é inválida!
 
 Linha 974: 2207	4	139	3	14,2
-
 Razão: A média é inválida!
 
 Linha 975: 2208	3	125	2	14,4
-
 Razão: A média é inválida!
 
 Linha 976: 2209	1	10	3	18,6
-
 Razão: A média é inválida!
 
 Linha 977: 2210	2	30	3	17,7
-
 Razão: A média é inválida!
 
 Linha 978: 2211	1	10	2	16,5
-
 Razão: A média é inválida!
 
 Linha 979: 2212	2	30	1	17,1
-
 Razão: A média é inválida!
 
 Linha 980: 2213	2	30	1	14,3
-
 Razão: A média é inválida!
 
 Linha 981: 2214	1	10	3	14,4
-
 Razão: A média é inválida!
 
 Linha 982: 2215	4	139	1	12,9
-
 Razão: A média é inválida!
 
 Linha 983: 2216	3	125	2	19,6
-
 Razão: A média é inválida!
 
 Linha 984: 2217	1	10	3	13,3
-
 Razão: A média é inválida!
 
 Linha 985: 2218	5	34	3	16,1
-
 Razão: A média é inválida!
 
 Linha 986: 2219	6	79	1	14,1
-
 Razão: A média é inválida!
 
 Linha 987: 2220	6	79	1	16,8
-
 Razão: A média é inválida!
 
 Linha 988: 2221	4	139	2	17,6
-
 Razão: A média é inválida!
 
 Linha 989: 2222	3	125	3	12,3
-
 Razão: A média é inválida!
 
 Linha 990: 2223	1	10	2	18,3
-
 Razão: A média é inválida!
 
 Linha 991: 2224	1	10	2	11,5
-
 Razão: A média é inválida!
 
 Linha 992: 2225	5	34	3	12,1
-
 Razão: A média é inválida!
 
 Linha 993: 2226	5	34	3	16,4
-
 Razão: A média é inválida!
 
 Linha 994: 2227	1	10	1	18,2
-
 Razão: A média é inválida!
 
 Linha 995: 2228	5	34	3	18,6
-
 Razão: A média é inválida!
 
 Linha 996: 2229	6	79	3	15,7
-
 Razão: A média é inválida!
 
 Linha 997: 2230	3	125	2	13,7
-
 Razão: A média é inválida!
 
 Linha 998: 2231	1	10	1	14,3
-
 Razão: A média é inválida!
 
 Linha 999: 2232	2	30	3	15,1
-
 Razão: A média é inválida!
 
 Linha 1000: 2233	3	125	1	18,4
-
 Razão: A média é inválida!
 
 Linha 1001: 2234	5	34	2	11,4
-
 Razão: A média é inválida!
 
 Linha 1002: 2235	5	34	1	12,5
-
 Razão: A média é inválida!
 
 Linha 1003: 2236	3	125	3	14,7
-
 Razão: A média é inválida!
 
 Linha 1004: 2237	3	125	2	18,4
-
 Razão: A média é inválida!
 
 Linha 1005: 2238	4	139	1	14,6
-
 Razão: A média é inválida!
 
 Linha 1006: 2239	1	10	2	17,5
-
 Razão: A média é inválida!
 
 Linha 1007: 2240	5	34	1	19,1
-
 Razão: A média é inválida!
 
 Linha 1008: 2241	6	79	3	18,9
-
 Razão: A média é inválida!
 
 Linha 1009: 2242	1	10	1	13,3
-
 Razão: A média é inválida!
 
 Linha 1010: 2243	3	125	3	18,8
-
 Razão: A média é inválida!
 
 Linha 1011: 2244	5	34	1	18,3
-
 Razão: A média é inválida!
 
 Linha 1012: 2245	4	139	2	17,9
-
 Razão: A média é inválida!
 
 Linha 1013: 2246	3	125	3	15,9
-
 Razão: A média é inválida!
 
 Linha 1014: 2247	2	30	1	11,4
-
 Razão: A média é inválida!
 
 Linha 1015: 2248	3	125	1	11,0
-
 Razão: A média é inválida!
 
 Linha 1016: 2249	3	125	3	13,4
-
 Razão: A média é inválida!
 
 Linha 1017: 2250	5	34	1	19,7
-
 Razão: A média é inválida!
 
 Linha 1018: 2251	2	30	2	19,6
-
 Razão: A média é inválida!
 
 Linha 1019: 2252	4	139	1	16,7
-
 Razão: A média é inválida!
 
 Linha 1020: 2253	5	34	1	15,0
-
 Razão: A média é inválida!
 
 Linha 1021: 2254	1	10	3	14,0
-
 Razão: A média é inválida!
 
 Linha 1022: 2255	1	10	3	18,8
-
 Razão: A média é inválida!
 
 Linha 1023: 2256	5	34	1	13,0
-
 Razão: A média é inválida!
 
 Linha 1024: 2257	4	139	2	16,1
-
 Razão: A média é inválida!
 
 Linha 1025: 2258	5	34	1	14,2
-
 Razão: A média é inválida!
 
 Linha 1026: 2259	6	79	1	18,0
-
 Razão: A média é inválida!
 
 Linha 1027: 2260	1	10	1	12,3
-
 Razão: A média é inválida!
 
 Linha 1028: 2261	3	125	2	14,9
-
 Razão: A média é inválida!
 
 Linha 1029: 2262	1	10	3	11,6
-
 Razão: A média é inválida!
 
 Linha 1030: 2263	1	10	3	11,7
-
 Razão: A média é inválida!
 
 Linha 1031: 2264	5	34	1	18,9
-
 Razão: A média é inválida!
 
 Linha 1032: 2265	4	139	3	13,6
-
 Razão: A média é inválida!
 
 Linha 1033: 2266	4	139	1	16,8
-
 Razão: A média é inválida!
 
 Linha 1034: 2267	3	125	2	15,6
-
 Razão: A média é inválida!
 
 Linha 1035: 2268	4	139	3	19,7
-
 Razão: A média é inválida!
 
 Linha 1036: 2269	6	79	2	13,1
-
 Razão: A média é inválida!
 
 Linha 1037: 2270	1	10	1	14,1
-
 Razão: A média é inválida!
 
 Linha 1038: 2271	6	79	1	15,3
-
 Razão: A média é inválida!
 
 Linha 1039: 2272	5	34	3	15,8
-
 Razão: A média é inválida!
 
 Linha 1040: 2273	1	10	2	18,3
-
 Razão: A média é inválida!
 
 Linha 1041: 2274	2	30	2	16,9
-
 Razão: A média é inválida!
 
 Linha 1042: 2275	6	79	2	11,8
-
 Razão: A média é inválida!
 
 Linha 1043: 2276	4	139	1	15,9
-
 Razão: A média é inválida!
 
 Linha 1044: 2277	1	10	2	11,6
-
 Razão: A média é inválida!
 
 Linha 1045: 2278	3	125	3	16,1
-
 Razão: A média é inválida!
 
 Linha 1046: 2279	4	139	2	19,4
-
 Razão: A média é inválida!
 
 Linha 1047: 2280	5	34	2	19,8
-
 Razão: A média é inválida!
 
 Linha 1048: 2281	4	139	2	19,3
-
 Razão: A média é inválida!
 
 Linha 1049: 2282	6	79	3	13,7
-
 Razão: A média é inválida!
 
 Linha 1050: 2283	1	10	3	13,8
-
 Razão: A média é inválida!
 
 Linha 1051: 2284	6	79	3	12,5
-
 Razão: A média é inválida!
 
 Linha 1052: 2285	4	139	1	16,8
-
 Razão: A média é inválida!
 
 Linha 1053: 2286	1	10	2	17,7
-
 Razão: A média é inválida!
 
 Linha 1054: 2287	5	34	2	15,1
-
 Razão: A média é inválida!
 
 Linha 1055: 2288	5	34	1	17,1
-
 Razão: A média é inválida!
 
 Linha 1056: 2289	3	125	3	15,7
-
 Razão: A média é inválida!
 
 Linha 1057: 2290	3	125	2	17,3
-
 Razão: A média é inválida!
 
 Linha 1058: 2291	4	139	3	19,5
-
 Razão: A média é inválida!
 
 Linha 1059: 2292	1	10	3	14,0
-
 Razão: A média é inválida!
 
 Linha 1060: 2293	5	34	3	11,9
-
 Razão: A média é inválida!
 
 Linha 1061: 2294	3	125	2	16,9
-
 Razão: A média é inválida!
 
 Linha 1062: 2295	6	79	2	16,7
-
 Razão: A média é inválida!
 
 Linha 1063: 2296	4	139	3	19,6
-
 Razão: A média é inválida!
 
 Linha 1064: 2297	1	10	1	14,6
-
 Razão: A média é inválida!
 
 Linha 1065: 2298	3	125	1	16,4
-
 Razão: A média é inválida!
 
 Linha 1066: 2299	5	34	2	18,0
-
 Razão: A média é inválida!
 
 Linha 1067: 2300	5	34	2	15,7
-
 Razão: A média é inválida!
 
 Linha 1068: 2301	4	139	1	13,6
-
 Razão: A média é inválida!
 
 Linha 1069: 2302	5	34	3	16,5
-
 Razão: A média é inválida!
 
 Linha 1070: 2303	6	79	1	16,5
-
 Razão: A média é inválida!
 
 Linha 1071: 2304	3	125	3	13,7
-
 Razão: A média é inválida!
 
 Linha 1072: 2305	1	10	3	18,8
-
 Razão: A média é inválida!
 
 Linha 1073: 2306	5	34	3	11,3
-
 Razão: A média é inválida!
 
 Linha 1074: 2307	4	139	3	11,2
-
 Razão: A média é inválida!
 
 Linha 1075: 2308	4	139	1	15,9
-
 Razão: A média é inválida!
 
 Linha 1076: 2309	3	125	1	15,6
-
 Razão: A média é inválida!
 
 Linha 1077: 2310	2	30	1	19,7
-
 Razão: A média é inválida!
 
 Linha 1078: 2311	3	125	3	15,6
-
 Razão: A média é inválida!
 
 Linha 1079: 2312	3	125	2	13,0
-
 Razão: A média é inválida!
 
 Linha 1080: 2313	6	79	3	13,7
-
 Razão: A média é inválida!
 
 Linha 1081: 2314	3	125	3	19,6
-
 Razão: A média é inválida!
 
 Linha 1082: 2315	5	34	3	17,9
-
 Razão: A média é inválida!
 
 Linha 1083: 2316	4	139	2	16,9
-
 Razão: A média é inválida!
 
 Linha 1084: 2317	5	34	3	16,6
-
 Razão: A média é inválida!
 
 Linha 1085: 2318	5	34	3	19,4
-
 Razão: A média é inválida!
 
 Linha 1086: 2319	4	139	1	12,3
-
 Razão: A média é inválida!
 
 Linha 1087: 2320	2	30	2	13,1
-
 Razão: A média é inválida!
 
 Linha 1088: 2321	2	30	2	14,1
-
 Razão: A média é inválida!
 
 Linha 1089: 2322	4	139	2	15,6
-
 Razão: A média é inválida!
 
 Linha 1090: 2323	6	79	3	14,8
-
 Razão: A média é inválida!
 
 Linha 1091: 2324	2	30	2	17,8
-
 Razão: A média é inválida!
 
 Linha 1092: 2325	3	125	2	14,6
-
 Razão: A média é inválida!
 
 Linha 1093: 2326	1	10	3	14,7
-
 Razão: A média é inválida!
 
 Linha 1094: 2327	6	79	3	15,9
-
 Razão: A média é inválida!
 
 Linha 1095: 2328	6	79	3	16,4
-
 Razão: A média é inválida!
 
 Linha 1096: 2329	1	10	1	11,4
-
 Razão: A média é inválida!
 
 Linha 1097: 2330	5	34	3	15,7
-
 Razão: A média é inválida!
 
 Linha 1098: 2331	5	34	3	14,2
-
 Razão: A média é inválida!
 
 Linha 1099: 2332	5	34	3	19,1
-
 Razão: A média é inválida!
 
 Linha 1100: 2333	4	139	2	18,2
-
 Razão: A média é inválida!
 
 Linha 1101: 2334	5	34	2	15,7
-
 Razão: A média é inválida!
 
 Linha 1102: 2335	1	10	2	19,4
-
 Razão: A média é inválida!
 
 Linha 1103: 2336	3	125	3	15,3
-
 Razão: A média é inválida!
 
 Linha 1104: 2337	3	125	3	13,1
-
 Razão: A média é inválida!
 
 Linha 1105: 2338	6	79	1	14,5
-
 Razão: A média é inválida!
 
 Linha 1106: 2339	3	125	2	11,3
-
 Razão: A média é inválida!
 
 Linha 1107: 2340	5	34	3	18,1
-
 Razão: A média é inválida!
 
 Linha 1108: 2341	1	10	3	16,0
-
 Razão: A média é inválida!
 
 Linha 1109: 2342	5	34	3	14,5
-
 Razão: A média é inválida!
 
 Linha 1110: 2343	6	79	3	14,6
-
 Razão: A média é inválida!
 
 Linha 1111: 2344	2	30	3	12,3
-
 Razão: A média é inválida!
 
 Linha 1112: 2345	6	79	1	13,5
-
 Razão: A média é inválida!
 
 Linha 1113: 2346	6	79	3	17,5
-
 Razão: A média é inválida!
 
 Linha 1114: 2347	4	139	1	12,1
-
 Razão: A média é inválida!
 
 Linha 1115: 2348	3	125	1	15,8
-
 Razão: A média é inválida!
 
 Linha 1116: 2349	6	79	1	19,4
-
 Razão: A média é inválida!
 
 Linha 1117: 2350	4	139	1	14,8
-
 Razão: A média é inválida!
 
 Linha 1118: 2351	4	139	1	12,8
-
 Razão: A média é inválida!
 
 Linha 1119: 2352	6	79	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1120: 2353	3	125	1	11,3
-
 Razão: A média é inválida!
 
 Linha 1121: 2354	2	30	3	12,0
-
 Razão: A média é inválida!
 
 Linha 1122: 2355	5	34	3	18,9
-
 Razão: A média é inválida!
 
 Linha 1123: 2356	5	34	3	15,3
-
 Razão: A média é inválida!
 
 Linha 1124: 2357	1	10	1	18,8
-
 Razão: A média é inválida!
 
 Linha 1125: 2358	3	125	1	17,3
-
 Razão: A média é inválida!
 
 Linha 1126: 2359	1	10	1	11,6
-
 Razão: A média é inválida!
 
 Linha 1127: 2360	4	139	1	14,2
-
 Razão: A média é inválida!
 
 Linha 1128: 2361	5	34	2	13,7
-
 Razão: A média é inválida!
 
 Linha 1129: 2362	4	139	3	17,6
-
 Razão: A média é inválida!
 
 Linha 1130: 2363	3	125	3	12,9
-
 Razão: A média é inválida!
 
 Linha 1131: 2364	4	139	3	14,6
-
 Razão: A média é inválida!
 
 Linha 1132: 2365	3	125	3	17,2
-
 Razão: A média é inválida!
 
 Linha 1133: 2366	1	10	1	11,3
-
 Razão: A média é inválida!
 
 Linha 1134: 2367	6	79	3	11,7
-
 Razão: A média é inválida!
 
 Linha 1135: 2368	5	34	1	12,3
-
 Razão: A média é inválida!
 
 Linha 1136: 2369	2	30	2	18,9
-
 Razão: A média é inválida!
 
 Linha 1137: 2370	6	79	3	11,4
-
 Razão: A média é inválida!
 
 Linha 1138: 2371	2	30	2	12,1
-
 Razão: A média é inválida!
 
 Linha 1139: 2372	4	139	2	16,9
-
 Razão: A média é inválida!
 
 Linha 1140: 2373	1	10	1	15,0
-
 Razão: A média é inválida!
 
 Linha 1141: 2374	2	30	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1142: 2375	3	125	2	18,7
-
 Razão: A média é inválida!
 
 Linha 1143: 2376	3	125	3	19,5
-
 Razão: A média é inválida!
 
 Linha 1144: 2377	6	79	2	15,4
-
 Razão: A média é inválida!
 
 Linha 1145: 2378	1	10	2	13,9
-
 Razão: A média é inválida!
 
 Linha 1146: 2379	2	30	3	16,6
-
 Razão: A média é inválida!
 
 Linha 1147: 2380	4	139	1	14,7
-
 Razão: A média é inválida!
 
 Linha 1148: 2381	2	30	1	13,7
-
 Razão: A média é inválida!
 
 Linha 1149: 2382	4	139	3	18,1
-
 Razão: A média é inválida!
 
 Linha 1150: 2383	2	30	2	16,6
-
 Razão: A média é inválida!
 
 Linha 1151: 2384	4	139	2	17,1
-
 Razão: A média é inválida!
 
 Linha 1152: 2385	2	30	3	17,3
-
 Razão: A média é inválida!
 
 Linha 1153: 2386	3	125	1	19,5
-
 Razão: A média é inválida!
 
 Linha 1154: 2387	2	30	2	14,4
-
 Razão: A média é inválida!
 
 Linha 1155: 2388	6	79	3	15,7
-
 Razão: A média é inválida!
 
 Linha 1156: 2389	6	79	3	19,0
-
 Razão: A média é inválida!
 
 Linha 1157: 2390	1	10	3	11,9
-
 Razão: A média é inválida!
 
 Linha 1158: 2391	6	79	1	19,8
-
 Razão: A média é inválida!
 
 Linha 1159: 2392	4	139	3	15,3
-
 Razão: A média é inválida!
 
 Linha 1160: 2393	5	34	1	12,5
-
 Razão: A média é inválida!
 
 Linha 1161: 2394	6	79	1	11,4
-
 Razão: A média é inválida!
 
 Linha 1162: 2395	5	34	2	16,5
-
 Razão: A média é inválida!
 
 Linha 1163: 2396	2	30	1	12,2
-
 Razão: A média é inválida!
 
 Linha 1164: 2397	6	79	2	17,0
-
 Razão: A média é inválida!
 
 Linha 1165: 2398	1	10	1	11,8
-
 Razão: A média é inválida!
 
 Linha 1166: 2399	6	79	1	13,0
-
 Razão: A média é inválida!
 
 Linha 1167: 2400	1	10	2	19,6
-
 Razão: A média é inválida!
 
 Linha 1168: 2401	5	34	2	11,5
-
 Razão: A média é inválida!
 
 Linha 1169: 2402	4	139	3	11,6
-
 Razão: A média é inválida!
 
 Linha 1170: 2403	1	10	3	17,1
-
 Razão: A média é inválida!
 
 Linha 1171: 2404	6	79	2	18,9
-
 Razão: A média é inválida!
 
 Linha 1172: 2405	2	30	3	11,5
-
 Razão: A média é inválida!
 
 Linha 1173: 2406	4	139	3	16,2
-
 Razão: A média é inválida!
 
 Linha 1174: 2407	1	10	3	13,8
-
 Razão: A média é inválida!
 
 Linha 1175: 2408	1	10	1	15,1
-
 Razão: A média é inválida!
 
 Linha 1176: 2409	4	139	1	14,1
-
 Razão: A média é inválida!
 
 Linha 1177: 2410	6	79	3	19,1
-
 Razão: A média é inválida!
 
 Linha 1178: 2411	2	30	3	13,3
-
 Razão: A média é inválida!
 
 Linha 1179: 2412	5	34	3	12,7
-
 Razão: A média é inválida!
 
 Linha 1180: 2413	3	125	2	16,8
-
 Razão: A média é inválida!
 
 Linha 1181: 2414	4	139	2	16,3
-
 Razão: A média é inválida!
 
 Linha 1182: 2415	3	125	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1183: 2416	3	125	3	16,2
-
 Razão: A média é inválida!
 
 Linha 1184: 2417	1	10	3	17,2
-
 Razão: A média é inválida!
 
 Linha 1185: 2418	3	125	2	16,1
-
 Razão: A média é inválida!
 
 Linha 1186: 2419	2	30	3	18,0
-
 Razão: A média é inválida!
 
 Linha 1187: 2420	2	30	2	11,7
-
 Razão: A média é inválida!
 
 Linha 1188: 2421	2	30	3	17,6
-
 Razão: A média é inválida!
 
 Linha 1189: 2422	6	79	3	17,8
-
 Razão: A média é inválida!
 
 Linha 1190: 2423	4	139	1	17,0
-
 Razão: A média é inválida!
 
 Linha 1191: 2424	3	125	1	15,1
-
 Razão: A média é inválida!
 
 Linha 1192: 2425	6	79	2	13,8
-
 Razão: A média é inválida!
 
 Linha 1193: 2426	6	79	1	11,6
-
 Razão: A média é inválida!
 
 Linha 1194: 2427	6	79	2	13,7
-
 Razão: A média é inválida!
 
 Linha 1195: 2428	5	34	1	18,6
-
 Razão: A média é inválida!
 
 Linha 1196: 2429	2	30	3	17,6
-
 Razão: A média é inválida!
 
 Linha 1197: 2430	1	10	2	19,3
-
 Razão: A média é inválida!
 
 Linha 1198: 2431	2	30	1	16,9
-
 Razão: A média é inválida!
 
 Linha 1199: 2432	3	125	3	17,0
-
 Razão: A média é inválida!
 
 Linha 1200: 2433	2	30	3	12,8
-
 Razão: A média é inválida!
 
 Linha 1201: 2434	4	139	3	15,8
-
 Razão: A média é inválida!
 
 Linha 1202: 2435	3	125	3	16,7
-
 Razão: A média é inválida!
 
 Linha 1203: 2436	2	30	2	12,2
-
 Razão: A média é inválida!
 
 Linha 1204: 2437	6	79	2	12,4
-
 Razão: A média é inválida!
 
 Linha 1205: 2438	3	125	3	13,7
-
 Razão: A média é inválida!
 
 Linha 1206: 2439	4	139	2	14,9
-
 Razão: A média é inválida!
 
 Linha 1207: 2440	3	125	2	19,5
-
 Razão: A média é inválida!
 
 Linha 1208: 2441	2	30	3	15,6
-
 Razão: A média é inválida!
 
 Linha 1209: 2442	2	30	3	17,7
-
 Razão: A média é inválida!
 
 Linha 1210: 2443	3	125	2	16,8
-
 Razão: A média é inválida!
 
 Linha 1211: 2444	6	79	3	11,2
-
 Razão: A média é inválida!
 
 Linha 1212: 2445	2	30	2	12,0
-
 Razão: A média é inválida!
 
 Linha 1213: 2446	5	34	3	18,4
-
 Razão: A média é inválida!
 
 Linha 1214: 2447	4	139	1	11,3
-
 Razão: A média é inválida!
 
 Linha 1215: 2448	5	34	1	12,3
-
 Razão: A média é inválida!
 
 Linha 1216: 2449	1	10	2	16,2
-
 Razão: A média é inválida!
 
 Linha 1217: 2450	5	34	2	11,7
-
 Razão: A média é inválida!
 
 Linha 1218: 2451	4	139	3	14,0
-
 Razão: A média é inválida!
 
 Linha 1219: 2452	1	10	3	17,6
-
 Razão: A média é inválida!
 
 Linha 1220: 2453	4	139	1	12,0
-
 Razão: A média é inválida!
 
 Linha 1221: 2454	1	10	1	13,2
-
 Razão: A média é inválida!
 
 Linha 1222: 2455	1	10	2	15,2
-
 Razão: A média é inválida!
 
 Linha 1223: 2456	6	79	1	20,0
-
 Razão: A média é inválida!
 
 Linha 1224: 2457	4	139	2	17,0
-
 Razão: A média é inválida!
 
 Linha 1225: 2458	4	139	3	14,4
-
 Razão: A média é inválida!
 
 Linha 1226: 2459	6	79	1	14,6
-
 Razão: A média é inválida!
 
 Linha 1227: 2460	5	34	3	19,5
-
 Razão: A média é inválida!
 
 Linha 1228: 2461	2	30	2	17,1
-
 Razão: A média é inválida!
 
 Linha 1229: 2462	3	125	3	13,9
-
 Razão: A média é inválida!
 
 Linha 1230: 2463	3	125	3	17,2
-
 Razão: A média é inválida!
 
 Linha 1231: 2464	1	10	2	14,1
-
 Razão: A média é inválida!
 
 Linha 1232: 2465	5	34	1	12,0
-
 Razão: A média é inválida!
 
 Linha 1233: 2466	2	30	1	11,3
-
 Razão: A média é inválida!
 
 Linha 1234: 2467	5	34	2	16,7
-
 Razão: A média é inválida!
 
 Linha 1235: 2468	5	34	2	18,2
-
 Razão: A média é inválida!
 
 Linha 1236: 2469	1	10	2	11,6
-
 Razão: A média é inválida!
 
 Linha 1237: 2470	1	10	3	16,6
-
 Razão: A média é inválida!
 
 Linha 1238: 2471	2	30	1	14,4
-
 Razão: A média é inválida!
 
 Linha 1239: 2472	2	30	3	15,9
-
 Razão: A média é inválida!
 
 Linha 1240: 2473	4	139	3	16,3
-
 Razão: A média é inválida!
 
 Linha 1241: 2474	1	10	2	15,4
-
 Razão: A média é inválida!
 
 Linha 1242: 2475	1	10	1	11,7
-
 Razão: A média é inválida!
 
 Linha 1243: 2476	5	34	2	18,4
-
 Razão: A média é inválida!
 
 Linha 1244: 2477	3	125	3	15,2
-
 Razão: A média é inválida!
 
 Linha 1245: 2478	3	125	3	13,1
-
 Razão: A média é inválida!
 
 Linha 1246: 2479	3	125	1	14,9
-
 Razão: A média é inválida!
 
 Linha 1247: 2480	4	139	2	13,3
-
 Razão: A média é inválida!
 
 Linha 1248: 2481	2	30	3	19,2
-
 Razão: A média é inválida!
 
 Linha 1249: 2482	4	139	2	13,9
-
 Razão: A média é inválida!
 
 Linha 1250: 2483	1	10	1	15,5
-
 Razão: A média é inválida!
 
 Linha 1251: 2484	1	10	1	13,4
-
 Razão: A média é inválida!
 
 Linha 1252: 2485	6	79	3	15,2
-
 Razão: A média é inválida!
 
 Linha 1253: 2486	3	125	1	13,2
-
 Razão: A média é inválida!
 
 Linha 1254: 2487	3	125	3	16,3
-
 Razão: A média é inválida!
 
 Linha 1255: 2488	1	10	2	12,1
-
 Razão: A média é inválida!
 
 Linha 1256: 2489	1	10	3	19,1
-
 Razão: A média é inválida!
 
 Linha 1257: 2490	2	30	1	19,4
-
 Razão: A média é inválida!
 
 Linha 1258: 2491	3	125	2	14,2
-
 Razão: A média é inválida!
 
 Linha 1259: 2492	2	30	1	16,2
-
 Razão: A média é inválida!
 
 Linha 1260: 2493	1	10	2	11,6
-
 Razão: A média é inválida!
 
 Linha 1261: 2494	3	125	2	18,9
-
 Razão: A média é inválida!
 
 Linha 1262: 2495	3	125	3	11,8
-
 Razão: A média é inválida!
 
 Linha 1263: 2496	4	139	3	19,6
-
 Razão: A média é inválida!
 
 Linha 1264: 2497	6	79	3	11,1
-
 Razão: A média é inválida!
 
 Linha 1265: 2498	6	79	3	19,0
-
 Razão: A média é inválida!
 
 Linha 1266: 2499	2	30	2	14,9
-
 Razão: A média é inválida!
 
 Linha 1267: 2500	5	34	1	17,3
-
 Razão: A média é inválida!
 
 Linha 1268: 2501	1	10	3	13,8
-
 Razão: A média é inválida!
 
 Linha 1269: 2502	4	139	3	14,8
-
 Razão: A média é inválida!
 
 Linha 1270: 2503	3	125	3	13,2
-
 Razão: A média é inválida!
 
 Linha 1271: 2504	6	79	2	13,9
-
 Razão: A média é inválida!
 
 Linha 1272: 2505	4	139	1	12,0
-
 Razão: A média é inválida!
 
 Linha 1273: 2506	2	30	2	18,9
-
 Razão: A média é inválida!
 
 Linha 1274: 2507	2	30	1	12,1
-
 Razão: A média é inválida!
 
 Linha 1275: 2508	2	30	2	15,8
-
 Razão: A média é inválida!
 
 Linha 1276: 2509	5	34	1	13,3
-
 Razão: A média é inválida!
 
 Linha 1277: 2510	1	10	3	18,1
-
 Razão: A média é inválida!
 
 Linha 1278: 2511	5	34	1	11,8
-
 Razão: A média é inválida!
 
 Linha 1279: 2512	1	10	3	17,9
-
 Razão: A média é inválida!
 
 Linha 1280: 2513	4	139	3	12,9
-
 Razão: A média é inválida!
 
 Linha 1281: 2514	6	79	3	12,1
-
 Razão: A média é inválida!
 
 Linha 1282: 2515	4	139	2	19,0
-
 Razão: A média é inválida!
 
 Linha 1283: 2516	4	139	2	17,5
-
 Razão: A média é inválida!
 
 Linha 1284: 2517	5	34	1	18,7
-
 Razão: A média é inválida!
 
 Linha 1285: 2518	1	10	3	19,1
-
 Razão: A média é inválida!
 
 Linha 1286: 2519	5	34	3	14,2
-
 Razão: A média é inválida!
 
 Linha 1287: 2520	1	10	1	19,6
-
 Razão: A média é inválida!
 
 Linha 1288: 2521	4	139	3	14,7
-
 Razão: A média é inválida!
 
 Linha 1289: 2522	4	139	1	19,4
-
 Razão: A média é inválida!
 
 Linha 1290: 2523	3	125	3	13,6
-
 Razão: A média é inválida!
 
 Linha 1291: 2524	2	30	3	19,5
-
 Razão: A média é inválida!
 
 Linha 1292: 2525	1	10	2	13,3
-
 Razão: A média é inválida!
 
 Linha 1293: 2526	2	30	2	14,6
-
 Razão: A média é inválida!
 
 Linha 1294: 2527	1	10	3	15,0
-
 Razão: A média é inválida!
 
 Linha 1295: 2528	2	30	2	18,7
-
 Razão: A média é inválida!
 
 Linha 1296: 2529	2	30	1	17,6
-
 Razão: A média é inválida!
 
 Linha 1297: 2530	5	34	2	15,7
-
 Razão: A média é inválida!
 
 Linha 1298: 2531	1	10	2	16,1
-
 Razão: A média é inválida!
 
 Linha 1299: 2532	3	125	3	13,5
-
 Razão: A média é inválida!
 
 Linha 1300: 2533	6	79	2	12,3
-
 Razão: A média é inválida!
 
 Linha 1301: 2534	3	125	3	13,1
-
 Razão: A média é inválida!
 
 Linha 1302: 2535	4	139	2	19,2
-
 Razão: A média é inválida!
 
 Linha 1303: 2536	6	79	3	12,3
-
 Razão: A média é inválida!
 
 Linha 1304: 2537	1	10	1	19,5
-
 Razão: A média é inválida!
 
 Linha 1305: 2538	1	10	3	18,3
-
 Razão: A média é inválida!
 
 Linha 1306: 2539	6	79	3	18,8
-
 Razão: A média é inválida!
 
 Linha 1307: 2540	4	139	1	19,5
-
 Razão: A média é inválida!
 
 Linha 1308: 2541	6	79	1	18,4
-
 Razão: A média é inválida!
 
 Linha 1309: 2542	1	10	3	15,7
-
 Razão: A média é inválida!
 
 Linha 1310: 2543	6	79	3	17,9
-
 Razão: A média é inválida!
 
 Linha 1311: 2544	6	79	3	18,1
-
 Razão: A média é inválida!
 
 Linha 1312: 2545	2	30	1	17,6
-
 Razão: A média é inválida!
 
 Linha 1313: 2546	5	34	1	14,6
-
 Razão: A média é inválida!
 
 Linha 1314: 2547	2	30	2	15,5
-
 Razão: A média é inválida!
 
 Linha 1315: 2548	5	34	2	18,1
-
 Razão: A média é inválida!
 
 Linha 1316: 2549	5	34	2	12,4
-
 Razão: A média é inválida!
 
 Linha 1317: 2550	5	34	3	19,6
-
 Razão: A média é inválida!
 
 Linha 1318: 2551	5	34	2	17,4
-
 Razão: A média é inválida!
 
 Linha 1319: 2552	2	30	2	18,2
-
 Razão: A média é inválida!
 
 Linha 1320: 2553	5	34	1	12,8
-
 Razão: A média é inválida!
 
 Linha 1321: 2554	5	34	3	16,0
-
 Razão: A média é inválida!
 
 Linha 1322: 2555	4	139	3	13,8
-
 Razão: A média é inválida!
 
 Linha 1323: 2556	5	34	3	11,3
-
 Razão: A média é inválida!
 
 Linha 1324: 2557	1	10	1	13,7
-
 Razão: A média é inválida!
 
 Linha 1325: 2558	5	34	1	19,6
-
 Razão: A média é inválida!
 
 Linha 1326: 2559	2	30	2	15,6
-
 Razão: A média é inválida!
 
 Linha 1327: 2560	2	30	3	19,8
-
 Razão: A média é inválida!
 
 Linha 1328: 2561	4	139	2	15,1
-
 Razão: A média é inválida!
 
 Linha 1329: 2562	3	125	2	16,1
-
 Razão: A média é inválida!
 
 Linha 1330: 2563	3	125	3	13,2
-
 Razão: A média é inválida!
 
 Linha 1331: 2564	3	125	1	16,2
-
 Razão: A média é inválida!
 
 Linha 1332: 2565	2	30	3	15,4
-
 Razão: A média é inválida!
 
 Linha 1333: 2566	2	30	2	15,9
-
 Razão: A média é inválida!
 
 Linha 1334: 2567	2	30	3	19,4
-
 Razão: A média é inválida!
 
 Linha 1335: 2568	4	139	2	12,2
-
 Razão: A média é inválida!
 
 Linha 1336: 2569	1	10	2	13,2
-
 Razão: A média é inválida!
 
 Linha 1337: 2570	3	125	1	14,0
-
 Razão: A média é inválida!
 
 Linha 1338: 2571	6	79	3	16,9
-
 Razão: A média é inválida!
 
 Linha 1339: 2572	6	79	2	14,9
-
 Razão: A média é inválida!
 
 Linha 1340: 2573	4	139	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1341: 2574	3	125	2	11,6
-
 Razão: A média é inválida!
 
 Linha 1342: 2575	1	10	1	17,8
-
 Razão: A média é inválida!
 
 Linha 1343: 2576	5	34	3	14,1
-
 Razão: A média é inválida!
 
 Linha 1344: 2577	5	34	1	19,6
-
 Razão: A média é inválida!
 
 Linha 1345: 2578	1	10	3	18,0
-
 Razão: A média é inválida!
 
 Linha 1346: 2579	5	34	2	14,7
-
 Razão: A média é inválida!
 
 Linha 1347: 2580	3	125	1	12,7
-
 Razão: A média é inválida!
 
 Linha 1348: 2581	2	30	3	16,7
-
 Razão: A média é inválida!
 
 Linha 1349: 2582	1	10	2	12,8
-
 Razão: A média é inválida!
 
 Linha 1350: 2583	3	125	2	18,2
-
 Razão: A média é inválida!
 
 Linha 1351: 2584	6	79	2	12,0
-
 Razão: A média é inválida!
 
 Linha 1352: 2585	6	79	1	17,9
-
 Razão: A média é inválida!
 
 Linha 1353: 2586	5	34	2	16,2
-
 Razão: A média é inválida!
 
 Linha 1354: 2587	2	30	1	19,0
-
 Razão: A média é inválida!
 
 Linha 1355: 2588	4	139	3	15,5
-
 Razão: A média é inválida!
 
 Linha 1356: 2589	1	10	1	13,4
-
 Razão: A média é inválida!
 
 Linha 1357: 2590	6	79	2	17,4
-
 Razão: A média é inválida!
 
 Linha 1358: 2591	1	10	2	17,9
-
 Razão: A média é inválida!
 
 Linha 1359: 2592	4	139	3	17,3
-
 Razão: A média é inválida!
 
 Linha 1360: 2593	5	34	2	11,7
-
 Razão: A média é inválida!
 
 Linha 1361: 2594	1	10	2	14,5
-
 Razão: A média é inválida!
 
 Linha 1362: 2595	6	79	3	16,3
-
 Razão: A média é inválida!
 
 Linha 1363: 2596	2	30	2	14,3
-
 Razão: A média é inválida!
 
 Linha 1364: 2597	6	79	1	17,5
-
 Razão: A média é inválida!
 
 Linha 1365: 2598	3	125	1	12,5
-
 Razão: A média é inválida!
 
 Linha 1366: 2599	2	30	3	17,9
-
 Razão: A média é inválida!
 
 Linha 1367: 2600	6	79	2	11,7
-
 Razão: A média é inválida!
 
 Linha 1368: 2601	2	30	1	11,4
-
 Razão: A média é inválida!
 
 Linha 1369: 2602	1	10	3	11,9
-
 Razão: A média é inválida!
 
 Linha 1370: 2603	4	139	3	18,5
-
 Razão: A média é inválida!
 
 Linha 1371: 2604	6	79	3	14,3
-
 Razão: A média é inválida!
 
 Linha 1372: 2605	3	125	1	12,1
-
 Razão: A média é inválida!
 
 Linha 1373: 2606	1	10	3	12,0
-
 Razão: A média é inválida!
 
 Linha 1374: 2607	4	139	1	18,4
-
 Razão: A média é inválida!
 
 Linha 1375: 2608	1	10	3	16,0
-
 Razão: A média é inválida!
 
 Linha 1376: 2609	1	10	1	16,2
-
 Razão: A média é inválida!
 
 Linha 1377: 2610	1	10	1	16,5
-
 Razão: A média é inválida!
 
 Linha 1378: 2611	1	10	3	19,6
-
 Razão: A média é inválida!
 
 Linha 1379: 2612	5	34	2	12,9
-
 Razão: A média é inválida!
 
 Linha 1380: 2613	5	34	3	14,5
-
 Razão: A média é inválida!
 
 Linha 1381: 2614	3	125	3	16,1
-
 Razão: A média é inválida!
 
 Linha 1382: 2615	1	10	2	14,5
-
 Razão: A média é inválida!
 
 Linha 1383: 2616	1	10	3	14,3
-
 Razão: A média é inválida!
 
 Linha 1384: 2617	1	10	3	11,9
-
 Razão: A média é inválida!
 
 Linha 1385: 2618	1	10	1	13,5
-
 Razão: A média é inválida!
 
 Linha 1386: 2619	4	139	1	19,6
-
 Razão: A média é inválida!
 
 Linha 1387: 2620	3	125	1	13,6
-
 Razão: A média é inválida!
 
 Linha 1388: 2621	1	10	1	12,5
-
 Razão: A média é inválida!
 
 Linha 1389: 2622	6	79	1	17,8
-
 Razão: A média é inválida!
 
 Linha 1390: 2623	6	79	1	18,4
-
 Razão: A média é inválida!
 
 Linha 1391: 2624	3	125	2	16,6
-
 Razão: A média é inválida!
 
 Linha 1392: 2625	5	34	3	16,1
-
 Razão: A média é inválida!
 
 Linha 1393: 2626	6	79	3	13,2
-
 Razão: A média é inválida!
 
 Linha 1394: 2627	6	79	3	15,9
-
 Razão: A média é inválida!
 
 Linha 1395: 2628	2	30	1	13,7
-
 Razão: A média é inválida!
 
 Linha 1396: 2629	4	139	3	13,7
-
 Razão: A média é inválida!
 
 Linha 1397: 2630	2	30	2	16,8
-
 Razão: A média é inválida!
 
 Linha 1398: 2631	3	125	3	19,5
-
 Razão: A média é inválida!
 
 Linha 1399: 2632	5	34	2	18,4
-
 Razão: A média é inválida!
 
 Linha 1400: 2633	4	139	1	19,1
-
 Razão: A média é inválida!
 
 Linha 1401: 2634	6	79	3	19,3
-
 Razão: A média é inválida!
 
 Linha 1402: 2635	4	139	1	17,1
-
 Razão: A média é inválida!
 
 Linha 1403: 2636	2	30	3	17,2
-
 Razão: A média é inválida!
 
 Linha 1404: 2637	3	125	1	18,6
-
 Razão: A média é inválida!
 
 Linha 1405: 2638	5	34	1	17,3
-
 Razão: A média é inválida!
 
 Linha 1406: 2639	3	125	1	15,7
-
 Razão: A média é inválida!
 
 Linha 1407: 2640	6	79	2	15,4
-
 Razão: A média é inválida!
 
 Linha 1408: 2641	4	139	3	17,4
-
 Razão: A média é inválida!
 
 Linha 1409: 2642	1	10	2	16,1
-
 Razão: A média é inválida!
 
 Linha 1410: 2643	3	125	1	19,8
-
 Razão: A média é inválida!
 
 Linha 1411: 2644	2	30	1	13,5
-
 Razão: A média é inválida!
 
 Linha 1412: 2645	6	79	2	17,8
-
 Razão: A média é inválida!
 
 Linha 1413: 2646	2	30	3	11,6
-
 Razão: A média é inválida!
 
 Linha 1414: 2647	2	30	2	13,5
-
 Razão: A média é inválida!
 
 Linha 1415: 2648	6	79	3	12,0
-
 Razão: A média é inválida!
 
 Linha 1416: 2649	4	139	3	16,4
-
 Razão: A média é inválida!
 
 Linha 1417: 2650	3	125	3	14,0
-
 Razão: A média é inválida!
 
 Linha 1418: 2651	1	10	2	14,3
-
 Razão: A média é inválida!
 
 Linha 1419: 2652	5	34	1	14,0
-
 Razão: A média é inválida!
 
 Linha 1420: 2653	4	139	2	12,8
-
 Razão: A média é inválida!
 
 Linha 1421: 2654	3	125	2	15,9
-
 Razão: A média é inválida!
 
 Linha 1422: 2655	1	10	1	19,5
-
 Razão: A média é inválida!
 
 Linha 1423: 2656	3	125	2	13,9
-
 Razão: A média é inválida!
 
 Linha 1424: 2657	1	10	1	17,4
-
 Razão: A média é inválida!
 
 Linha 1425: 2658	4	139	2	18,7
-
 Razão: A média é inválida!
 
 Linha 1426: 2659	3	125	2	15,8
-
 Razão: A média é inválida!
 
 Linha 1427: 2660	1	10	1	12,0
-
 Razão: A média é inválida!
 
 Linha 1428: 2661	2	30	3	15,5
-
 Razão: A média é inválida!
 
 Linha 1429: 2662	5	34	1	17,7
-
 Razão: A média é inválida!
 
 Linha 1430: 2663	5	34	1	19,7
-
 Razão: A média é inválida!
 
 Linha 1431: 2664	3	125	2	17,6
-
 Razão: A média é inválida!
 
 Linha 1432: 2665	6	79	3	13,8
-
 Razão: A média é inválida!
 
 Linha 1433: 2666	4	139	2	16,8
-
 Razão: A média é inválida!
 
 Linha 1434: 2667	2	30	2	17,0
-
 Razão: A média é inválida!
 
 Linha 1435: 2668	1	10	2	17,2
-
 Razão: A média é inválida!
 
 Linha 1436: 2669	3	125	3	15,5
-
 Razão: A média é inválida!
 
 Linha 1437: 2670	3	125	2	15,2
-
 Razão: A média é inválida!
 
 Linha 1438: 2671	2	30	3	11,4
-
 Razão: A média é inválida!
 
 Linha 1439: 2672	4	139	1	12,5
-
 Razão: A média é inválida!
 
 Linha 1440: 2673	4	139	1	11,6
-
 Razão: A média é inválida!
 
 Linha 1441: 2674	1	10	1	12,1
-
 Razão: A média é inválida!
 
 Linha 1442: 2675	4	139	3	11,4
-
 Razão: A média é inválida!
 
 Linha 1443: 2676	4	139	3	14,7
-
 Razão: A média é inválida!
 
 Linha 1444: 2677	3	125	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1445: 2678	3	125	1	17,8
-
 Razão: A média é inválida!
 
 Linha 1446: 2679	1	10	2	11,8
-
 Razão: A média é inválida!
 
 Linha 1447: 2680	4	139	3	13,7
-
 Razão: A média é inválida!
 
 Linha 1448: 2681	4	139	3	11,6
-
 Razão: A média é inválida!
 
 Linha 1449: 2682	6	79	1	16,6
-
 Razão: A média é inválida!
 
 Linha 1450: 2683	1	10	2	15,5
-
 Razão: A média é inválida!
 
 Linha 1451: 2684	2	30	2	12,8
-
 Razão: A média é inválida!
 
 Linha 1452: 2685	3	125	2	11,0
-
 Razão: A média é inválida!
 
 Linha 1453: 2686	6	79	3	15,0
-
 Razão: A média é inválida!
 
 Linha 1454: 2687	3	125	2	17,0
-
 Razão: A média é inválida!
 
 Linha 1455: 2688	3	125	3	18,2
-
 Razão: A média é inválida!
 
 Linha 1456: 2689	4	139	3	15,4
-
 Razão: A média é inválida!
 
 Linha 1457: 2690	1	10	3	17,3
-
 Razão: A média é inválida!
 
 Linha 1458: 2691	3	125	1	16,5
-
 Razão: A média é inválida!
 
 Linha 1459: 2692	5	34	2	15,2
-
 Razão: A média é inválida!
 
 Linha 1460: 2693	2	30	3	19,6
-
 Razão: A média é inválida!
 
 Linha 1461: 2694	3	125	3	20,0
-
 Razão: A média é inválida!
 
 Linha 1462: 2695	3	125	3	16,0
-
 Razão: A média é inválida!
 
 Linha 1463: 2696	6	79	1	15,4
-
 Razão: A média é inválida!
 
 Linha 1464: 2697	6	79	2	19,1
-
 Razão: A média é inválida!
 
 Linha 1465: 2698	3	125	1	16,7
-
 Razão: A média é inválida!
 
 Linha 1466: 2699	5	34	3	17,1
-
 Razão: A média é inválida!
 
 Linha 1467: 2700	3	125	1	15,3
-
 Razão: A média é inválida!
 
 Linha 1468: 2701	5	34	3	17,9
-
 Razão: A média é inválida!
 
 Linha 1469: 2702	3	125	2	15,3
-
 Razão: A média é inválida!
 
 Linha 1470: 2703	4	139	3	16,4
-
 Razão: A média é inválida!
 
 Linha 1471: 2704	3	125	3	11,7
-
 Razão: A média é inválida!
 
 Linha 1472: 2705	5	34	3	19,2
-
 Razão: A média é inválida!
 
 Linha 1473: 2706	4	139	3	15,7
-
 Razão: A média é inválida!
 
 Linha 1474: 2707	5	34	1	13,0
-
 Razão: A média é inválida!
 
 Linha 1475: 2708	6	79	2	15,0
-
 Razão: A média é inválida!
 
 Linha 1476: 2709	2	30	1	13,6
-
 Razão: A média é inválida!
 
 Linha 1477: 2710	2	30	1	18,3
-
 Razão: A média é inválida!
 
 Linha 1478: 2711	4	139	3	14,6
-
 Razão: A média é inválida!
 
 Linha 1479: 2712	5	34	3	19,3
-
 Razão: A média é inválida!
 
 Linha 1480: 2713	5	34	1	14,7
-
 Razão: A média é inválida!
 
 Linha 1481: 2714	1	10	3	14,5
-
 Razão: A média é inválida!
 
 Linha 1482: 2715	4	139	1	15,6
-
 Razão: A média é inválida!
 
 Linha 1483: 2716	1	10	2	12,8
-
 Razão: A média é inválida!
 
 Linha 1484: 2717	6	79	2	13,1
-
 Razão: A média é inválida!
 
 Linha 1485: 2718	5	34	2	15,2
-
 Razão: A média é inválida!
 
 Linha 1486: 2719	4	139	2	13,5
-
 Razão: A média é inválida!
 
 Linha 1487: 2720	3	125	3	18,1
-
 Razão: A média é inválida!
 
 Linha 1488: 2721	4	139	3	13,5
-
 Razão: A média é inválida!
 
 Linha 1489: 2722	6	79	3	14,5
-
 Razão: A média é inválida!
 
 Linha 1490: 2723	4	139	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1491: 2724	3	125	3	15,2
-
 Razão: A média é inválida!
 
 Linha 1492: 2725	4	139	2	18,7
-
 Razão: A média é inválida!
 
 Linha 1493: 2726	6	79	2	13,7
-
 Razão: A média é inválida!
 
 Linha 1494: 2727	2	30	2	13,3
-
 Razão: A média é inválida!
 
 Linha 1495: 2728	3	125	2	14,1
-
 Razão: A média é inválida!
 
 Linha 1496: 2729	1	10	2	14,0
-
 Razão: A média é inválida!
 
 Linha 1497: 2730	3	125	3	15,1
-
 Razão: A média é inválida!
 
 Linha 1498: 2731	1	10	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1499: 2732	1	10	1	17,0
-
 Razão: A média é inválida!
 
 Linha 1500: 2733	6	79	3	19,5
-
 Razão: A média é inválida!
 
 Linha 1501: 2734	5	34	3	16,8
-
 Razão: A média é inválida!
 
 Linha 1502: 2735	5	34	3	18,4
-
 Razão: A média é inválida!
 
 Linha 1503: 2736	6	79	3	17,2
-
 Razão: A média é inválida!
 
 Linha 1504: 2737	6	79	2	19,1
-
 Razão: A média é inválida!
 
 Linha 1505: 2738	5	34	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1506: 2739	1	10	3	18,3
-
 Razão: A média é inválida!
 
 Linha 1507: 2740	4	139	1	18,1
-
 Razão: A média é inválida!
 
 Linha 1508: 2741	3	125	2	18,5
-
 Razão: A média é inválida!
 
 Linha 1509: 2742	5	34	1	12,4
-
 Razão: A média é inválida!
 
 Linha 1510: 2743	4	139	3	17,4
-
 Razão: A média é inválida!
 
 Linha 1511: 2744	4	139	2	14,3
-
 Razão: A média é inválida!
 
 Linha 1512: 2745	1	10	2	15,7
-
 Razão: A média é inválida!
 
 Linha 1513: 2746	3	125	2	17,4
-
 Razão: A média é inválida!
 
 Linha 1514: 2747	1	10	2	15,7
-
 Razão: A média é inválida!
 
 Linha 1515: 2748	4	139	2	17,1
-
 Razão: A média é inválida!
 
 Linha 1516: 2749	6	79	2	12,7
-
 Razão: A média é inválida!
 
 Linha 1517: 2750	1	10	1	11,6
-
 Razão: A média é inválida!
 
 Linha 1518: 2751	3	125	3	12,5
-
 Razão: A média é inválida!
 
 Linha 1519: 2752	3	125	3	16,0
-
 Razão: A média é inválida!
 
 Linha 1520: 2753	6	79	1	13,9
-
 Razão: A média é inválida!
 
 Linha 1521: 2754	2	30	2	13,0
-
 Razão: A média é inválida!
 
 Linha 1522: 2755	3	125	1	19,9
-
 Razão: A média é inválida!
 
 Linha 1523: 2756	1	10	3	15,0
-
 Razão: A média é inválida!
 
 Linha 1524: 2757	6	79	3	14,6
-
 Razão: A média é inválida!
 
 Linha 1525: 2758	5	34	2	12,5
-
 Razão: A média é inválida!
 
 Linha 1526: 2759	1	10	1	18,2
-
 Razão: A média é inválida!
 
 Linha 1527: 2760	3	125	3	13,7
-
 Razão: A média é inválida!
 
 Linha 1528: 2761	5	34	1	12,3
-
 Razão: A média é inválida!
 
 Linha 1529: 2762	6	79	1	14,3
-
 Razão: A média é inválida!
 
 Linha 1530: 2763	2	30	3	19,3
-
 Razão: A média é inválida!
 
 Linha 1531: 2764	3	125	3	13,8
-
 Razão: A média é inválida!
 
 Linha 1532: 2765	5	34	2	12,8
-
 Razão: A média é inválida!
 
 Linha 1533: 2766	6	79	1	13,2
-
 Razão: A média é inválida!
 
 Linha 1534: 2767	2	30	1	13,5
-
 Razão: A média é inválida!
 
 Linha 1535: 2768	5	34	2	15,8
-
 Razão: A média é inválida!
 
 Linha 1536: 2769	3	125	3	15,8
-
 Razão: A média é inválida!
 
 Linha 1537: 2770	4	139	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1538: 2771	2	30	3	16,4
-
 Razão: A média é inválida!
 
 Linha 1539: 2772	5	34	1	18,2
-
 Razão: A média é inválida!
 
 Linha 1540: 2773	5	34	3	19,5
-
 Razão: A média é inválida!
 
 Linha 1541: 2774	3	125	2	16,8
-
 Razão: A média é inválida!
 
 Linha 1542: 2775	2	30	1	19,5
-
 Razão: A média é inválida!
 
 Linha 1543: 2776	3	125	3	12,6
-
 Razão: A média é inválida!
 
 Linha 1544: 2777	4	139	1	12,9
-
 Razão: A média é inválida!
 
 Linha 1545: 2778	1	10	3	14,3
-
 Razão: A média é inválida!
 
 Linha 1546: 2779	5	34	2	11,5
-
 Razão: A média é inválida!
 
 Linha 1547: 2780	2	30	3	11,5
-
 Razão: A média é inválida!
 
 Linha 1548: 2781	5	34	1	19,1
-
 Razão: A média é inválida!
 
 Linha 1549: 2782	4	139	2	13,6
-
 Razão: A média é inválida!
 
 Linha 1550: 2783	4	139	3	14,9
-
 Razão: A média é inválida!
 
 Linha 1551: 2784	1	10	1	16,4
-
 Razão: A média é inválida!
 
 Linha 1552: 2785	5	34	3	12,0
-
 Razão: A média é inválida!
 
 Linha 1553: 2786	6	79	1	14,0
-
 Razão: A média é inválida!
 
 Linha 1554: 2787	1	10	3	16,2
-
 Razão: A média é inválida!
 
 Linha 1555: 2788	5	34	2	15,3
-
 Razão: A média é inválida!
 
 Linha 1556: 2789	5	34	2	11,2
-
 Razão: A média é inválida!
 
 Linha 1557: 2790	2	30	3	15,4
-
 Razão: A média é inválida!
 
 Linha 1558: 2791	4	139	2	17,3
-
 Razão: A média é inválida!
 
 Linha 1559: 2792	1	10	3	12,3
-
 Razão: A média é inválida!
 
 Linha 1560: 2793	1	10	2	19,5
-
 Razão: A média é inválida!
 
 Linha 1561: 2794	4	139	1	19,9
-
 Razão: A média é inválida!
 
 Linha 1562: 2795	5	34	2	15,1
-
 Razão: A média é inválida!
 
 Linha 1563: 2796	2	30	2	18,5
-
 Razão: A média é inválida!
 
 Linha 1564: 2797	5	34	3	14,8
-
 Razão: A média é inválida!
 
 Linha 1565: 2798	5	34	3	19,3
-
 Razão: A média é inválida!
 
 Linha 1566: 2799	6	79	1	16,3
-
 Razão: A média é inválida!
 
 Linha 1567: 2800	5	34	1	19,5
-
 Razão: A média é inválida!
 
 Linha 1568: 2801	4	139	1	16,0
-
 Razão: A média é inválida!
 
 Linha 1569: 2802	5	34	3	15,6
-
 Razão: A média é inválida!
 
 Linha 1570: 2803	3	125	3	20,0
-
 Razão: A média é inválida!
 
 Linha 1571: 2804	4	139	1	16,0
-
 Razão: A média é inválida!
 
 Linha 1572: 2805	4	139	1	16,0
-
 Razão: A média é inválida!
 
 Linha 1573: 2806	4	139	2	16,1
-
 Razão: A média é inválida!
 
 Linha 1574: 2807	2	30	1	19,3
-
 Razão: A média é inválida!
 
 Linha 1575: 2808	3	125	2	19,0
-
 Razão: A média é inválida!
 
 Linha 1576: 2809	2	30	3	13,1
-
 Razão: A média é inválida!
 
 Linha 1577: 2810	1	10	3	17,6
-
 Razão: A média é inválida!
 
 Linha 1578: 2811	6	79	1	19,9
-
 Razão: A média é inválida!
 
 Linha 1579: 2812	6	79	3	11,9
-
 Razão: A média é inválida!
 
 Linha 1580: 2813	1	10	2	16,7
-
 Razão: A média é inválida!
 
 Linha 1581: 2814	6	79	2	19,5
-
 Razão: A média é inválida!
 
 Linha 1582: 2815	3	125	3	12,3
-
 Razão: A média é inválida!
 
 Linha 1583: 2816	6	79	2	18,4
-
 Razão: A média é inválida!
 
 Linha 1584: 2817	2	30	2	15,9
-
 Razão: A média é inválida!
 
 Linha 1585: 2818	4	139	1	16,3
-
 Razão: A média é inválida!
 
 Linha 1586: 2819	5	34	3	14,5
-
 Razão: A média é inválida!
 
 Linha 1587: 2820	1	10	2	16,6
-
 Razão: A média é inválida!
 
 Linha 1588: 2821	5	34	3	11,2
-
 Razão: A média é inválida!
 
 Linha 1589: 2822	3	125	2	14,6
-
 Razão: A média é inválida!
 
 Linha 1590: 2823	2	30	3	18,0
-
 Razão: A média é inválida!
 
 Linha 1591: 2824	4	139	3	11,4
-
 Razão: A média é inválida!
 
 Linha 1592: 2825	4	139	1	11,7
-
 Razão: A média é inválida!
 
 Linha 1593: 2826	6	79	2	16,2
-
 Razão: A média é inválida!
 
 Linha 1594: 2827	1	10	3	18,3
-
 Razão: A média é inválida!
 
 Linha 1595: 2828	4	139	1	17,1
-
 Razão: A média é inválida!
 
 Linha 1596: 2829	3	125	3	19,3
-
 Razão: A média é inválida!
 
 Linha 1597: 2830	1	10	3	12,8
-
 Razão: A média é inválida!
 
 Linha 1598: 2831	5	34	3	19,8
-
 Razão: A média é inválida!
 
 Linha 1599: 2832	1	10	3	11,7
-
 Razão: A média é inválida!
 
 Linha 1600: 2833	2	30	1	11,6
-
 Razão: A média é inválida!
 
 Linha 1601: 2834	2	30	3	18,9
-
 Razão: A média é inválida!
 
 Linha 1602: 2835	5	34	1	14,9
-
 Razão: A média é inválida!
 
 Linha 1603: 2836	6	79	2	12,4
-
 Razão: A média é inválida!
 
 Linha 1604: 2837	2	30	2	16,7
-
 Razão: A média é inválida!
 
 Linha 1605: 2838	5	34	1	16,0
-
 Razão: A média é inválida!
 
 Linha 1606: 2839	5	34	2	19,2
-
 Razão: A média é inválida!
 
 Linha 1607: 2840	1	10	3	19,7
-
 Razão: A média é inválida!
 
 Linha 1608: 2841	4	139	3	14,9
-
 Razão: A média é inválida!
 
 Linha 1609: 2842	3	125	1	11,8
-
 Razão: A média é inválida!
 
 Linha 1610: 2843	3	125	2	19,5
-
 Razão: A média é inválida!
 
 Linha 1611: 2844	6	79	3	14,5
-
 Razão: A média é inválida!
 
 Linha 1612: 2845	2	30	1	14,5
-
 Razão: A média é inválida!
 
 Linha 1613: 2846	3	125	1	16,9
-
 Razão: A média é inválida!
 
 Linha 1614: 2847	2	30	3	17,8
-
 Razão: A média é inválida!
 
 Linha 1615: 2848	4	139	2	16,5
-
 Razão: A média é inválida!
 
 Linha 1616: 2849	3	125	1	12,0
-
 Razão: A média é inválida!
 
 Linha 1617: 2850	3	125	1	17,2
-
 Razão: A média é inválida!
 
 Linha 1618: 2851	2	30	1	19,5
-
 Razão: A média é inválida!
 
 Linha 1619: 2852	6	79	3	19,0
-
 Razão: A média é inválida!
 
 Linha 1620: 2853	2	30	1	18,9
-
 Razão: A média é inválida!
 
 Linha 1621: 2854	6	79	3	11,8
-
 Razão: A média é inválida!
 
 Linha 1622: 2855	5	34	1	13,7
-
 Razão: A média é inválida!
 
 Linha 1623: 2856	1	10	1	15,2
-
 Razão: A média é inválida!
 
 Linha 1624: 2857	1	10	3	14,4
-
 Razão: A média é inválida!
 
 Linha 1625: 2858	5	34	1	17,6
-
 Razão: A média é inválida!
 
 Linha 1626: 2859	2	30	3	15,6
-
 Razão: A média é inválida!
 
 Linha 1627: 2860	1	10	2	12,2
-
 Razão: A média é inválida!
 
 Linha 1628: 2861	4	139	2	14,1
-
 Razão: A média é inválida!
 
 Linha 1629: 2862	4	139	2	14,3
-
 Razão: A média é inválida!
 
 Linha 1630: 2863	5	34	1	11,9
-
 Razão: A média é inválida!
 
 Linha 1631: 2864	2	30	3	16,0
-
 Razão: A média é inválida!
 
 Linha 1632: 2865	1	10	2	11,2
-
 Razão: A média é inválida!
 
 Linha 1633: 2866	1	10	2	13,2
-
 Razão: A média é inválida!
 
 Linha 1634: 2867	1	10	3	11,1
-
 Razão: A média é inválida!
 
 Linha 1635: 2868	1	10	2	18,3
-
 Razão: A média é inválida!
 
 Linha 1636: 2869	2	30	2	14,3
-
 Razão: A média é inválida!
 
 Linha 1637: 2870	1	10	3	17,1
-
 Razão: A média é inválida!
 
 Linha 1638: 2871	3	125	1	13,7
-
 Razão: A média é inválida!
 
 Linha 1639: 2872	5	34	1	18,6
-
 Razão: A média é inválida!
 
 Linha 1640: 2873	6	79	2	15,9
-
 Razão: A média é inválida!
 
 Linha 1641: 2874	5	34	1	13,6
-
 Razão: A média é inválida!
 
 Linha 1642: 2875	1	10	1	14,9
-
 Razão: A média é inválida!
 
 Linha 1643: 2876	4	139	3	15,6
-
 Razão: A média é inválida!
 
 Linha 1644: 2877	2	30	2	19,9
-
 Razão: A média é inválida!
 
 Linha 1645: 2878	5	34	2	13,8
-
 Razão: A média é inválida!
 
 Linha 1646: 2879	6	79	1	14,4
-
 Razão: A média é inválida!
 
 Linha 1647: 2880	6	79	2	11,5
-
 Razão: A média é inválida!
 
 Linha 1648: 2881	4	139	1	17,8
-
 Razão: A média é inválida!
 
 Linha 1649: 2882	6	79	3	19,6
-
 Razão: A média é inválida!
 
 Linha 1650: 2883	5	34	3	14,3
-
 Razão: A média é inválida!
 
 Linha 1651: 2884	4	139	2	13,5
-
 Razão: A média é inválida!
 
 Linha 1652: 2885	1	10	1	17,2
-
 Razão: A média é inválida!
 
 Linha 1653: 2886	1	10	2	13,7
-
 Razão: A média é inválida!
 
 Linha 1654: 2887	4	139	3	17,4
-
 Razão: A média é inválida!
 
 Linha 1655: 2888	5	34	1	13,2
-
 Razão: A média é inválida!
 
 Linha 1656: 2889	6	79	2	17,6
-
 Razão: A média é inválida!
 
 Linha 1657: 2890	3	125	2	12,6
-
 Razão: A média é inválida!
 
 Linha 1658: 2891	2	30	3	14,8
-
 Razão: A média é inválida!
 
 Linha 1659: 2892	5	34	1	16,2
-
 Razão: A média é inválida!
 
 Linha 1660: 2893	4	139	3	13,5
-
 Razão: A média é inválida!
 
 Linha 1661: 2894	5	34	1	14,8
-
 Razão: A média é inválida!
 
 Linha 1662: 2895	6	79	1	19,9
-
 Razão: A média é inválida!
 
 Linha 1663: 2896	1	10	2	12,0
-
 Razão: A média é inválida!
 
 Linha 1664: 2897	3	125	3	11,2
-
 Razão: A média é inválida!
 
 Linha 1665: 2898	5	34	2	11,3
-
 Razão: A média é inválida!
 
 Linha 1666: 2899	6	79	3	16,4
-
 Razão: A média é inválida!
 
 Linha 1667: 2900	4	139	1	12,9
-
 Razão: A média é inválida!
 
 Linha 1668: 2901	2	30	1	11,9
-
 Razão: A média é inválida!
 
 Linha 1669: 2902	5	34	3	16,3
-
 Razão: A média é inválida!
 
 Linha 1670: 2903	3	125	1	15,8
-
 Razão: A média é inválida!
 
 Linha 1671: 2904	6	79	3	12,5
-
 Razão: A média é inválida!
 
 Linha 1672: 2905	4	139	3	18,4
-
 Razão: A média é inválida!
 
 Linha 1673: 2906	6	79	2	16,6
-
 Razão: A média é inválida!
 
 Linha 1674: 2907	6	79	3	18,9
-
 Razão: A média é inválida!
 
 Linha 1675: 2908	1	10	2	11,2
-
 Razão: A média é inválida!
 
 Linha 1676: 2909	1	10	3	16,7
-
 Razão: A média é inválida!
 
 Linha 1677: 2910	1	10	3	17,7
-
 Razão: A média é inválida!
 
 Linha 1678: 2911	4	139	1	12,6
-
 Razão: A média é inválida!
 
 Linha 1679: 2912	1	10	3	14,3
-
 Razão: A média é inválida!
 
 Linha 1680: 2913	4	139	3	11,9
-
 Razão: A média é inválida!
 
 Linha 1681: 2914	3	125	1	11,4
-
 Razão: A média é inválida!
 
 Linha 1682: 2915	2	30	2	17,0
-
 Razão: A média é inválida!
 
 Linha 1683: 2916	2	30	2	18,2
-
 Razão: A média é inválida!
 
 Linha 1684: 2917	4	139	2	19,2
-
 Razão: A média é inválida!
 
 Linha 1685: 2918	4	139	3	12,8
-
 Razão: A média é inválida!
 
 Linha 1686: 2919	6	79	3	11,9
-
 Razão: A média é inválida!
 
 Linha 1687: 2920	5	34	1	19,3
-
 Razão: A média é inválida!
 
 Linha 1688: 2921	1	10	3	13,5
-
 Razão: A média é inválida!
 
 Linha 1689: 2922	4	139	2	13,3
-
 Razão: A média é inválida!
 
 Linha 1690: 2923	2	30	2	17,6
-
 Razão: A média é inválida!
 
 Linha 1691: 2924	1	10	3	11,9
-
 Razão: A média é inválida!
 
 Linha 1692: 2925	3	125	2	11,6
-
 Razão: A média é inválida!
 
 Linha 1693: 2926	5	34	1	17,7
-
 Razão: A média é inválida!
 
 Linha 1694: 2927	1	10	3	14,0
-
 Razão: A média é inválida!
 
 Linha 1695: 2928	4	139	3	15,4
-
 Razão: A média é inválida!
 
 Linha 1696: 2929	3	125	1	19,4
-
 Razão: A média é inválida!
 
 Linha 1697: 2930	2	30	3	13,7
-
 Razão: A média é inválida!
 
 Linha 1698: 2931	5	34	1	17,5
-
 Razão: A média é inválida!
 
 Linha 1699: 2932	4	139	2	15,1
-
 Razão: A média é inválida!
 
 Linha 1700: 2933	2	30	3	16,1
-
 Razão: A média é inválida!
 
 Linha 1701: 2934	4	139	3	14,9
-
 Razão: A média é inválida!
 
 Linha 1702: 2935	1	10	2	13,2
-
 Razão: A média é inválida!
 
 Linha 1703: 2936	1	10	1	12,3
-
 Razão: A média é inválida!
 
 Linha 1704: 2937	6	79	2	17,3
-
 Razão: A média é inválida!
 
 Linha 1705: 2938	3	125	3	12,5
-
 Razão: A média é inválida!
 
 Linha 1706: 2939	3	125	3	19,2
-
 Razão: A média é inválida!
 
 Linha 1707: 2940	5	34	3	17,7
-
 Razão: A média é inválida!
 
 Linha 1708: 2941	2	30	2	12,1
-
 Razão: A média é inválida!
 
 Linha 1709: 2942	3	125	3	13,3
-
 Razão: A média é inválida!
 
 Linha 1710: 2943	6	79	1	14,5
-
 Razão: A média é inválida!
 
 Linha 1711: 2944	2	30	1	11,0
-
 Razão: A média é inválida!
 
 Linha 1712: 2945	6	79	3	19,9
-
 Razão: A média é inválida!
 
 Linha 1713: 2946	2	30	3	19,9
-
 Razão: A média é inválida!
 
 Linha 1714: 2947	5	34	3	12,0
-
 Razão: A média é inválida!
 
 Linha 1715: 2948	4	139	2	18,9
-
 Razão: A média é inválida!
 
 Linha 1716: 2949	2	30	1	14,1
-
 Razão: A média é inválida!
 
 Linha 1717: 2950	3	125	2	19,2
-
 Razão: A média é inválida!
 
 Linha 1718: 2951	2	30	1	18,9
-
 Razão: A média é inválida!
 
 Linha 1719: 2952	5	34	3	16,5
-
 Razão: A média é inválida!
 
 Linha 1720: 2953	2	30	3	16,2
-
 Razão: A média é inválida!
 
 Linha 1721: 2954	6	79	1	19,1
-
 Razão: A média é inválida!
 
 Linha 1722: 2955	3	125	1	14,1
-
 Razão: A média é inválida!
 
 Linha 1723: 2956	2	30	1	12,6
-
 Razão: A média é inválida!
 
 Linha 1724: 2957	5	34	3	19,5
-
 Razão: A média é inválida!
 
 Linha 1725: 2958	6	79	2	11,6
-
 Razão: A média é inválida!
 
 Linha 1726: 2959	2	30	2	13,5
-
 Razão: A média é inválida!
 
 Linha 1727: 2960	6	79	2	19,8
-
 Razão: A média é inválida!
 
 Linha 1728: 2961	1	10	3	12,1
-
 Razão: A média é inválida!
 
 Linha 1729: 2962	4	139	3	12,8
-
 Razão: A média é inválida!
 
 Linha 1730: 2963	2	30	1	19,7
-
 Razão: A média é inválida!
 
 Linha 1731: 2964	4	139	3	19,7
-
 Razão: A média é inválida!
 
 Linha 1732: 2965	6	79	2	11,9
-
 Razão: A média é inválida!
 
 Linha 1733: 2966	3	125	1	15,3
-
 Razão: A média é inválida!
 
 Linha 1734: 2967	2	30	3	19,4
-
 Razão: A média é inválida!
 
 Linha 1735: 2968	4	139	3	15,5
-
 Razão: A média é inválida!
 
 Linha 1736: 2969	6	79	3	13,6
-
 Razão: A média é inválida!
 
 Linha 1737: 2970	5	34	2	12,5
-
 Razão: A média é inválida!
 
 Linha 1738: 2971	1	10	2	13,4
-
 Razão: A média é inválida!
 
 Linha 1739: 2972	3	125	2	19,6
-
 Razão: A média é inválida!
 
 Linha 1740: 2973	4	139	2	11,9
-
 Razão: A média é inválida!
 
 Linha 1741: 2974	5	34	1	19,8
-
 Razão: A média é inválida!
 
 Linha 1742: 2975	1	10	1	11,3
-
 Razão: A média é inválida!
 
 Linha 1743: 2976	5	34	1	12,3
-
 Razão: A média é inválida!
 
 Linha 1744: 2977	1	10	3	19,1
-
 Razão: A média é inválida!
 
 Linha 1745: 2978	2	30	2	15,1
-
 Razão: A média é inválida!
 
 Linha 1746: 2979	3	125	3	19,2
-
 Razão: A média é inválida!
 
 Linha 1747: 2980	2	30	3	18,8
-
 Razão: A média é inválida!
 
 Linha 1748: 2981	6	79	2	13,7
-
 Razão: A média é inválida!
 
 Linha 1749: 2982	6	79	2	13,2
-
 Razão: A média é inválida!
 
 Linha 1750: 2983	4	139	3	17,9
-
 Razão: A média é inválida!
 
 Linha 1751: 2984	2	30	2	18,8
-
 Razão: A média é inválida!
 
 Linha 1752: 2985	2	30	3	13,0
-
 Razão: A média é inválida!
 
 Linha 1753: 2986	6	79	1	13,9
-
 Razão: A média é inválida!
 
 Linha 1754: 2987	4	139	2	14,4
-
 Razão: A média é inválida!
 
 Linha 1755: 2988	4	139	1	13,8
-
 Razão: A média é inválida!
 
 Linha 1756: 2989	6	79	1	11,4
-
 Razão: A média é inválida!
 
 Linha 1757: 2990	5	34	2	18,9
-
 Razão: A média é inválida!
 
 Linha 1758: 2991	4	139	3	11,4
-
 Razão: A média é inválida!
 
 Linha 1759: 2992	2	30	3	17,4
-
 Razão: A média é inválida!
 
 Linha 1760: 2993	5	34	1	15,2
-
 Razão: A média é inválida!
 
 Linha 1761: 2994	3	125	3	15,7
-
 Razão: A média é inválida!
 
 Linha 1762: 2995	5	34	1	16,3
-
 Razão: A média é inválida!
 
 Linha 1763: 2996	5	34	2	12,5
-
 Razão: A média é inválida!
 
 Linha 1764: 2997	1	10	2	17,8
-
 Razão: A média é inválida!
 
 Linha 1765: 2998	1	10	1	12,3
-
 Razão: A média é inválida!
 
 Linha 1766: 2999	6	79	2	18,2
-
 Razão: A média é inválida!
 
 Linha 1767: 3000	5	34	1	12,9
-
 Razão: A média é inválida!
 
 Linha 1768: 3001	3	125	3	15,3
-
 Razão: A média é inválida!
 
 Linha 1769: 3002	1	10	3	14,0
-
 Razão: A média é inválida!
 
 Linha 1770: 3003	4	139	1	14,6
-
 Razão: A média é inválida!
 
 Linha 1771: 3004	2	30	1	15,8
-
 Razão: A média é inválida!
 
 Linha 1772: 3005	6	79	1	15,4
-
 Razão: A média é inválida!
 
 Linha 1773: 3006	4	139	1	12,7
-
 Razão: A média é inválida!
 
 Linha 1774: 3007	5	34	1	11,4
-
 Razão: A média é inválida!
 
 Linha 1775: 3008	3	125	3	11,9
-
 Razão: A média é inválida!
 
 Linha 1776: 3009	3	125	2	12,3
-
 Razão: A média é inválida!
 
 Linha 1777: 3010	1	10	2	16,9
-
 Razão: A média é inválida!
 
 Linha 1778: 3011	1	10	3	12,6
-
 Razão: A média é inválida!
 
 Linha 1779: 3012	1	10	3	19,6
-
 Razão: A média é inválida!
 
 Linha 1780: 3013	3	125	1	14,6
-
 Razão: A média é inválida!
 
 Linha 1781: 3014	6	79	1	12,9
-
 Razão: A média é inválida!
 
 Linha 1782: 3015	6	79	2	15,5
-
 Razão: A média é inválida!
 
 Linha 1783: 3016	1	10	2	19,0
-
 Razão: A média é inválida!
 
 Linha 1784: 3017	4	139	2	15,4
-
 Razão: A média é inválida!
 
 Linha 1785: 3018	2	30	3	16,8
-
 Razão: A média é inválida!
 
 Linha 1786: 3019	3	125	1	16,2
-
 Razão: A média é inválida!
 
 Linha 1787: 3020	3	125	2	13,8
-
 Razão: A média é inválida!
 
 Linha 1788: 3021	5	34	2	14,2
-
 Razão: A média é inválida!
 
 Linha 1789: 3022	6	79	3	11,3
-
 Razão: A média é inválida!
 
 Linha 1790: 3023	5	34	2	11,3
-
 Razão: A média é inválida!
 
 Linha 1791: 3024	3	125	3	13,7
-
 Razão: A média é inválida!
 
 Linha 1792: 3025	2	30	2	18,0
-
 Razão: A média é inválida!
 
 Linha 1793: 3026	1	10	1	19,3
-
 Razão: A média é inválida!
 
 Linha 1794: 3027	5	34	3	16,7
-
 Razão: A média é inválida!
 
 Linha 1795: 3028	4	139	2	15,1
-
 Razão: A média é inválida!
 
 Linha 1796: 3029	2	30	1	12,6
-
 Razão: A média é inválida!
 
 Linha 1797: 3030	6	79	1	11,1
-
 Razão: A média é inválida!
 
 Linha 1798: 3031	2	30	2	16,8
-
 Razão: A média é inválida!
 
 Linha 1799: 3032	2	30	3	12,1
-
 Razão: A média é inválida!
 
 Linha 1800: 3033	4	139	2	13,2
-
 Razão: A média é inválida!
 
 Linha 1801: 3034	4	139	1	14,0
-
 Razão: A média é inválida!
 
 Linha 1802: 3035	5	34	3	12,2
-
 Razão: A média é inválida!
 
 Linha 1803: 3036	3	125	1	18,8
-
 Razão: A média é inválida!
 
 Linha 1804: 3037	6	79	2	19,8
-
 Razão: A média é inválida!
 
 Linha 1805: 3038	2	30	2	14,9
-
 Razão: A média é inválida!
 
 Linha 1806: 3039	1	10	2	16,7
-
 Razão: A média é inválida!
 
 Linha 1807: 3040	5	34	1	16,9
-
 Razão: A média é inválida!
 
 Linha 1808: 3041	3	125	2	13,2
-
 Razão: A média é inválida!
 
 Linha 1809: 3042	6	79	2	19,6
-
 Razão: A média é inválida!
 
 Linha 1810: 3043	2	30	2	18,0
-
 Razão: A média é inválida!
 
 Linha 1811: 3044	6	79	3	14,7
-
 Razão: A média é inválida!
 
 Linha 1812: 3045	1	10	1	14,1
-
 Razão: A média é inválida!
 
 Linha 1813: 3046	3	125	1	19,6
-
 Razão: A média é inválida!
 
 Linha 1814: 3047	1	10	2	18,6
-
 Razão: A média é inválida!
 
 Linha 1815: 3048	4	139	3	17,2
-
 Razão: A média é inválida!
 
 Linha 1816: 3049	4	139	1	17,3
-
 Razão: A média é inválida!
 
 Linha 1817: 3050	3	125	1	11,3
-
 Razão: A média é inválida!
 
 Linha 1818: 3051	6	79	3	12,3
-
 Razão: A média é inválida!
 
 Linha 1819: 3052	1	10	3	13,0
-
 Razão: A média é inválida!
 
 Linha 1820: 3053	4	139	1	15,4
-
 Razão: A média é inválida!
 
 Linha 1821: 3054	2	30	3	19,1
-
 Razão: A média é inválida!
 
 Linha 1822: 3055	3	125	2	14,6
-
 Razão: A média é inválida!
 
 Linha 1823: 3056	5	34	2	15,0
-
 Razão: A média é inválida!
 
 Linha 1824: 3057	5	34	3	17,2
-
 Razão: A média é inválida!
 
 Linha 1825: 3058	4	139	3	17,1
-
 Razão: A média é inválida!
 
 Linha 1826: 3059	5	34	3	17,0
-
 Razão: A média é inválida!
 
 Linha 1827: 3060	6	79	2	15,5
-
 Razão: A média é inválida!
 
 Linha 1828: 3061	6	79	2	14,9
-
 Razão: A média é inválida!
 
 Linha 1829: 3062	3	125	1	18,8
-
 Razão: A média é inválida!
 
 Linha 1830: 3063	2	30	3	15,1
-
 Razão: A média é inválida!
 
 Linha 1831: 3064	1	10	3	19,8
-
 Razão: A média é inválida!
 
 Linha 1832: 3065	5	34	1	19,3
-
 Razão: A média é inválida!
 
 Linha 1833: 3066	6	79	3	15,0
-
 Razão: A média é inválida!
 
 Linha 1834: 3067	4	139	3	18,4
-
 Razão: A média é inválida!
 
 Linha 1835: 3068	4	139	2	12,4
-
 Razão: A média é inválida!
 
 Linha 1836: 3069	6	79	3	14,0
-
 Razão: A média é inválida!
 
 Linha 1837: 3070	2	30	2	11,3
-
 Razão: A média é inválida!
 
 Linha 1838: 3071	1	10	1	14,3
-
 Razão: A média é inválida!
 
 Linha 1839: 3072	2	30	3	12,6
-
 Razão: A média é inválida!
 
 Linha 1840: 3073	5	34	2	13,4
-
 Razão: A média é inválida!
 
 Linha 1841: 3074	3	125	3	15,2
-
 Razão: A média é inválida!
 
 Linha 1842: 3075	6	79	2	18,3
-
 Razão: A média é inválida!
 
 Linha 1843: 3076	1	10	1	13,2
-
 Razão: A média é inválida!
 
 Linha 1844: 3077	1	10	2	11,8
-
 Razão: A média é inválida!
 
 Linha 1845: 3078	3	125	3	17,4
-
 Razão: A média é inválida!
 
 Linha 1846: 3079	5	34	1	12,6
-
 Razão: A média é inválida!
 
 Linha 1847: 3080	6	79	3	15,7
-
 Razão: A média é inválida!
 
 Linha 1848: 3081	1	10	3	19,1
-
 Razão: A média é inválida!
 
 Linha 1849: 3082	5	34	3	13,5
-
 Razão: A média é inválida!
 
 Linha 1850: 3083	5	34	3	11,8
-
 Razão: A média é inválida!
 
 Linha 1851: 3084	2	30	2	16,5
-
 Razão: A média é inválida!
 
 Linha 1852: 3085	2	30	1	17,6
-
 Razão: A média é inválida!
 
 Linha 1853: 3086	6	79	3	19,4
-
 Razão: A média é inválida!
 
 Linha 1854: 3087	6	79	2	13,2
-
 Razão: A média é inválida!
 
 Linha 1855: 3088	4	139	3	16,7
-
 Razão: A média é inválida!
 
 Linha 1856: 3089	1	10	3	19,2
-
 Razão: A média é inválida!
 
 Linha 1857: 3090	2	30	1	14,8
-
 Razão: A média é inválida!
 
 Linha 1858: 3091	3	125	3	16,2
-
 Razão: A média é inválida!
 
 Linha 1859: 3092	4	139	2	19,2
-
 Razão: A média é inválida!
 
 Linha 1860: 3093	3	125	3	19,8
-
 Razão: A média é inválida!
 
 Linha 1861: 3094	4	139	3	15,1
-
 Razão: A média é inválida!
 
 Linha 1862: 3095	5	34	2	14,4
-
 Razão: A média é inválida!
 
 Linha 1863: 3096	5	34	1	14,0
-
 Razão: A média é inválida!
 
 Linha 1864: 3097	6	79	1	12,9
-
 Razão: A média é inválida!
 
 Linha 1865: 3098	4	139	2	18,3
-
 Razão: A média é inválida!
 
 Linha 1866: 3099	1	10	2	13,6
-
 Razão: A média é inválida!
 
 Linha 1867: 3100	1	10	3	14,1
-
 Razão: A média é inválida!
 
 Linha 1868: 3101	2	30	1	18,7
-
 Razão: A média é inválida!
 
 Linha 1869: 3102	3	125	3	11,9
-
 Razão: A média é inválida!
 
 Linha 1870: 3103	6	79	1	16,9
-
 Razão: A média é inválida!
 
 Linha 1871: 3104	4	139	1	14,2
-
 Razão: A média é inválida!
 
 Linha 1872: 3105	4	139	2	15,3
-
 Razão: A média é inválida!
 
 Linha 1873: 3106	6	79	2	11,9
-
 Razão: A média é inválida!
 
 Linha 1874: 3107	1	10	2	18,2
-
 Razão: A média é inválida!
 
 Linha 1875: 3108	3	125	2	19,7
-
 Razão: A média é inválida!
 
 Linha 1876: 3109	2	30	3	13,3
-
 Razão: A média é inválida!
 
 Linha 1877: 3110	1	10	1	17,8
-
 Razão: A média é inválida!
 
 Linha 1878: 3111	6	79	3	17,2
-
 Razão: A média é inválida!
 
 Linha 1879: 3112	4	139	1	17,7
-
 Razão: A média é inválida!
 
 Linha 1880: 3113	4	139	3	19,2
-
 Razão: A média é inválida!
 
 Linha 1881: 3114	6	79	3	15,4
-
 Razão: A média é inválida!
 
 Linha 1882: 3115	1	10	2	17,0
-
 Razão: A média é inválida!
 
 Linha 1883: 3116	1	10	2	18,5
-
 Razão: A média é inválida!
 
 Linha 1884: 3117	3	125	1	16,6
-
 Razão: A média é inválida!
 
 Linha 1885: 3118	5	34	1	11,0
-
 Razão: A média é inválida!
 
 Linha 1886: 3119	5	34	2	18,4
-
 Razão: A média é inválida!
 
 Linha 1887: 3120	3	125	1	13,2
-
 Razão: A média é inválida!
 
 Linha 1888: 3121	3	125	1	17,9
-
 Razão: A média é inválida!
 
 Linha 1889: 3122	5	34	1	16,6
-
 Razão: A média é inválida!
 
 Linha 1890: 3123	2	30	2	14,9
-
 Razão: A média é inválida!
 
 Linha 1891: 3124	2	30	1	18,2
-
 Razão: A média é inválida!
 
 Linha 1892: 3125	2	30	2	11,9
-
 Razão: A média é inválida!
 
 Linha 1893: 3126	6	79	3	13,6
-
 Razão: A média é inválida!
 
 Linha 1894: 3127	4	139	2	18,3
-
 Razão: A média é inválida!
 
 Linha 1895: 3128	3	125	1	12,4
-
 Razão: A média é inválida!
 
 Linha 1896: 3129	4	139	2	14,7
-
 Razão: A média é inválida!
 
 Linha 1897: 3130	6	79	3	14,4
-
 Razão: A média é inválida!
 
 Linha 1898: 3131	2	30	3	13,6
-
 Razão: A média é inválida!
 
 Linha 1899: 3132	6	79	1	14,5
-
 Razão: A média é inválida!
 
 Linha 1900: 3133	2	30	3	13,7
-
 Razão: A média é inválida!
 
 Linha 1901: 3134	5	34	3	14,2
-
 Razão: A média é inválida!
 
 Linha 1902: 3135	3	125	2	15,9
-
 Razão: A média é inválida!
 
 Linha 1903: 3136	1	10	1	18,9
-
 Razão: A média é inválida!
 
 Linha 1904: 3137	5	34	3	18,8
-
 Razão: A média é inválida!
 
 Linha 1905: 3138	1	10	3	12,7
-
 Razão: A média é inválida!
 
 Linha 1906: 3139	4	139	1	14,2
-
 Razão: A média é inválida!
 
 Linha 1907: 3140	2	30	2	18,7
-
 Razão: A média é inválida!
 
 Linha 1908: 3141	2	30	2	19,2
-
 Razão: A média é inválida!
 
 Linha 1909: 3142	5	34	2	15,3
-
 Razão: A média é inválida!
 
 Linha 1910: 3143	5	34	2	16,3
-
 Razão: A média é inválida!
 
 Linha 1911: 3144	5	34	3	14,4
-
 Razão: A média é inválida!
 
 Linha 1912: 3145	5	34	1	18,0
-
 Razão: A média é inválida!
 
 Linha 1913: 3146	1	10	2	18,4
-
 Razão: A média é inválida!
 
 Linha 1914: 3147	6	79	1	19,3
-
 Razão: A média é inválida!
 
 Linha 1915: 3148	2	30	2	15,9
-
 Razão: A média é inválida!
 
 Linha 1916: 3149	5	34	1	14,4
-
 Razão: A média é inválida!
 
 Linha 1917: 3150	2	30	3	18,9
-
 Razão: A média é inválida!
 
 Linha 1918: 3151	3	125	1	14,3
-
 Razão: A média é inválida!
 
 Linha 1919: 3152	5	34	2	19,4
-
 Razão: A média é inválida!
 
 Linha 1920: 3153	5	34	3	18,5
-
 Razão: A média é inválida!
 
 Linha 1921: 3154	1	10	2	11,6
-
 Razão: A média é inválida!
 
 Linha 1922: 3155	1	10	1	16,4
-
 Razão: A média é inválida!
 
 Linha 1923: 3156	3	125	2	13,9
-
 Razão: A média é inválida!
 
 Linha 1924: 3157	3	125	3	15,3
-
 Razão: A média é inválida!
 
 Linha 1925: 3158	5	34	1	17,5
-
 Razão: A média é inválida!
 
 Linha 1926: 3159	5	34	1	13,6
-
 Razão: A média é inválida!
 
 Linha 1927: 3160	4	139	3	14,2
-
 Razão: A média é inválida!
 
 Linha 1928: 3161	4	139	3	17,0
-
 Razão: A média é inválida!
 
 Linha 1929: 3162	5	34	2	11,5
-
 Razão: A média é inválida!
 
 Linha 1930: 3163	4	139	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1931: 3164	6	79	1	16,9
-
 Razão: A média é inválida!
 
 Linha 1932: 3165	4	139	1	18,8
-
 Razão: A média é inválida!
 
 Linha 1933: 3166	5	34	2	14,6
-
 Razão: A média é inválida!
 
 Linha 1934: 3167	1	10	2	14,3
-
 Razão: A média é inválida!
 
 Linha 1935: 3168	4	139	2	19,5
-
 Razão: A média é inválida!
 
 Linha 1936: 3169	4	139	1	17,9
-
 Razão: A média é inválida!
 
 Linha 1937: 3170	4	139	2	11,3
-
 Razão: A média é inválida!
 
 Linha 1938: 3171	1	10	2	16,3
-
 Razão: A média é inválida!
 
 Linha 1939: 3172	6	79	3	16,0
-
 Razão: A média é inválida!
 
 Linha 1940: 3173	5	34	3	13,4
-
 Razão: A média é inválida!
 
 Linha 1941: 3174	3	125	3	15,7
-
 Razão: A média é inválida!
 
 Linha 1942: 3175	6	79	3	15,2
-
 Razão: A média é inválida!
 
 Linha 1943: 3176	1	10	1	11,5
-
 Razão: A média é inválida!
 
 Linha 1944: 3177	6	79	1	11,5
-
 Razão: A média é inválida!
 
 Linha 1945: 3178	1	10	2	14,1
-
 Razão: A média é inválida!
 
 Linha 1946: 3179	2	30	3	12,2
-
 Razão: A média é inválida!
 
 Linha 1947: 3180	4	139	3	18,1
-
 Razão: A média é inválida!
 
 Linha 1948: 3181	2	30	3	11,3
-
 Razão: A média é inválida!
 
 Linha 1949: 3182	6	79	3	18,4
-
 Razão: A média é inválida!
 
 Linha 1950: 3183	5	34	3	17,4
-
 Razão: A média é inválida!
 
 Linha 1951: 3184	1	10	3	15,4
-
 Razão: A média é inválida!
 
 Linha 1952: 3185	1	10	3	18,8
-
 Razão: A média é inválida!
 
 Linha 1953: 3186	6	79	3	14,5
-
 Razão: A média é inválida!
 
 Linha 1954: 3187	5	34	3	16,1
-
 Razão: A média é inválida!
 
 Linha 1955: 3188	2	30	1	16,5
-
 Razão: A média é inválida!
 
 Linha 1956: 3189	5	34	3	14,9
-
 Razão: A média é inválida!
 
 Linha 1957: 3190	6	79	2	16,8
-
 Razão: A média é inválida!
 
 Linha 1958: 3191	3	125	2	11,4
-
 Razão: A média é inválida!
 
 Linha 1959: 3192	4	139	3	13,5
-
 Razão: A média é inválida!
 
 Linha 1960: 3193	5	34	2	19,1
-
 Razão: A média é inválida!
 
 Linha 1961: 3194	4	139	1	17,5
-
 Razão: A média é inválida!
 
 Linha 1962: 3195	1	10	2	11,9
-
 Razão: A média é inválida!
 
 Linha 1963: 3196	6	79	2	18,2
-
 Razão: A média é inválida!
 
 Linha 1964: 3197	6	79	1	18,0
-
 Razão: A média é inválida!
 
 Linha 1965: 3198	1	10	2	18,3
-
 Razão: A média é inválida!
 
 Linha 1966: 3199	5	34	3	12,4
-
 Razão: A média é inválida!
 
 Linha 1967: 3200	4	139	1	19,9
-
 Razão: A média é inválida!
 
 Linha 1968: 3201	6	79	1	14,6
-
 Razão: A média é inválida!
 
 Linha 1969: 3202	1	10	1	18,5
-
 Razão: A média é inválida!
 
 Linha 1970: 3203	3	125	1	18,6
-
 Razão: A média é inválida!
 
 Linha 1971: 3204	5	34	2	18,3
-
 Razão: A média é inválida!
 
 Linha 1972: 3205	5	34	2	11,4
-
 Razão: A média é inválida!
 
 Linha 1973: 3206	6	79	2	18,0
-
 Razão: A média é inválida!
 
 Linha 1974: 3207	2	30	3	19,8
-
 Razão: A média é inválida!
 
 Linha 1975: 3208	3	125	1	17,0
-
 Razão: A média é inválida!
 
 Linha 1976: 3209	1	10	1	14,2
-
 Razão: A média é inválida!
 
 Linha 1977: 3210	4	139	2	14,5
-
 Razão: A média é inválida!
 
 Linha 1978: 3211	5	34	2	18,9
-
 Razão: A média é inválida!
 
 Linha 1979: 3212	1	10	3	15,6
-
 Razão: A média é inválida!
 
 Linha 1980: 3213	6	79	3	17,8
-
 Razão: A média é inválida!
 
 Linha 1981: 3214	1	10	2	11,1
-
 Razão: A média é inválida!
 
 Linha 1982: 3215	5	34	2	18,5
-
 Razão: A média é inválida!
 
 Linha 1983: 3216	5	34	3	12,7
-
 Razão: A média é inválida!
 
 Linha 1984: 3217	3	125	2	19,7
-
 Razão: A média é inválida!
 
 Linha 1985: 3218	5	34	2	15,8
-
 Razão: A média é inválida!
 
 Linha 1986: 3219	6	79	1	11,3
-
 Razão: A média é inválida!
 
 Linha 1987: 3220	1	10	2	11,7
-
 Razão: A média é inválida!
 
 Linha 1988: 3221	3	125	3	12,5
-
 Razão: A média é inválida!
 
 Linha 1989: 3222	5	34	1	14,0
-
 Razão: A média é inválida!
 
 Linha 1990: 3223	1	10	2	18,7
-
 Razão: A média é inválida!
 
 Linha 1991: 3224	2	30	1	13,9
-
 Razão: A média é inválida!
 
 Linha 1992: 3225	2	30	1	14,3
-
 Razão: A média é inválida!
 
 Linha 1993: 3226	6	79	2	18,2
-
 Razão: A média é inválida!
 
 Linha 1994: 3227	3	125	3	16,5
-
 Razão: A média é inválida!
 
 Linha 1995: 3228	5	34	3	17,8
-
 Razão: A média é inválida!
 
 Linha 1996: 3229	1	10	3	16,1
-
 Razão: A média é inválida!
 
 Linha 1997: 3230	5	34	2	17,3
-
 Razão: A média é inválida!
 
 Linha 1998: 3231	6	79	3	11,1
-
 Razão: A média é inválida!
 
 Linha 1999: 3232	2	30	2	14,5
-
 Razão: A média é inválida!
 
 Linha 2000: 3233	4	139	1	15,7
 Razão: A média é inválida!
 
 ----------------------FIM DE ITERAÇÃO----------------------
+
+

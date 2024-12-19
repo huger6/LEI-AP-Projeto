@@ -3,11 +3,12 @@
 //NOTA IMPORTANTE: para dar run temos que abrir o projeto em terminal integrado e depois de estar na main, dar compile run.
 //": Para os ficheiros abrirem corretamente têm que estar na pasta output
 
+//FICHEIROS DE DADOS JÁ FORAM ALTERADOS!!!
 //TODO: verificar se ordenar_ao_inserir está bem. (TAMANHO)
 int main() {
     //Colocar a consola em PT-PT (caracteres UTF8)
 	colocar_terminal_utf8();
-	
+
 	//Criamos um array de cada struct para armzenar TAMANHO_INICIAL_ARRAYS alunos
 	Uni bd; //Pode ser fadcilmente alterado para guardar várias universidades
 	bd.aluno = (Estudante *) malloc(TAMANHO_INICIAL_ARRAYS * sizeof(Estudante));
@@ -34,8 +35,6 @@ int main() {
 	
 	carregar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, &bd);
 	
-	printf("%d\n", bd.aluno[1].codigo);
-	pressione_enter();
 	escolha_menus(&bd);
 
 	free(bd.aluno);
