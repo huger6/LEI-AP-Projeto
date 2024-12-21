@@ -58,17 +58,52 @@ validar_nacionalidade está a dar uma mensagem seguida e temos de dar 2 espaços
 ao inserir estudantes e clicar em repetir, o programa sai??
 -Nome: 1\n ; Nascimento: 2\n ; media_atual: 2\n
 -No ficheiro de erros, a ultima linha fica sem o \n (acontece porque o \n é lido em ler_linha_txt (já nao))
-##
+
+#BUG DA LINHA CORTADA @RESOLVIDO
 -a linha com gabriel carvalho está a ser cortada ao meio aparentemente sem razaão alguma, é a única
 SE A LINHA TIVER A MESMA FORMATAÇÃO DE ESPAÇOS QUE A DO GABRIEL TAMBEM DA ERRO
 Se não houver espaço antes de Gabriel a linha já aparece toda(remover espacos deve estar a funcionar mal)
 
+Problema: A linha estava a ser alterada pelos outros ponteiros em separar_parametros.
+Solução: Copiar a linha e trabalhar com uma cópia de modo a preservar os dados originais.
+
+#BUG AO INSERIR_ESTUDANTE @RESOLVIDO TEMPORARIAMENTE
+-Codigo entra bem 
+-Nome, dou enter, enter, enter
+-data, dou enter, enter - RESOLVIDO RETIRANDO limpar_buffer de detrás de ler_data.
+-nacionalidade, dou enter, enter
+-matriculas está bem
+-ects também
+-ano também
+-media também
+
+repetir com 's' fica o ecrã empty e nem com enter reinicia. Após escrever algo e dar enter aparece a mensagem de código inválido.
+
+Solução: Não usar limpar_buffer exceto quando a entrada for CERTAMENTE inválida. Pode levar a strings erradas no entanto.
+
+#BUG ARRAY + 1 @RESOLVIDO
+//Foi assim que se deu debug
+printf("%d\n", bd->aluno[0].codigo);
+printf("%d\n", bd->aluno[bd->tamanho_aluno - 1].codigo);
+merge_sort_aluno(bd, 0, bd->tamanho_aluno);
+printf("%d\n", bd->aluno[0].codigo);
+printf("%d\n", bd->aluno[bd->tamanho_aluno].codigo);
+
+Problema: merge_sort_aluno(bd, 0, bd->tamanho_aluno); terceiro parametro tem que ser -1 caso contrário vamos incluir um -1 da inicializzção do array,
+que vai vir para baixo no merge sort.
+
+#BUG 0 NO ARRAY @RESOLVIDO
+-Acontecia no indice 1000 e 2000 do array.
+-O indice passava a 0 em vez de -1.
+
+Solução: a realocação estava a verificar erradamente o tamanho do array em carregar_dados. Foi acrescentado o + 1 para resolver.
 
 ______________________________________________________________________________________________________________
 
 FUTURAMENTE:
 
 -opcao linguagem
+-ler ficheiro erros.txt e printar os erros.
 
 
 ______________________________________________________________________________________________________________
@@ -83,3 +118,12 @@ A ANOTAR NO RELATÓRIO
 -Nacionalidade apesar do array estar limitado, está estruturado no código de modo a que seja fácil fazer a sua realocação, apenas seria necessário fazer uma função para o efeito.
 -Em carregar_dados, foi utilizado a var primeiro_erro como alternativa a criar um array e guardar lá os erros(poupa memória)
 -A escrita em erros.txt estava a sair desformatada com os \n's, então modificamos a função ler_linha_txt para eliminar o \n no final, apesar das outras funções já terem essa funcionalidade(validações, separar_parametros, etc)
+
+
+IDEIA menu_estatisticas
+
+
+
+-ter uma struct com várias variáveis dos menus 
+seria apenas a 1 a que está com o menu ativo 
+depois 

@@ -1,6 +1,7 @@
 #ifndef HEADERS_H //Se HEADERS_H não foi definida, o código entre o #ifndef e o #endif será processado, caso contrário, será ignorado.
 //Ou seja, evita o processamento dos headers várias vezes
-#define HEADERS_H //define caso seja a 1x
+#define HEADERS_H 
+
 
 //Definir os nomes dos ficheiros como constantes(de modo a que não sejam alterados)
 #define DADOS_TXT "dados.txt"
@@ -30,10 +31,15 @@ extern const short ANO_NASC_LIM_INF; //definimos o limite inferior como o ano de
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h> 
+//Para evitar erros em sistemas não Windows, apenas incluímos a biblioteca se estivermos em Windows.
+//A variável _WIN32 está presente em todos os sistemas Windows.
+#ifdef _WIN32 
+    #include <windows.h> 
+#endif
 #include <locale.h>
 #include <string.h>
 #include <ctype.h> //Para fazer verificações relativas aos dados introduzidos (isalpha)
+#include <locale.h>
 
 
 //Structs
@@ -81,65 +87,61 @@ typedef struct uni{
     Estatisticas stats;
 } Uni;
 
-typedef struct {
-    char menu_atual;   // Identificar o menu (P-Principal, G-Gerir estudantes,C-Consultar Dados, E-Estatísticas, X-Extras, S-Sair)
-    char opcao_principal;  // Opção selecionada dentro do menu principal
-    char opcao_submenu; //Opção dos submenus
-} Escolha;
-
-
 //Protótipos das funções
-void remover_espacos(char * str);
-void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
+
+//Ficheiros e gestão de dados
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
+void carregar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolar, Uni * bd);
+void guardar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd);
+//Gestão de memória
 void inicializar_aluno(Uni * bd, int indice_aluno);
-void inicializar_escolares(Uni * bd, int indice_escolares);
 void inicializar_estatisticas(Estatisticas * stats);
 int realocar_aluno(Uni * bd, const char modo);
 int realocar_escolares(Uni * bd, const char modo);
 int realocar_nome(Estudante * aluno, const char modo);
-int procurar_codigo_aluno(int codigo, Uni * bd);
+//Procura e validações
 int procurar_codigo_escolares(int codigo, Uni * bd);
-int validar_codigo_ao_inserir(int codigo, Uni * bd);
-void verificar_codigos_duplicados(Uni * bd, FILE * erros, char * primeiro_erro);
+void verificar_codigos_duplicados(Uni * bd, FILE * erros);
 void verificar_codigos_escolares_sem_aluno(Uni * bd, FILE * erros, char * primeiro_erro);
 int validar_data(short dia, short mes, short ano, const char modo);
 int validar_nome(Estudante * aluno, char * nome, const char modo);
 int validar_nacionalidade(char * nacionalidade, const char modo);
+void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup);
+void validacao_input_menu(const char limInf, const char limSup);
+void validacao_numero_menu(const char limInf, const char limSup);
+//Ordenação
 void merge_aluno(Uni * bd, int inicio, int meio, int fim);
 void merge_sort_aluno(Uni * bd, int inicio, int fim);
 void merge_escolares(Uni * bd, int inicio, int meio, int fim);
 void merge_sort_escolares(Uni * bd, int inicio, int fim);
 void ordenar_ao_inserir(int codigo, Uni * bd, int indice_aluno, int indice_escolares);
 void ordenar_ao_eliminar(int codigo, Uni * bd);
+//Menus
+char mostrar_menu(void (*escrever_menu)(), char min_opcao, char max_opcao);
+void menu_principal();
+void menu_gerir_estudantes();
+void menu_consultar_dados();
+void menu_estatisticas();
+void menu_ficheiros();
+void menu_extras();
+void processar_gerir_estudantes(Uni * bd);
+void processar_consultar_dados(Uni * bd);
+void processar_estatisticas(Uni * bd);
+void processar_ficheiros(Uni * bd);
+void processar_extras(Uni * bd);
+void escolha_menus(Uni * bd);
+//Inserção/leitura de dados
 void ler_data(Estudante * aluno, char * str, const char modo);
 void inserir_estudante(Uni * bd);
-
-
+//Funções auxiliares
+void remover_espacos(char * str);
+void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
+void limpar_buffer();
+void limpar_terminal();
 void pressione_enter();
 void colocar_terminal_utf8();
 void verificar_primeiro_erro(FILE * erros, char * primeiro_erro, const char * nome_ficheiro);
 int string_para_int(const char * str, int * resultado);
 int string_para_short(const char * str, short * resultado);
 int string_para_float(const char * str, float * resultado);
-
-
-void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Uni * bd);
-void guardar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd);
-void limpar_buffer();
-void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup);
-void limpar_terminal();
-void validacao_input_menu(const char limInf, const char limSup);
-void validacao_numero_menu(const char limInf, const char limSup);
-char menu_principal();
-char menu_gerir_estudantes();
-char menu_consultar_dados();
-char menu_estatisticas();
-char menu_extras();
-void processar_gerir_estudantes(Uni * bd, Escolha * escolha);
-void processar_consultar_dados(Escolha * escolha);
-void processar_estatisticas(Escolha * escolha);
-void processar_extras(Escolha * escolha);
-Escolha escolha_menus(Uni * bd);
-
 #endif //Termina a condição

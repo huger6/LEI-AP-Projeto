@@ -54,24 +54,26 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
 void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Uni * bd) { 
     FILE * dados = fopen(nome_ficheiro_dados, "r");
     FILE * situacao_escolar = fopen(nome_ficheiro_escolar, "r");
-    FILE * erros = fopen(ERROS_TXT, "a"); //Vai anexar ao ficheiro de erros os erros encontrados
+    FILE * erros = fopen(ERROS_TXT, "w"); //Vai anexar ao ficheiro de erros os erros encontrados
+    if (!erros) return; //Se prosseguissemos iria resultar em segmentation fault
     fprintf(erros, "-----------------NOVA ITERAÇÃO DO PROGRAMA-----------------\n\n\n");
     int n_linhas = 0;
-    char * linha = NULL; //Ponteiro para armazenar uma linha
+    char * linha = NULL; //Ponteiro para armazenar uma linha lida do ficheiro
     char primeiro_erro = '1'; //'1' significa que ainda não houve erro. 
+    char erro_geral = '0'; //Flag para dizer ao user que houve erro
 
     //Esta secção vai copiar, linha a linha, o conteúdo do ficheiro para a memória, nomeadamente na struct Estudante
-    if(dados) { //apenas se a abertura tiver sido bem sucedida
+    if(dados) { 
         int codigo_temp; //Necessário para passar para string_para_int
         while ((linha = ler_linha_txt(dados, &n_linhas)) != NULL) {
-            char erro = '0'; //diferente de primeiro_erro pois este vai marcar se existe um erro em geral e não apenas o primeiro
+            char erro = '0'; //diferente de primeiro_erro pois este vai marcar se existe um erro em cada iteração
             char * parametros[PARAMETROS_ESTUDANTE] = {NULL}; //Array com PARAMETROS casas, onde cada pode armazenar um ponteiro para char (ou seja, uma string)
-            int num_parametros = 0; //Armazena o numero real de parametros
+            int num_parametros = 0; //Armazena o numero REAL de parametros
             separar_parametros(linha, parametros, &num_parametros); //extrai os dados já formatados corretamente para parametros
             
             if(num_parametros == PARAMETROS_ESTUDANTE) {
-                //Verificamos se o indice é igual ou superior ao tamanho do array, se sim, aumentamos o tamanho do array
-                if (bd->tamanho_aluno >= bd->capacidade_aluno) {
+                //+1 é FUNDAMENTAL, caso contrário a inicialização não é feita corretamente nos indices da borda
+                if (bd->tamanho_aluno + 1 >= bd->capacidade_aluno) {
                     if (!realocar_aluno(bd, '0')) {
                         printf("Ocorreu um erro a gerir a memória.\n"); //Averiguar melhor 
                         for(int i = 0; i < num_parametros; i++) //Libertar a memória para os parâmetros alocados dinamicamente até ao momento
@@ -83,7 +85,6 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
                     }
                     //A realocação do campos de nome é feita em validar_nome
                 }
-                 //Como estamos a carregar as structs do estudante, o número de parametros lidos tem que ser igual ao esperado
                  //Código
                 if (!string_para_int(parametros[0], &codigo_temp)) { //APENAS SE VERIFICA SE O CÓDIGO DE FACTO É VÁLIDO DEPOIS DE CARREGAR TUDO E ORDENAR TUDO
                     verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
@@ -120,12 +121,18 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
                     fprintf(erros, "Razão: A nacionalidade é inválida!\n\n");
                 }
                 //Copiar os parâmetros caso não haja erros
-                if (erro == '0') { //ainda não houve erros
+                if (erro == '0') {
                     bd->aluno[bd->tamanho_aluno].codigo = codigo_temp; 
                     strcpy(bd->aluno[bd->tamanho_aluno].nome, parametros[1]);
                     //Data de nascimento já é copiada se for válida.
                     strcpy(bd->aluno[bd->tamanho_aluno].nacionalidade, parametros[3]);
                     bd->tamanho_aluno += 1; //Aumentar o tamanho do array
+                }
+                //A data pode ter sido copiada e depois ter havido erro
+                else {
+                    bd->aluno[bd->tamanho_aluno].nascimento.dia = 0;
+                    bd->aluno[bd->tamanho_aluno].nascimento.mes = 0;
+                    bd->aluno[bd->tamanho_aluno].nascimento.ano = 0;
                 }
             }
             else if (num_parametros < PARAMETROS_ESTUDANTE) {
@@ -147,15 +154,17 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
         }
         fclose(dados);
         //Ordenar o array de aluno
-        merge_sort_aluno(bd, 0, bd->tamanho_aluno);
+        merge_sort_aluno(bd, 0, bd->tamanho_aluno - 1);
     }
     else {
         printf("Ocorreu um erro a abrir o ficheiro '%s'.\n", nome_ficheiro_dados);
+        return; //Não pode haver dados escolares sem ficha pessoal, logo mesmo que o outro ficheiro abrisse, era inutil
     }
-
+    
+    if (erro_geral == '0' && primeiro_erro == '0') erro_geral = '1'; //flag para especificar que houve erro em geral
+    //Necessário porque primeiro_erro muda consoante a operação a fazer, logo não é viável
     n_linhas = 0;
     primeiro_erro = '1';
-
     if(situacao_escolar) { //apenas se a abertura tiver sido bem sucedida
         int codigo_temp;
         short matriculas_temp;
@@ -169,8 +178,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
             separar_parametros(linha, parametros, &num_parametros); //retorna num_parametros a zero se algo falhar.
             
             if(num_parametros == PARAMETROS_DADOS_ESCOLARES) {
-                //Verificamos se o indice é igual ou superior ao tamanho do array, se sim, aumentamos o tamanho do array
-                if (bd->tamanho_escolares >= bd->capacidade_escolares) {
+                if (bd->tamanho_escolares + 1 >= bd->capacidade_escolares) {
                     if (!realocar_escolares(bd, '0')) {
                         printf("Ocorreu um erro a gerir a memória.\n"); //Averiguar melhor 
                         for(int i = 0; i < num_parametros; i++) 
@@ -257,11 +265,13 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
             }
             else if (num_parametros < PARAMETROS_DADOS_ESCOLARES) {
                 verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                erro = '1';
                 fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
                 fprintf(erros, "Razão: A linha tem parâmetros insuficientes.\n\n"); //Separar cada erro com uma linha
             }
             else {
                 verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
+                erro = '1';
                 fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
                 fprintf(erros, "Razão: A linha tem parâmetros a mais.\n\n");
             }
@@ -274,17 +284,25 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
         }
         fclose(situacao_escolar);
         //Ordenar o array de escolares
-        merge_sort_escolares(bd, 0, bd->tamanho_escolares);
+        merge_sort_escolares(bd, 0, bd->tamanho_escolares - 1);
     }
     else {
         printf("Ocorreu um erro a abrir o ficheiro '%s'.\n", nome_ficheiro_escolar);
     }
+    if (erro_geral == '0' && primeiro_erro == '0') erro_geral = '1';
+    primeiro_erro = '1';
     //Agora que está tudo ordenado vamos procurar por possíveis erros como:
     //Códigos duplicados (o merge sort mantém a ordem pela qual foram lidos pelo que mantemos o primeiro que foi lido)
     //Códigos que estejam em escolares mas não estejam em aluno
-    verificar_codigos_duplicados(bd, erros, &primeiro_erro); //verifica duplicados em ambos os arrays
+    verificar_codigos_duplicados(bd, erros); //verifica duplicados em ambos os arrays
     verificar_codigos_escolares_sem_aluno(bd, erros, &primeiro_erro);
     fprintf(erros, "----------------------FIM DE ITERAÇÃO----------------------\n\n\n");
+
+    if (erro_geral == '0' && primeiro_erro == '0') erro_geral = '1';
+    if (erro_geral == '1') { 
+        printf("\nOcorreram erros a carregar os dados. Pode consultar o que foi descartado e porquê no ficheiro %s\n", ERROS_TXT);
+        pressione_enter();
+    }
     fclose(erros);
 }
 
@@ -458,8 +476,7 @@ int procurar_codigo_escolares(int codigo, Uni * bd) {
 //Modo '1' para printar mensagens de erro
 //Valida codigo e retorna a posição de inserção de ALUNO APENAS
 int validar_codigo_ao_inserir(int codigo, Uni * bd) {
-    if(codigo < 0) {
-        limpar_buffer();
+    if(codigo <= 0) {
         printf("Código inválido! Insira um número inteiro positivo.\n");
         pressione_enter();
         return 0;
@@ -467,7 +484,6 @@ int validar_codigo_ao_inserir(int codigo, Uni * bd) {
     int temp = procurar_codigo_aluno(codigo, bd); //basta procurar no aluno porque não pode haver nenhum código em escolares que não esteja em aluno
     
     if(temp == codigo) {
-        limpar_buffer();
         printf("O código já existe! Insira um código diferente.\n");
         pressione_enter();
         return 0;
@@ -479,22 +495,44 @@ int validar_codigo_ao_inserir(int codigo, Uni * bd) {
     return 0; //qualquer outro caso
 }
 
-void verificar_codigos_duplicados(Uni * bd, FILE * erros, char * primeiro_erro) {
+void verificar_codigos_duplicados(Uni * bd, FILE * erros) {
     //O(n)
+    char erro = '0';
     for(int i = 0; i < bd->tamanho_aluno - 1; i++) { //-1 porque o último não pode ser igual a nenhum sem ser o penúltimo
         if (bd->aluno[i].codigo == bd->aluno[i + 1].codigo) {
-
-            verificar_primeiro_erro(erros, primeiro_erro, DADOS_TXT);
+            if (erro == '0') {
+                erro = '1';
+                fprintf(erros, "\n\n"); 
+                fprintf(erros, "\t\tCÓDIGOS DUPLICADOS EM %s\n\n", DADOS_TXT);
+            }
             fprintf(erros, "O código %d do ficheiro de %s estava duplicado.\n", bd->aluno[i].codigo, DADOS_TXT);
-            fprintf(erros, "Foi mantido o primeiro código a ser inserido.\n\n");
-        }
+            fprintf(erros, "Foi mantido o primeiro código a ser inserido, e foi eliminada a linha %d%c%s%c%02hd-%02hd-%02hd%c%s\n\n", bd->aluno[i + 1].codigo, SEPARADOR,
+                bd->aluno[i + 1].nome, SEPARADOR, bd->aluno[i + 1].nascimento.dia, bd->aluno[i + 1].nascimento.mes, bd->aluno[i + 1].nascimento.ano, SEPARADOR,
+                     bd->aluno[i + 1].nacionalidade);
+
+            for(int j = i+1; j < bd->tamanho_aluno - 1; j++)
+                bd->aluno[j] = bd->aluno[j + 1]; //Colocamos o próximo elemento do array na posição do elemento duplicado   
+            bd->tamanho_aluno -= 1;
+            i--; //Precisamos de verificar o novo elemento que ficou na posição do elemento eliminado
+        }   
     }
 
+    erro = '0';
     for(int i = 0; i < bd->tamanho_escolares - 1; i++) { 
         if (bd->escolares[i].codigo == bd->escolares[i + 1].codigo) {
-            verificar_primeiro_erro(erros, primeiro_erro, SITUACAO_ESCOLAR_TXT);
+            if (erro == '0') {
+                erro = '1';
+                fprintf(erros, "\n\n"); 
+                fprintf(erros, "\t\tCÓDIGOS DUPLICADOS EM %s\n\n", SITUACAO_ESCOLAR_TXT);
+            }
             fprintf(erros, "O código %d do ficheiro de %s estava duplicado.\n", bd->escolares[i].codigo, SITUACAO_ESCOLAR_TXT);
-            fprintf(erros, "Foi mantido o primeiro código a ser inserido.\n\n");
+            fprintf(erros, "Foi mantido o primeiro código a ser inserido, e foi eliminada a linha %d%c%hd%c%hd%c%hd%c%.1f\n\n", bd->escolares[i + 1].codigo, SEPARADOR, 
+                bd->escolares[i + 1].matriculas, SEPARADOR, bd->escolares[i + 1].ects, SEPARADOR, bd->escolares[i + 1].ano_atual, SEPARADOR, bd->escolares[i + 1].media_atual);
+            
+            for(int j = i+1; j < bd->tamanho_escolares - 1; j++)
+                bd->escolares[j] = bd->escolares[j + 1]; 
+            bd->tamanho_escolares -= 1;
+            i--;
         }
     }
 }
@@ -537,7 +575,7 @@ void verificar_codigos_escolares_sem_aluno(Uni * bd, FILE * erros, char * primei
 //modo '1' para imprimir mensagens de erro, '0' para não imprimir
 int validar_data(short dia, short mes, short ano, const char modo) {
     if (ano < 1 || mes < 1 || mes > 12 || dia < 1) { //Limites dos anos são os que foram considerados mais realistas
-        if (modo == '1') printf("\nPor favor, insira uma data válida.\n");
+        if (modo == '1') printf("Por favor, insira uma data válida.\n");
         return 0;
     }
     /*Apenas se podem inscrever alunos com mais de 16 anos (sensivelmente, porque devido ao mes de nascimento pode nao ser bem assim)
@@ -545,7 +583,7 @@ int validar_data(short dia, short mes, short ano, const char modo) {
     que por natureza, não têm de ser todos iguais ou ser inscritos com a mesma idade.
     */
     if (ano < ANO_NASC_LIM_INF || ano > ANO_ATUAL - 16) {
-        if (modo == '1') printf("\nO ano inserido é inválido. Insira um ano entre %d e %d.\n", ANO_NASC_LIM_INF, ANO_ATUAL);
+        if (modo == '1') printf("O ano inserido é inválido. Insira um ano entre %d e %d.\n", ANO_NASC_LIM_INF, ANO_ATUAL);
         return 0;
     }
 
@@ -560,7 +598,7 @@ int validar_data(short dia, short mes, short ano, const char modo) {
     }
 
     if (dia > dias_por_mes[mes - 1]) {
-        if (modo == '1') printf("\nO dia é inválido! O mês de %s tem apenas %hd dias.\n", nome_do_mes[mes - 1], dias_por_mes[mes -1]);
+        if (modo == '1') printf("O dia é inválido! O mês de %s tem apenas %hd dias.\n", nome_do_mes[mes - 1], dias_por_mes[mes -1]);
         return 0; //Falso
     }
     //Se não retornou 0(F), é V
@@ -644,14 +682,12 @@ void validacao_input_menu(const char limInf, const char limSup) {
     limpar_buffer();  // Limpar o buffer de entrada (o que foi escrito incorretamente)
 	printf("Entrada inválida! Introduza um número do menu (%c a %c)\n", limInf, limSup); 
     pressione_enter();
-	limpar_terminal();
 }
 
 void validacao_numero_menu(const char limInf, const char limSup) {
     limpar_buffer();
 	printf("Por favor, escolha um número do menu (%c a %c).\n", limInf, limSup);
 	pressione_enter();
-	limpar_terminal();
 }
 
 //Ordenação
@@ -818,146 +854,113 @@ void ordenar_ao_eliminar(int codigo, Uni * bd) {
 
 //Menus
 
-char menu_principal() {
-	short valido = 0; //Usamos apenas short devido ao facto do scanf poder retornar -1 (ainda que improvavel), acontece no EOF ou Ctrl Z
-	char opcao = '0';
+//Função genérica para mostrar um menu.
+//1º argumento é uma função do tipo void que apenas printa o menu. 
+//Argumento 2 e 3 são os valores mínimos e máximos que o menu deve aceitar.
+char mostrar_menu(void (*escrever_menu)(), char min_opcao, char max_opcao) { 
+    short valido = 0;
+    char opcao = '0';
     do {
-        limpar_terminal(); //Limpar terminal apenas se voltarmos a escrever o menu (ou seja, já não estão a ser necessárias as informações anteriores)
-        //https://desenvolvedorinteroperavel.wordpress.com/2011/09/11/tabela-ascii-completa/
-        //Link da tabela ASCII completa de onde foram retirados as duplas barras do menu (a partir do 185 decimal)
-        printf("╔══════════════════════════════════╗\n");
-        printf("║          MENU PRINCIPAL          ║\n");
-        printf("╠══════════════════════════════════╣\n");
-        printf("║  1. Gerir estudantes             ║\n");
-        printf("║  2. Consultar dados              ║\n");
-        printf("║  3. Estatísticas                 ║\n");
-        printf("║  4. Extras                       ║\n");
-        printf("║  0. Sair do programa             ║\n");
-        printf("╚══════════════════════════════════╝\n\n");
-        printf("   Escolha uma opção: ");
+        limpar_terminal();
+        escrever_menu();
+        printf("=>Escolha uma opção: ");
 
-        valido = scanf(" %c", &opcao); //scanf retorna 1 se conseguir ler de acordo com o esperado, " %c" para evitar ler \n's
-        
-        validacao_menus(&valido,opcao,'0','4');
-        
-        if (valido == 1) { //Se for valido, então retornamos o valor escolhido
+        valido = scanf(" %c", &opcao); //scanf retorna 1 se conseguir ler corretamente
+        validacao_menus(&valido, opcao, min_opcao, max_opcao);
+
+        if (valido == 1) {
             return opcao;
         }
     } while (valido == 0);
 }
 
-//Nota: poderíamos ter optado por fazer várias funções apenas com o output do menu, mas visto que teríamos ainda de fazer diferentes funções
-//devido a ter que gerir as opções e os números, estariamos a adicionar complexidade desnecessária, do nosso ponto de vista
-char menu_gerir_estudantes() { 
-	char opcao = '0';
-	short valido = 0;
-	do {
-		limpar_terminal();
-		printf("╔════════════════════════════════════╗\n");
-        printf("║          GERIR ESTUDANTES          ║\n");
-        printf("╠════════════════════════════════════╣\n");
-        printf("║  1. Inserir estudante              ║\n");
-        printf("║  2. Eliminar estudante             ║\n");
-        printf("║  3. Atualizar dados do estudante   ║\n");
-        printf("║  0. Voltar ao menu anterior        ║\n");
-        printf("╚════════════════════════════════════╝\n\n");
-        printf("   Escolha uma opção: ");
-
-		valido = scanf(" %c", &opcao);
-		
-		validacao_menus(&valido,opcao,'0','3');
-		
-		if (valido == 1) {
-            return opcao;
-		}
-	} while (valido == 0);	 
+//0-5
+void menu_principal() {
+    //https://desenvolvedorinteroperavel.wordpress.com/2011/09/11/tabela-ascii-completa/
+    //Link da tabela ASCII completa de onde foram retirados as duplas barras do menu (a partir do 185 decimal)
+    printf("╔══════════════════════════════════╗\n");
+    printf("║          MENU PRINCIPAL          ║\n");
+    printf("╠══════════════════════════════════╣\n");
+    printf("║  1. Gerir estudantes             ║\n");
+    printf("║  2. Consultar dados              ║\n");
+    printf("║  3. Estatísticas                 ║\n");
+    printf("║  4. Ficheiros                    ║\n");
+    printf("║  5. Extras                       ║\n");
+    printf("║  0. Sair do programa             ║\n");
+    printf("╚══════════════════════════════════╝\n\n");
 }
 
-char menu_consultar_dados() {
-	char opcao = '0';
-	short valido = 0;
-	do {
-        limpar_terminal();
-		printf("╔═════════════════════════════════════════════════════════════╗\n");
-        printf("║                       CONSULTAR DADOS                       ║\n");
-        printf("╠═════════════════════════════════════════════════════════════╣\n");
-        printf("║  1. Procurar estudante por nome                             ║\n");
-        printf("║  2. Listar estudantes por intervalo de datas de nascimento  ║\n");
-        printf("║  3. Listar estudantes por nacionalidade                     ║\n");
-        printf("║  4. Listar estudantes por ordem alfabética de apelido       ║\n");
-        printf("║  0. Voltar ao menu anterior                                 ║\n");
-        printf("╚═════════════════════════════════════════════════════════════╝\n\n");
-        printf("   Escolha uma opção: ");
-
-		valido = scanf(" %c", &opcao);
-		
-		validacao_menus(&valido,opcao,'0','4');
-		
-		if (valido == 1) {
-			return opcao;
-		}
-	} while (valido == 0);	 
+//0-3
+void menu_gerir_estudantes() { 
+    printf("╔════════════════════════════════════╗\n");
+    printf("║          GERIR ESTUDANTES          ║\n");
+    printf("╠════════════════════════════════════╣\n");
+    printf("║  1. Inserir estudante              ║\n");
+    printf("║  2. Eliminar estudante             ║\n");
+    printf("║  3. Atualizar dados do estudante   ║\n");
+    printf("║  0. Voltar ao menu anterior        ║\n");
+    printf("╚════════════════════════════════════╝\n\n");
 }
 
-char menu_estatisticas() {
-	char opcao = '0';
-	short valido = 0;
-	do {
-        limpar_terminal();
-		printf("╔════════════════════════════════════════════════════════╗\n");
-        printf("║                      ESTATÍSTICAS                      ║\n");
-        printf("╠════════════════════════════════════════════════════════╣\n");
-        printf("║  1. Estudantes por escalão de média atual              ║\n");
-        printf("║  2. Número médio de matrículas (geral/nacionalidade)   ║\n");
-        printf("║  3. Número de finalistas                               ║\n");
-        printf("║  4. Média de idades por nacionalidade e ano            ║\n");
-        printf("║  5. Listar estudantes em risco de prescrição           ║\n");
-        printf("║  0. Voltar ao menu anterior                            ║\n");
-        printf("╚════════════════════════════════════════════════════════╝\n\n");
-        printf("   Escolha uma opção: ");
-
-		valido = scanf(" %c", &opcao);
-		
-		validacao_menus(&valido,opcao,'0','5');
-		
-		if (valido == 1) {
-			return opcao;
-		}
-	} while (valido == 0);	 
+//0-4
+void menu_consultar_dados() {
+    printf("╔═════════════════════════════════════════════════════════════╗\n");
+    printf("║                       CONSULTAR DADOS                       ║\n");
+    printf("╠═════════════════════════════════════════════════════════════╣\n");
+    printf("║  1. Procurar estudante por nome                             ║\n");
+    printf("║  2. Listar estudantes por intervalo de datas de nascimento  ║\n");
+    printf("║  3. Listar estudantes por nacionalidade                     ║\n");
+    printf("║  4. Listar estudantes por ordem alfabética de apelido       ║\n");
+    printf("║  0. Voltar ao menu anterior                                 ║\n");
+    printf("╚═════════════════════════════════════════════════════════════╝\n\n");
 }
 
-char menu_extras() {
-	char opcao = '0';
-	short valido = 0;
-	do {
-        limpar_terminal();
-		printf("╔════════════════════════════════════════════════════════════╗\n");
-        printf("║                           EXTRAS                           ║\n");
-        printf("╠════════════════════════════════════════════════════════════╣\n");
-        printf("║  1. Estudantes nascidos em dias específicos da semana      ║\n");
-        printf("║  2. Estudantes cujo aniversário em certo ano é ao domingo  ║\n");
-        printf("║  3. Relacionar ano de inscrição com intervalos de notas    ║\n");
-        printf("║  0. Voltar ao menu anterior                                ║\n");
-        printf("╚════════════════════════════════════════════════════════════╝\n\n");
-        printf("   Escolha uma opção: ");
-
-		valido = scanf(" %c", &opcao);
-		
-		validacao_menus(&valido,opcao,'0','3');
-        
-		if (valido == 1) {
-			return opcao;
-		}
-	} while (valido == 0);	 
+//0-5
+void menu_estatisticas() {
+    printf("╔════════════════════════════════════════════════════════╗\n");
+    printf("║                      ESTATÍSTICAS                      ║\n");
+    printf("╠════════════════════════════════════════════════════════╣\n");
+    printf("║  1. Estudantes por escalão de média atual              ║\n");
+    printf("║  2. Número médio de matrículas (geral/nacionalidade)   ║\n");
+    printf("║  3. Número de finalistas                               ║\n");
+    printf("║  4. Média de idades por nacionalidade e ano            ║\n");
+    printf("║  5. Listar estudantes em risco de prescrição           ║\n");
+    printf("║  0. Voltar ao menu anterior                            ║\n");
+    printf("╚════════════════════════════════════════════════════════╝\n\n");
 }
 
-void processar_gerir_estudantes(Uni * bd, Escolha * escolha) {
+//0-4
+//Necessário mudar o nome dos ficheiros caso sofram alterações.
+void menu_ficheiros() {
+    printf("╔════════════════════════════════════════════════════════════╗\n");
+    printf("║                         FICHEIROS                          ║\n");
+    printf("╠════════════════════════════════════════════════════════════╣\n");
+    printf("║  1. Guardar dados                                          ║\n");
+    printf("║  2. Mostrar erros encontrados ao ler os dados              ║\n");
+    printf("║  3. Mostrar dados de dados.txt                             ║\n");
+    printf("║  4. Mostrar dados desituacao_Escolar_Estudantes.txt        ║\n");
+    printf("║  0. Voltar ao menu anterior                                ║\n");
+    printf("╚════════════════════════════════════════════════════════════╝\n\n");
+}
+
+//0-3
+void menu_extras() {
+    printf("╔════════════════════════════════════════════════════════════╗\n");
+    printf("║                           EXTRAS                           ║\n");
+    printf("╠════════════════════════════════════════════════════════════╣\n");
+    printf("║  1. Estudantes nascidos em dias específicos da semana      ║\n");
+    printf("║  2. Estudantes cujo aniversário em certo ano é ao domingo  ║\n");
+    printf("║  3. Relacionar ano de inscrição com intervalos de notas    ║\n");
+    printf("║  0. Voltar ao menu anterior                                ║\n");
+    printf("╚════════════════════════════════════════════════════════════╝\n\n");
+}
+
+void processar_gerir_estudantes(Uni * bd) {
+    char opcao;
     do {
-        escolha->opcao_submenu = menu_gerir_estudantes();
-        switch(escolha->opcao_submenu) {
-            case '0':
-                escolha->menu_atual = 'P';
-                break;
+        opcao = mostrar_menu(menu_gerir_estudantes, '0', '3');
+        switch(opcao) {
+            case '0': break;
             case '1':
                 inserir_estudante(bd);
                 break;
@@ -967,20 +970,19 @@ void processar_gerir_estudantes(Uni * bd, Escolha * escolha) {
             case '3':
                 //atualizar estudante
                 break;
-            default:
-                printf("Erro!!"); //Aprofundar
+            default: 
+                opcao = '0';
                 break;
-    }
-    } while (escolha->menu_atual == 'G');
+        }
+    } while (opcao != '0');
 }
 
-void processar_consultar_dados(Escolha * escolha) {
+void processar_consultar_dados(Uni * bd) {
+    char opcao;
     do {
-        escolha->opcao_submenu = menu_consultar_dados();
-        switch(escolha->opcao_submenu) {
-            case '0':
-                escolha->menu_atual = 'P';
-                break;
+        opcao = mostrar_menu(menu_consultar_dados, '0', '4');
+        switch(opcao) {
+            case '0': break;
             case '1':
                 //Procurar estudante por nome
                 break;
@@ -988,106 +990,120 @@ void processar_consultar_dados(Escolha * escolha) {
                 //Listar estudantes por intervalo de datas de nascimento
                 break;
             case '3':
-                //Listar estudantes por nacionalidade
+                //
                 break;
             case '4':
-                //Listar estudantes por ordem alfabética de apelido
+                //
                 break;
-            default:
-                printf("Erro!!"); //Aprofundar
-                break;
-    }
-    } while (escolha->menu_atual == 'C');
-}
-
-void processar_estatisticas(Escolha * escolha) {
-    do {
-        escolha->opcao_submenu = menu_estatisticas();
-        switch(escolha->opcao_submenu) {
-            case '0':
-                escolha->menu_atual = 'P';
-                break;
-            case '1':
-                //Contar estudantes por escalão de média atual
-                break;
-            case '2':
-                //Calcular número médio de matrículas(geral e por nacionalidade)
-                break;
-            case '3':
-                //Determinar número de finalistas
-                break;
-            case '4':
-                //Calcular média de idades por nacionalidade e ano
-                break;
-            case '5':
-                //Listar estudantes em risco de prescrição
-                break;
-            default:
-                printf("Erro!!"); //Aprofundar
-                break;
-    }
-    } while (escolha->menu_atual == 'E');
-}
-
-void processar_extras(Escolha * escolha) {
-    do {
-        escolha->opcao_submenu = menu_extras(); //Obter a opção do segundo menu
-        switch(escolha->opcao_submenu) {
-            case '0':
-                escolha->menu_atual = 'P';
-                break;
-            case '1':
-                //Listar estudantes nascidos em dias específicos da semana
-                break;
-            case '2':
-                //Listar os estudantes cujo aniversário num determinado ano é ao domingo
-                break;
-            case '3':
-                //Relacionar o ano de inscrição com intervalos das classificações
-                break;
-            default:
-                printf("Erro!!"); //Aprofundar
-                break;
-    }
-    } while (escolha->menu_atual == 'X');
-}
-
-Escolha escolha_menus(Uni * bd) {
-	Escolha escolha; //C é case sensitive (pode parecer má prática mas estava difícil de encontrar outro nome igualmente expressivo :))
-
-    escolha.menu_atual = 'P';
-    escolha.opcao_principal = '0';
-    escolha.opcao_submenu = '0'; //Esta variavel nunca é alterada fora das funcoes, ver isto
-
-    do {
-        limpar_terminal();
-        escolha.opcao_principal = menu_principal();
-
-        switch(escolha.opcao_principal) {
-            case '1':
-                escolha.menu_atual = 'G';
-                processar_gerir_estudantes(bd, &escolha); //Passamos menu atual por referência no caso da opção escolhida ser voltar atrás
-                break;
-            case '2':
-                escolha.menu_atual = 'C';
-                processar_consultar_dados(&escolha);
-                break;
-            case '3':
-                escolha.menu_atual = 'E';
-                processar_estatisticas(&escolha);
-                break;
-            case '4':
-                escolha.menu_atual = 'X';
-                processar_extras(&escolha);
-                break;
-            case '0':
-                escolha.menu_atual = 'S'; //Indicar que estamos a sair, para o loop
-                break;
-            default:
-                printf("Erro\n"); //Aprofundar no erro
+            default: 
+                opcao = '0';
                 break;
         }
-    } while (escolha.menu_atual == 'P'); 
+    } while (opcao != '0');
+}
+
+void processar_estatisticas(Uni * bd) {
+    char opcao;
+    do {
+        opcao = mostrar_menu(menu_estatisticas, '0', '5');
+        switch(opcao) {
+            case '0': break;
+            case '1':
+                //
+                break;
+            case '2':
+                //
+                break;
+            case '3':
+                //
+                break;
+            case '4':
+                //
+                break;
+            case '5':
+                //
+                break;
+            default: 
+                opcao = '0';
+                break;
+        }
+    } while (opcao != '0');
+}
+
+void processar_ficheiros(Uni * bd) {
+    char opcao;
+    do {
+        opcao = mostrar_menu(menu_ficheiros, '0', '4');
+        switch(opcao) {
+            case '0': break;
+            case '1':
+                //
+                break;
+            case '2':
+                //
+                break;
+            case '3':
+                //
+                break;
+            case '4':
+                //
+                break;
+            default: 
+                opcao = '0';
+                break;
+        }
+    } while (opcao != '0');
+}
+
+void processar_extras(Uni * bd) {
+    char opcao;
+    do {
+        opcao = mostrar_menu(menu_extras, '0', '3');
+        switch(opcao) {
+            case '0': break;
+            case '1':
+                //
+                break;
+            case '2':
+                //
+                break;
+            case '3':
+                //
+                break;
+            default: 
+                opcao = '0';
+                break;
+        }
+    } while (opcao != '0');
+}
+
+void escolha_menus(Uni * bd) {
+    char opcao;
+
+    do {
+        opcao = mostrar_menu(menu_principal, '0', '5');
+        switch(opcao) {
+            case '0': break;
+            case '1':
+                processar_gerir_estudantes(bd);
+                break;
+            case '2':
+                processar_consultar_dados(bd);
+                break;
+            case '3':
+                processar_estatisticas(bd);
+                break;
+            case '4':
+                processar_ficheiros(bd);
+                break;
+            case '5': 
+                processar_extras(bd);
+                break;
+            default:
+                opcao = '0'; //Sair caso haja erro.
+                break;
+        }
+    } while(opcao != '0');
 }
 
 //Inserção/leitura de dados
@@ -1121,11 +1137,10 @@ void ler_data(Estudante * aluno, char * str, const char modo) {
             //Aqui não se usa && erro == '0'porque só pode ser 0 se !str, e nesse caso há um continue
             //Caso nao consiga, o formato é inválido
             if (modo == '1') printf("Formato inválido! Use o formato DD-MM-AAAA.\n");
-            limpar_buffer();
             erro = '1';
         }
         //Sse data for válida é que passamos os dados à stuct
-        if (validar_data(dia_temp, mes_temp, ano_temp, modo) && erro == '0') {
+        if (erro == '0' && validar_data(dia_temp, mes_temp, ano_temp, modo)) {
             aluno->nascimento.dia = dia_temp;
             aluno->nascimento.mes = mes_temp;
             aluno->nascimento.ano = ano_temp;
@@ -1139,7 +1154,7 @@ void ler_data(Estudante * aluno, char * str, const char modo) {
 	} while (erro == '1' && !str); //Continuar a pedir a data sempre que esta for inválida
     
     if (!str) {
-        limpar_buffer();
+        //limpar_buffer();
     } //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
 }
 
@@ -1181,15 +1196,11 @@ void inserir_estudante(Uni * bd) {
                 ordenar_ao_inserir(codigo_temp, bd, posicao_insercao_aluno, posicao_insercao_escolares);
                 break; 
             }
-            else {
-                continue;
-            }
         } while (1);
         
         do {
             char * nome_temp = NULL;
             printf("Insira o nome do estudante: ");
-            limpar_buffer();
             nome_temp = ler_linha_txt(stdin, NULL);
             if(!validar_nome(bd->aluno, nome_temp, '1')) {
                 pressione_enter();
@@ -1202,14 +1213,12 @@ void inserir_estudante(Uni * bd) {
         } while(1);
 
         do {
-            limpar_buffer();
             ler_data(&(bd->aluno[posicao_insercao_aluno]), NULL, '1');
         } while (bd->aluno[posicao_insercao_aluno].nascimento.dia == 0); //Apenas verificamos um pois em ler_data a data só é copiada para as structs se toda ela for válida
         
         do {
             char * nacionalidade_temp = NULL;
             printf("Insira a nacionalidade do estudante: ");
-            limpar_buffer();
             nacionalidade_temp = ler_linha_txt(stdin, NULL);
 
             if(!validar_nacionalidade(nacionalidade_temp, '1')) {
@@ -1304,8 +1313,8 @@ void inserir_estudante(Uni * bd) {
 
         do {
             printf("\nQuer inserir mais estudantes? (S/N): ");
-            limpar_buffer();
             scanf(" %c", &repetir);
+            limpar_buffer();
             if (repetir == 's' || repetir == 'S') {
                 repetir = 's';
                 break;
@@ -1388,6 +1397,7 @@ void separar_parametros(const char * linha, char ** parametros, int * num_parame
 }
 
 void limpar_buffer() {
+    if (feof(stdin)) return;
     int lixo;
     while ((lixo = getchar()) != '\n' && lixo != EOF);
 }
@@ -1413,20 +1423,9 @@ void colocar_terminal_utf8() {
             printf("Ocorreu um erro ao configurar o terminal do Windows para UTF-8.\n");
             printf("A aplicação irá continuar. Desformatação será visível. Para resolver, reinicie a aplicação.\n");
         }
+	    setlocale(LC_NUMERIC, "Portuguese"); //Apenas afeta os números , ou seja, muda a notação de floats de . para ,
     #else
-        //Feito com a ajuda do chatgpt
-        // Configuração específica para sistemas Unix-like (Linux, macOS)
-        //setenv pertence ao stdio.h e é usada para configurar var de ambiente, apenas existe no linux,etc
-        if (setenv("LANG", "pt_PT.UTF-8", 1) != 0) {
-            printf("Ocorreu um erro ao configurar o terminal para UTF-8.\n");
-            printf("A aplicação irá continuar. Desformatação será visível. Para resolver, reinicie a aplicação.\n");
-            return;
-        }
-        if (setenv("LC_ALL", "pt_PT.UTF-8", 1) != 0) {
-            printf("Ocorreu um erro ao configurar o terminal do Windows para UTF-8.\n");
-            printf("A aplicação irá continuar. Desformatação será visível. Para resolver, reinicie a aplicação.\n");
-            return;
-        }
+        setlocale(LC_ALL, "pt_PT.UTF-8");
     #endif
 }
 

@@ -3,7 +3,7 @@
 1236	Ana Beatriz Silva	16-9-1996	Portuguesa
 1237	Alana Sales	18-4-1992	Portuguesa
 1238	Emanuella Pires	17-10-1998	Portuguesa
-1239	Carolina Viana	3-11-2000	Portuguesa
+1239	Carolina Viana  3-11-2000	Portuguesa
 1240	Nicolas da Rosa	16-3-1995	Espanhola
 1241	Lais Lima	29-12-1992	Portuguesa
 1242	Lara Souza	14-10-1991	Brasileira
@@ -1985,7 +1985,7 @@
 3218	Erick Duarte	25-6-2000	Portuguesa
 3219	Lucas Gabriel da Cruz	21-10-2004	Portuguesa
 3220	 Gabriel Carvalho	14-3-1991   Brasileira
-3221	Juliana Moreira	1-12-1998   Portuguesa
+3221	Juliana Moreira	1-12-1998	Portuguesa
 3222	Emanuel Farias	22-10-2003	Brasileira
 3223	 Thales Jesus	2-2-1990	Portuguesa
 3224	Andre Silva	30-12-1991	Mocambicana
