@@ -3,7 +3,7 @@
 //NOTA IMPORTANTE: para dar run temos que abrir o projeto em terminal integrado e depois de estar na main, dar compile run.
 //": Para os ficheiros abrirem corretamente têm que estar na pasta output
 
-//TODO: verificar se ordenar_ao_inserir está bem. (TAMANHO)
+//TODO: resto das funcionalidades
 //NOTA: erros.txt está atualmente em modo w para facilitar debugging, alterar quando já não for necessário
 int main() {
     //Colocar a consola em PT-PT (caracteres UTF8)
