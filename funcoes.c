@@ -1196,8 +1196,9 @@ void escolha_menus(Uni * bd) {
 
 //Inserção/leitura de dados
 
-//Se for para ler, usar str = NULL, modo('1'/'0') para verificar se queremos imprimir mensagens de erro
-//Insere e valida a data
+//modo '1' para imprimir mensagens de erro.
+//str == NULL para ler de stdin
+//Insere e valida a data.
 void ler_data(Estudante * aluno, char * str, const char modo) {
 
 	char data[11]; //Vamos usar o formato DD-MM-AAAA (10 caracteres + \0)
@@ -1215,6 +1216,12 @@ void ler_data(Estudante * aluno, char * str, const char modo) {
                 continue; //O continue faz com que o loop avance para a proxima iteração (aqui podemos usar porque não há perigo de ficar um loop infinito com !str)
                 //Nota: o uso do fgets faz com que o buffer nao rebente, pois ele so le ate ao limite de sizeof(data)-1(para o \0), apenas temos de limpar o buffer depois
             }
+            //Remover o \n
+            size_t comprimento = strlen(data);
+            if (comprimento > 0 && data[comprimento - 1] == '\n') {
+                data[comprimento - 1] = '\0';
+            } 
+            else limpar_buffer(); //Se o \n não está na string, está em stdin
         }
         else {
             strcpy(data, str);
@@ -1239,10 +1246,6 @@ void ler_data(Estudante * aluno, char * str, const char modo) {
             return;
         }
 	} while (erro == '1' && !str); //Continuar a pedir a data sempre que esta for inválida
-    
-    if (!str) {
-        //limpar_buffer();
-    } //A entrada pode ter sido válida apesar de ter mais de 11 caracteres (ex: 15/12/2006EXTRA)
 }
 
 void inserir_estudante(Uni * bd) {
