@@ -100,7 +100,9 @@ int realocar_aluno(Uni * bd, const char modo);
 int realocar_escolares(Uni * bd, const char modo);
 int realocar_nome(Estudante * aluno, const char modo);
 //Procura e validações
+int procurar_codigo_aluno(int codigo, Uni * bd);
 int procurar_codigo_escolares(int codigo, Uni * bd);
+void procurar_estudante_por_nome(Uni * bd);
 void verificar_codigos_duplicados(Uni * bd, FILE * erros);
 void verificar_codigos_escolares_sem_aluno(Uni * bd, FILE * erros, char * primeiro_erro);
 int validar_data(short dia, short mes, short ano, const char modo);

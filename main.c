@@ -3,6 +3,10 @@
 //NOTA IMPORTANTE: para dar run temos que abrir o projeto em terminal integrado e depois de estar na main, dar compile run.
 //": Para os ficheiros abrirem corretamente têm que estar na pasta output
 
+//NOVA METODOLOGIA:
+//Usar ler_linha_txt() para ler qualquer entrada de stdin
+//Se necessário usar um scanf, colocar fseek(stdin, 0, SEEK_END); para evitar erros na leitura;
+
 //TODO: rever o free ao eliminar e ordenar_ao_eliminar
 //NOTA: erros.txt está atualmente em modo w para facilitar debugging, alterar quando já não for necessário
 int main() {

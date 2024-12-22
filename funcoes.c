@@ -32,9 +32,9 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
         linha[tamanho_total] = '\0'; //Se houver mais que uma leitura, o primeiro char da segunda leitura de fgets irá substituir o nul char, pelo que fica sempre no fim
 
         //Verificamos se a linha está completa
-        if (buffer[tamanho - 1] == '\n') {//se tudo tiver sido copiado, o ultimo caracter do buffer(e da linha tbm) será o '\n'
+        if (buffer[tamanho_total - 1] == '\n') {//se tudo tiver sido copiado, o ultimo caracter do buffer(e da linha tbm) será o '\n'
             if (n_linhas != NULL) (*n_linhas)++;
-            linha[tamanho - 1] = '\0'; //Substitui o \n por \0
+            linha[tamanho_total - 1] = '\0'; //Substitui o \n por \0
             return linha;
         }
     }
@@ -479,6 +479,50 @@ int procurar_codigo_escolares(int codigo, Uni * bd) {
         }
     }
     return -(limInf + 1); //Não há esse código, RETORNA A POSIÇÃO DE INSERÇÃO + 1
+}
+
+void procurar_estudante_por_nome(Uni * bd) {
+    short contador = 0;
+    char * parte_nome;
+    do {
+        limpar_terminal();
+        do {
+            parte_nome = NULL;
+            printf("Introduza parte do nome do estudante a procurar: ");
+            parte_nome = ler_linha_txt(stdin, NULL);
+            if(strlen(parte_nome) < 2 || !parte_nome) {
+                printf("A entrada é inválida. Por favor, insira parte do nome do aluno, com um mínimo de 2 caracteres.");
+                pressione_enter();
+                free(parte_nome);
+                continue;
+            }
+            break;
+        } while(1);
+        contador = 0;
+        printf("Resultados da pesquisa para \"%s\": \n", parte_nome);
+        for(int i = 0; i < bd->tamanho_aluno; i++) {
+            //strstr(s1, s2) é uma função que retorna a primeira ocorrência de s2 em s1
+            //https://www.geeksforgeeks.org/strstr-in-ccpp/
+            if (strstr(bd->aluno[i].nome, parte_nome) != NULL) {
+                if (contador % 20 == 0 && contador != 0) pressione_enter();
+
+                printf("Código: %d\n", bd->aluno[i].codigo);
+                printf("Nome: %s\n", bd->aluno[i].nome);
+                printf("Data de Nascimento: %02d-%02d-%04d\n", bd->aluno[i].nascimento.dia, bd->aluno[i].nascimento.mes, bd->aluno[i].nascimento.ano);
+                printf("Nacionalidade: %s\n", bd->aluno[i].nacionalidade);
+                printf("\n");
+                contador++;
+            }
+        }
+        if (contador == 0) {
+            printf("Não foi encontrado nenhum estudante com parte do nome \"%s\".\n", parte_nome);
+        }
+        pressione_enter();
+        free(parte_nome);
+
+        printf("\nQuer repetir a procura? (S/N): ");
+        if (!repetir()) return;
+    } while(1);
 }
 
 //Faz a validação do código e retorna -(indice + 1).
@@ -941,6 +985,7 @@ char mostrar_menu(void (*escrever_menu)(), char min_opcao, char max_opcao) {
         validacao_menus(&valido, opcao, min_opcao, max_opcao);
 
         if (valido == 1) {
+            limpar_buffer(); //Limpa o enter depois de introduzido o menu
             return opcao;
         }
     } while (valido == 0);
@@ -1010,7 +1055,7 @@ void menu_ficheiros() {
     printf("║  1. Guardar dados                                          ║\n");
     printf("║  2. Mostrar erros encontrados ao ler os dados              ║\n");
     printf("║  3. Mostrar dados de dados.txt                             ║\n");
-    printf("║  4. Mostrar dados desituacao_Escolar_Estudantes.txt        ║\n");
+    printf("║  4. Mostrar dados de situacao_Escolar_Estudantes.txt       ║\n");
     printf("║  0. Voltar ao menu anterior                                ║\n");
     printf("╚════════════════════════════════════════════════════════════╝\n\n");
 }
@@ -1043,6 +1088,7 @@ void menu_dias_da_semana() {
     printf("╚═══════════════════════════════════════════════╝\n\n");
 }
 
+//Apresenta o menu e faz todas as operações.
 void processar_gerir_estudantes(Uni * bd) {
     char opcao;
     do {
@@ -1057,6 +1103,7 @@ void processar_gerir_estudantes(Uni * bd) {
                 break;
             case '3':
                 //atualizar estudante (opcional)
+                //Como fazer: pedir código, ir buscar o índice, e fazer uma tabela com os campos que quer atualizar.
                 break;
             default: 
                 opcao = '0';
@@ -1065,6 +1112,7 @@ void processar_gerir_estudantes(Uni * bd) {
     } while (opcao != '0');
 }
 
+//Apresenta o menu e faz todas as operações.
 void processar_consultar_dados(Uni * bd) {
     char opcao;
     do {
@@ -1072,7 +1120,7 @@ void processar_consultar_dados(Uni * bd) {
         switch(opcao) {
             case '0': break;
             case '1':
-                //Procurar estudante por nome
+                procurar_estudante_por_nome(bd);
                 break;
             case '2':
                 //Listar estudantes por intervalo de datas de nascimento
@@ -1090,6 +1138,7 @@ void processar_consultar_dados(Uni * bd) {
     } while (opcao != '0');
 }
 
+//Apresenta o menu e faz todas as operações.
 void processar_estatisticas(Uni * bd) {
     char opcao;
     do {
@@ -1118,6 +1167,7 @@ void processar_estatisticas(Uni * bd) {
     } while (opcao != '0');
 }
 
+//Apresenta o menu e faz todas as operações.
 void processar_ficheiros(Uni * bd) {
     char opcao;
     do {
@@ -1128,13 +1178,13 @@ void processar_ficheiros(Uni * bd) {
                 guardar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, bd);
                 break;
             case '2':
-                //
+                //opcional
                 break;
             case '3':
-                //
+                //opcional
                 break;
             case '4':
-                //
+                //opcional
                 break;
             default: 
                 opcao = '0';
@@ -1143,6 +1193,7 @@ void processar_ficheiros(Uni * bd) {
     } while (opcao != '0');
 }
 
+//Apresenta o menu e faz todas as operações.
 void processar_extras(Uni * bd) {
     char opcao;
     do {
@@ -1165,6 +1216,7 @@ void processar_extras(Uni * bd) {
     } while (opcao != '0');
 }
 
+//Apresenta os menus e depois chama as funções de processar para 
 void escolha_menus(Uni * bd) {
     char opcao;
 
