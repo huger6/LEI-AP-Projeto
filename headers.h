@@ -115,7 +115,7 @@ void merge_sort_aluno(Uni * bd, int inicio, int fim);
 void merge_escolares(Uni * bd, int inicio, int meio, int fim);
 void merge_sort_escolares(Uni * bd, int inicio, int fim);
 void ordenar_ao_inserir(int codigo, Uni * bd, int indice_aluno, int indice_escolares);
-void ordenar_ao_eliminar(int codigo, Uni * bd);
+int ordenar_ao_eliminar(int codigo, Uni * bd);
 //Menus
 char mostrar_menu(void (*escrever_menu)(), char min_opcao, char max_opcao);
 void menu_principal();
@@ -124,6 +124,7 @@ void menu_consultar_dados();
 void menu_estatisticas();
 void menu_ficheiros();
 void menu_extras();
+void menu_dias_da_semana();
 void processar_gerir_estudantes(Uni * bd);
 void processar_consultar_dados(Uni * bd);
 void processar_estatisticas(Uni * bd);
@@ -133,6 +134,10 @@ void escolha_menus(Uni * bd);
 //Inserção/leitura de dados
 void ler_data(Estudante * aluno, char * str, const char modo);
 void inserir_estudante(Uni * bd);
+void eliminar_estudante(Uni * bd);
+//Listagens
+void listar_aniversarios_por_dia(Uni * bd);
+void listar_aniversario_ao_domingo(Uni * bd);
 //Funções auxiliares
 void remover_espacos(char * str);
 void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
@@ -144,4 +149,7 @@ void verificar_primeiro_erro(FILE * erros, char * primeiro_erro, const char * no
 int string_para_int(const char * str, int * resultado);
 int string_para_short(const char * str, short * resultado);
 int string_para_float(const char * str, float * resultado);
-#endif //Termina a condição
+short calcular_dia_da_semana(short dia, int mes, int ano);
+int repetir();
+
+#endif

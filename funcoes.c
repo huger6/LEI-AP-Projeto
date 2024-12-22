@@ -10,7 +10,7 @@ const short ANO_NASC_LIM_INF = 1908;
 //n_linhas NULL se não estivermos a ler de um ficheiro
 //LÊ O \n NO FINAL DA LINHA!!!
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
-    if(ficheiro == NULL) return NULL;
+    if(!ficheiro) return NULL;
     //n_linhas não será inicializado aqui
     char buffer[TAMANHO_INICIAL_BUFFER]; //Buffer para armazenar parte da linha
     size_t tamanho_total = 0; //Comprimento da linha; size_t pois é sempre >0 e evita conversões que podem levar a erros com outras funções
@@ -20,9 +20,9 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
         size_t tamanho = strlen(buffer); //Calcula o tamanho do texto lido
         //NOTA IMPORTANTE: se o ponteiro passado para realloc for nulo, ele funciona como o malloc
         char * temp = realloc(linha, tamanho_total + tamanho + 1); //+1 para o nul char
-        if (temp == NULL) {
+        if (!temp) {
             free(linha);
-            return NULL; //VERIFICAR ISTO, POIS PODE ACABAR O LOOP EM CARREGAR MAIS CEDO QUE O SUPOSTO.
+            return NULL; //Verificar isto mais tarde!!Pode terminar o loop em carregar_dados mais cedo que o suposto
         }
         linha = temp; //atualizar o ponteiro linha para apontar para a nova memória
 
@@ -342,7 +342,8 @@ void guardar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_
 
 //Gestão de memória
 
-//Inicializar com valores nitidamente inválidos. Usar indice_atual = 0 para inicializar pela primeira vez, depois usar a última posição válida ocupada + 1
+//Inicializa com valores nitidamente inválidos.
+// Usar indice_atual = 0 para inicializar pela primeira vez, depois usar a última posição válida ocupada + 1
 void inicializar_aluno(Uni * bd, int indice_aluno) {
     if (!bd || !bd->aluno || !bd->escolares) return;
 
@@ -433,48 +434,55 @@ int realocar_nome(Estudante * aluno, const char modo) {
 
 //Procura e validações
 
-//Retorna o índice a positivo se encontrar. A negativo se não encontrar, mas é a posição onde deveria ser inserido
-//limSup = bd->tamanho_aluno (padrao). Se estivermos a inserir, usar limSup = bd->tamanho_aluno - n_insercoes(para ignorar os elementos acabados de inserir)
+//Apenas retorna 0 em caso de erro.
+//Retorno < 0 se não existe. Representa a posição de inserção (indice no array) - 1.
+//Retorno > 0 se existe. Representa o índice do código no array + 1.
 int procurar_codigo_aluno(int codigo, Uni * bd) {
     if (!bd || !bd->aluno || bd->tamanho_aluno <= 0) {
-        return -1;
+        return 0;
     }
-    if (bd->aluno[0].codigo > codigo) return -2; //Se o array está sempre ordenado e o codigo é menor que que do array 0, então não existe e está abaixo do indice zero
+    if (bd->aluno[0].codigo > codigo) return -1; //Se o array está sempre ordenado e o codigo é menor que que do array 0, então não existe e está abaixo do indice zero
     int limInf, meio, limSup;
     limInf = 0;
     limSup = bd->tamanho_aluno - 1;
 
     while (limSup >= limInf) {
         meio = (limSup + limInf) / 2;
-        if (bd->aluno[meio].codigo == codigo) return meio; //Dá return do índice
+        if (bd->aluno[meio].codigo == codigo) return (meio + 1) ; //Dá return do índice
         else {
             if (bd->aluno[meio].codigo < codigo) limInf = meio + 1;
             else limSup = meio - 1;
         }
     }
     return -(limInf + 1); //Retorna a posição de inserção + 1(fazer < 0 para verificar código)
-    //o +1 está a precaver no caso de limInf ser 0, para distinguir do return de um indice
+    //o +1 está a precaver no caso de limInf ser 0, para distinguir do return de um erro
 }
 
+//Apenas retorna 0 em caso de erro.
+//Retorno < 0 se não existe. Representa a posição de inserção (indice no array) - 1.
+//Retorno > 0 se existe. Representa o índice do código no array + 1.
 int procurar_codigo_escolares(int codigo, Uni * bd) {
-    if (bd->escolares[0].codigo > codigo) return -2;
+    if (!bd || !bd->aluno || bd->tamanho_escolares <= 0) {
+        return 0;
+    }
+    if (bd->escolares[0].codigo > codigo) return -1; //Retornamos a posição de inserção -1 pois o codigo é menor que todos os outros no array. -1 pois -(0+1)
     int limInf, limSup, meio;
     limInf = 0;
     limSup = bd->tamanho_escolares - 1;
 
     while (limSup >= limInf) {
         meio = (limSup + limInf) / 2;
-        if (bd->escolares[meio].codigo == codigo) return meio; //Dá return do índice
+        if (bd->escolares[meio].codigo == codigo) return (meio + 1); //Dá return do índice + 1 para distinguir do 0 de erro.
         else {
             if (bd->escolares[meio].codigo < codigo) limInf = meio + 1;
             else limSup = meio - 1;
         }
     }
-    return -(limInf + 1); //Não há esse código
+    return -(limInf + 1); //Não há esse código, RETORNA A POSIÇÃO DE INSERÇÃO + 1
 }
 
-//Modo '1' para printar mensagens de erro
-//Valida codigo e retorna a posição de inserção de ALUNO APENAS
+//Faz a validação do código e retorna -(indice + 1).
+//Caso não seja válido retorna 0.
 int validar_codigo_ao_inserir(int codigo, Uni * bd) {
     if(codigo <= 0) {
         printf("Código inválido! Insira um número inteiro positivo.\n");
@@ -483,7 +491,7 @@ int validar_codigo_ao_inserir(int codigo, Uni * bd) {
     }
     int temp = procurar_codigo_aluno(codigo, bd); //basta procurar no aluno porque não pode haver nenhum código em escolares que não esteja em aluno
     
-    if(temp == codigo) {
+    if(temp > 0) {
         printf("O código já existe! Insira um código diferente.\n");
         pressione_enter();
         return 0;
@@ -492,7 +500,29 @@ int validar_codigo_ao_inserir(int codigo, Uni * bd) {
     else if (temp < 0) {
         return temp; //Retornamos a posição onde será inserido
     }
-    return 0; //qualquer outro caso
+    return 0; //Caso seja 0
+}
+
+//Faz a validação do código e retorna indice + 1
+//Caso não seja válido retorna 0.
+int validar_codigo_eliminar(int codigo, Uni * bd) {
+    if(codigo <= 0) {
+        printf("Código inválido! Insira um número inteiro positivo.\n");
+        pressione_enter();
+        return 0;
+    }
+    int temp = procurar_codigo_aluno(codigo, bd); //basta procurar no aluno porque não pode haver nenhum código em escolares que não esteja em aluno
+    
+    if(temp > 0) {
+        return temp; //codigo existe logo pode ser eliminado
+    }
+    //Se não existir o código podesmos usá-lo(<0).
+    else if (temp < 0) {
+        printf("O código não existe! Insira um código diferente.\n");
+        pressione_enter();
+        return 0; //<0 significa que foi retornada a posição onde o código devia ser inserido, logo não existe.
+    }
+    return 0; 
 }
 
 void verificar_codigos_duplicados(Uni * bd, FILE * erros) {
@@ -819,37 +849,79 @@ void merge_sort_escolares(Uni * bd, int inicio, int fim) {
 //Insere o código do aluno
 void ordenar_ao_inserir(int codigo, Uni * bd, int indice_aluno, int indice_escolares) {
     //Ordenar aluno
+    //Copia-se por partes para evitar ponteiros duplicados.
     for(int i = bd->tamanho_aluno; i > indice_aluno; i--) {
-        bd->aluno[i] = bd->aluno[i - 1]; //Copiamos a struct inteira
+        //Libertamos a memória do elemento atual
+        free(bd->aluno[i].nome);
+        free(bd->aluno[i].nacionalidade);
+        //Alocamos nova memória para o elemento atual, para não termos ponteiros duplicados a apontar para o mesmo sítio.
+        bd->aluno[i].nome = malloc(strlen(bd->aluno[i - 1].nome) + 1);
+        bd->aluno[i].nacionalidade = malloc(strlen(bd->aluno[i - 1].nacionalidade) + 1);
+
+        if (bd->aluno[i].nome && bd->aluno[i].nacionalidade) {
+            strcpy(bd->aluno[i].nome, bd->aluno[i - 1].nome);
+            strcpy(bd->aluno[i].nacionalidade, bd->aluno[i - 1].nacionalidade);
+        }
+
+        //Copiar o resto da struct
+        bd->aluno[i].codigo = bd->aluno[i - 1].codigo; 
+        bd->aluno[i].nascimento = bd->aluno[i - 1].nascimento; 
     }
+    //Precisamos de colocar os dados do novo aluno, no caso o código, os outros inicializamos para não ficar com os dados do anterior.
     bd->aluno[indice_aluno].codigo = codigo;
+    bd->aluno[indice_aluno].nascimento.dia = 0;
+    bd->aluno[indice_aluno].nascimento.mes = 0;
+    bd->aluno[indice_aluno].nascimento.ano = 0;
+    bd->aluno[indice_aluno].nacionalidade = (char *) malloc (MAX_STRING_NACIONALIDADE * sizeof(char));
+    bd->aluno[indice_aluno].nome = (char *) malloc (TAMANHO_INICIAL_NOME * sizeof(char));
+    if (bd->aluno[indice_aluno].nacionalidade && bd->aluno[indice_aluno].nome) {
+        strcpy(bd->aluno[indice_aluno].nome ,"-1");
+        strcpy(bd->aluno[indice_aluno].nacionalidade, "-1");
+    }
+    
     //Ordenar escolares
     for(int i = bd->tamanho_escolares; i > indice_escolares; i--) {
         bd->escolares[i] = bd->escolares[i - 1];
     }
     bd->escolares[indice_escolares].codigo = codigo;
+    bd->escolares[indice_escolares].matriculas = -1;
+    bd->escolares[indice_escolares].ects = -1;
+    bd->escolares[indice_escolares].ano_atual = -1;
+    bd->escolares[indice_escolares].prescrever = '0';
+    bd->escolares[indice_escolares].media_atual = -1;
 }
 
-//Altera o tamanho total do array. NÃO FAZ REALOCAÇÕES DE TAMANHO TOTAL
-void ordenar_ao_eliminar(int codigo, Uni * bd) {
-    int indice = procurar_codigo_aluno(codigo, bd);
-    if (indice < 0) return; //o código não existe
-    //Se vamos eliminar o estudante então é necessário dar free na memória alocada dinamicamente
-    free(bd->aluno[indice].nome);
-    free(bd->aluno[indice].nacionalidade);
+//Altera o tamanho total do array.
+//Retorna 0 caso o código não exista ou tenha ocorrido um erro.
+//Retorna 1 em caso de sucesso.
+int ordenar_ao_eliminar(int codigo, Uni * bd) {
+    int posicao_eliminacao_aluno;
+    int posicao_eliminacao_escolares;
+
+    posicao_eliminacao_aluno = validar_codigo_eliminar(codigo, bd);
+    if(posicao_eliminacao_aluno <= 0) return 0; //O código não existe ou houve erro.
+    posicao_eliminacao_aluno -=1;
+
+    //Se vamos eliminar o estudante então é necessário dar free na memória alocada dinamicamente nessas structs.
+    free(bd->aluno[posicao_eliminacao_aluno].nome);
+    free(bd->aluno[posicao_eliminacao_aluno].nacionalidade);
     //i começa no índice que queremos eliminar(vai ser substituído)
-    for(int i = indice; i < bd->tamanho_aluno - 1; i++) {
+    //Não se usa -1 no tamanho pois queremos inicializar a última antiga casa do array
+    for(int i = posicao_eliminacao_aluno; i < bd->tamanho_aluno; i++) {
         bd->aluno[i] = bd->aluno[i + 1];
     }
     bd->tamanho_aluno -= 1;
+    
+    posicao_eliminacao_escolares = procurar_codigo_escolares(codigo, bd);
+    if (posicao_eliminacao_escolares <= 0) return 1; //Aqui não retornamos 0 porque pode haver aluno sem dados escolares.
+    posicao_eliminacao_escolares -= 1;
 
-    int indice_escolares = procurar_codigo_escolares(codigo - 1, bd);
-    if (indice_escolares < 0) return;
-
-    for(int i = indice_escolares; i < bd->tamanho_escolares - 1; i++) {
+    for(int i = posicao_eliminacao_escolares; i < bd->tamanho_escolares; i++) {
         bd->escolares[i] = bd->escolares[i + 1];
     }
     bd->tamanho_escolares -= 1;
+
+    return 1;
 }
 
 //Menus
@@ -955,6 +1027,22 @@ void menu_extras() {
     printf("╚════════════════════════════════════════════════════════════╝\n\n");
 }
 
+//0-7; 1-Domingo, 7-Sábado
+void menu_dias_da_semana() {
+    printf("╔═══════════════════════════════════════════════╗\n");
+    printf("║   LISTAR ANIVERSARIANTES POR DIA DA SEMANA    ║\n");
+    printf("╠═══════════════════════════════════════════════╣\n");
+    printf("║  1. Domingo                                   ║\n");
+    printf("║  2. Segunda-feira                             ║\n");
+    printf("║  3. Terça-feira                               ║\n");
+    printf("║  4. Quarta-feira                              ║\n");
+    printf("║  5. Quinta-feira                              ║\n");
+    printf("║  6. Sexta-feira                               ║\n");
+    printf("║  7. Sábado                                    ║\n");
+    printf("║  0. Sair                                      ║\n");
+    printf("╚═══════════════════════════════════════════════╝\n\n");
+}
+
 void processar_gerir_estudantes(Uni * bd) {
     char opcao;
     do {
@@ -965,10 +1053,10 @@ void processar_gerir_estudantes(Uni * bd) {
                 inserir_estudante(bd);
                 break;
             case '2':
-                //eliminar estudante
+                eliminar_estudante(bd);
                 break;
             case '3':
-                //atualizar estudante
+                //atualizar estudante (opcional)
                 break;
             default: 
                 opcao = '0';
@@ -1037,7 +1125,7 @@ void processar_ficheiros(Uni * bd) {
         switch(opcao) {
             case '0': break;
             case '1':
-                //
+                guardar_dados(DADOS_TXT, SITUACAO_ESCOLAR_TXT, bd);
                 break;
             case '2':
                 //
@@ -1062,13 +1150,13 @@ void processar_extras(Uni * bd) {
         switch(opcao) {
             case '0': break;
             case '1':
-                //
+                listar_aniversarios_por_dia(bd);
                 break;
             case '2':
-                //
+                listar_aniversario_ao_domingo(bd);
                 break;
             case '3':
-                //
+                //fazer uma função que @param sejam media min, media max e ano atual
                 break;
             default: 
                 opcao = '0';
@@ -1135,7 +1223,6 @@ void ler_data(Estudante * aluno, char * str, const char modo) {
         //O sscanf lê as x entradas conforme o padrão apresentado
     	if (sscanf(data, "%hd-%hd-%hd", &dia_temp, &mes_temp, &ano_temp) != 3) { //sscanf tenta ler 3 shorts para as var temp
             //Aqui não se usa && erro == '0'porque só pode ser 0 se !str, e nesse caso há um continue
-            //Caso nao consiga, o formato é inválido
             if (modo == '1') printf("Formato inválido! Use o formato DD-MM-AAAA.\n");
             erro = '1';
         }
@@ -1159,22 +1246,20 @@ void ler_data(Estudante * aluno, char * str, const char modo) {
 }
 
 void inserir_estudante(Uni * bd) {
+    int posicao_insercao_aluno;
+    int posicao_insercao_escolares;
     //A metodologia vai ser colocar tudo no final do array e depois ordená-lo
-    
-    char repetir = 'n'; //s/n
     limpar_buffer();
     do {
         //Realocação dentro do do{}while para evitar que sejam inseridos alunos até não haver espaço
-        if (bd->capacidade_aluno <= bd->tamanho_aluno) { //Trata os casos em que não há espaço livre
+        if (bd->capacidade_aluno <= bd->tamanho_aluno + 1) { //Trata os casos em que não há espaço livre
             if (!realocar_aluno(bd, '1')) return;
             inicializar_aluno(bd, bd->tamanho_aluno);
         }
-        if (bd->capacidade_escolares <= bd->tamanho_aluno) {
+        if (bd->capacidade_escolares <= bd->tamanho_escolares + 1) {
             if (!realocar_escolares(bd, '1')) return;
             inicializar_escolares(bd, bd->tamanho_escolares);
         }
-        int posicao_insercao_aluno;
-        int posicao_insercao_escolares;
         limpar_terminal(); //Caso de repetição
         do {
             int codigo_temp = -1;
@@ -1192,8 +1277,16 @@ void inserir_estudante(Uni * bd) {
             if(posicao_insercao_aluno < 0) { //Não se verifica escolares pois nunca há códigos em escolares que não estejam em aluno
                 posicao_insercao_aluno = -(posicao_insercao_aluno + 1);
                 posicao_insercao_escolares = procurar_codigo_escolares(codigo_temp, bd);
-                if (posicao_insercao_escolares < 0) posicao_insercao_escolares = -(posicao_insercao_escolares + 1);
+                if (posicao_insercao_escolares == 0) { //Necessário porque procurar não printa erros.
+                    printf("Ocorreu um erro a procurar o índice dos dados escolares.\n");
+                    printf("Por favor tente novamente.\n");
+                    pressione_enter();
+                    continue;
+                }
+                //Não se verifica se é < 0 porque sabemos que se não existe em aluno não existe em escolares
+                posicao_insercao_escolares = -(posicao_insercao_escolares + 1);
                 ordenar_ao_inserir(codigo_temp, bd, posicao_insercao_aluno, posicao_insercao_escolares);
+                //Trocam-se as posições do array. O código é inserido. O resto inicializado.
                 break; 
             }
         } while (1);
@@ -1310,23 +1403,95 @@ void inserir_estudante(Uni * bd) {
         //Incrementar o tamanho dos arrays
         bd->tamanho_aluno += 1;
         bd->tamanho_escolares += 1;
+        printf("\nO código %d foi introduzido com sucesso!\n", bd->aluno[posicao_insercao_aluno].codigo);
 
+        printf("\nQuer inserir mais estudantes? (S/N): ");
+        if (!repetir()) return;
+    }while(1); //Não precisamos de verificar repetir pois só chega aqui se repetir == 's'
+}
+
+void eliminar_estudante(Uni * bd) {
+    //**Implementar lógica de eliminar em intervalos de códigos**
+    do {
+        limpar_terminal(); //Caso de repetição
         do {
-            printf("\nQuer inserir mais estudantes? (S/N): ");
-            scanf(" %c", &repetir);
+            int codigo_temp = -1;
+            limpar_terminal();
+            printf("Insira o código do estudante: ");
+            if (scanf("%d", &codigo_temp) != 1) { //Verifica entradas inválidas como letras
+                printf("Código inválido! Insira um número inteiro positivo.\n");
+                limpar_buffer();
+                pressione_enter();
+                continue; //Continue faz com que salte o resto do loop e passe à próxima iteração
+            }
             limpar_buffer();
-            if (repetir == 's' || repetir == 'S') {
-                repetir = 's';
+            
+            //Elimina e ordena o código dado, caso seja válido.
+            if(ordenar_ao_eliminar(codigo_temp, bd)) {
+                printf("O código %d foi eliminado com sucesso!\n", codigo_temp);
                 break;
             }
-            else if (repetir == 'n' || repetir == 'N') {
-                //A ordenação já foi feita
-                return;
-            }
-            printf("\nOpção inválida. Use S ou N.\n");
-            pressione_enter();
         } while (1);
-    }while(1); //Não precisamos de verificar repetir pois só chega aqui se repetir == 's'
+
+        printf("\nQuer eliminar mais estudantes? (S/N): ");
+        if(!repetir()) return;
+    } while(1);
+}
+
+//Listagens
+
+void listar_aniversarios_por_dia(Uni * bd) {
+    const char * dias_da_semana[] = {"Sábado", "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira"};
+    short dia, mes, ano, opcao, dia_da_semana;
+    int contador = 0;
+    do {
+        opcao = (short) mostrar_menu(menu_dias_da_semana, '0', '7') - '0'; // - '0' converte para int
+        //Lembrar que se for 7, na verdade é o 0 na função de calcular
+        if (opcao == 0) break;
+        if (opcao == 7) opcao = 0; //Como já saímos do menu, ajustamos para a mesma ordem que a função calcular_dia_da_semana retornará.
+        
+        if (opcao == 0 || opcao == 1) printf("Estudantes nascidos no %s:\n", dias_da_semana[opcao]); //Ajuste gramatical
+        else printf("Estudantes nascidos na %s:\n", dias_da_semana[opcao]);
+        for(int i = 0; i < bd->tamanho_aluno; i++) {
+            dia = bd->aluno[i].nascimento.dia;
+            mes = bd->aluno[i].nascimento.mes;
+            ano = bd->aluno[i].nascimento.ano;
+            dia_da_semana = calcular_dia_da_semana(dia, mes, ano);
+            if (dia_da_semana == opcao) {
+                printf("Nome: %s, Data de Nascimento: %02hd-%02hd-%04hd\n", bd->aluno[i].nome, dia, mes, ano);
+                contador++;
+                if (contador % 20 == 0) pressione_enter();
+            }
+        }
+        printf("\n---------------------FIM DE LISTAGEM---------------------\n\n");
+        pressione_enter();
+    } while (1); //while(1) porque devido às circusntâncias já saímos em cima.
+}
+
+void listar_aniversario_ao_domingo(Uni * bd) {
+    short dia, mes, ano;
+    int contador = 0;
+    do {
+        do {
+            printf("Insira o ano: ");
+            scanf("%hd", &ano);
+        } while (ano > ANO_ATUAL || ano < ANO_NASC_LIM_INF);
+
+        for(int i = 0; i < bd->tamanho_aluno; i++) {
+            dia = bd->aluno[i].nascimento.dia;
+            mes = bd->aluno[i].nascimento.mes;
+            if (calcular_dia_da_semana(dia, mes, ano) == 1) { 
+                printf("Nome: %s, Data de Nascimento: %02hd-%02hd-%04hd\n", bd->aluno[i].nome, dia, mes, ano);
+                contador++;
+                if (contador % 20 == 0) pressione_enter();
+            }
+        }
+        printf("\n---------------------FIM DE LISTAGEM---------------------\n\n");
+        pressione_enter();
+        
+        printf("\nQuer inserir um ano diferente? (S/N): ");
+        if(!repetir()) return;
+    } while(1);
 }
 
 //Funções auxiliares
@@ -1488,4 +1653,32 @@ int string_para_float(const char * str, float * resultado) {
     return 1;
 }
 
+//Calcula o dia da semana de acordo com a fórmula da Congruência de Zeller.
+//https://www.geeksforgeeks.org/zellers-congruence-find-day-date/
+//Retorna 0 - Sábado, 1 - Domingo, ..., 6 - Sexta-feira.
+short calcular_dia_da_semana(short dia, int mes, int ano) {
+    if (mes < 3) {
+        mes += 12;
+        ano -= 1;
+    }
+    short k = ano % 100;
+    short j = ano / 100;
+    short dia_da_semana = (dia + 13 * (mes + 1) / 5 + k + k / 4 + j / 4 + 5 * j) % 7;
+    return dia_da_semana;
+}
 
+int repetir() {
+    char opcao;
+    do {
+        scanf(" %c", &opcao);
+        limpar_buffer();
+        if (opcao == 's' || opcao == 'S') {
+            return 1;
+        }
+        else if (opcao == 'n' || opcao == 'N') {
+            return 0;
+        }
+        printf("\nOpção inválida. Use S ou N.\n");
+        pressione_enter();
+    } while (1);
+}

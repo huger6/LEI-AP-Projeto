@@ -1,7 +1,4 @@
 DÚVIDAS:
--Manter o ficheiro aberto durante as operações em memória ou fecha-lo e reabri-lo mais tarde? Abrir. fechar. Abrir, fechar
-!!!Os ficheiros podem ter alunos diferentes???? Pode haver alunos sem situacao escolar mas vice versa nao
--Podemos trabalhar essencialmente com os códigos e assumir que se o código está livre, os outros parametros também o estão??
 -Verificar dúvida do bug da linha incompleta em erros.txt.
 ______________________________________________________________________________________________________________
 
@@ -98,12 +95,22 @@ que vai vir para baixo no merge sort.
 
 Solução: a realocação estava a verificar erradamente o tamanho do array em carregar_dados. Foi acrescentado o + 1 para resolver.
 
+
+#BUG ELIMINAR ESTUDANTES
+Como replicar:
+-Inserir um estudante.
+-Eliminar esse estudante.
+-Repetir eliminação.
+-Eliminar 1234.
+
+O programa fecha abruptamente
 ______________________________________________________________________________________________________________
 
 FUTURAMENTE:
 
 -opcao linguagem
 -ler ficheiro erros.txt e printar os erros.
+-eliminação de códigos por intervalos
 
 
 ______________________________________________________________________________________________________________
