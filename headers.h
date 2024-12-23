@@ -23,6 +23,7 @@
 #define MIN_INT -2147483648
 #define MAX_SHORT 32767
 #define MIN_SHORT -32768
+#define MAX_FORMATO 10 //Ajustar se o formato do ficheiro for superior a 9 caracteres.
 
 
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
@@ -93,6 +94,7 @@ typedef struct uni{
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
 void carregar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolar, Uni * bd);
 void guardar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd);
+FILE * pedir_listagem(char * formato_selecionado);
 //Gestão de memória
 void inicializar_aluno(Uni * bd, int indice_aluno);
 void inicializar_estatisticas(Estatisticas * stats);
@@ -102,7 +104,10 @@ int realocar_nome(Estudante * aluno, const char modo);
 //Procura e validações
 int procurar_codigo_aluno(int codigo, Uni * bd);
 int procurar_codigo_escolares(int codigo, Uni * bd);
-void procurar_estudante_por_nome(Uni * bd);
+int validar_codigo_ao_inserir(int codigo, Uni * bd);
+int validar_codigo_eliminar(int codigo, Uni * bd);
+int validar_nome_ficheiro(const char * nome_ficheiro);
+FILE * validar_ficheiro_e_abrir(const char * nome);
 void verificar_codigos_duplicados(Uni * bd, FILE * erros);
 void verificar_codigos_escolares_sem_aluno(Uni * bd, FILE * erros, char * primeiro_erro);
 int validar_data(short dia, short mes, short ano, const char modo);
@@ -127,6 +132,7 @@ void menu_estatisticas();
 void menu_ficheiros();
 void menu_extras();
 void menu_dias_da_semana();
+void menu_formatos_disponiveis();
 void processar_gerir_estudantes(Uni * bd);
 void processar_consultar_dados(Uni * bd);
 void processar_estatisticas(Uni * bd);
@@ -138,6 +144,7 @@ void ler_data(Estudante * aluno, char * str, const char modo);
 void inserir_estudante(Uni * bd);
 void eliminar_estudante(Uni * bd);
 //Listagens
+void procurar_estudante_por_nome(Uni * bd);
 void listar_aniversarios_por_dia(Uni * bd);
 void listar_aniversario_ao_domingo(Uni * bd);
 //Funções auxiliares
@@ -152,6 +159,7 @@ int string_para_int(const char * str, int * resultado);
 int string_para_short(const char * str, short * resultado);
 int string_para_float(const char * str, float * resultado);
 short calcular_dia_da_semana(short dia, int mes, int ano);
-int repetir();
+int sim_nao();
+char obter_separador(FILE * ficheiro, char * formato);
 
 #endif

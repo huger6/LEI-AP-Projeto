@@ -6,8 +6,9 @@
 //NOVA METODOLOGIA:
 //Usar ler_linha_txt() para ler qualquer entrada de stdin
 //Se necessário usar um scanf, colocar fseek(stdin, 0, SEEK_END); para evitar erros na leitura;
+//Nas listagens, falta fazer com que a última linha não fique em branco.
 
-//TODO: rever o free ao eliminar e ordenar_ao_eliminar
+//TODO:
 //NOTA: erros.txt está atualmente em modo w para facilitar debugging, alterar quando já não for necessário
 int main() {
     //Colocar a consola em PT-PT (caracteres UTF8)
@@ -41,6 +42,7 @@ int main() {
 
 	escolha_menus(&bd);
 
+	//Provavelmente também será necessário dar free em nome e nacionalidade antes
 	free(bd.aluno);
 	free(bd.escolares);
 	

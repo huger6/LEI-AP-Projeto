@@ -1,4 +1,4 @@
------------------NOVA ITERAÇÃO DO PROGRAMA-----------------
+------------------------------------------NOVA ITERAÇÃO DO PROGRAMA------------------------------------------
 
 
 
@@ -75,6 +75,6 @@ Razão: Não podem existir dados escolares sem a informação pessoal do aluno!
 Código 3220 no ficheiro situacao_Escolar_Estudantes.txt não foi encontrado no ficheiro dados.txt.
 Razão: Não podem existir dados escolares sem a informação pessoal do aluno!
 
-----------------------FIM DE ITERAÇÃO----------------------
+------------------------------------------FIM DE ITERAÇÃO------------------------------------------
 
 

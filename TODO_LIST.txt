@@ -1,5 +1,11 @@
 DÚVIDAS:
 -Verificar dúvida do bug da linha incompleta em erros.txt.
+-É suposto ao procurar um aluno, poder usar letras minusculas?
+-Carregar os ficheiros deve ser uma opção no menu ou deve ser sempre feito no início?
+-Os ficheiros a carregar podem ter nomes especificados pelo utilizador?
+-Ao fazer listagens deve ser mostrado os dados do estudante e escolares também ou apenas os relacionados com a listagem?
+
+
 ______________________________________________________________________________________________________________
 
 NOTAS:
@@ -17,26 +23,11 @@ ________________________________________________________________________________
 A IMPLEMENTAR:
 -Pedir confirmação antes de sair do programa
 -Para a ultima pergunta podemos usar um array dentro de um array, basicamente aquilo é uma matriz, ou entao fazer da forma "convencional"
--REVER METODO LER INPUTS!!
--LIMPAR O BUFFER APÓS CADA OPERAÇÃO BÁSICA
 -Dar uma vista de olhos pelas mensagens de erro e talvez aprimorá-las
--mecanismo de avanço página a página: printar 20, pausa, enter, repeat (ver depois)
 -DEVEMOS GUARDAR EM FICHEIROS TXT E BINÁRIO!! DEVE SER UMA OPÇÃO
+-
 -Talvez seja uma boa ideia voltar a criar uma struct para os dados escolares
--Nacionalidades devem ser variadas, e não devem ser verificadas
--Uso de atoi e strtol esta correto. Se falharem, devemos passar a linha
--Fazer a verificação na leitura se não tem nenhum tab, se tiver, classificar a entrada como inválida.
--Devemos assumir que os dados que estão nos ficheiros estaraão corretos? Alguns, como espaços e no caso do user inserir espaço entre os nomes
--Talvez seja benéfico adicionar mais caracteres na leitura da data de nascimento
--O que fazer no caso de um dado estar inválido? COPIAR PARA UM FICHEIRO DE ERROS
-!!-Procurar código com procura binária e ordenar sempre o vetor após cada edição do estudante
--Na listagem com avanço página a página, podemos fazer com que cada 20 linhas sejam guardadas num array novo (em baixo)
-ex: temos 201 linhas para listar, fazíamos 201 % 20 = 1, e depois fazíamos for (int i = 0; i < (201-1)/20;i++) e aí guardavamos um array com a info,
-e depois obtemos o último array com 1 linha apenas, e com isso, através dos índices dos i's, podemos fazer com que o user avance ou ande para trás na pag
-poderia ser criado uma espécie de legenda para o user saber os comandos (possível, mas para melhor eficiência não usar arrays)
--Vamos ASSUMIR que se o aluno não for eliminado, O CÓDIGO NÃO PODERÁ SER ALTERADO
--Carregar, ordenar e depois validar o codigo de escolares
--Usar o merge sort porque mantém a ordem inicial
+
 -Mais eficiente e escolhemos esta porque por norma não haverá muitos duplicados
 -Para o menu podemos usar a struct atual dentro de Uni e definir vários char, tipo p, g, e, x, ...
 -Realçar o erro na linha em erros.txt
@@ -111,6 +102,7 @@ FUTURAMENTE:
 -opcao linguagem
 -ler ficheiro erros.txt e printar os erros.
 -eliminação de códigos por intervalos
+-adicionar listagem em .md (markdown)
 
 
 ______________________________________________________________________________________________________________
@@ -125,12 +117,4 @@ A ANOTAR NO RELATÓRIO
 -Nacionalidade apesar do array estar limitado, está estruturado no código de modo a que seja fácil fazer a sua realocação, apenas seria necessário fazer uma função para o efeito.
 -Em carregar_dados, foi utilizado a var primeiro_erro como alternativa a criar um array e guardar lá os erros(poupa memória)
 -A escrita em erros.txt estava a sair desformatada com os \n's, então modificamos a função ler_linha_txt para eliminar o \n no final, apesar das outras funções já terem essa funcionalidade(validações, separar_parametros, etc)
-
-
-IDEIA menu_estatisticas
-
-
-
--ter uma struct com várias variáveis dos menus 
-seria apenas a 1 a que está com o menu ativo 
-depois 
+-Em carregar_dados foi usado merge_sort pois mantém a ordem pelo qual os dados foram inseridos(importante no caso de duplicados)

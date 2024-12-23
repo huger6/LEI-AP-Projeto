@@ -50,13 +50,15 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
     return NULL;
 }
 
-//Função recebe o ponteiro de um ponteiro para permitir a realocação do array caso necessário
+//Carrega os dados para a struct.
+//Faz verificações de duplicados, etc.
+//Ordena os arrays.
 void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Uni * bd) { 
     FILE * dados = fopen(nome_ficheiro_dados, "r");
     FILE * situacao_escolar = fopen(nome_ficheiro_escolar, "r");
     FILE * erros = fopen(ERROS_TXT, "w"); //Vai anexar ao ficheiro de erros os erros encontrados
     if (!erros) return; //Se prosseguissemos iria resultar em segmentation fault
-    fprintf(erros, "-----------------NOVA ITERAÇÃO DO PROGRAMA-----------------\n\n\n");
+    fprintf(erros, "------------------------------------------NOVA ITERAÇÃO DO PROGRAMA------------------------------------------\n\n\n");
     int n_linhas = 0;
     char * linha = NULL; //Ponteiro para armazenar uma linha lida do ficheiro
     char primeiro_erro = '1'; //'1' significa que ainda não houve erro. 
@@ -296,7 +298,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
     //Códigos que estejam em escolares mas não estejam em aluno
     verificar_codigos_duplicados(bd, erros); //verifica duplicados em ambos os arrays
     verificar_codigos_escolares_sem_aluno(bd, erros, &primeiro_erro);
-    fprintf(erros, "----------------------FIM DE ITERAÇÃO----------------------\n\n\n");
+    fprintf(erros, "------------------------------------------FIM DE ITERAÇÃO------------------------------------------\n\n\n");
 
     if (erro_geral == '0' && primeiro_erro == '0') erro_geral = '1';
     if (erro_geral == '1') { 
@@ -306,6 +308,7 @@ void carregar_dados(const char * nome_ficheiro_dados,const char * nome_ficheiro_
     fclose(erros);
 }
 
+//Guarda os dados no mesmo ficheiro do qual leu inicialmente, ordenados pelo código.
 void guardar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd) {
     FILE * aluno = fopen(nome_ficheiro_dados, "w");
     FILE * dados = fopen(nome_ficheiro_escolares, "w");
@@ -340,10 +343,61 @@ void guardar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_
     return;
 }
 
+//Pede ao user se quer efetuar uma cópia em ficheiro da listagem atual.
+//Mostra os formatos disponíveis e pede o nome do ficheiro a escrever.
+//Verifica se o nome é válido.
+//Retorna um ponteiro para o ficheiro ABERTO, se for o caso.
+//Retorna NULL em caso de não querer listar ou erro.
+//São adereçados todos os erros com uma mensagem ao user.
+FILE * pedir_listagem(char * formato_selecionado) {
+    const char * formatos[] = {".txt", ".csv"};
+    short opcao;
+    char * nome_ficheiro;
+    FILE * ficheiro = NULL;
+
+    printf("Deseja guardar a listagem num ficheiro? (S/N):");
+    if (sim_nao()) {
+        opcao = mostrar_menu(menu_formatos_disponiveis, '0', '2') - '0';
+        if (opcao == 0) return NULL; //Sair
+
+        opcao--; //Fazemos a opcao ser igual ao indice de formatos
+        strcpy(formato_selecionado, formatos[opcao]); 
+
+        //Nome do ficheiro fica à escolha do utilizador.
+        do {
+            printf("Nome do ficheiro a guardar: ");
+            nome_ficheiro = ler_linha_txt(stdin, NULL);
+            if (validar_nome_ficheiro(nome_ficheiro)) break;
+            else free(nome_ficheiro);
+        } while(1);
+
+        //Garantir que a string a que vamos concatenar o nome da extensão do ficheiro tem tamanho suficiente para isso.
+        char * temp = realloc(nome_ficheiro, strlen(nome_ficheiro) + strlen(formatos[opcao]) + 1);
+        if (!temp) { //Realocação falhou
+            free(nome_ficheiro);
+            printf("Erro ao alocar memória. Por favor tente novamente mais tarde.\n");
+            return NULL;
+        }
+        nome_ficheiro = temp;
+        //strcat dá append na 2º string ao fim da 1ª.
+        strcat(nome_ficheiro, formatos[opcao]);
+        ficheiro = validar_ficheiro_e_abrir(nome_ficheiro);
+        if (!ficheiro) {
+            free(nome_ficheiro);
+            return NULL; //Caso seja inválido
+        }
+        limpar_terminal();
+        printf("O ficheiro \"%s\" foi aberto com sucesso!\n", nome_ficheiro);
+        return ficheiro; //Retornamos um ponteiro para o ficheiro.
+    }
+    return NULL;
+}
+
 //Gestão de memória
 
 //Inicializa com valores nitidamente inválidos.
-// Usar indice_atual = 0 para inicializar pela primeira vez, depois usar a última posição válida ocupada + 1
+//Inicializa de indice_aluno até bd->capacidade_aluno.
+//Inicializa memória para nome e nacionalidade dinamicamente.
 void inicializar_aluno(Uni * bd, int indice_aluno) {
     if (!bd || !bd->aluno || !bd->escolares) return;
 
@@ -380,7 +434,6 @@ void inicializar_escolares(Uni * bd, int indice_escolares) {
     }
 }
 
-
 void inicializar_estatisticas(Estatisticas * stats) {
     stats->finalistas = 0;
     stats->media = 0;
@@ -389,6 +442,7 @@ void inicializar_estatisticas(Estatisticas * stats) {
     stats->medias_matriculas = 0;
     stats->risco_prescrever = 0;
 }
+
 //Duplica o espaço atual. Não inicializa o espaço alocado. modo = '1' para endereçar erros.
 int realocar_aluno(Uni * bd, const char modo) {
     int tamanho_novo = bd->capacidade_aluno * 2;
@@ -481,50 +535,6 @@ int procurar_codigo_escolares(int codigo, Uni * bd) {
     return -(limInf + 1); //Não há esse código, RETORNA A POSIÇÃO DE INSERÇÃO + 1
 }
 
-void procurar_estudante_por_nome(Uni * bd) {
-    short contador = 0;
-    char * parte_nome;
-    do {
-        limpar_terminal();
-        do {
-            parte_nome = NULL;
-            printf("Introduza parte do nome do estudante a procurar: ");
-            parte_nome = ler_linha_txt(stdin, NULL);
-            if(strlen(parte_nome) < 2 || !parte_nome) {
-                printf("A entrada é inválida. Por favor, insira parte do nome do aluno, com um mínimo de 2 caracteres.");
-                pressione_enter();
-                free(parte_nome);
-                continue;
-            }
-            break;
-        } while(1);
-        contador = 0;
-        printf("Resultados da pesquisa para \"%s\": \n", parte_nome);
-        for(int i = 0; i < bd->tamanho_aluno; i++) {
-            //strstr(s1, s2) é uma função que retorna a primeira ocorrência de s2 em s1
-            //https://www.geeksforgeeks.org/strstr-in-ccpp/
-            if (strstr(bd->aluno[i].nome, parte_nome) != NULL) {
-                if (contador % 20 == 0 && contador != 0) pressione_enter();
-
-                printf("Código: %d\n", bd->aluno[i].codigo);
-                printf("Nome: %s\n", bd->aluno[i].nome);
-                printf("Data de Nascimento: %02d-%02d-%04d\n", bd->aluno[i].nascimento.dia, bd->aluno[i].nascimento.mes, bd->aluno[i].nascimento.ano);
-                printf("Nacionalidade: %s\n", bd->aluno[i].nacionalidade);
-                printf("\n");
-                contador++;
-            }
-        }
-        if (contador == 0) {
-            printf("Não foi encontrado nenhum estudante com parte do nome \"%s\".\n", parte_nome);
-        }
-        pressione_enter();
-        free(parte_nome);
-
-        printf("\nQuer repetir a procura? (S/N): ");
-        if (!repetir()) return;
-    } while(1);
-}
-
 //Faz a validação do código e retorna -(indice + 1).
 //Caso não seja válido retorna 0.
 int validar_codigo_ao_inserir(int codigo, Uni * bd) {
@@ -569,6 +579,46 @@ int validar_codigo_eliminar(int codigo, Uni * bd) {
     return 0; 
 }
 
+//Retorna 1 se o nome for válido. 0 caso contrário.
+int validar_nome_ficheiro(const char * nome_ficheiro) {
+    //Caracteres inválidos ao escrever ficheiros.
+    const char * chars_invalidos = "\\/:*?\"<>|";
+
+    for (int i = 0; nome_ficheiro[i] != '\0'; i++) {
+        //strchr é semelhante à strstr já usada, mas procura um char dentro da string(1º param).
+        if (strchr(chars_invalidos, nome_ficheiro[i]) != NULL) { 
+            printf("O nome do ficheiro é inválido. Por favor, escreva um nome sem os seguintes caracteres: \n");
+            printf("%s\n", chars_invalidos);
+            return 0;
+        }
+    }
+    return 1;
+}
+
+//Verifica se já existe algum ficheiro com o mesmo nome.
+//Retorna NULL se o ficheiro existir e o user não queira sobreescrevê-lo.
+//Retorna um ponteiro para o ficheiro aberto em modo "w" nos outros casos.
+FILE * validar_ficheiro_e_abrir(const char * nome) {
+    FILE * ficheiro = fopen(nome, "r"); //Verificar se o fichereiro existe.
+    if (ficheiro) {
+        fclose(ficheiro);
+        printf("Já existe um ficheiro com o nome \"%s\". Quer substituir o ficheiro no destino? (S/N) ", nome);
+        if (!sim_nao()) {
+            return NULL;
+        }
+        limpar_terminal();
+    }
+    //Abrimos em modo escrita como normal.
+    ficheiro = fopen(nome, "w");
+    if (!ficheiro) {
+        printf("Ocorreu um erro a abrir o ficheiro. Por favor, tente novamente mais tarde.\n");
+        return NULL;
+    }
+    
+    return ficheiro;
+}
+
+//Usar ao carregar dados
 void verificar_codigos_duplicados(Uni * bd, FILE * erros) {
     //O(n)
     char erro = '0';
@@ -657,7 +707,7 @@ int validar_data(short dia, short mes, short ano, const char modo) {
     que por natureza, não têm de ser todos iguais ou ser inscritos com a mesma idade.
     */
     if (ano < ANO_NASC_LIM_INF || ano > ANO_ATUAL - 16) {
-        if (modo == '1') printf("O ano inserido é inválido. Insira um ano entre %d e %d.\n", ANO_NASC_LIM_INF, ANO_ATUAL);
+        if (modo == '1') printf("O ano inserido é inválido. Insira um ano entre %d e %d.\n", ANO_NASC_LIM_INF, ANO_ATUAL - 16);
         return 0;
     }
 
@@ -741,27 +791,19 @@ int validar_nacionalidade(char * nacionalidade, const char modo) {
     return 1;
 }
 
-void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup) { //const pois não devem ser alterados
+void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup) { 
     if (*valido != 1) {
-        validacao_input_menu(limInf, limSup);
+        printf("Entrada inválida! Introduza um número do menu (%c a %c)\n", limInf, limSup); 
+        pressione_enter();
     }
     else if (opcao < limInf || opcao > limSup) { 
-        *valido = 0; //Scanf leu corretamente e retornou 1, mas como não queremos esses números, voltamos a definir a zero para dizer que é inválido
-        validacao_numero_menu(limInf, limSup); 
+        *valido = 0; //Scanf leu corretamente e retornou 1, mas como não queremos esses números, voltamos a definir a zero.
+        printf("Por favor, escolha um número do menu (%c a %c).\n", limInf, limSup);
+        pressione_enter();
     }
-}
-
-//Esta função é um pouco "inutil" neste momento. Foi desenhada para tratar erros com ints
-void validacao_input_menu(const char limInf, const char limSup) {
-    limpar_buffer();  // Limpar o buffer de entrada (o que foi escrito incorretamente)
-	printf("Entrada inválida! Introduza um número do menu (%c a %c)\n", limInf, limSup); 
-    pressione_enter();
-}
-
-void validacao_numero_menu(const char limInf, const char limSup) {
+    //Limpamos o buffer porque sabemos que há, pelo menos, o enter no buffer de stdin.
     limpar_buffer();
-	printf("Por favor, escolha um número do menu (%c a %c).\n", limInf, limSup);
-	pressione_enter();
+    //Assim saímos do menu sempre com o buffer limpo. (menos uma preocupação)
 }
 
 //Ordenação
@@ -985,11 +1027,12 @@ char mostrar_menu(void (*escrever_menu)(), char min_opcao, char max_opcao) {
         validacao_menus(&valido, opcao, min_opcao, max_opcao);
 
         if (valido == 1) {
-            limpar_buffer(); //Limpa o enter depois de introduzido o menu
             return opcao;
         }
     } while (valido == 0);
 }
+
+//As seguintes funções que começam por "menu" servem apenas para printar o menu.
 
 //0-5
 void menu_principal() {
@@ -1041,7 +1084,7 @@ void menu_estatisticas() {
     printf("║  2. Número médio de matrículas (geral/nacionalidade)   ║\n");
     printf("║  3. Número de finalistas                               ║\n");
     printf("║  4. Média de idades por nacionalidade e ano            ║\n");
-    printf("║  5. Listar estudantes em risco de prescrição           ║\n");
+    printf("║  5. Estudantes em risco de prescrição                  ║\n");
     printf("║  0. Voltar ao menu anterior                            ║\n");
     printf("╚════════════════════════════════════════════════════════╝\n\n");
 }
@@ -1086,6 +1129,17 @@ void menu_dias_da_semana() {
     printf("║  7. Sábado                                    ║\n");
     printf("║  0. Sair                                      ║\n");
     printf("╚═══════════════════════════════════════════════╝\n\n");
+}
+
+//0-2
+void menu_formatos_disponiveis() {
+    printf("╔══════════════════════════╗\n");
+    printf("║   FORMATOS DISPONÍVEIS   ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║  1. .txt                 ║\n");
+    printf("║  2. .csv                 ║\n");
+    printf("║  0. Sair                 ║\n");
+    printf("╚══════════════════════════╝\n\n");
 }
 
 //Apresenta o menu e faz todas as operações.
@@ -1304,7 +1358,6 @@ void inserir_estudante(Uni * bd) {
     int posicao_insercao_aluno;
     int posicao_insercao_escolares;
     //A metodologia vai ser colocar tudo no final do array e depois ordená-lo
-    limpar_buffer();
     do {
         //Realocação dentro do do{}while para evitar que sejam inseridos alunos até não haver espaço
         if (bd->capacidade_aluno <= bd->tamanho_aluno + 1) { //Trata os casos em que não há espaço livre
@@ -1461,7 +1514,7 @@ void inserir_estudante(Uni * bd) {
         printf("\nO código %d foi introduzido com sucesso!\n", bd->aluno[posicao_insercao_aluno].codigo);
 
         printf("\nQuer inserir mais estudantes? (S/N): ");
-        if (!repetir()) return;
+        if (!sim_nao()) return;
     }while(1); //Não precisamos de verificar repetir pois só chega aqui se repetir == 's'
 }
 
@@ -1483,43 +1536,138 @@ void eliminar_estudante(Uni * bd) {
             
             //Elimina e ordena o código dado, caso seja válido.
             if(ordenar_ao_eliminar(codigo_temp, bd)) {
-                printf("O código %d foi eliminado com sucesso!\n", codigo_temp);
+                printf("O aluno com o código %d foi eliminado com sucesso!\n", codigo_temp);
                 break;
             }
         } while (1);
 
         printf("\nQuer eliminar mais estudantes? (S/N): ");
-        if(!repetir()) return;
+        if(!sim_nao()) return;
     } while(1);
 }
 
-//Listagens
+//Listagens (inclui procuras)
+
+//Procura um estudante dado uma parte do nome com 2+ caracteres.
+//Não suporta formatos com mais de 9 caracteres.
+//Lista no terminal e em ficheiro(se requerido).
+void procurar_estudante_por_nome(Uni * bd) {
+    short contador = 0;
+    char * parte_nome;
+    char formato[MAX_FORMATO]; //Espaço suficiente para .txt ou .csv (10)
+    char separador;
+    FILE * listagem;
+
+    do {
+        listagem = NULL;
+        limpar_terminal();
+        //Verificar se queremos fazer uma listagem
+        listagem = pedir_listagem(formato);
+        separador = obter_separador(listagem, formato);
+        
+        do {
+            parte_nome = NULL;
+            printf("Introduza parte do nome do estudante a procurar: ");
+            parte_nome = ler_linha_txt(stdin, NULL);
+            if(strlen(parte_nome) < 2 || !parte_nome) {
+                printf("A entrada é inválida. Por favor, insira parte do nome do aluno, com um mínimo de 2 caracteres.");
+                pressione_enter();
+                free(parte_nome);
+                continue;
+            }
+            break;
+        } while(1);
+        contador = 0;
+        printf("Resultados da pesquisa para \"%s\": \n\n", parte_nome);
+        for(int i = 0; i < bd->tamanho_aluno; i++) {
+            //strstr(s1, s2) é uma função que retorna a primeira ocorrência de s2 em s1
+            //https://www.geeksforgeeks.org/strstr-in-ccpp/
+            if (strstr(bd->aluno[i].nome, parte_nome) != NULL) {
+                if (contador % 20 == 0 && contador != 0) pressione_enter();
+
+                printf("Código: %d\n", bd->aluno[i].codigo);
+                printf("Nome: %s\n", bd->aluno[i].nome);
+                printf("Data de Nascimento: %02d-%02d-%04d\n", bd->aluno[i].nascimento.dia, bd->aluno[i].nascimento.mes, bd->aluno[i].nascimento.ano);
+                printf("Nacionalidade: %s\n", bd->aluno[i].nacionalidade);
+                printf("\n");
+                if (listagem) {
+                    //Colocar \n apenas se não for nem a primeira nem a última entrada.
+                    if (contador > 0) fprintf(listagem, "\n");
+
+                    fprintf(listagem, "%d%c", bd->aluno[i].codigo, separador);
+                    fprintf(listagem, "%s%c", bd->aluno[i].nome, separador);
+                    fprintf(listagem, "%02d-%02d-%04d%c", bd->aluno[i].nascimento.dia, bd->aluno[i].nascimento.mes, bd->aluno[i].nascimento.ano, separador);
+                    fprintf(listagem, "%s", bd->aluno[i].nacionalidade);
+                }
+                contador++;
+            }
+        }
+        if (contador == 0) {
+            printf("Não foi encontrado nenhum estudante com parte do nome \"%s\".\n", parte_nome);
+        }
+        pressione_enter();
+        printf("\n---------------------FIM DE LISTAGEM---------------------\n\n");
+
+        free(parte_nome);
+        fclose(listagem);
+
+        printf("\nQuer repetir a procura? (S/N): ");
+        if (!sim_nao()) return;
+    } while(1);
+}
 
 void listar_aniversarios_por_dia(Uni * bd) {
     const char * dias_da_semana[] = {"Sábado", "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira"};
     short dia, mes, ano, opcao, dia_da_semana;
-    int contador = 0;
+    int contador;
+    char formato[MAX_FORMATO]; 
+    char separador;
+    FILE * listagem;
     do {
+        contador = 0;
+        listagem = NULL;
+        limpar_terminal();
+
         opcao = (short) mostrar_menu(menu_dias_da_semana, '0', '7') - '0'; // - '0' converte para int
-        //Lembrar que se for 7, na verdade é o 0 na função de calcular
         if (opcao == 0) break;
+        //Preparar listagem
+        listagem = pedir_listagem(formato);
+        separador = obter_separador(listagem, formato);
+
+        //Lembrar que se for 7, na verdade é o 0 na função calcular_dia_da_semana.
         if (opcao == 7) opcao = 0; //Como já saímos do menu, ajustamos para a mesma ordem que a função calcular_dia_da_semana retornará.
         
         if (opcao == 0 || opcao == 1) printf("Estudantes nascidos no %s:\n", dias_da_semana[opcao]); //Ajuste gramatical
         else printf("Estudantes nascidos na %s:\n", dias_da_semana[opcao]);
+
         for(int i = 0; i < bd->tamanho_aluno; i++) {
             dia = bd->aluno[i].nascimento.dia;
             mes = bd->aluno[i].nascimento.mes;
             ano = bd->aluno[i].nascimento.ano;
             dia_da_semana = calcular_dia_da_semana(dia, mes, ano);
             if (dia_da_semana == opcao) {
-                printf("Nome: %s, Data de Nascimento: %02hd-%02hd-%04hd\n", bd->aluno[i].nome, dia, mes, ano);
+                if (contador % 20 == 0 && contador != 0) pressione_enter();
+
+                printf("Código: %d\n", bd->aluno[i].codigo);
+                printf("Nome: %s\n", bd->aluno[i].nome);
+                printf("Data de Nascimento: %02d-%02d-%04d\n", dia, mes, ano);
+                printf("Nacionalidade: %s\n", bd->aluno[i].nacionalidade);
+                printf("\n");
+                if (listagem) {
+                    if (contador > 0) fprintf(listagem, "\n");
+
+                    fprintf(listagem, "%d%c", bd->aluno[i].codigo, separador);
+                    fprintf(listagem, "%s%c", bd->aluno[i].nome, separador);
+                    fprintf(listagem, "%02d-%02d-%04d%c", dia, mes, ano, separador);
+                    fprintf(listagem, "%s", bd->aluno[i].nacionalidade);
+                }
                 contador++;
-                if (contador % 20 == 0) pressione_enter();
             }
         }
         printf("\n---------------------FIM DE LISTAGEM---------------------\n\n");
         pressione_enter();
+
+        fclose(listagem);
     } while (1); //while(1) porque devido às circusntâncias já saímos em cima.
 }
 
@@ -1545,7 +1693,7 @@ void listar_aniversario_ao_domingo(Uni * bd) {
         pressione_enter();
         
         printf("\nQuer inserir um ano diferente? (S/N): ");
-        if(!repetir()) return;
+        if(!sim_nao()) return;
     } while(1);
 }
 
@@ -1617,7 +1765,6 @@ void separar_parametros(const char * linha, char ** parametros, int * num_parame
 }
 
 void limpar_buffer() {
-    if (feof(stdin)) return;
     int lixo;
     while ((lixo = getchar()) != '\n' && lixo != EOF);
 }
@@ -1722,7 +1869,7 @@ short calcular_dia_da_semana(short dia, int mes, int ano) {
     return dia_da_semana;
 }
 
-int repetir() {
+int sim_nao() {
     char opcao;
     do {
         scanf(" %c", &opcao);
@@ -1737,3 +1884,18 @@ int repetir() {
         pressione_enter();
     } while (1);
 }
+
+//Retorna o separador entre os parametros a escrever no ficheiro.
+//Caso o ficheiro == NULL, retorna NULL;
+//Requer ajuste caso sejam adicionados mais tipo de ficheiros.
+char obter_separador(FILE * ficheiro, char * formato) {
+    char separador;
+    if(ficheiro) {
+        if (strcmp(formato, ".txt") == 0) separador = '\t';
+        else if (strcmp(formato, ".csv") == 0) separador = ',';
+        fprintf(ficheiro, "Código%cNome%cData de Nascimento%cNacionalidade\n", separador, separador, separador); //Cabeçalho do ficheiro de listagem.
+    }
+    return separador;
+}
+
+
