@@ -1,9 +1,14 @@
 DÚVIDAS:
 -Verificar dúvida do bug da linha incompleta em erros.txt.
--É suposto ao procurar um aluno, poder usar letras minusculas?
+-É suposto ao procurar um aluno, poder usar letras minusculas? usaria strlwr para meter tanto o nome como a procura a minusculas
 -Carregar os ficheiros deve ser uma opção no menu ou deve ser sempre feito no início?
 -Os ficheiros a carregar podem ter nomes especificados pelo utilizador?
 -Ao fazer listagens deve ser mostrado os dados do estudante e escolares também ou apenas os relacionados com a listagem?
+-ver string_to_int
+-Podemos usar time.h para ver a data atual ou devemos pedir ao user?
+-Nos cáclculos de prescrever, devemos usar #define para definir o numero de matriculas? Apenas foi usado o #define para os creditos.
+-Deve haver algum erro no ficheiro situacao_escolar já que pede o numero de alunos com +154 ects, finalisttas, mas nenhum estudante corresponde a esses ects.
+
 
 
 ______________________________________________________________________________________________________________
@@ -103,7 +108,7 @@ FUTURAMENTE:
 -ler ficheiro erros.txt e printar os erros.
 -eliminação de códigos por intervalos
 -adicionar listagem em .md (markdown)
-
+-implementar um checksum para evitar calcular as estatísticas tantas vezes.
 
 ______________________________________________________________________________________________________________
 

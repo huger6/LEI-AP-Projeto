@@ -24,6 +24,11 @@
 #define MAX_SHORT 32767
 #define MIN_SHORT -32768
 #define MAX_FORMATO 10 //Ajustar se o formato do ficheiro for superior a 9 caracteres.
+#define CREDITOS_FINALISTA 154 //Créditos necessários para ser finalista.
+//Os próximos define são relativos aos créditos mínimos necessários para não estar em risco de prescrever.
+#define ECTS_3MATRICULAS 60
+#define ECTS_4MATRICULAS 120
+
 
 
 //Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
@@ -65,16 +70,16 @@ typedef struct dados_escolares {
     short ano_atual;
     float media_atual;
     char prescrever;
+    char finalista;
 }Dados;
 
-//Struct para todos os dados estatísticos
+//Struct para os dados estatísticos gerais. Podem ser úteis em outros campos.
 typedef struct estatisticas {
-	float medias_matriculas;
+	float media_matriculas;
     float media;
 	int finalistas;
-    float media_idade_nacionalidade;
-    float media_idade_ano;
     int risco_prescrever;
+    char atualizado; //'0' - não; '1' - sim; Evita muitas iterações O(n) desnecessárias;
 }Estatisticas;
 
 //Os arrays destas structs DEVEM ser ORDENADOS
@@ -133,20 +138,29 @@ void menu_ficheiros();
 void menu_extras();
 void menu_dias_da_semana();
 void menu_formatos_disponiveis();
+void menu_media_matriculas();
 void processar_gerir_estudantes(Uni * bd);
 void processar_consultar_dados(Uni * bd);
 void processar_estatisticas(Uni * bd);
 void processar_ficheiros(Uni * bd);
 void processar_extras(Uni * bd);
-void escolha_menus(Uni * bd);
+void the_architect(Uni * bd);
 //Inserção/leitura de dados
 void ler_data(Estudante * aluno, char * str, const char modo);
 void inserir_estudante(Uni * bd);
 void eliminar_estudante(Uni * bd);
+//Estatísticas
+void calcular_estatisticas(Uni * bd);
+void calcular_media_matriculas(Uni * bd);
 //Listagens
+void listar(Estudante aluno, FILE * ficheiro, char separador, short * contador);
 void procurar_estudante_por_nome(Uni * bd);
+void listar_estudantes_alfabeticamente(Uni * bd);
 void listar_aniversarios_por_dia(Uni * bd);
 void listar_aniversario_ao_domingo(Uni * bd);
+void prescrito(Uni * bd);
+void finalistas(Uni * bd);
+void listar_estudantes_por_intervalo_e_nacionalidades(Uni *bd);
 //Funções auxiliares
 void remover_espacos(char * str);
 void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
@@ -161,5 +175,6 @@ int string_para_float(const char * str, float * resultado);
 short calcular_dia_da_semana(short dia, int mes, int ano);
 int sim_nao();
 char obter_separador(FILE * ficheiro, char * formato);
+short calcular_idade(Data nascimento);
 
 #endif
