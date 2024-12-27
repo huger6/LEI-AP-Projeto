@@ -28,6 +28,8 @@
 //Os próximos define são relativos aos créditos mínimos necessários para não estar em risco de prescrever.
 #define ECTS_3MATRICULAS 60
 #define ECTS_4MATRICULAS 120
+#define MAX_NACIONALIDADES_PEDIDAS 5
+#define MAX_INTERVALOS 6
 
 
 
@@ -45,6 +47,7 @@ extern const short ANO_NASC_LIM_INF; //definimos o limite inferior como o ano de
 #include <locale.h>
 #include <string.h>
 #include <ctype.h> //Para fazer verificações relativas aos dados introduzidos (isalpha)
+#include <iconv.h> //Para
 #include <locale.h>
 
 
@@ -116,6 +119,8 @@ FILE * validar_ficheiro_e_abrir(const char * nome);
 void verificar_codigos_duplicados(Uni * bd, FILE * erros);
 void verificar_codigos_escolares_sem_aluno(Uni * bd, FILE * erros, char * primeiro_erro);
 int validar_data(short dia, short mes, short ano, const char modo);
+int validar_data_entre_intervalo(Data inferior, Data superior, Data atual);
+int comparar_data(Data d1, Data d2);
 int validar_nome(Estudante * aluno, char * nome, const char modo);
 int validar_nacionalidade(char * nacionalidade, const char modo);
 void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup);
@@ -146,16 +151,19 @@ void processar_ficheiros(Uni * bd);
 void processar_extras(Uni * bd);
 void the_architect(Uni * bd);
 //Inserção/leitura de dados
-void ler_data(Estudante * aluno, char * str, const char modo);
+void ler_data(Data * aluno, char * str, const char modo);
 void inserir_estudante(Uni * bd);
 void eliminar_estudante(Uni * bd);
 //Estatísticas
 void calcular_estatisticas(Uni * bd);
 void calcular_media_matriculas(Uni * bd);
+int alunos_por_media_e_ano(Uni * bd, float media_min, float media_max, short ano_atual);
+void tabela_medias_ano(Uni * bd);
+
 //Listagens
 void listar(Estudante aluno, FILE * ficheiro, char separador, short * contador);
 void procurar_estudante_por_nome(Uni * bd);
-void listar_estudantes_alfabeticamente(Uni * bd);
+void listar_apelidos_alfabeticamente(Uni * bd);
 void listar_aniversarios_por_dia(Uni * bd);
 void listar_aniversario_ao_domingo(Uni * bd);
 void prescrito(Uni * bd);
@@ -176,5 +184,6 @@ short calcular_dia_da_semana(short dia, int mes, int ano);
 int sim_nao();
 char obter_separador(FILE * ficheiro, char * formato);
 short calcular_idade(Data nascimento);
+char * normalizar_string(char * str);
 
 #endif

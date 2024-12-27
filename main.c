@@ -7,11 +7,9 @@
 //Usar ler_linha_txt() para ler qualquer entrada de stdin
 //Se necessário usar um scanf, colocar fseek(stdin, 0, SEEK_END); para evitar erros na leitura;
 
+//TODO: ver função datas e nacionalidade
 
-//TODO: Nova varíavel atualizado em estatisticas vai mexer com muita coisa: 
-/*
-- Carregar_dados 
-*/
+//As funções de procura com strings não suportam acentos ou ç!!
 //Já temos os dados para fazer finalista
 //NOTA: erros.txt está atualmente em modo w para facilitar debugging, alterar quando já não for necessário
 int main() {
@@ -51,8 +49,9 @@ int main() {
 	//Provavelmente também será necessário dar free em nome e nacionalidade antes
 	free(bd.aluno);
 	free(bd.escolares);
+
 	
 	
 	return 0;
-
+ 
 }

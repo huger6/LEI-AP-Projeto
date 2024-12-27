@@ -1,6 +1,5 @@
 DÚVIDAS:
 -Verificar dúvida do bug da linha incompleta em erros.txt.
--É suposto ao procurar um aluno, poder usar letras minusculas? usaria strlwr para meter tanto o nome como a procura a minusculas
 -Carregar os ficheiros deve ser uma opção no menu ou deve ser sempre feito no início?
 -Os ficheiros a carregar podem ter nomes especificados pelo utilizador?
 -Ao fazer listagens deve ser mostrado os dados do estudante e escolares também ou apenas os relacionados com a listagem?
@@ -8,8 +7,10 @@ DÚVIDAS:
 -Podemos usar time.h para ver a data atual ou devemos pedir ao user?
 -Nos cáclculos de prescrever, devemos usar #define para definir o numero de matriculas? Apenas foi usado o #define para os creditos.
 -Deve haver algum erro no ficheiro situacao_escolar já que pede o numero de alunos com +154 ects, finalisttas, mas nenhum estudante corresponde a esses ects.
-
-
+-Acentos():
+    Ou faço uma função para retirar acentos apenas quando for usar comparações entre strings (mais viável) (usar iconv.h, se for permitido)
+    Ou faço uma função para verificar se o nome tem acentos (menos viável e muito mais trabalhoso) -> teria que ser implementado em carregar_dados, inseerir_estudante e quando se pede nome/nacionalidade.
+-Enunciado alterado.
 
 ______________________________________________________________________________________________________________
 
@@ -100,6 +101,10 @@ Como replicar:
 -Eliminar 1234.
 
 O programa fecha abruptamente
+
+#BUG menu aceita 22 @RESOLVIDO
+Solução: Adicionada nova verificação em validacao_menus
+
 ______________________________________________________________________________________________________________
 
 FUTURAMENTE:
@@ -123,3 +128,6 @@ A ANOTAR NO RELATÓRIO
 -Em carregar_dados, foi utilizado a var primeiro_erro como alternativa a criar um array e guardar lá os erros(poupa memória)
 -A escrita em erros.txt estava a sair desformatada com os \n's, então modificamos a função ler_linha_txt para eliminar o \n no final, apesar das outras funções já terem essa funcionalidade(validações, separar_parametros, etc)
 -Em carregar_dados foi usado merge_sort pois mantém a ordem pelo qual os dados foram inseridos(importante no caso de duplicados)
+-Podíamos ter feito uma função para generalizar o código das nacionalidades mas por constragimentos de tempo não foi possível(até porque iria aacarretar mais alterações em outras partes do código),
+mas essencialemente iria passar por fazer uma iteração O(n) e depois agrupar todos os alunos de uma nacionalidade através do índice ou código. Depois bastava encontrar um aluno dessa nacionalidade e tínhamos todos.
+Podia-se ainda passar todas as nacionalidades para um array. Tudo isto, claro, requeria atualização quase constante.
