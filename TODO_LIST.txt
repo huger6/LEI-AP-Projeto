@@ -2,24 +2,17 @@ DÚVIDAS:
 -Verificar dúvida do bug da linha incompleta em erros.txt.
 -Carregar os ficheiros deve ser uma opção no menu ou deve ser sempre feito no início?
 -Os ficheiros a carregar podem ter nomes especificados pelo utilizador?
--Ao fazer listagens deve ser mostrado os dados do estudante e escolares também ou apenas os relacionados com a listagem?
 -ver string_to_int
--Podemos usar time.h para ver a data atual ou devemos pedir ao user?
--Nos cáclculos de prescrever, devemos usar #define para definir o numero de matriculas? Apenas foi usado o #define para os creditos.
--Deve haver algum erro no ficheiro situacao_escolar já que pede o numero de alunos com +154 ects, finalisttas, mas nenhum estudante corresponde a esses ects.
 -Acentos():
     Ou faço uma função para retirar acentos apenas quando for usar comparações entre strings (mais viável) (usar iconv.h, se for permitido)
     Ou faço uma função para verificar se o nome tem acentos (menos viável e muito mais trabalhoso) -> teria que ser implementado em carregar_dados, inseerir_estudante e quando se pede nome/nacionalidade.
--Enunciado alterado.
 
 ______________________________________________________________________________________________________________
 
 NOTAS:
 short - hd
-unsigned short - hu
 *(array)@num_elementos - Usar esta expressão na aba de watch ao dar debug para ver o conteúdo de cada elemento do array
 scanf deixa o \n no buffer
-ler_linha_txt le o \n do buffer
 
 //Se der NULL em todos os modos de abertura, quer dizer que há um erro crítico. Dar manage
 //Se não der nulo nos outros modos de abertura quer dizer que o ficheiro não existia e foi criado
@@ -104,6 +97,16 @@ O programa fecha abruptamente
 
 #BUG menu aceita 22 @RESOLVIDO
 Solução: Adicionada nova verificação em validacao_menus
+______________________________________________________________________________________________________________
+
+A REVER SE TIVER TEMPO:
+-Sugestões em procurar_nacionalidades:
+    em principio esta tudo ok, mas não foi testado no caso de haver mais nacionalidades com nomes semelhantes e continuar sempre a negar a sugestão
+    para isso seria necessário alterar o ficheiro de dados, algo que deve ser feito
+
+-Além disso, deve ser feito um scan com o valgrind às funções mais prováveis de ter memory leaks, como a de procurar_nacionalidades.
+-Códigos duplicados 
+-mudar for loops para usa size_t caso não seja necesssário o i para printar (ver melhor)
 
 ______________________________________________________________________________________________________________
 

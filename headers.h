@@ -12,6 +12,9 @@
 #define SEPARADOR '\t' //Necessário alterar em carregar_dados, nas mensagens de erro, caso seja mudado
 #define PARAMETROS_ESTUDANTE 4
 #define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
+#define IDADE_MINIMA 12
+#define IDADE_MAXIMA 80
+#define ANO_MIN 1940
 #define MAX_NACIONALIDADES 206 //Número máximo de países
 #define MAX_STRING_NACIONALIDADE 101 //Definimos o número máximo de chars que uma nacionalidade pode ter
 #define TAMANHO_INICIAL_NOME 50 
@@ -28,14 +31,10 @@
 //Os próximos define são relativos aos créditos mínimos necessários para não estar em risco de prescrever.
 #define ECTS_3MATRICULAS 60
 #define ECTS_4MATRICULAS 120
-#define MAX_NACIONALIDADES_PEDIDAS 5
 #define MAX_INTERVALOS 6
+#define MAX_NACIONALIDADES_PEDIDA 5
+#define TAMANHO_SUGESTOES 5
 
-
-
-//Não usamos o define porque declararia como int, o que derrotaria todo o ponto de usar shorts para poupar memória
-extern const short ANO_ATUAL; //definimos o ano atual, ajustar consoante o ano;
-extern const short ANO_NASC_LIM_INF; //definimos o limite inferior como o ano de nasc da pessoa mais velha do mundo atualmente
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,7 +46,7 @@ extern const short ANO_NASC_LIM_INF; //definimos o limite inferior como o ano de
 #include <locale.h>
 #include <string.h>
 #include <ctype.h> //Para fazer verificações relativas aos dados introduzidos (isalpha)
-#include <iconv.h> //Para
+#include <time.h> //Para calcular idades
 #include <locale.h>
 
 
@@ -96,6 +95,12 @@ typedef struct uni{
     Estatisticas stats;
 } Uni;
 
+//Variável global para assinalar a Data atual.
+//Nota: usa-se extern para permitir partilhar a variável entre todos os ficheiros do programa.
+//Só declaramos aqui porque acima deu erro (não reconhecia o tipo Data)
+//Apenas se declara, é necessário inicializar a variável noutro ficheiro.
+extern Data DATA_ATUAL; //Não se usa const porque temos de a ir modificar logo no ínicio.
+
 //Protótipos das funções
 
 //Ficheiros e gestão de dados
@@ -105,6 +110,7 @@ void guardar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_
 FILE * pedir_listagem(char * formato_selecionado);
 //Gestão de memória
 void inicializar_aluno(Uni * bd, int indice_aluno);
+void inicializar_escolares(Uni * bd, int indice_escolares);
 void inicializar_estatisticas(Estatisticas * stats);
 int realocar_aluno(Uni * bd, const char modo);
 int realocar_escolares(Uni * bd, const char modo);
@@ -112,6 +118,7 @@ int realocar_nome(Estudante * aluno, const char modo);
 //Procura e validações
 int procurar_codigo_aluno(int codigo, Uni * bd);
 int procurar_codigo_escolares(int codigo, Uni * bd);
+char ** procurar_nacionalidades(Uni * bd, const short n_nacionalidades, char * mensagem);
 int validar_codigo_ao_inserir(int codigo, Uni * bd);
 int validar_codigo_eliminar(int codigo, Uni * bd);
 int validar_nome_ficheiro(const char * nome_ficheiro);
@@ -158,10 +165,11 @@ void eliminar_estudante(Uni * bd);
 void calcular_estatisticas(Uni * bd);
 void calcular_media_matriculas(Uni * bd);
 int alunos_por_media_e_ano(Uni * bd, float media_min, float media_max, short ano_atual);
+void tabela_idade_por_escalao(Uni * bd);
 void tabela_medias_ano(Uni * bd);
 
 //Listagens
-void listar(Estudante aluno, FILE * ficheiro, char separador, short * contador);
+void listar(Uni * bd, int indice_aluno, FILE * ficheiro, char separador, short * contador);
 void procurar_estudante_por_nome(Uni * bd);
 void listar_apelidos_alfabeticamente(Uni * bd);
 void listar_aniversarios_por_dia(Uni * bd);
@@ -185,5 +193,6 @@ int sim_nao();
 char obter_separador(FILE * ficheiro, char * formato);
 short calcular_idade(Data nascimento);
 char * normalizar_string(char * str);
+void data_atual();
 
 #endif

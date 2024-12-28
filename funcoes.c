@@ -1,7 +1,8 @@
 #include "headers.h"
 
-const short ANO_ATUAL = 2025; 
-const short ANO_NASC_LIM_INF = 1908;
+//Variáveis globais
+
+Data DATA_ATUAL = {0,0,0}; //Vai ser alterado logo no ínicio do programa.
 
 //Ficheiros e gestão de dados
 
@@ -537,6 +538,149 @@ int procurar_codigo_escolares(int codigo, Uni * bd) {
     return -(limInf + 1); //Não há esse código, RETORNA A POSIÇÃO DE INSERÇÃO + 1
 }
 
+//Retorna NULL em caso de erro, do user escrever 'sair' ou de não haver nacionalidades suficientes para satisfazer n_nacionalidades
+//Usar mensagem NULL para usar mensagem padrão. mensagem não deve incluir ': '.
+//Aloca memória dinamicamente para um array de ponteiros de tamanho n_nacionalidades.
+char ** procurar_nacionalidades(Uni * bd, const short n_nacionalidades, char * mensagem) {
+    if (n_nacionalidades <= 0) return NULL;
+    char ** nacionalidades = NULL;
+    
+    //Criamos um array de ponteiros para guardar as nacionalidades, no máximo as indicadas.
+    nacionalidades = (char**) malloc(n_nacionalidades * sizeof(char*));
+    if (!nacionalidades) {
+        printf("Ocorreu um erro a alocar memória para as nacionalidades!\n");
+        return NULL;
+    }
+    
+    //Inicializar ponteiros a NULL
+    for (int i = 0; i < n_nacionalidades; i++) {
+        nacionalidades[i] = NULL;
+    }
+
+    limpar_terminal();
+
+    //Procurar nacionalidades
+    for(int i = 0; i < n_nacionalidades; i++) {
+        char * nacionalidade = NULL;
+        char encontrado = '0';
+
+        //Pedimos a nacionalidade e depois verificamos se existe. Continua a pedir até que 
+        do {
+            if (!mensagem) {
+                printf("Insira a nacionalidade %d (ou 'sair' para cancelar): ", i + 1);
+            }
+            else printf("%s (ou 'sair' para cancelar): ", mensagem);
+
+            nacionalidade = ler_linha_txt(stdin, NULL);
+            if (!nacionalidade) continue;
+
+            //Verificar saída
+            if (strcmp(nacionalidade, "sair") == 0 || strcmp(nacionalidade, "SAIR") == 0) {
+                free(nacionalidade);
+                for (int j = 0; j < i; j++) {
+                    free(nacionalidades[j]);
+                }
+                free(nacionalidades);
+                return NULL;
+            }
+
+            //Validar a nacionalidade
+            if (!validar_nacionalidade(nacionalidade, '1')) {
+                free(nacionalidade);
+                continue;
+            }
+
+            char * original = strdup(nacionalidade); //original fica com a nacionalidade original
+            if (!original) {
+                printf("Erro ao alocar memória.\n");
+                free(nacionalidade);
+                for (int j = 0; j < i; j++) {
+                    free(nacionalidades[j]);
+                }
+                free(nacionalidades);
+                return NULL;
+            }
+            nacionalidade = normalizar_string(nacionalidade);
+            if (!nacionalidade) {
+                printf("Ocorreu um erro a normalizar a string. Por favor, tente novamente.\n");
+                free(original);
+                for (int j = 0; j < i; j++) {
+                    free(nacionalidades[j]);
+                }
+                free(nacionalidades);
+                return NULL;
+                
+            }
+            //Array de string que irá conter todas as sugestões que foram feitas ao utilizador.
+            //Apenas serão retidas 5 sugestões, pelo que depois,  o sistema de sugestões será desabilitado num todo.
+            char ** sugeridas = NULL;
+            short n_sugestao = 0;
+            sugeridas = (char**) malloc(TAMANHO_SUGESTOES * sizeof(char *));
+            for (int j = 0; j < TAMANHO_SUGESTOES; j++) {
+                sugeridas[j] = NULL;
+            }
+            //Verificar se a nacionalidade existe.
+            for(int j = 0; j < bd->tamanho_aluno && encontrado == '0'; j++) {
+                //Normalizar o elemento atual.
+                char * nac = normalizar_string(bd->aluno[j].nacionalidade); //nac é a nacionalidade atual normalizada
+                if (!nac) continue;
+
+                if (strcmp(nacionalidade, nac) == 0) {
+                    nacionalidades[i] = strdup(bd->aluno[j].nacionalidade);
+                    if (!nacionalidades[i]) {
+                        printf("Ocorreu um erro a alocar memória. Por favor tente novamente.\n");
+                        free(nacionalidade);
+                        free(nac);
+                        continue;
+                    }
+                    encontrado = '1';
+                    free(nacionalidade);
+                    free(nac);
+                    break; //Não é necessário continuar a verificar o array todo.
+                } 
+                else if (n_sugestao < TAMANHO_SUGESTOES && strncmp(nacionalidade, nac, 3) == 0) {
+                    //Verificar se já sugerimos esta nacionalidade
+                    if (n_sugestao != 0) {
+                        char sair = '0';
+                        for (int k = 0; k < n_sugestao; k++) {
+                            if (strcmp(nac, sugeridas[k]) == 0) {
+                                free(nac);
+                                sair = '1'; //necessário porque o continue não funciona aqui.
+                                break; 
+                            }
+                        }
+                        if (sair == '1') continue;
+                    }
+                    //Sugerir
+                    printf("Quer dizer \"%s\"? (S/N) ", bd->aluno[j].nacionalidade);
+                    if(sim_nao()) {
+                        //Alterar a nacionalidade para o que foi proposto
+                        free(nacionalidade);
+                        nacionalidade = strdup(nac);
+                        free(nac);
+                        j--;
+                        continue;
+                    }
+                    //Em caso negativo, queremos guardar essa string para não a apresentar de novo
+                    sugeridas[n_sugestao++] = strdup(nac);
+                }
+                free(nac);
+            }
+
+            if (encontrado == '0') {
+                printf("Nenhum aluno possui nacionalidade \"%s\".\n", original);
+            }
+            free(original);
+            //Libertar o array das sugestões
+            for (int j = 0; j < n_sugestao; j++) {
+                free(sugeridas[j]);
+            }
+            free(sugeridas);
+        } while(encontrado == '0');
+    }
+    
+    return nacionalidades;
+}
 //Faz a validação do código e retorna -(indice + 1).
 //Caso não seja válido retorna 0.
 int validar_codigo_ao_inserir(int codigo, Uni * bd) {
@@ -708,8 +852,8 @@ int validar_data(short dia, short mes, short ano, const char modo) {
     Poderia ser resolvido com a adição de +2 constantes para mes e dia atuais mas achamos desnecessário devido a tratar-se da inscrição de alunos
     que por natureza, não têm de ser todos iguais ou ser inscritos com a mesma idade.
     */
-    if (ano < ANO_NASC_LIM_INF || ano > ANO_ATUAL - 16) {
-        if (modo == '1') printf("\nO ano inserido é inválido. Insira um ano entre %d e %d.\n", ANO_NASC_LIM_INF, ANO_ATUAL - 16);
+    if (ano < DATA_ATUAL.ano - IDADE_MAXIMA || ano > DATA_ATUAL.ano - IDADE_MINIMA) {
+        if (modo == '1') printf("\nO ano inserido é inválido. Insira um ano entre %d e %d.\n", DATA_ATUAL.ano - IDADE_MAXIMA, DATA_ATUAL.ano - IDADE_MINIMA);
         return 0;
     }
 
@@ -1085,6 +1229,8 @@ char mostrar_menu(void (*escrever_menu)(), char min_opcao, char max_opcao) {
             return opcao;
         }
     } while (valido == 0);
+
+    return '0'; //colocado aqui porque o compilador não gostava de não haver return 
 }
 
 //As seguintes funções que começam por "menu" servem apenas para printar o menu.
@@ -1130,7 +1276,7 @@ void menu_consultar_dados() {
     printf("╚═════════════════════════════════════════════════════════════╝\n\n");
 }
 
-//0-6
+//0-7
 void menu_estatisticas() {
     printf("╔════════════════════════════════════════════════════════╗\n");
     printf("║                      ESTATÍSTICAS                      ║\n");
@@ -1140,7 +1286,8 @@ void menu_estatisticas() {
     printf("║  3. Média atual geral                                  ║\n");
     printf("║  4. Número de finalistas                               ║\n");
     printf("║  5. Média de idades por nacionalidade e ano            ║\n");
-    printf("║  6. Estudantes em risco de prescrição                  ║\n");
+    printf("║  6. Número de estudantes por escalão de idade          ║\n");
+    printf("║  7. Estudantes em risco de prescrição                  ║\n");
     printf("║  0. Voltar ao menu anterior                            ║\n");
     printf("╚════════════════════════════════════════════════════════╝\n\n");
 }
@@ -1159,13 +1306,14 @@ void menu_ficheiros() {
     printf("╚════════════════════════════════════════════════════════════╝\n\n");
 }
 
-//0-2
+//0-3
 void menu_extras() {
     printf("╔════════════════════════════════════════════════════════════╗\n");
     printf("║                           EXTRAS                           ║\n");
     printf("╠════════════════════════════════════════════════════════════╣\n");
     printf("║  1. Estudantes nascidos em dias específicos da semana      ║\n");
     printf("║  2. Estudantes cujo aniversário em certo ano é ao domingo  ║\n");
+    printf("║  3. Estudantes cujo aniversário em certo ano é na Quaresma ║\n");
     printf("║  0. Voltar ao menu anterior                                ║\n");
     printf("╚════════════════════════════════════════════════════════════╝\n\n");
 }
@@ -1259,7 +1407,7 @@ void processar_consultar_dados(Uni * bd) {
 void processar_estatisticas(Uni * bd) {
     char opcao;
     do {
-        opcao = mostrar_menu(menu_estatisticas, '0', '6');
+        opcao = mostrar_menu(menu_estatisticas, '0', '7');
         if (opcao == '0') break;
         /*A lógica diferente por detrás deste menu envolve o facto de que:
         -Se o menu é de estatísticas, muito provavelmente o utilizador vai consultar mais do que uma estatística sobre o aluno;
@@ -1295,6 +1443,9 @@ void processar_estatisticas(Uni * bd) {
                 //Média de idades por nacionalidade e ano 
                 break;
             case '6':
+                tabela_idade_por_escalao(bd);
+                break;
+            case '7':
                 prescrito(bd);
                 break;
             default: 
@@ -1334,7 +1485,7 @@ void processar_ficheiros(Uni * bd) {
 void processar_extras(Uni * bd) {
     char opcao;
     do {
-        opcao = mostrar_menu(menu_extras, '0', '2');
+        opcao = mostrar_menu(menu_extras, '0', '3');
         switch(opcao) {
             case '0': break;
             case '1':
@@ -1342,6 +1493,9 @@ void processar_extras(Uni * bd) {
                 break;
             case '2':
                 listar_aniversario_ao_domingo(bd);
+                break;
+            case '3':
+                //aniversario na quaresma
                 break;
             default: 
                 opcao = '0';
@@ -1692,22 +1846,18 @@ void calcular_media_matriculas(Uni * bd) {
                 break;
             case '2':
                 float media_matriculas_nacionalidade = 0.0; 
-                char * nacionalidade = NULL; //Array para guardar a nacionalidade que o utilizador quiser.
                 int indice = 0; //Indice em escolares.
                 short contador = 0;
                 //Pedir uma nacionalidade correta.
-                do {
-                    printf("Insira a nacionalidade da qual quer saber a média de matrículas: ");
-                    nacionalidade = ler_linha_txt(stdin, NULL);
-                    //Se a nacionalidade não for válida, então também não será encontrada no array, e poupamos uma operação O(n).
-                    if (!validar_nacionalidade(nacionalidade, '1')) {
-                        free(nacionalidade);
-                        continue;
-                    }
+                
+                char ** nacionalidades = procurar_nacionalidades(bd, 1, "Insira a nacionalidade da qual quer saber a média de matrículas");
+                if (!nacionalidades) {
+                    pressione_enter();
                     break;
-                } while(1);
+                }
+                
                 for(int i = 0; i < bd->tamanho_aluno; i++) {
-                    if (strcmp(nacionalidade, bd->aluno[i].nacionalidade) == 0) {
+                    if (strcmp(nacionalidades[0], bd->aluno[i].nacionalidade) == 0) {
                         //O índice de aluno pode ser diferente de escolares.
                         indice = procurar_codigo_escolares(bd->aluno[i].codigo, bd);
                         if (indice > 0) {
@@ -1716,29 +1866,22 @@ void calcular_media_matriculas(Uni * bd) {
                             contador++;
                         }
                     }
-                    //Se parte for semelhante
-                    else if (strncmp(nacionalidade, bd->aluno[i].nacionalidade, 3) == 0){
-                        printf("Quer dizer \"%s\"? (S/N) ", bd->aluno[i].nacionalidade);
-                        if(sim_nao()) {
-                            //Atualizar/corrigir a nacionalidade.
-                            free(nacionalidade);
-                            nacionalidade = strdup(bd->aluno[i].nacionalidade);
-                            //Mantém o i igual para já ir buscar a média deste elemento.
-                            i--;
-                        }
-                    }
                 }
                 //Evitar divisão por 0.
                 if (contador == 0) {
-                    printf("Não foi encontrado nenhum aluno de nacionalidade %s ou o mesmo não possui número de matrículas!\n", nacionalidade);
-                    free(nacionalidade);
+                    printf("Não foi encontrado nenhum aluno de nacionalidade %s ou o mesmo não possui número de matrículas!\n", nacionalidades[0]);
+                    free(nacionalidades[0]);
+                    free(nacionalidades);
                     pressione_enter();
                     break;
                 }
+
                 media_matriculas_nacionalidade /= contador;
-                printf("O número médio de matrículas dos estudantes de nacionalidade %s é de %.1f.\n", nacionalidade, media_matriculas_nacionalidade);
+                printf("O número médio de matrículas dos estudantes de nacionalidade %s é de %.1f.\n", nacionalidades[0], media_matriculas_nacionalidade);
+                
+                free(nacionalidades[0]);
+                free(nacionalidades);
                 pressione_enter();
-                free(nacionalidade);
                 break;
             default: return;
         }
@@ -1757,6 +1900,98 @@ int alunos_por_media_e_ano(Uni * bd, float media_min, float media_max, short ano
     return n_alunos;
 }
 
+//Pede intervalos de idades e mostra quantos alunos existem por intervalo
+void tabela_idade_por_escalao(Uni * bd) {
+    short n_intervalos = 0;
+    short idade_inf[MAX_INTERVALOS];
+    short idade_sup[MAX_INTERVALOS];
+    char valido = '1';
+
+    //Número de intervalos
+    do {
+        printf("Quantos intervalos de idade pretende analisar (1-%d)? ", MAX_INTERVALOS);
+        if (scanf("%hd", &n_intervalos) != 1 || n_intervalos < 1 || n_intervalos > MAX_INTERVALOS) {
+            printf("Número inválido. Por favor insira um número entre 1 e %d.\n", MAX_INTERVALOS);
+            limpar_buffer();
+            pressione_enter();
+            continue;
+        }
+        break;
+    } while(1);
+    limpar_buffer();
+    
+    for(int i = 0; i < n_intervalos && valido == '1'; i++) {
+        do {
+            printf("\nIntervalo %d:\n", i + 1);
+            printf("Idade inferior: ");
+            if (scanf("%hd", &idade_inf[i]) != 1 || idade_inf[i] < IDADE_MINIMA || idade_inf[i] > IDADE_MAXIMA) {
+                printf("Idade inválida. Por favor insira um número entre %d e %d\n", IDADE_MINIMA, IDADE_MAXIMA);
+                limpar_buffer();
+                continue;
+            }
+            limpar_buffer();
+
+            printf("Idade superior: ");
+            if (scanf("%hd", &idade_sup[i]) != 1 || idade_sup[i] <= idade_inf[i] || idade_sup[i] > IDADE_MAXIMA) {
+                printf("Idade inválida. Deve ser maior que %hd e menor ou igual a %hd.\n", idade_inf[i], IDADE_MAXIMA);
+                limpar_buffer();
+                continue;
+            }
+            limpar_buffer();
+
+            //Verificar se há sobreposição com intervalos anteriores
+            for(int j = 0; j < i; j++) {
+                if((idade_inf[i] >= idade_inf[j] && idade_inf[i] <= idade_sup[j]) || //A idade inferior introduzida está entre algum intervalo
+                   (idade_sup[i] >= idade_inf[j] && idade_sup[i] <= idade_sup[j]) || //A idade superior introduzida está entre algum intervalo
+                   (idade_inf[i] <= idade_inf[j] && idade_sup[i] >= idade_sup[j])) { //O intervalo atual contém algum intervalo
+                    printf("Este intervalo sobrepõe-se com o intervalo %hd-%hd.\n", idade_inf[j], idade_sup[j]);
+                    printf("Quer inserir este intervalo de novo (S) ou sair para o menu (N)? ");
+                    if(!sim_nao()) {
+                        valido = '0'; //Sair
+                        break;
+                    }
+                    //Redefinir intervalo
+                    i--; 
+                    continue;
+                }
+            }
+            break;
+        } while(valido == '1');
+    }
+
+    if(valido == '1') {
+        limpar_terminal();
+        
+        //Cabeçalho
+        printf("    Intervalo de idades    |    Número de estudantes   \n");
+        
+        //Separar o cabeçalho
+        printf("---------------------------|---------------------------\n"); //27 caracteres de cada lado
+        
+        //Linhas para cada intervalo
+        for(int i = 0; i < n_intervalos; i++) {
+            //Idade terá sempre 2 algarismos
+            printf("    %2hd a %2hd anos           |", idade_inf[i], idade_sup[i]);
+            int contador = 0;
+            //Contar número de alunos dentro do intervalo
+            for(int j = 0; j < bd->tamanho_aluno; j++) {
+                short idade = calcular_idade(bd->aluno[j].nascimento);
+                if(idade >= idade_inf[i] && idade <= idade_sup[i]) {
+                    contador++;
+                }
+            }
+            //Printar linha com o número de idades
+            printf("            %d", contador);
+            printf("\n");
+        }
+    }
+    printf("\n");
+    pressione_enter();
+
+
+}
+
+//Pede intervalos de médias ao utilizador e verifica quantos alunos existem por intervalo em cada ano de curso.
 void tabela_medias_ano(Uni * bd) {
     short n_intervalos = 0;
     float media_inferior[MAX_INTERVALOS];
@@ -1765,7 +2000,7 @@ void tabela_medias_ano(Uni * bd) {
 
     //Encontrar número máximo de anos em escolares
     short max_ano = 0;
-    for(int i = 0; i < bd->tamanho_escolares; i++) {
+    for(size_t i = 0; i < bd->tamanho_escolares; i++) {
         if(bd->escolares[i].ano_atual > max_ano) {
             max_ano = bd->escolares[i].ano_atual;
         }
@@ -1818,7 +2053,7 @@ void tabela_medias_ano(Uni * bd) {
                    (media_superior[i] >= media_inferior[j] && media_superior[i] <= media_superior[j]) || //A média superior está entre algum intervalo
                    (media_inferior[i] <= media_inferior[j] && media_superior[i] >= media_superior[j])) { //O intervalo atual contém algum intervalo
                     printf("Este intervalo sobrepõe-se com o intervalo %.1f-%.1f.\n", media_inferior[j], media_superior[j]);
-                    printf("Quer tentar novamente? (S/N): ");
+                    printf("Quer inserir este intervalo de novo (S) ou sair para o menu (N)? ");
                     if(!sim_nao()) {
                         valido = '0'; //Sair
                         break;
@@ -1884,22 +2119,40 @@ void tabela_medias_ano(Uni * bd) {
 //Listagens (inclui procuras)
 
 //Lista os parametros no terminal e no ficheiro se existir.
-void listar(Estudante aluno, FILE * ficheiro, char separador, short * contador) {
+void listar(Uni * bd, int indice_aluno, FILE * ficheiro, char separador, short * contador) {
+    int indice_escolares = 0;
+    indice_escolares = procurar_codigo_escolares(bd->aluno[indice_aluno].codigo, bd);
     if (*contador % 20 == 0 && *contador != 0) pressione_enter();
 
-    printf("Código: %d\n", aluno.codigo);
-    printf("Nome: %s\n", aluno.nome);
-    printf("Data de Nascimento: %02d-%02d-%04d\n", aluno.nascimento.dia, aluno.nascimento.mes, aluno.nascimento.ano);
-    printf("Nacionalidade: %s\n", aluno.nacionalidade);
+    printf("Código: %d\n", bd->aluno[indice_aluno].codigo);
+    printf("Nome: %s\n", bd->aluno[indice_aluno].nome);
+    printf("Data de Nascimento: %02d-%02d-%04d\n", bd->aluno[indice_aluno].nascimento.dia, bd->aluno[indice_aluno].nascimento.mes, bd->aluno[indice_aluno].nascimento.ano);
+    printf("Nacionalidade: %s\n", bd->aluno[indice_aluno].nacionalidade);
+    if (indice_escolares > 0) {
+        indice_escolares--;
+        printf("Número de matrículas: %hd\n", bd->escolares[indice_escolares].matriculas);
+        printf("ECTS: %hd\n", bd->escolares[indice_escolares].ects);
+        printf("Ano atual de curso: %hd\n", bd->escolares[indice_escolares].ano_atual);
+        printf("Média atual: %.1f\n", bd->escolares[indice_escolares].media_atual);
+
+    }
     printf("\n");
+    indice_escolares++; //Precisamos de uma 'flag' para verificar se escrevemos o escolares nos ficheiros ou não.
     if (ficheiro) {
         //Colocar \n apenas se não for nem a primeira nem a última entrada.
         if (*contador > 0) fprintf(ficheiro, "\n");
 
-        fprintf(ficheiro, "%d%c", aluno.codigo, separador);
-        fprintf(ficheiro, "%s%c", aluno.nome, separador);
-        fprintf(ficheiro, "%02d-%02d-%04d%c", aluno.nascimento.dia, aluno.nascimento.mes, aluno.nascimento.ano, separador);
-        fprintf(ficheiro, "%s", aluno.nacionalidade);
+        fprintf(ficheiro, "%d%c", bd->aluno[indice_aluno].codigo, separador);
+        fprintf(ficheiro, "%s%c", bd->aluno[indice_aluno].nome, separador);
+        fprintf(ficheiro, "%02d-%02d-%04d%c", bd->aluno[indice_aluno].nascimento.dia, bd->aluno[indice_aluno].nascimento.mes, bd->aluno[indice_aluno].nascimento.ano, separador);
+        fprintf(ficheiro, "%s%c", bd->aluno[indice_aluno].nacionalidade, separador);
+        if (indice_escolares > 0) {
+            indice_escolares--;
+            fprintf(ficheiro, "%hd%c", bd->escolares[indice_escolares].matriculas, separador);
+            fprintf(ficheiro, "%hd%c", bd->escolares[indice_escolares].ects, separador);
+            fprintf(ficheiro, "%hd%c", bd->escolares[indice_escolares].ano_atual, separador);
+            fprintf(ficheiro, "%.1f", bd->escolares[indice_escolares].media_atual);
+        }
     }
     (*contador)++;
 }
@@ -1947,7 +2200,7 @@ void procurar_estudante_por_nome(Uni * bd) {
                 //strstr(s1, s2) é uma função que retorna a primeira ocorrência de s2 em s1
                 //https://www.geeksforgeeks.org/strstr-in-ccpp/
                 if (strstr(nome, parte_nome) != NULL) {
-                    listar(bd->aluno[i], listagem, separador, &contador);
+                    listar(bd, i, listagem, separador, &contador);
                 }
                 free(nome);
             }
@@ -2020,7 +2273,12 @@ void listar_apelidos_alfabeticamente(Uni * bd) {
 
     printf("Estudantes por ordem alfabética do apelido:\n\n");
     for(int i = 0; i < bd->tamanho_aluno; i++) {
-        listar(copia[i], listagem, separador, &contador);
+        //Temos de ajustar porque listar apenas funciona com bd e indice.
+        int temp_indice = procurar_codigo_aluno(copia[i].codigo, bd);
+        if(temp_indice > 0) {
+            temp_indice--;
+            listar(bd, temp_indice, listagem, separador, &contador);
+        }
     }
 
     //Libertar memória de copia
@@ -2064,7 +2322,7 @@ void listar_aniversarios_por_dia(Uni * bd) {
             ano = bd->aluno[i].nascimento.ano;
             dia_da_semana = calcular_dia_da_semana(dia, mes, ano);
             if (dia_da_semana == opcao) {
-                listar(bd->aluno[i], listagem, separador, &contador);
+                listar(bd, i, listagem, separador, &contador);
             }
         }
         if (contador == 0) {
@@ -2094,18 +2352,18 @@ void listar_aniversario_ao_domingo(Uni * bd) {
         do {
             printf("Insira o ano: ");
             scanf("%hd", &ano);
-        } while (ano > ANO_ATUAL || ano < ANO_NASC_LIM_INF);
+        } while (ano > DATA_ATUAL.ano || ano < 1); //Deixamos o utilizador brincar um pouco
 
-        printf("Estudantes nascidos no Domingo de %hd:\n\n", ano);
+        printf("Estudantes cujo aniversário é ao Domingo em %hd:\n\n", ano);
         for(int i = 0; i < bd->tamanho_aluno; i++) {
             dia = bd->aluno[i].nascimento.dia;
             mes = bd->aluno[i].nascimento.mes;
             if (calcular_dia_da_semana(dia, mes, ano) == 1) { 
-                listar(bd->aluno[i], listagem, separador, &contador);
+                listar(bd, i, listagem, separador, &contador);
             }
         }
         if (contador == 0) {
-            printf("Não foi encontrado nenhum estudante nascido ao Domingo em %hd.\n", ano);
+            printf("Não foi encontrado nenhum estudante cujo aniversário fosse ao Domingo em %hd.\n", ano);
         }
         printf("\n---------------------FIM DE LISTAGEM---------------------\n\n");
         pressione_enter();
@@ -2134,9 +2392,8 @@ void prescrito(Uni * bd) {
             indice = procurar_codigo_aluno(bd->escolares[i].codigo, bd);
             if (indice > 0) {
                 indice--;
-                listar(bd->aluno[indice], listagem, separador, &contador);
+                listar(bd, indice, listagem, separador, &contador);
             }
-            contador++; //Apenas incrementamos se for válido
         }
     }
     if (contador == 0) {
@@ -2165,9 +2422,8 @@ void finalistas(Uni * bd) {
             indice = procurar_codigo_aluno(bd->escolares[i].codigo, bd);
             if (indice > 0) {
                 indice--;
-                listar(bd->aluno[indice], listagem, separador, &contador);
+                listar(bd, indice, listagem, separador, &contador);
             }
-            contador++; //Apenas incrementamos se for válido
         }
     }
     if (contador == 0) {
@@ -2180,7 +2436,7 @@ void finalistas(Uni * bd) {
 
 void listar_estudantes_por_intervalo_e_nacionalidades(Uni *bd) {
     short n_nacionalidades = 0;
-    char * nacionalidades[MAX_NACIONALIDADES_PEDIDAS] = {NULL};
+    char ** nacionalidades = NULL;
     short contador = 0;
     char formato[MAX_FORMATO];
     FILE * listagem = NULL;
@@ -2188,19 +2444,7 @@ void listar_estudantes_por_intervalo_e_nacionalidades(Uni *bd) {
     //Inicializar datas.
     Data inf = {0, 0, 0};  
     Data sup = {0, 0, 0};
-    //Inicializar array.
-    for (int i = 0; i < MAX_NACIONALIDADES_PEDIDAS; i++) {
-        //nacionalidade nunca excederá MAX_STRING_NACIONALIDADE porque verificamos em validar_nacionalidade.
-        nacionalidades[i] = (char*) malloc(MAX_STRING_NACIONALIDADE * sizeof(char));
-        if (!nacionalidades[i]) {
-            //Libertar memória alocada anteriormente.
-            for (int j = 0; j < i; j++) {
-                free(nacionalidades[j]);
-            }
-            printf("Erro ao alocar memória para nacionalidades.\n");
-            return;
-        }
-    }
+    
 
     limpar_terminal();
 
@@ -2209,9 +2453,9 @@ void listar_estudantes_por_intervalo_e_nacionalidades(Uni *bd) {
 
     //Pedir nº nacionalidades
     do {
-        printf("Quantas nacionalidades deseja incluir na procura (1-5)? ");
+        printf("Quantas nacionalidades deseja incluir na procura (1-%d)? ", MAX_NACIONALIDADES_PEDIDA);
         if (scanf("%hd", &n_nacionalidades) != 1 || n_nacionalidades <= 0 || n_nacionalidades > 5) {
-            printf("Por favor insira um número entre 1 e 5.\n");
+            printf("Por favor insira um número entre 1 e %d.\n", MAX_NACIONALIDADES_PEDIDA);
             limpar_buffer();
             continue;
         }
@@ -2221,72 +2465,8 @@ void listar_estudantes_por_intervalo_e_nacionalidades(Uni *bd) {
     limpar_buffer();
     limpar_terminal();
 
-    //Pedir as nacionalidades e guardar no array.
-    for(int i = 0; i < n_nacionalidades; i++) {
-        char * nacionalidade = NULL;
-        char encontrado = '0';
-
-        do {
-            printf("Insira a nacionalidade %d (ou 'sair' para cancelar): ", i + 1);
-            nacionalidade = ler_linha_txt(stdin, NULL);
-
-            if (!nacionalidade) continue;
-
-            if (strcmp(nacionalidade, "sair") == 0 || strcmp(nacionalidade, "SAIR") == 0) {
-                free(nacionalidade);
-                for (int j = 0; j < i; j++) {
-                    free(nacionalidades[j]);
-                }
-                if (listagem) fclose(listagem);
-                return;
-            }
-
-            if (!validar_nacionalidade(nacionalidade, '1')) {
-                free(nacionalidade);
-                continue;
-            }
-
-            char * original = strdup(nacionalidade); //temp fica com a nacionalidade original
-            nacionalidade = normalizar_string(nacionalidade);
-            
-
-            //Verificar se a nacionalidade existe.
-            for(int j = 0; j < bd->tamanho_aluno && encontrado == '0'; j++) {
-                //Normalizar o elemento atual.
-                char * nac = normalizar_string(bd->aluno[j].nacionalidade);
-                if (strcmp(nacionalidade, nac) == 0) {
-                    nacionalidades[i] = strdup(bd->aluno[j].nacionalidade);
-                    if (!nacionalidades[i]) {
-                        printf("Erro ao alocar memória.\n");
-                        free(nacionalidade);
-                        free(nac);
-                        continue;
-                    }
-                    encontrado = '1';
-                    free(nacionalidade);
-                    free(nac);
-                    break; //Não é necessário continuar a verificar o array todo.
-                } 
-                else if (strncmp(nacionalidade, nac, 3) == 0) {
-                    printf("Quer dizer \"%s\"? (S/N) ", bd->aluno[j].nacionalidade);
-                    if(sim_nao()) {
-                        free(nacionalidade);
-                        nacionalidade = strdup(nac);
-                        free(nac);
-                        j--;
-                        continue;
-                    }
-                }
-                free(nac);
-            }
-
-            if (encontrado == '0') {
-                printf("Nenhum aluno possui nacionalidade \"%s\".\n", original);
-            }
-            free(original);
-        } while(encontrado == '0');
-    }
-
+    nacionalidades = procurar_nacionalidades(bd, n_nacionalidades, NULL);
+    if (!nacionalidades) return;
     do {
         //Data inferior.
         do {
@@ -2316,7 +2496,7 @@ void listar_estudantes_por_intervalo_e_nacionalidades(Uni *bd) {
     for(int i = 0; i < bd->tamanho_escolares; i++) {
         for(int j = 0; j < n_nacionalidades; j++) {
             if ((strcmp(bd->aluno[i].nacionalidade, nacionalidades[j]) == 0)&&(validar_data_entre_intervalo(inf, sup, bd->aluno[i].nascimento))) {
-                listar(bd->aluno[i], listagem, separador, &contador);
+                listar(bd, i, listagem, separador, &contador);
             }
         }
     }
@@ -2330,9 +2510,11 @@ void listar_estudantes_por_intervalo_e_nacionalidades(Uni *bd) {
     if (listagem) fclose(listagem);
 
     //Libertar as nacionalidades
-    for (int i = 0; i < MAX_NACIONALIDADES_PEDIDAS; i++)
+    for (int i = 0; i < n_nacionalidades; i++)
         if (nacionalidades[i] != NULL) 
             free(nacionalidades[i]);
+    //Libertar o array.
+    free(nacionalidades);
 }
 
 //Funções auxiliares
@@ -2439,7 +2621,7 @@ void verificar_primeiro_erro(FILE * erros, char * primeiro_erro, const char * no
     if (*primeiro_erro == '1') {
         *primeiro_erro = '0';
         fprintf(erros, "\n\n"); //Caso seja o primeiro erro queremos separar o ficheiro de erros com 3\n
-        fprintf(erros, "\t\tERROS AO LER O FICHEIRO %s\n\n", nome_ficheiro);
+        fprintf(erros, "==>ERROS AO LER O FICHEIRO %s\n\n", nome_ficheiro);
     }
 }
 
@@ -2533,27 +2715,31 @@ char obter_separador(FILE * ficheiro, char * formato) {
     if(ficheiro) {
         if (strcmp(formato, ".txt") == 0) separador = '\t';
         else if (strcmp(formato, ".csv") == 0) separador = ',';
-        fprintf(ficheiro, "Código%cNome%cData de Nascimento%cNacionalidade\n", separador, separador, separador); //Cabeçalho do ficheiro de listagem.
+        //Cabeçalho do ficheiro de listagem.
+        fprintf(ficheiro, "Código%cNome%cData de Nascimento%cNacionalidade%cMatrículas%cECTS%cAno de curso%cMédia\n", separador, separador, separador, separador,
+            separador, separador, separador); 
     }
     return separador;
 }
 
-//Provisório
+//Calcula a idade atual dada uma determinada data de nascimento.
 short calcular_idade(Data nascimento) {
-    short idade = 0;
-    //Precisamos de saber a data atual.
-    return idade;
+    short idade = DATA_ATUAL.ano - nascimento.ano;
+    //Ainda não passou o mês logo a idade está +1.
+    if (DATA_ATUAL.mes < nascimento.mes) return (idade - 1);
+    //Já passou o mês logo já fizeram anos. 
+    else if (DATA_ATUAL.mes > nascimento.mes) return idade;
+    //Meses iguais:
+    if (DATA_ATUAL.dia >= nascimento.dia) return idade; //Ou é o aniverário ou já passou.
+    return (idade - 1);
 }
 
 //UTILIZA UMA CÓPIA!!
 //Coloca str a minúsculas.
 //Retira os acentos das strings ou ç.
-//Retorna a string sem os acentos.
 //Retorna NULL em caso de erro.
 char * normalizar_string(char * str) {
     //Retirar os acentos das frases para evitar erros.
-    //Ao usar os valores normais dos caracteres estava a dar erro, então foi necesário recorrer 
-    //aos seus equivalentes em hexadecimal
     //Apenas minúsculas porque usamos o strlwr.
     char acentuados[] = {
         0xE0, 0xE1, 0xE2, 0xE3,  // à á â ã
@@ -2571,7 +2757,7 @@ char * normalizar_string(char * str) {
     if (!resultado) return NULL;
     //Colocar tudo a minúsculas.
     strlwr(resultado);
-    // Replace accented characters
+
     for (int i = 0; resultado[i]; i++) {
         char * acento = strchr(acentuados, resultado[i]);
         if (acento) {
@@ -2583,4 +2769,14 @@ char * normalizar_string(char * str) {
     return resultado;
 }
 
+//Atualiza a data atual.
+void data_atual() {
+    //https://www.geeksforgeeks.org/time-h-header-file-in-c-with-examples/
+    time_t t = time(NULL);
+    struct tm * tm_atual = localtime(&t);
+    
+    DATA_ATUAL.dia = tm_atual->tm_mday;
+    DATA_ATUAL.mes = tm_atual->tm_mon + 1; //tm_mon vai de 0-11
+    DATA_ATUAL.ano = tm_atual->tm_year + 1900;
+}
 
