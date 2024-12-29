@@ -745,7 +745,11 @@ int validar_nome_ficheiro(const char * nome_ficheiro) {
 //Retorna NULL se o ficheiro existir e o user não queira sobreescrevê-lo.
 //Retorna um ponteiro para o ficheiro aberto em modo "w" nos outros casos.
 FILE * validar_ficheiro_e_abrir(const char * nome) {
-    FILE * ficheiro = fopen(nome, "r"); //Verificar se o fichereiro existe.
+    /*
+    Esta função segue os padrões do Windows, mas obviamente que também funciona nos outros sistemas operativos, porém de forma mais restritiva
+    O nome do ficheiro é case insensitive (tal como no windows)
+    */
+    FILE * ficheiro = fopen(nome, "r"); //Verificar se o ficheiro existe.
     if (ficheiro) {
         fclose(ficheiro);
         printf("Já existe um ficheiro com o nome \"%s\". Quer substituir o ficheiro no destino? (S/N) ", nome);
@@ -877,16 +881,16 @@ int validar_data(short dia, short mes, short ano, const char modo) {
 
 //Verifica se a data de 'atual' está entre a de inferior e superior, respetivamente.
 int validar_data_entre_intervalo(Data inferior, Data superior, Data atual) {
-    int comp = comparar_data(superior, inferior);
+    int comp = comparar_data(superior, inferior, '0');
     switch(comp) {
         case -1: 
             return 0; //superior < inferior.
         case 0: 
             //Se inf == sup, então atual == inf == sup.
-            if (comparar_data(inferior, atual) != 0) return 0;
+            if (comparar_data(inferior, atual, '0') != 0) return 0;
             return 1; //atual == inf == sup logo é válido (está entre os dois, é valor único).
         case 1: 
-            if ((comparar_data(atual, inferior) != -1)&&(comparar_data(atual, superior) != 1)) return 1;
+            if ((comparar_data(atual, inferior, '0') != -1)&&(comparar_data(atual, superior, '0') != 1)) return 1;
             return 0;
         default:
             return 0;
@@ -894,9 +898,12 @@ int validar_data_entre_intervalo(Data inferior, Data superior, Data atual) {
 }
 
 //Retorna -1, 0 e 1 para d1 menor, igual, maior a d2.
-int comparar_data(Data d1, Data d2) {
-    if (d1.ano < d2.ano) return -1;
-    if (d1.ano > d2.ano) return 1;
+//Usar ignorar_ano == '1' para comparar apenas mês e dia. '0' para comparar tudo.
+int comparar_data(Data d1, Data d2, const char ignorar_ano) {
+    if (ignorar_ano == '0') {
+        if (d1.ano < d2.ano) return -1;
+        if (d1.ano > d2.ano) return 1;
+    }
     
     if (d1.mes < d2.mes) return -1;
     if (d1.mes > d2.mes) return 1;
@@ -1390,7 +1397,7 @@ void processar_consultar_dados(Uni * bd) {
                 procurar_estudante_por_nome(bd);
                 break;
             case '2':
-                listar_estudantes_por_intervalo_e_nacionalidades(bd);
+                listar_estudantes_por_data_e_nacionalidades(bd);
                 break;
             case '3':
                 listar_apelidos_alfabeticamente(bd);
@@ -1440,7 +1447,7 @@ void processar_estatisticas(Uni * bd) {
                 finalistas(bd);
                 break;
             case '5':
-                //Média de idades por nacionalidade e ano 
+                media_idades_por_nacionalidade(bd);
                 break;
             case '6':
                 tabela_idade_por_escalao(bd);
@@ -1495,7 +1502,7 @@ void processar_extras(Uni * bd) {
                 listar_aniversario_ao_domingo(bd);
                 break;
             case '3':
-                //aniversario na quaresma
+                listar_aniversario_na_quaresma(bd);
                 break;
             default: 
                 opcao = '0';
@@ -2116,6 +2123,72 @@ void tabela_medias_ano(Uni * bd) {
     pressione_enter();
 }
 
+void media_idades_por_nacionalidade(Uni * bd) {
+    char ** nacionalidades = NULL;
+    short contador = 0;
+    short ano = 0;
+    float media_idades = 0.0;
+
+    limpar_terminal();
+
+    //Encontrar número máximo de anos em escolares
+    short max_ano = 0;
+    for(size_t i = 0; i < bd->tamanho_escolares; i++) {
+        if(bd->escolares[i].ano_atual > max_ano) {
+            max_ano = bd->escolares[i].ano_atual;
+        }
+    }
+    if (max_ano == 0) {
+        printf("Não existem dados escolares.\n");
+        pressione_enter();
+        return;
+    }
+    
+    nacionalidades = procurar_nacionalidades(bd, 1, "Insira a nacionalidade da qual quer saber a média de idades");
+    //Como nacionalidades só tem um parametro, só precisamos de dar free em nacionalidades[0] e nacionalidades.
+    if (!nacionalidades) {
+        return;
+    }
+    
+    do {
+        printf("Quer saber a média de idades de que estudantes de que ano? (1-%hd) ", max_ano);
+        if (scanf("%hd", &ano) != 1 || ano < 1 || ano > max_ano) {
+            printf("Por favor insira um número entre 1 e %hd.\n", max_ano);
+            limpar_buffer();
+            continue;
+        }
+        break;
+    } while(1);
+
+    limpar_buffer(); //enter do scanf
+
+    //Loopar pelos estudantes que se encaixem nos critérios
+    for (int i = 0; i < bd->tamanho_escolares; i++) {
+        if (bd->escolares[i].ano_atual == ano) {
+            int indice = procurar_codigo_aluno(bd->escolares[i].codigo, bd);
+            if (indice > 0 && strcmp(bd->aluno[indice - 1].nacionalidade, nacionalidades[0]) == 0) {
+                media_idades += calcular_idade(bd->aluno[indice - 1].nascimento);
+                contador++;
+            }
+        }
+    }
+    if (contador == 0) {
+        printf("Não foram encontrados estudantes para os critérios especificados.\n");
+        free(nacionalidades[0]);
+        free(nacionalidades);
+        return;
+    }
+
+    printf("\nA média de idades para estudantes do %hdº ano e de nacionalidade %s é de %.1f.\n",
+        ano, nacionalidades[0], media_idades / contador);
+
+    pressione_enter();
+
+    //Libertar a memória
+    free(nacionalidades[0]);
+    free(nacionalidades);
+}
+
 //Listagens (inclui procuras)
 
 //Lista os parametros no terminal e no ficheiro se existir.
@@ -2294,7 +2367,7 @@ void listar_apelidos_alfabeticamente(Uni * bd) {
 }
 
 void listar_aniversarios_por_dia(Uni * bd) {
-    const char * dias_da_semana[] = {"Sábado", "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira"};
+    const char * dias_da_semana[] = {"sábado", "domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira"};
     short dia, mes, ano, opcao, dia_da_semana, contador;
     char formato[MAX_FORMATO]; 
     char separador;
@@ -2351,19 +2424,76 @@ void listar_aniversario_ao_domingo(Uni * bd) {
 
         do {
             printf("Insira o ano: ");
-            scanf("%hd", &ano);
-        } while (ano > DATA_ATUAL.ano || ano < 1); //Deixamos o utilizador brincar um pouco
+            if (scanf("%hd", &ano) != 1 || ano <= 0 || ano > DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS) {
+                printf("Por favor insira um ano entre 1 e %hd.\n", DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS);
+                limpar_buffer();
+                continue;
+            }
+        break;
+        } while (1);
 
-        printf("Estudantes cujo aniversário é ao Domingo em %hd:\n\n", ano);
+        printf("Estudantes cujo aniversário é ao domingo em %hd:\n\n", ano);
         for(int i = 0; i < bd->tamanho_aluno; i++) {
             dia = bd->aluno[i].nascimento.dia;
             mes = bd->aluno[i].nascimento.mes;
+            //O aluno não pode fazer anos se ainda não era nascido!
+            if (ano < bd->aluno[i].nascimento.ano) continue;
+
             if (calcular_dia_da_semana(dia, mes, ano) == 1) { 
                 listar(bd, i, listagem, separador, &contador);
             }
         }
         if (contador == 0) {
-            printf("Não foi encontrado nenhum estudante cujo aniversário fosse ao Domingo em %hd.\n", ano);
+            printf("Não foi encontrado nenhum estudante cujo aniversário fosse ao domingo em %hd.\n", ano);
+        }
+        printf("\n---------------------FIM DE LISTAGEM---------------------\n\n");
+        pressione_enter();
+        if (listagem) fclose(listagem);
+
+        printf("\nQuer inserir um ano diferente? (S/N): ");
+        if(!sim_nao()) return;
+    } while(1);
+}
+
+void listar_aniversario_na_quaresma(Uni * bd) {
+    Data inicio, fim;
+    short contador = 0;
+    short ano = 0;
+    char formato[MAX_FORMATO]; 
+    char separador;
+    FILE * listagem;
+    do {
+        contador = 0;
+        listagem = NULL;
+        limpar_terminal();
+
+        listagem = pedir_listagem(formato);
+        separador = obter_separador(listagem, formato);
+
+        do {
+            printf("Insira o ano: ");
+            if (scanf("%hd", &ano) != 1 || ano <= 0 || ano > DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS) {
+                printf("Por favor insira um ano entre 1 e %hd.\n", DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS);
+                limpar_buffer();
+                continue;
+            }
+        break;
+        } while (1);
+        limpar_buffer();
+        limpar_terminal();
+
+        //Calcular a data da quaresma no ano pedido.
+        calcular_quaresma(ano, &inicio, &fim);
+
+        printf("Estudantes cujo aniversário é na Quaresma em %hd:\n\n", ano);
+        for(int i = 0; i < bd->tamanho_aluno; i++) {
+            //Comparar_data não funcionava originalmente porque comparava tudo, logo foi acrescentada uma opção de exluir o ano e comparar apenas mes e dia.
+            if (comparar_data(inicio, bd->aluno[i].nascimento, '1') == -1 && comparar_data(fim, bd->aluno[i].nascimento, '1') == 1) { 
+                listar(bd, i, listagem, separador, &contador);
+            }
+        }
+        if (contador == 0) {
+            printf("Não foi encontrado nenhum estudante cujo aniversário fosse na Quaresma em %hd.\n", ano);
         }
         printf("\n---------------------FIM DE LISTAGEM---------------------\n\n");
         pressione_enter();
@@ -2434,7 +2564,7 @@ void finalistas(Uni * bd) {
 
 }
 
-void listar_estudantes_por_intervalo_e_nacionalidades(Uni *bd) {
+void listar_estudantes_por_data_e_nacionalidades(Uni *bd) {
     short n_nacionalidades = 0;
     char ** nacionalidades = NULL;
     short contador = 0;
@@ -2488,7 +2618,7 @@ void listar_estudantes_por_intervalo_e_nacionalidades(Uni *bd) {
             ler_data(&sup, data, '1');
             free(data);
         } while(sup.dia == 0);
-    } while(comparar_data(sup, inf) == -1); //Apenas saímos se sup >= inf.
+    } while(comparar_data(sup, inf, '0') == -1); //Apenas saímos se sup >= inf.
 
     printf("\nAlunos nascidos entre %02hd-%02hd-%04hd e %02hd-%02hd-%04hd e pertencentes às nacionalidades escolhidas: \n\n", 
         inf.dia, inf.mes, inf.ano, sup.dia, sup.mes, sup.ano);
@@ -2689,6 +2819,100 @@ short calcular_dia_da_semana(short dia, int mes, int ano) {
     return dia_da_semana;
 }
 
+//Calcula a data do domingo de páscoa de um dado ano.
+Data calcular_domingo_pascoa(int ano) {
+    //int porque os números podem ficar muito grandes e estourar com short
+    //https://www.matematica.pt/en/faq/calculate-easter-day.php
+    Data pascoa;
+
+    int a = ano % 19;
+    int b = ano / 100;
+    int c = ano % 100;
+    int d = b / 4;
+    int e = b % 4;
+    int f = (b + 8) / 25;
+    int g = (b - f + 1) / 3;
+    int h = (19 * a + b - d - g + 15) % 30;
+    int i = c / 4;
+    int k = c % 4;
+    int l = (32 + 2 * e + 2 * i - h - k) % 7;
+    int m = (a + 11 * h + 22 * l) / 451;
+    int mes = (h + l - 7 * m + 114) / 31;
+    int dia = ((h + l - 7 * m + 114) % 31) + 1;
+
+    pascoa.dia = (short) dia;
+    pascoa.mes = (short) mes;
+    pascoa.ano = (short) ano;
+    return pascoa;
+}
+
+//Quarta feira de cinzas é o dia da Páscoa - 46 dias (Domingos não contam)
+Data calcular_quarta_feira_cinzas(Data pascoa) {
+    Data cinzas = pascoa;
+    cinzas.dia -= DIAS_QUARESMA;
+    
+    //Como o dia ficará negativo, temos de fazer as respetivas alterações
+    while (cinzas.dia <= 0) {
+        cinzas.mes--;
+        if (cinzas.mes <= 0) {
+            cinzas.mes = 12;
+            cinzas.ano--;
+        }
+        
+        //Determinar os dias do mês anterior
+        switch (cinzas.mes) {
+            //Fevereiro 
+            case 2:
+                //Caso o ano seja bissexto
+                if ((cinzas.ano % 4 == 0 && cinzas.ano % 100 != 0) || (cinzas.ano % 400 == 0))
+                    cinzas.dia += 29;
+                else
+                    cinzas.dia += 28;
+                break;
+            //Meses com 30 dias
+            case 4: //Abril
+            case 6: //Junho
+            case 9: //Setembro
+            case 11: //Novembro
+                cinzas.dia += 30;
+                break;
+            //Meses com 31 dias
+            default:
+                cinzas.dia += 31;
+                break;
+        }
+    }
+    
+    return cinzas;
+}
+
+//Calcula a data de início e fim da quaresma
+void calcular_quaresma(int ano, Data * inicio, Data * fim) {
+    if (!inicio || !fim) return;
+
+    *fim = calcular_domingo_pascoa(ano);
+    *inicio = calcular_quarta_feira_cinzas(*fim);
+
+    //Quaresma acaba na quinta feira santa, logo temos de subtrair 3(domingo, sábado, sexta -> quinta)
+    fim->dia -=3;
+
+    if (fim->dia <= 0) {
+        fim->mes--;
+        //Fevereiro
+        if (fim->mes == 2) {
+            fim->dia += ((fim->ano % 4 == 0 && fim->ano % 100 != 0) || (fim->ano % 400 == 0)) ? 29 : 28;
+        } 
+        //Meses com 30 dias
+        else if (fim->mes == 4 || fim->mes == 6 || fim->mes == 9 || fim->mes == 11) {
+            fim->dia += 30;
+        } 
+        //31 dias
+        else {
+            fim->dia += 31;
+        }
+    }
+}
+
 //Sim - 1; Não - 0;
 int sim_nao() {
     char opcao;
@@ -2779,4 +3003,6 @@ void data_atual() {
     DATA_ATUAL.mes = tm_atual->tm_mon + 1; //tm_mon vai de 0-11
     DATA_ATUAL.ano = tm_atual->tm_year + 1900;
 }
+
+
 

@@ -34,7 +34,8 @@
 #define MAX_INTERVALOS 6
 #define MAX_NACIONALIDADES_PEDIDA 5
 #define TAMANHO_SUGESTOES 5
-
+#define DIAS_QUARESMA 46
+#define ANOS_AVANCO_PROCURAS 5 //Anos em que o utilizador pode procurar mais à frente, como na quaresma
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -127,7 +128,7 @@ void verificar_codigos_duplicados(Uni * bd, FILE * erros);
 void verificar_codigos_escolares_sem_aluno(Uni * bd, FILE * erros, char * primeiro_erro);
 int validar_data(short dia, short mes, short ano, const char modo);
 int validar_data_entre_intervalo(Data inferior, Data superior, Data atual);
-int comparar_data(Data d1, Data d2);
+int comparar_data(Data d1, Data d2, const char ignorar_ano);
 int validar_nome(Estudante * aluno, char * nome, const char modo);
 int validar_nacionalidade(char * nacionalidade, const char modo);
 void validacao_menus(short * valido, const char opcao, const char limInf, const char limSup);
@@ -167,16 +168,17 @@ void calcular_media_matriculas(Uni * bd);
 int alunos_por_media_e_ano(Uni * bd, float media_min, float media_max, short ano_atual);
 void tabela_idade_por_escalao(Uni * bd);
 void tabela_medias_ano(Uni * bd);
-
+void media_idades_por_nacionalidade(Uni * bd);
 //Listagens
 void listar(Uni * bd, int indice_aluno, FILE * ficheiro, char separador, short * contador);
 void procurar_estudante_por_nome(Uni * bd);
 void listar_apelidos_alfabeticamente(Uni * bd);
 void listar_aniversarios_por_dia(Uni * bd);
 void listar_aniversario_ao_domingo(Uni * bd);
+void listar_aniversario_na_quaresma(Uni * bd);
 void prescrito(Uni * bd);
 void finalistas(Uni * bd);
-void listar_estudantes_por_intervalo_e_nacionalidades(Uni *bd);
+void listar_estudantes_por_data_e_nacionalidades(Uni *bd);
 //Funções auxiliares
 void remover_espacos(char * str);
 void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
@@ -189,6 +191,9 @@ int string_para_int(const char * str, int * resultado);
 int string_para_short(const char * str, short * resultado);
 int string_para_float(const char * str, float * resultado);
 short calcular_dia_da_semana(short dia, int mes, int ano);
+Data calcular_domingo_pascoa(int ano);
+Data calcular_quarta_feira_cinzas(Data pascoa);
+void calcular_quaresma(int ano, Data * inicio, Data * fim);
 int sim_nao();
 char obter_separador(FILE * ficheiro, char * formato);
 short calcular_idade(Data nascimento);
