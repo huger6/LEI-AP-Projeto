@@ -446,6 +446,16 @@ void inicializar_estatisticas(Estatisticas * stats) {
     stats->atualizado = '0'; //Inicializamos a 0 pois quando carregamos os dados, estamos possivelmente a introduzir dados novos que podem contar para a estatística.
 }
 
+//Libertar a memória ao sair do programa.
+void free_aluno(Uni * bd) {
+    if (!bd || !bd->aluno) return;
+
+    for(int i = 0; i < bd->tamanho_aluno; i++) {
+        if (bd->aluno[i].nome) free(bd->aluno[i].nome);
+        if (bd->aluno[i].nacionalidade) free(bd->aluno[i].nacionalidade);
+    }
+}
+
 //Duplica o espaço atual. Não inicializa o espaço alocado. modo = '1' para endereçar erros.
 int realocar_aluno(Uni * bd, const char modo) {
     int tamanho_novo = bd->capacidade_aluno * 2;
@@ -2007,7 +2017,7 @@ void tabela_medias_ano(Uni * bd) {
 
     //Encontrar número máximo de anos em escolares
     short max_ano = 0;
-    for(size_t i = 0; i < bd->tamanho_escolares; i++) {
+    for(int i = 0; i < bd->tamanho_escolares; i++) {
         if(bd->escolares[i].ano_atual > max_ano) {
             max_ano = bd->escolares[i].ano_atual;
         }
@@ -2133,7 +2143,7 @@ void media_idades_por_nacionalidade(Uni * bd) {
 
     //Encontrar número máximo de anos em escolares
     short max_ano = 0;
-    for(size_t i = 0; i < bd->tamanho_escolares; i++) {
+    for(int i = 0; i < bd->tamanho_escolares; i++) {
         if(bd->escolares[i].ano_atual > max_ano) {
             max_ano = bd->escolares[i].ano_atual;
         }

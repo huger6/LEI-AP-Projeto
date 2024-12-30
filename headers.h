@@ -113,6 +113,7 @@ FILE * pedir_listagem(char * formato_selecionado);
 void inicializar_aluno(Uni * bd, int indice_aluno);
 void inicializar_escolares(Uni * bd, int indice_escolares);
 void inicializar_estatisticas(Estatisticas * stats);
+void free_aluno(Uni * bd);
 int realocar_aluno(Uni * bd, const char modo);
 int realocar_escolares(Uni * bd, const char modo);
 int realocar_nome(Estudante * aluno, const char modo);

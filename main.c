@@ -1,13 +1,5 @@
 #include "headers.h"
 #include "funcoes.c"
-//NOTA IMPORTANTE: para dar run temos que abrir o projeto em terminal integrado e depois de estar na main, dar compile run.
-//": Para os ficheiros abrirem corretamente têm que estar na pasta output
-
-//NOVA METODOLOGIA:
-//Usar ler_linha_txt() para ler qualquer entrada de stdin
-//Se necessário usar um scanf, colocar fseek(stdin, 0, SEEK_END); para evitar erros na leitura;
-
-//TODO: 
 
 //As funções de procura com strings não suportam acentos ou ç!!
 //NOTA: erros.txt está atualmente em modo w para facilitar debugging, alterar quando já não for necessário
@@ -32,7 +24,7 @@ int main() {
 		printf("A encerrar o programa.\n");
 		return 1; //Erro
 	}
-
+	
 	//Servirá para verificar se o tamanho atual de alunos excede ou não o alocado
 	bd.capacidade_aluno = TAMANHO_INICIAL_ARRAYS; //Variável que irá manter o tamanho do array de alunos
 	bd.capacidade_escolares = TAMANHO_INICIAL_ARRAYS;
@@ -48,6 +40,7 @@ int main() {
 	the_architect(&bd);
 
 	//Provavelmente também será necessário dar free em nome e nacionalidade antes
+	free_aluno(&bd);
 	free(bd.aluno);
 	free(bd.escolares);
 
