@@ -104,24 +104,28 @@ typedef struct uni{
 //Só declaramos aqui porque acima deu erro (não reconhecia o tipo Data)
 //Apenas se declara, é necessário inicializar a variável noutro ficheiro.
 extern Data DATA_ATUAL; //Não se usa const porque temos de a ir modificar logo no ínicio.
+extern char autosaveON;
 
 //Protótipos das funções
 
 //Ficheiros e gestão de dados
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
-void carregar_dados_txt(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolar, Uni * bd);
-void carregar_dados_bin(const char * nome_ficheiro, Uni * bd);
+int carregar_dados_txt(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolar, Uni * bd);
+int carregar_dados_bin(const char * nome_ficheiro, Uni * bd);
 void guardar_dados_txt(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd);
 void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo);
-void mostrar_dados_ficheiro(const char * nome_ficheiro);
+void autosave(Uni * bd);
 int fase_instalacao(const char * flag);
 void eliminar_ficheiro(const char * nome);
 FILE * pedir_listagem(char * formato_selecionado);
+int verificar_extensao(const char * nome_ficheiro);
+void mostrar_dados_ficheiro(const char * nome_ficheiro);
+void repor_estado_inicial(Uni * bd);
 //Gestão de memória
 void inicializar_aluno(Uni * bd, int indice_aluno);
 void inicializar_escolares(Uni * bd, int indice_escolares);
 void inicializar_estatisticas(Estatisticas * stats);
-void free_aluno(Uni * bd);
+void free_nome_nacionalidade(Uni * bd);
 int realocar_aluno(Uni * bd, const char modo);
 int realocar_escolares(Uni * bd, const char modo);
 int realocar_nome(Estudante * aluno, const char modo);
@@ -157,16 +161,19 @@ void menu_gerir_estudantes();
 void menu_consultar_dados();
 void menu_estatisticas();
 void menu_ficheiros();
+void menu_opcoes();
 void menu_aniversarios();
 void menu_dias_da_semana();
 void menu_formatos_disponiveis();
 void menu_media_matriculas();
+void guia_de_utilizacao();
 void the_architect(Uni * bd);
 void processar_gerir_estudantes(Uni * bd);
 void processar_consultar_dados(Uni * bd);
 void processar_estatisticas(Uni * bd);
 void processar_ficheiros(Uni * bd);
 void processar_aniversarios(Uni * bd);
+void processar_opcoes(Uni * bd);
 //Inserção/leitura de dados
 void ler_data(Data * aluno, char * str, const char modo);
 void inserir_estudante(Uni * bd);

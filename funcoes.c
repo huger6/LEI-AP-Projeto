@@ -3,6 +3,7 @@
 //Variáveis globais
 
 Data DATA_ATUAL = {0,0,0}; //Vai ser alterada logo no ínicio do programa
+char autosaveON = '0';
 
 //Ficheiros e gestão de dados
 
@@ -61,7 +62,7 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
 //Faz verificações de duplicados, etc
 //Erros são colocadas em ERROS_TXT
 //Ordena os arrays
-void carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Uni * bd) { 
+int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Uni * bd) { 
     FILE * dados = fopen(nome_ficheiro_dados, "r");
     FILE * situacao_escolar = fopen(nome_ficheiro_escolar, "r");
     FILE * erros = fopen(ERROS_TXT, "w"); //Vai anexar ao ficheiro de erros os erros encontrados
@@ -316,14 +317,15 @@ void carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fiche
     fclose(erros);
 }
 
-void carregar_dados_bin(const char * nome_ficheiro, Uni * bd) {
+int carregar_dados_bin(const char * nome_ficheiro, Uni * bd) {
     FILE * ficheiro = fopen(nome_ficheiro, "rb");
     if (!ficheiro) {
         printf("Ocorreu um erro ao abrir o ficheiro de dados.\n");
         printf("Por favor verifique se o ficheiro '%s' está no mesmo diretório do programa.\n", nome_ficheiro);
-        return;
+        return 0;
     }
-
+    //Configs
+    fread(&autosaveON, sizeof(char), 1, ficheiro);
     //Dados dos arrays
     fread(&bd->tamanho_aluno, sizeof(int), 1, ficheiro);
     fread(&bd->capacidade_aluno, sizeof(int), 1, ficheiro);
@@ -340,7 +342,7 @@ void carregar_dados_bin(const char * nome_ficheiro, Uni * bd) {
         if (bd->aluno) free(bd->aluno);
         if (bd->escolares) free(bd->escolares);
         fclose(ficheiro);
-        return;
+        return 0;
 	}
 
     //Aluno
@@ -366,6 +368,7 @@ void carregar_dados_bin(const char * nome_ficheiro, Uni * bd) {
     fread(&bd->stats, sizeof(Estatisticas), 1, ficheiro);
 
     fclose(ficheiro);
+    return 1;
 }
 
 //Guarda os dados no mesmo ficheiro do qual leu inicialmente, ordenados pelo código
@@ -415,6 +418,8 @@ void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo) {
         if (modo == '1') printf("Ocorreu um erro ao guardar os dados.\n");
         return;
     }
+    //Configurações
+    fwrite(&autosaveON, sizeof(char), 1, ficheiro);
     //Dados dos arrays
     fwrite(&bd->tamanho_aluno, sizeof(int), 1, ficheiro);
     fwrite(&bd->capacidade_aluno, sizeof(int), 1, ficheiro);
@@ -444,7 +449,14 @@ void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo) {
 
     fclose(ficheiro);
     if (modo == '1') {
-        printf("Os dados foram guardados com sucesso em '%s'\n", nome_ficheiro);
+        printf("Os dados foram guardados com sucesso em '%s'.\n", nome_ficheiro);
+    }
+}
+
+//Guarda automaticamente todos os dados binários se o modo autosave estiver ativado pelo utilizador;
+void autosave(Uni * bd) {
+    if (autosaveON == '1') {
+        guardar_dados_bin(LOGS_BIN, bd, '0');
     }
 }
 
@@ -532,21 +544,31 @@ FILE * pedir_listagem(char * formato_selecionado) {
     return NULL;
 }
 
-//Abre o ficheiro dado e escreve toda a sua informação no terminal
-//Verifica a extensão: apenas suporta .txt e .csv
-void mostrar_dados_ficheiro(const char * nome_ficheiro) {
-     //Verificar a extensão do ficheiro
+//Verifica se o nome do ficheiro já inclui a extensão e se é suportada
+int verificar_extensao(const char * nome_ficheiro) {
+    //Verificar a extensão do ficheiro
      //Se houvesse uma extensão que não fosse .txt ou .csv a função não funcionava e levava a erro.
     const char * extensao = strrchr(nome_ficheiro, '.');
+
     if (!extensao) {
         printf("O ficheiro não tem extensão.\n");
         pressione_enter();
-        return;
+        return 0;
     }
 
     if (strcmp(extensao, ".txt") != 0 && strcmp(extensao, ".csv") != 0) {
         printf("A extensão %s não é suportada.\n", extensao);
         pressione_enter();
+        return 0;
+    }
+    return 1;
+}
+
+//Abre o ficheiro dado e escreve toda a sua informação no terminal
+//Verifica a extensão: apenas suporta .txt e .csv
+void mostrar_dados_ficheiro(const char * nome_ficheiro) {
+    
+    if (!verificar_extensao(nome_ficheiro)) {
         return;
     }
 
@@ -579,6 +601,68 @@ void mostrar_dados_ficheiro(const char * nome_ficheiro) {
     }
     fclose(ficheiro);
     pressione_enter();
+}
+
+void repor_estado_inicial(Uni * bd) {
+    limpar_terminal();
+    printf("Todos os dados serão excluídos e será necessário carregar os ficheiros .txt.\n");
+    printf("Quer guardar uma cópia dos dados em ficheiro .txt? (S/N) ");
+    if(sim_nao()) {
+        FILE * dados;
+        FILE * escolar;
+        char * dados_nome;
+        char * escolar_nome;
+        do {
+            dados = NULL;
+            dados_nome = NULL;
+            printf("Escreva o nome do ficheiro cópia de '%s': ", DADOS_TXT);
+            dados_nome = ler_linha_txt(stdin, NULL);
+            if (!dados_nome) continue;
+
+            if (!verificar_extensao(dados_nome)) {
+                free(dados_nome);
+                continue;
+            }
+            if ((dados = validar_ficheiro_e_abrir(dados_nome)) == NULL) {
+                free(dados_nome);
+                continue;
+            }
+            fclose(dados); //Neste caso, não queremos o ficheiro aberto porque guardar_dados já o abre
+            break;
+        } while(1);
+        do {
+            escolar = NULL;
+            escolar_nome = NULL;
+            printf("Escreva o nome do ficheiro cópia de '%s': ", SITUACAO_ESCOLAR_TXT);
+            escolar_nome = ler_linha_txt(stdin, NULL);
+            if (!escolar_nome) continue;
+
+            if (!verificar_extensao(escolar_nome)) {
+                free(escolar_nome);
+                continue;
+            }
+            if ((escolar = validar_ficheiro_e_abrir(escolar_nome)) == NULL) {
+                free(escolar_nome);
+                continue;
+            }
+            fclose(escolar);
+            break;
+        } while(1);
+        guardar_dados_txt(dados_nome, escolar_nome, bd);
+    }
+    printf("Tem a certeza que quer continuar? (S/N) ");
+    if (!sim_nao()) return;
+
+    //Eliminamos o ficheiro de instalação para voltar a instalar o programa.
+    eliminar_ficheiro(INSTALACAO_TXT);
+    eliminar_ficheiro(LOGS_BIN);
+    printf("Para concluir a reposição do programa, a aplicação será fechada.\n");
+    pressione_enter();
+
+    free_nome_nacionalidade(bd);
+    free(bd->aluno);
+    free(bd->escolares);
+    exit(EXIT_SUCCESS);
 }
 
 //Gestão de memória
@@ -634,8 +718,8 @@ void inicializar_estatisticas(Estatisticas * stats) {
 }
 
 //Libertar a memória alocada em aluno ao sair do programa.
-void free_aluno(Uni * bd) {
-    if (!bd || !bd->aluno) return;
+void free_nome_nacionalidade(Uni * bd) {
+    if (!bd && !bd->aluno) return; //&& porque caso contrário poderia ficar um array sem levar free
 
     for(int i = 0; i < bd->tamanho_aluno; i++) {
         if (bd->aluno[i].nome) free(bd->aluno[i].nome);
@@ -1482,7 +1566,7 @@ char mostrar_menu(void (*escrever_menu)(), char min_opcao, char max_opcao) {
 //As seguintes funções que começam por "menu" servem apenas para printar o menu
 //Os comentários das funções são o limInf e limSup do menu
 
-//0-5
+//0-6
 void menu_principal() {
     //https://desenvolvedorinteroperavel.wordpress.com/2011/09/11/tabela-ascii-completa/
     //Link da tabela ASCII completa de onde foram retirados as duplas barras do menu (a partir do 185 decimal)
@@ -1493,7 +1577,8 @@ void menu_principal() {
     printf("║  2. Consultar dados              ║\n");
     printf("║  3. Estatísticas                 ║\n");
     printf("║  4. Ficheiros                    ║\n");
-    printf("║  5. Extras                       ║\n");
+    printf("║  5. Aniversários                 ║\n");
+    printf("║  6. Opções                       ║\n");
     printf("║  0. Sair do programa             ║\n");
     printf("╚══════════════════════════════════╝\n\n");
 }
@@ -1545,13 +1630,26 @@ void menu_ficheiros() {
     printf("╔════════════════════════════════════════════════════════════╗\n");
     printf("║                         FICHEIROS                          ║\n");
     printf("╠════════════════════════════════════════════════════════════╣\n");
-    printf("║  1. Guardar dados                                          ║\n");
+    printf("║  1. Guardar dados em ficheiros .txt                        ║\n");
     printf("║  2. Mostrar dados de erros.txt (erros ao carregar dados)   ║\n");
     printf("║  3. Mostrar dados de dados.txt                             ║\n");
     printf("║  4. Mostrar dados de situacao_Escolar_Estudantes.txt       ║\n");
     printf("║  5. Mostrar dados de um ficheiro (.txt ou .csv) por nome   ║\n");
+    printf("║  6. Guardar dados em ficheiro binário                      ║\n");
     printf("║  0. Voltar ao menu anterior                                ║\n");
     printf("╚════════════════════════════════════════════════════════════╝\n\n");
+}
+
+//0-3
+void menu_opcoes() {
+    printf("╔══════════════════════════════════╗\n");
+    printf("║              OPÇÕES              ║\n");
+    printf("╠══════════════════════════════════╣\n");
+    printf("║  1. Ativar/Desativar autosave    ║\n");
+    printf("║  2. Repor definições             ║\n");
+    printf("║  3. Guia de utilização           ║\n");
+    printf("║  0. Voltar ao menu anterior      ║\n");
+    printf("╚══════════════════════════════════╝\n\n");
 }
 
 //0-3
@@ -1604,13 +1702,50 @@ void menu_media_matriculas() {
     printf("╚══════════════════════════╝\n\n");
 }
 
+//Informações úteis ao utilizador
+//Tem um pressione_enter no final
+void guia_de_utilizacao() {
+    limpar_terminal();
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                  GUIA DE UTILIZAÇÃO                                  ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════════════════════════╣\n");
+    printf("║ 1. MENU PRINCIPAL                                                                    ║\n");
+    printf("║    - Gerir estudantes: Inserir ou eliminar estudantes                                ║\n");
+    printf("║    - Consultar dados: Procurar e listar estudantes por vários critérios              ║\n"); 
+    printf("║    - Estatísticas: Visualizar dados estatísticos sobre os estudantes                 ║\n");
+    printf("║    - Ficheiros: Gestão de ficheiros e visualização de dados                          ║\n");
+    printf("║    - Aniversários: Listar estudantes por várias datas especiais                      ║\n");
+    printf("║    - Opções: Configurações do programa                                               ║\n");
+    printf("║                                                                                      ║\n");
+    printf("║ 2. NOTAS IMPORTANTES                                                                 ║\n");
+    printf("║    - O programa carrega dados de ficheiros .txt apenas no primeiro uso               ║\n");
+    printf("║    - Para voltar a carregar dados de ficheiro .txt, selecione a opção 6.2 do menu    ║\n");
+    printf("║    - Erros a carregar dados são registados no ficheiro erros.txt                     ║\n");
+    printf("║    - A opção de autosave guarda automaticamente em ficheiro binário                  ║\n");
+    printf("║    - O ficheiro instalacao.txt jamais deve ser alterado pelo utilizador, podendo     ║\n");
+    printf("║    resultar na inadvertida manipulação de dados                                      ║\n");
+    printf("║                                                                                      ║\n");
+    printf("║ 3. DICAS                                                                             ║\n");
+    printf("║    - Use '0' para voltar ao menu anterior ou sair                                    ║\n");
+    printf("║    - Pressione Enter para avançar rapidamente nas listagens                          ║\n");
+    printf("║    - Pode guardar listagens em ficheiros .txt ou .csv                                ║\n");
+    printf("║    - Consulte erros.txt para ver problemas com dados carregados na opção 4.2 do menu ║\n");
+    printf("║    - Erros a carregar dados/ler/guardar ficheiros? Certifique-se que todos os        ║\n");
+    printf("║    ficheiros que quer usar estão na mesma pasta que o programa!                      ║\n");
+    printf("║                                                                                      ║\n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════╝\n");
+
+    pressione_enter();
+}
+
 //Coração do programa
 //Apresenta o menu principal e depois chama os submenus
 void the_architect(Uni * bd) {
     char opcao;
 
     do {
-        opcao = mostrar_menu(menu_principal, '0', '5');
+        autosave(bd);
+        opcao = mostrar_menu(menu_principal, '0', '6');
         switch(opcao) {
             case '0':
                 limpar_terminal();
@@ -1636,6 +1771,9 @@ void the_architect(Uni * bd) {
             case '5': 
                 processar_aniversarios(bd);
                 break;
+            case '6': 
+                processar_opcoes(bd);
+                break;
             default:
                 opcao = '0'; //Sair caso haja erro
                 break;
@@ -1647,6 +1785,7 @@ void the_architect(Uni * bd) {
 void processar_gerir_estudantes(Uni * bd) {
     char opcao;
     do {
+        autosave(bd);
         opcao = mostrar_menu(menu_gerir_estudantes, '0', '2');
         switch(opcao) {
             case '0': break;
@@ -1667,6 +1806,7 @@ void processar_gerir_estudantes(Uni * bd) {
 void processar_consultar_dados(Uni * bd) {
     char opcao;
     do {
+        autosave(bd);
         opcao = mostrar_menu(menu_consultar_dados, '0', '4');
         switch(opcao) {
             case '0': break;
@@ -1694,6 +1834,7 @@ void processar_consultar_dados(Uni * bd) {
 void processar_estatisticas(Uni * bd) {
     char opcao;
     do {
+        autosave(bd);
         opcao = mostrar_menu(menu_estatisticas, '0', '7');
         if (opcao == '0') break;
         /*A lógica diferente por detrás deste menu envolve o facto de que:
@@ -1746,6 +1887,7 @@ void processar_estatisticas(Uni * bd) {
 void processar_ficheiros(Uni * bd) {
     char opcao;
     do {
+        autosave(bd);
         opcao = mostrar_menu(menu_ficheiros, '0', '5');
         switch(opcao) {
             case '0': break;
@@ -1788,6 +1930,7 @@ void processar_ficheiros(Uni * bd) {
 void processar_aniversarios(Uni * bd) {
     char opcao;
     do {
+        autosave(bd);
         opcao = mostrar_menu(menu_aniversarios, '0', '3');
         switch(opcao) {
             case '0': break;
@@ -1799,6 +1942,38 @@ void processar_aniversarios(Uni * bd) {
                 break;
             case '3':
                 listar_aniversario_na_quaresma(bd);
+                break;
+            default: 
+                opcao = '0';
+                break;
+        }
+    } while (opcao != '0');
+}
+
+void processar_opcoes(Uni * bd) {
+    char opcao;
+    do {
+        autosave(bd);
+        opcao = mostrar_menu(menu_opcoes, '0', '3');
+        switch(opcao) {
+            case '0': break;
+            case '1':
+                limpar_terminal();
+                if (autosaveON == '0') {
+                    autosaveON = '1';
+                    printf("O autosave foi ativado.\n");
+                }
+                else {
+                    autosaveON = '0';
+                    printf("O autosave foi desativado.\n");
+                }
+                pressione_enter();
+                break;
+            case '2':
+                repor_estado_inicial(bd);
+                break;
+            case '3':
+                guia_de_utilizacao();
                 break;
             default: 
                 opcao = '0';

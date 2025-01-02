@@ -14,7 +14,7 @@ int main() {
 	Uni bd; //Pode ser fadcilmente alterado para guardar várias universidades
 
 	/*
-				FASE DE INSTALAçÃO DO PROGRAMA
+				FASE DE INSTALAÇÃO DO PROGRAMA
 
 	TEMOS DE:
 	-Verificar se é a primeira abertura do programa. Se for, carregar .txt, se não carregar .bat
@@ -54,18 +54,19 @@ int main() {
 		carregar_dados_bin(LOGS_BIN, &bd);
 	}
 
-
 	//Necessário verificar se foram carregados dados, caso não, averiguar o que fazer.
 
 	//"Cérebro" do programa.
 	the_architect(&bd);
-	guardar_dados_bin(LOGS_BIN, &bd, '1');
+	//Apenas se guarda se o autosave estiver desligado 
+	//Caso contrário, já foi guardado ao entrar no menu principal
+	if (autosaveON == '0') {
+		guardar_dados_bin(LOGS_BIN, &bd, '1');
+	}
 	//Provavelmente também será necessário dar free em nome e nacionalidade antes
-	free_aluno(&bd);
+	free_nome_nacionalidade(&bd);
 	free(bd.aluno);
 	free(bd.escolares);
-
-	
 	
 	return 0;
  
