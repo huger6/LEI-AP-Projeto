@@ -7,6 +7,8 @@
 #define DADOS_TXT "dados.txt"
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
 #define ERROS_TXT "erros.txt" //Ficheiro onde serão armazenados todos os erros provenientes da leitura de dados(para evitar a eliminação dos mesmos)
+#define INSTALACAO_TXT "instalacao.txt" //flag para verificar estado do programa ao abrir
+#define LOGS_BIN "logs.bin"
 #define TAMANHO_INICIAL_ARRAYS 1000
 #define TAMANHO_INICIAL_BUFFER 100
 #define SEPARADOR '\t' //Necessário alterar em carregar_dados, nas mensagens de erro, caso seja mudado
@@ -28,7 +30,6 @@
 #define MIN_SHORT -32768
 #define MAX_FORMATO 10 //Ajustar se o formato do ficheiro for superior a 9 caracteres.
 #define CREDITOS_FINALISTA 154 //Créditos necessários para ser finalista.
-//Os próximos define são relativos aos créditos mínimos necessários para não estar em risco de prescrever.
 #define ECTS_3MATRICULAS 60
 #define ECTS_4MATRICULAS 120
 #define MAX_INTERVALOS 6
@@ -36,6 +37,8 @@
 #define TAMANHO_SUGESTOES 5
 #define DIAS_QUARESMA 46
 #define ANOS_AVANCO_PROCURAS 5 //Anos em que o utilizador pode procurar mais à frente, como na quaresma
+#define PAUSA_LISTAGEM 20
+#define MAX_ELIMINACOES_POR_INTERVALO 400
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -106,8 +109,13 @@ extern Data DATA_ATUAL; //Não se usa const porque temos de a ir modificar logo 
 
 //Ficheiros e gestão de dados
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
-void carregar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolar, Uni * bd);
-void guardar_dados(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd);
+void carregar_dados_txt(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolar, Uni * bd);
+void carregar_dados_bin(const char * nome_ficheiro, Uni * bd);
+void guardar_dados_txt(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd);
+void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo);
+void mostrar_dados_ficheiro(const char * nome_ficheiro);
+int fase_instalacao(const char * flag);
+void eliminar_ficheiro(const char * nome);
 FILE * pedir_listagem(char * formato_selecionado);
 //Gestão de memória
 void inicializar_aluno(Uni * bd, int indice_aluno);
@@ -122,7 +130,7 @@ int procurar_codigo_aluno(int codigo, Uni * bd);
 int procurar_codigo_escolares(int codigo, Uni * bd);
 char ** procurar_nacionalidades(Uni * bd, const short n_nacionalidades, char * mensagem);
 int validar_codigo_ao_inserir(int codigo, Uni * bd);
-int validar_codigo_eliminar(int codigo, Uni * bd);
+int validar_codigo_eliminar(int codigo, Uni * bd, const char modo);
 int validar_nome_ficheiro(const char * nome_ficheiro);
 FILE * validar_ficheiro_e_abrir(const char * nome);
 void verificar_codigos_duplicados(Uni * bd, FILE * erros);
@@ -141,7 +149,7 @@ void merge_sort_aluno(Uni * bd, int inicio, int fim);
 void merge_escolares(Uni * bd, int inicio, int meio, int fim);
 void merge_sort_escolares(Uni * bd, int inicio, int fim);
 void ordenar_ao_inserir(int codigo, Uni * bd, int indice_aluno, int indice_escolares);
-int ordenar_ao_eliminar(int codigo, Uni * bd);
+int ordenar_ao_eliminar(int codigo, Uni * bd, const char modo);
 //Menus
 char mostrar_menu(void (*escrever_menu)(), char min_opcao, char max_opcao);
 void menu_principal();
@@ -149,16 +157,16 @@ void menu_gerir_estudantes();
 void menu_consultar_dados();
 void menu_estatisticas();
 void menu_ficheiros();
-void menu_extras();
+void menu_aniversarios();
 void menu_dias_da_semana();
 void menu_formatos_disponiveis();
 void menu_media_matriculas();
+void the_architect(Uni * bd);
 void processar_gerir_estudantes(Uni * bd);
 void processar_consultar_dados(Uni * bd);
 void processar_estatisticas(Uni * bd);
 void processar_ficheiros(Uni * bd);
-void processar_extras(Uni * bd);
-void the_architect(Uni * bd);
+void processar_aniversarios(Uni * bd);
 //Inserção/leitura de dados
 void ler_data(Data * aluno, char * str, const char modo);
 void inserir_estudante(Uni * bd);
@@ -172,6 +180,7 @@ void tabela_medias_ano(Uni * bd);
 void media_idades_por_nacionalidade(Uni * bd);
 //Listagens
 void listar(Uni * bd, int indice_aluno, FILE * ficheiro, char separador, short * contador);
+void listar_info_estudante(Uni * bd);
 void procurar_estudante_por_nome(Uni * bd);
 void listar_apelidos_alfabeticamente(Uni * bd);
 void listar_aniversarios_por_dia(Uni * bd);
@@ -184,7 +193,9 @@ void listar_estudantes_por_data_e_nacionalidades(Uni *bd);
 void remover_espacos(char * str);
 void separar_parametros(const char * linha, char ** parametros, int * num_parametros);
 void limpar_buffer();
+int verificar_e_limpar_buffer();
 void limpar_terminal();
+void pausa_listagem(short * contador);
 void pressione_enter();
 void colocar_terminal_utf8();
 void verificar_primeiro_erro(FILE * erros, char * primeiro_erro, const char * nome_ficheiro);
@@ -196,6 +207,7 @@ Data calcular_domingo_pascoa(int ano);
 Data calcular_quarta_feira_cinzas(Data pascoa);
 void calcular_quaresma(int ano, Data * inicio, Data * fim);
 int sim_nao();
+void pedir_codigo(int * codigo);
 char obter_separador(FILE * ficheiro, char * formato);
 short calcular_idade(Data nascimento);
 char * normalizar_string(char * str);

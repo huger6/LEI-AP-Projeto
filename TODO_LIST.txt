@@ -97,6 +97,8 @@ O programa fecha abruptamente
 
 #BUG menu aceita 22 @RESOLVIDO
 Solução: Adicionada nova verificação em validacao_menus
+
+
 ______________________________________________________________________________________________________________
 
 A REVER SE TIVER TEMPO:
@@ -117,6 +119,7 @@ FUTURAMENTE:
 -eliminação de códigos por intervalos
 -adicionar listagem em .md (markdown)
 -implementar um checksum para evitar calcular as estatísticas tantas vezes.
+-Fazer uma espécie de autosaves sobre dados adicionais, para a funcionalidade de guardar os dados em binário
 
 ______________________________________________________________________________________________________________
 

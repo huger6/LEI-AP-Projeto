@@ -8,6 +8,9 @@
 Linha 6 inválida: 1239	Carolina Viana  3-11-2000	Portuguesa
 Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \t (obrigatório)
 
+Linha 19 inválida: 1252	Caroline Fogaca 16-6-1997	Brasileira
+Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \t (obrigatório)
+
 Linha 72: 1305	Mariana Costela	29-2-1995	Angolana
 Razão: A data de nascimento é inválida!
 
@@ -43,6 +46,9 @@ Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não
 ==>ERROS AO LER O FICHEIRO situacao_Escolar_Estudantes.txt
 
 Código 1239 no ficheiro situacao_Escolar_Estudantes.txt não foi encontrado no ficheiro dados.txt.
+Razão: Não podem existir dados escolares sem a informação pessoal do aluno!
+
+Código 1252 no ficheiro situacao_Escolar_Estudantes.txt não foi encontrado no ficheiro dados.txt.
 Razão: Não podem existir dados escolares sem a informação pessoal do aluno!
 
 Código 1305 no ficheiro situacao_Escolar_Estudantes.txt não foi encontrado no ficheiro dados.txt.
