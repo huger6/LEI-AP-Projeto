@@ -11,22 +11,22 @@ Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não
 Linha 19 inválida: 1252	Caroline Fogaca 16-6-1997	Brasileira
 Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \t (obrigatório)
 
-Linha 72: 1305	Mariana Costela	29-2-1995	Angolana
+Linha 72 inválida: 1305	Mariana Costela	29-2-1995	Angolana
 Razão: A data de nascimento é inválida!
 
-Linha 639: 1872	Camila Rodrigues	30-2-1992	Portuguesa
+Linha 639 inválida: 1872	Camila Rodrigues	30-2-1992	Portuguesa
 Razão: A data de nascimento é inválida!
 
-Linha 715: 1948	Davi Lucca Duarte	29-2-1995	Portuguesa
+Linha 715 inválida: 1948	Davi Lucca Duarte	29-2-1995	Portuguesa
 Razão: A data de nascimento é inválida!
 
-Linha 1271: 2504	Carlos Eduardo Teixeira	29-2-1994	Portuguesa
+Linha 1271 inválida: 2504	Carlos Eduardo Teixeira	29-2-1994	Portuguesa
 Razão: A data de nascimento é inválida!
 
-Linha 1424: 2657	Marina Pires	29-2-1997	Portuguesa
+Linha 1424 inválida: 2657	Marina Pires	29-2-1997	Portuguesa
 Razão: A data de nascimento é inválida!
 
-Linha 1484: 2717	Heloisa Mendes	30-2-1991	Portuguesa
+Linha 1484 inválida: 2717	Heloisa Mendes	30-2-1991	Portuguesa
 Razão: A data de nascimento é inválida!
 
 Linha 1824 inválida: 3057     Olivia Porto	7-9-2003	Angolana

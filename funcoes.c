@@ -66,7 +66,10 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
     FILE * dados = fopen(nome_ficheiro_dados, "r");
     FILE * situacao_escolar = fopen(nome_ficheiro_escolar, "r");
     FILE * erros = fopen(ERROS_TXT, "w"); //Vai anexar ao ficheiro de erros os erros encontrados
-    if (!erros) return; //Se prosseguissemos iria resultar em segmentation fault
+    if (!erros) {
+        return 0; //Se prosseguissemos iria resultar em segmentation fault
+    } 
+
     fprintf(erros, "------------------------------------------NOVA ITERAÇÃO DO PROGRAMA------------------------------------------\n\n\n");
     int n_linhas = 0;
     char * linha = NULL; //Ponteiro para armazenar uma linha lida do ficheiro
@@ -92,43 +95,34 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                         free(linha);
                         fclose(dados);
                         fclose(erros);
-                        return;
+                        return 0;
                     }
                     //A realocação do campos de nome é feita em validar_nome
                 }
                  //Código
                 if (!string_para_int(parametros[0], &codigo_temp)) { //APENAS SE VERIFICA SE O CÓDIGO DE FACTO É VÁLIDO DEPOIS DE CARREGAR TUDO E ORDENAR TUDO
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
-                    erro = '1';
-                    fprintf(erros,"Linha %d: %s\n",n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O código é inválido!\n\n");
                 }
                 else if(codigo_temp <= 0) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
-                    erro = '1';
-                    fprintf(erros,"Linha %d: %s\n",n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O código é inválido!Deve ser maior que 0.\n\n");
                 }
+                //A seguir não são usados else if's para o caso de haver mais de um erro na mesma linha(assim identifica-os todos)
                 //Nome
                 if (!validar_nome(&(bd->aluno[bd->tamanho_aluno]), parametros[1], '0')) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O nome é inválido!\n\n");
                 }
                 //Data de nascimento
                 ler_data(&(bd->aluno[bd->tamanho_aluno].nascimento), parametros[2], '0');
                 if (bd->aluno[bd->tamanho_aluno].nascimento.dia == 0) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: A data de nascimento é inválida!\n\n");
                 }
                 //Nacionalidade
                 if (!validar_nacionalidade(parametros[3], '0')) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: A nacionalidade é inválida!\n\n");
                 }
                 //Copiar os parâmetros caso não haja erros
@@ -147,13 +141,11 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                 }
             }
             else if (num_parametros < PARAMETROS_ESTUDANTE) {
-                verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
-                fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
+                listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
                 fprintf(erros, "Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \\t (obrigatório)\n\n"); //Separar cada erro com uma linha
             }
             else {
-                verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_dados);
-                fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
+                listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
                 fprintf(erros, "Razão: A linha tem parâmetros a mais. Verifique se algum parâmetro contém um \\t (não pode).\n\n");
             }
             
@@ -169,7 +161,7 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
     }
     else {
         printf("Ocorreu um erro a abrir o ficheiro '%s'.\n", nome_ficheiro_dados);
-        return; //Não pode haver dados escolares sem ficha pessoal, logo mesmo que o outro ficheiro abrisse, era inutil
+        return 0; //Não pode haver dados escolares sem ficha pessoal, logo mesmo que o outro ficheiro abrisse, era inutil
     }
     
     if (erro_geral == '0' && primeiro_erro == '0') erro_geral = '1'; //flag para especificar que houve erro em geral
@@ -197,72 +189,52 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                         free(linha);
                         fclose(situacao_escolar);
                         fclose(erros);
-                        return;
+                        return 0;
                     }
                 }
                  //Código
                 if (!string_para_int(parametros[0], &codigo_temp)) { 
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n",n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O código é inválido!\n\n");
                 }
                 else if(codigo_temp <= 0) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n",n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O código é inválido!Deve ser maior que 0.\n\n");
                 }
                 //Matriculas
                 if (!string_para_short(parametros[1], &matriculas_temp)) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O número de matrículas é inválido!\n\n");
                 }
                 else if (matriculas_temp < 0 || matriculas_temp > MAX_MATRICULAS) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O número de matrículas é inválido. Deve estar entre 0 e %d.\n\n", MAX_MATRICULAS);
                 }
                 //ECTS
                 if (!string_para_short(parametros[2], &ects_temp)) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O número de créditos é inválido!\n\n");
                 }
                 else if (ects_temp < 0 || ects_temp > MAX_ECTS) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O número de créditos é inválido! Deve estar entre 0 e %d.\n\n", MAX_ECTS);
                 }
                 //Ano atual
                 if (!string_para_short(parametros[3], &ano_atual_temp)) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O ano atual é inválido!\n\n");
                 }
                 else if (ano_atual_temp < 1 || ano_atual_temp > MAX_ANO_ATUAL) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O ano atual é inválido! Deve estar entre 1 e %d.\n\n", MAX_ANO_ATUAL);
                 }
                 //Media atual do aluno
                 if (!string_para_float(parametros[4], &media_temp)) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: A média é inválida!\n\n");
                 }
                 else if(media_temp < 0 || media_temp > 20) {
-                    verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                    erro = '1';
-                    fprintf(erros, "Linha %d: %s\n", n_linhas, linha);
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: A média é inválida! Deve estar entre 0 e 20.\n\n");
                 }
                 if (erro == '0') { //ainda não houve erros
@@ -275,15 +247,11 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                 }
             }
             else if (num_parametros < PARAMETROS_DADOS_ESCOLARES) {
-                verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                erro = '1';
-                fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
+                listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                 fprintf(erros, "Razão: A linha tem parâmetros insuficientes.\n\n"); //Separar cada erro com uma linha
             }
             else {
-                verificar_primeiro_erro(erros, &primeiro_erro, nome_ficheiro_escolar);
-                erro = '1';
-                fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
+                listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                 fprintf(erros, "Razão: A linha tem parâmetros a mais.\n\n");
             }
             
@@ -302,7 +270,7 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
     }
     if (erro_geral == '0' && primeiro_erro == '0') erro_geral = '1';
     primeiro_erro = '1';
-    //Agora que está tudo ordenado vamos procurar por possíveis erros como:
+    // Agora que está tudo ordenado vamos procurar por possíveis erros como:
     //Códigos duplicados (o merge sort mantém a ordem pela qual foram lidos pelo que mantemos o primeiro que foi lido)
     //Códigos que estejam em escolares mas não estejam em aluno
     verificar_codigos_duplicados(bd, erros); //verifica duplicados em ambos os arrays
@@ -311,63 +279,146 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
 
     if (erro_geral == '0' && primeiro_erro == '0') erro_geral = '1';
     if (erro_geral == '1') { 
-        printf("\nOcorreram erros a carregar os dados. Pode consultar o que foi descartado e porquê no ficheiro %s\n", ERROS_TXT);
+        printf("Informação sobre os dados carregados:\n");
+        printf("Foram detetados alguns erros e alguns dados foram descartados.\n");
+        printf("Pode consultar o que foi descartado e porquê no ficheiro '%s'.\n\n", ERROS_TXT);
         pressione_enter();
     }
     fclose(erros);
+    return 1;
 }
 
 int carregar_dados_bin(const char * nome_ficheiro, Uni * bd) {
     FILE * ficheiro = fopen(nome_ficheiro, "rb");
     if (!ficheiro) {
-        printf("Ocorreu um erro ao abrir o ficheiro de dados.\n");
+        printf("Ocorreu um erro ao abrir o ficheiro de dados '%s'.\n", nome_ficheiro);
         printf("Por favor verifique se o ficheiro '%s' está no mesmo diretório do programa.\n", nome_ficheiro);
+        pressione_enter();
         return 0;
     }
+    //Ler checksum do ficheiro 
+    unsigned long checksum_guardado;
+    if (!ler_dados_binarios(&checksum_guardado, sizeof(unsigned long), 1, ficheiro)) {
+        fclose(ficheiro);
+        printf_fich_bin_alterado();
+        return 0;
+    }
+
     //Configs
-    fread(&autosaveON, sizeof(char), 1, ficheiro);
+    if (!ler_dados_binarios(&autosaveON, sizeof(char), 1, ficheiro)) {
+        fclose(ficheiro);
+        printf_fich_bin_alterado();
+        return 0;
+    }
+    
     //Dados dos arrays
-    fread(&bd->tamanho_aluno, sizeof(int), 1, ficheiro);
-    fread(&bd->capacidade_aluno, sizeof(int), 1, ficheiro);
+    if (!ler_dados_binarios(&bd->tamanho_aluno, sizeof(int), 1, ficheiro) ||
+        !ler_dados_binarios(&bd->capacidade_aluno, sizeof(int), 1, ficheiro) ||
+        !ler_dados_binarios(&bd->tamanho_escolares, sizeof(int), 1, ficheiro) ||
+        !ler_dados_binarios(&bd->capacidade_escolares, sizeof(int), 1, ficheiro)) {
+            fclose(ficheiro);
+            printf_fich_bin_alterado();
+            return 0;
+    }
+    //Capacidade sempre superior a tamanho e tamanho aluno sempre >= ao de escolares
+    if (bd->tamanho_aluno > bd->capacidade_aluno || bd->tamanho_escolares > bd->capacidade_escolares || 
+        bd->tamanho_aluno < bd->tamanho_escolares || bd->tamanho_aluno < 0 || bd->tamanho_escolares < 0 ||
+        bd->capacidade_aluno < 0 || bd->capacidade_escolares < 0) {
+            fclose(ficheiro);
+            printf_fich_bin_alterado();
+            return 0;
+    }
 
-    fread(&bd->tamanho_escolares, sizeof(int), 1, ficheiro);
-    fread(&bd->capacidade_escolares, sizeof(int), 1, ficheiro);
-
-    //É necessário alocar a memória
+    //É necessário alocar a memória para os arrays
     bd->aluno = (Estudante *) malloc(bd->capacidade_aluno * sizeof(Estudante));
     bd->escolares = (Dados *) malloc(bd->capacidade_escolares * sizeof(Dados));
 
+    //Erros de alocação
     if (!bd->aluno || !bd->escolares) {
-		printf("Ocorreu um erro ao alocar memória para os alunos.\n");
+        printf("Ocorreu um erro ao alocar memória para os alunos.\n");
+        pressione_enter();
         if (bd->aluno) free(bd->aluno);
         if (bd->escolares) free(bd->escolares);
         fclose(ficheiro);
         return 0;
-	}
+    }
 
     //Aluno
     for (int i = 0; i < bd->tamanho_aluno; i++) {
-        fread(&bd->aluno[i].codigo, sizeof(int), 1, ficheiro);
-        fread(&bd->aluno[i].nascimento, sizeof(Data), 1, ficheiro);
-
+        if (!ler_dados_binarios(&bd->aluno[i].codigo, sizeof(int), 1, ficheiro)) {
+            fclose(ficheiro);
+            printf_fich_bin_alterado();
+            return 0;
+        }
+        if (!ler_dados_binarios(&bd->aluno[i].nascimento, sizeof(Data), 1, ficheiro)) {
+            fclose(ficheiro);
+            printf_fich_bin_alterado();
+            return 0;
+        }
         //Ao carregar os respetivos tamanhos, as variáveis vão ficar com valor
         size_t tamanho_nome, tamanho_nacionalidade;
-        
+
         //Nome
-        fread(&tamanho_nome, sizeof(size_t), 1, ficheiro);
+        if (!ler_dados_binarios(&tamanho_nome, sizeof(size_t), 1, ficheiro)) {
+            fclose(ficheiro);
+            printf_fich_bin_alterado();
+            return 0;
+        }
         bd->aluno[i].nome = (char *) malloc(tamanho_nome);
-        fread(bd->aluno[i].nome, tamanho_nome, 1, ficheiro);
-        //Nacionalidade
-        fread(&tamanho_nacionalidade, sizeof(size_t), 1, ficheiro);
+        if (!ler_dados_binarios(bd->aluno[i].nome, tamanho_nome, 1, ficheiro)) {
+            fclose(ficheiro);
+            printf_fich_bin_alterado();
+            return 0;
+        }
+        
+        //Nacionalidade  
+        if (!ler_dados_binarios(&tamanho_nacionalidade, sizeof(size_t), 1, ficheiro)) {
+            fclose(ficheiro);
+            printf_fich_bin_alterado();
+            return 0;
+        }
         bd->aluno[i].nacionalidade = (char *) malloc(tamanho_nacionalidade);
-        fread(bd->aluno[i].nacionalidade, tamanho_nacionalidade, 1, ficheiro);
+        if (!ler_dados_binarios(bd->aluno[i].nacionalidade, tamanho_nacionalidade, 1, ficheiro)) {
+            fclose(ficheiro);
+            printf_fich_bin_alterado();
+            return 0;
+        }
     }
+    
     //Ler array de escolares
-    fread(bd->escolares, sizeof(Dados), bd->tamanho_escolares, ficheiro);
+    if (!ler_dados_binarios(bd->escolares, sizeof(Dados), bd->tamanho_escolares, ficheiro)) {
+        fclose(ficheiro);
+        printf_fich_bin_alterado();
+        return 0;
+    }
+    
     //Estatísticas
-    fread(&bd->stats, sizeof(Estatisticas), 1, ficheiro);
+    if (!ler_dados_binarios(&bd->stats, sizeof(Estatisticas), 1, ficheiro)) {
+        fclose(ficheiro);
+        printf_fich_bin_alterado();
+        return 0;
+    }
 
     fclose(ficheiro);
+
+    //Falta verificar se os checksums batem certo
+    unsigned long checksum_atual = calcular_checksum(bd);
+    if (checksum_atual != checksum_guardado) {
+        printf_fich_bin_alterado();
+        return 0;
+    }
+
+    return 1;
+}
+
+//Função auxiliar para carregar_dados_bin
+int ler_dados_binarios(void * ptr, size_t tamanho, size_t cont, FILE * ficheiro) {
+    if (!ptr || !ficheiro) return 0;
+    
+    if (fread(ptr, tamanho, cont, ficheiro) != cont) {
+        printf("Erro: Leitura inválida do ficheiro.\n");
+        return 0;
+    }
     return 1;
 }
 
@@ -418,6 +469,9 @@ void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo) {
         if (modo == '1') printf("Ocorreu um erro ao guardar os dados.\n");
         return;
     }
+    //Checksum
+    unsigned long checksum = calcular_checksum(bd);
+    fwrite(&checksum, sizeof(unsigned long), 1, ficheiro);
     //Configurações
     fwrite(&autosaveON, sizeof(char), 1, ficheiro);
     //Dados dos arrays
@@ -462,33 +516,42 @@ void autosave(Uni * bd) {
 
 //flag deve ser um ficheiro txt
 //Verifica se o programa já foi instaladou ou não
-//Retorna 1 caso seja necessário instalar
-int fase_instalacao(const char * flag) {
-    if (!flag) return 0;
+//Retorna 1 caso seja a primeira abertura do programa(necessário carregar txt) ou caso de erro
+//Retorna 0 caso o ficheiro já exista, mesmo que tenha acabado de ser aberto
+//usar abrir == '1' para abrir o ficheiro config
+int fase_instalacao(const char * flag, const char abrir) {
+    if (!flag) return 1;
 
     FILE * ficheiro = fopen(flag, "r");
-
-    //Primeira iteração do programa
-    if (!ficheiro) {
+    //Verificar primeira abertura
+    if (!ficheiro && abrir == '0') return 1;
+    //Abrir o ficheiro quando pedido (na primeira abertura)
+    else if (!ficheiro && abrir == '1') {
         ficheiro = fopen(flag, "w");
         fprintf(ficheiro, "NÃO ELIMINAR ESTE FICHEIRO SOB QUALQUER CIRCUNSTÂNCIA!");
         fclose(ficheiro);
-        return 1;
+        return 0; //A partir deste momento já passamos a ter o ficheiro aberto
     }
 
     return 0;
 }
 
 //nome já deve incluir a extensão
-void eliminar_ficheiro(const char * nome) {
-    if (!nome) return;
-
+//retorna 1 em sucesso, 0 falha
+int eliminar_ficheiro(const char * nome, const char modo) {
+    if (!nome) return 0;
+    //Por segurança devia ser verificado se o nome do ficheiro a eliminar não é o nosso próprio programa, mas seria demasiado complexo, e já não temos tempo ;-;
     if (remove(nome) == 0) {
-        printf("O ficheiro '%s' foi eliminado com sucesso.\n", nome);
+        if (modo == '1') printf("O ficheiro '%s' foi eliminado com sucesso.\n", nome);
+        return 1;
     }
     else {
-        printf("Ocorreu um erro ao eliminar o ficheiro '%s'.\n", nome);
-        printf("Por favor verifique que o nome do ficheiro inclui a extensão e se está no mesmo diretório do programa.\n");
+        if (modo == '1') { //modo está assim porque podemos querer acrescentar algo no futuro
+            printf("Ocorreu um erro ao eliminar o ficheiro '%s'.\n", nome);
+            printf("Por favor verifique que o nome do ficheiro inclui a extensão e se está no mesmo diretório do programa.\n");
+            printf("Certifique-se ainda que o ficheiro '%s' não está aberto noutro lugar.\n", nome);
+        }
+        return 0;
     }
 }
 
@@ -603,6 +666,9 @@ void mostrar_dados_ficheiro(const char * nome_ficheiro) {
     pressione_enter();
 }
 
+//Elimina config.txt e logs.bin
+//Não elimina backups
+//Pergunta ao user se quer efetuar backups para ficheiros .txt
 void repor_estado_inicial(Uni * bd) {
     limpar_terminal();
     printf("Todos os dados serão excluídos e será necessário carregar os ficheiros .txt.\n");
@@ -654,14 +720,26 @@ void repor_estado_inicial(Uni * bd) {
     if (!sim_nao()) return;
 
     //Eliminamos o ficheiro de instalação para voltar a instalar o programa.
-    eliminar_ficheiro(INSTALACAO_TXT);
-    eliminar_ficheiro(LOGS_BIN);
-    printf("Para concluir a reposição do programa, a aplicação será fechada.\n");
+    if (!eliminar_ficheiro(CONFIG_TXT, '1')){
+        printf("Por favor, elimine o ficheiro manualmente.\n");
+        printf("Caso não o faça, o programa pode malfuncionar.\n");
+    }
+    printf("\n");
+    FILE * logs = fopen(LOGS_BIN, "r");
+    //Verificar se há logs
+    if (logs) {
+        fclose(logs);
+        //Eliminar logs
+        if (!eliminar_ficheiro(LOGS_BIN, '1')) {
+            printf("Por favor, elimine o ficheiro manualmente.\n");
+            printf("Caso não o faça, o programa pode malfuncionar.\n");
+        }
+    }
+    
+    printf("\nPara concluir a reposição do programa, a aplicação será fechada.\n");
     pressione_enter();
 
-    free_nome_nacionalidade(bd);
-    free(bd->aluno);
-    free(bd->escolares);
+    free_tudo(bd);
     exit(EXIT_SUCCESS);
 }
 
@@ -725,6 +803,12 @@ void free_nome_nacionalidade(Uni * bd) {
         if (bd->aluno[i].nome) free(bd->aluno[i].nome);
         if (bd->aluno[i].nacionalidade) free(bd->aluno[i].nacionalidade);
     }
+}
+
+void free_tudo(Uni * bd) {
+    free_nome_nacionalidade(bd);
+    free(bd->aluno);
+	free(bd->escolares);
 }
 
 //Duplica o espaço atual 
@@ -1625,7 +1709,7 @@ void menu_estatisticas() {
 }
 
 //Necessário mudar o nome dos ficheiros caso sofram alterações
-//0-5
+//0-7
 void menu_ficheiros() {
     printf("╔════════════════════════════════════════════════════════════╗\n");
     printf("║                         FICHEIROS                          ║\n");
@@ -1636,6 +1720,7 @@ void menu_ficheiros() {
     printf("║  4. Mostrar dados de situacao_Escolar_Estudantes.txt       ║\n");
     printf("║  5. Mostrar dados de um ficheiro (.txt ou .csv) por nome   ║\n");
     printf("║  6. Guardar dados em ficheiro binário                      ║\n");
+    printf("║  7. Fazer backup dos ficheiros .txt atuais                 ║\n");
     printf("║  0. Voltar ao menu anterior                                ║\n");
     printf("╚════════════════════════════════════════════════════════════╝\n\n");
 }
@@ -1724,6 +1809,7 @@ void guia_de_utilizacao() {
     printf("║    - A opção de autosave guarda automaticamente em ficheiro binário                  ║\n");
     printf("║    - O ficheiro instalacao.txt jamais deve ser alterado pelo utilizador, podendo     ║\n");
     printf("║    resultar na inadvertida manipulação de dados                                      ║\n");
+    printf("║    - Na primeira utilização do programa é sempre feito um backup dos ficheiros .txt  ║\n");
     printf("║                                                                                      ║\n");
     printf("║ 3. DICAS                                                                             ║\n");
     printf("║    - Use '0' para voltar ao menu anterior ou sair                                    ║\n");
@@ -1732,6 +1818,7 @@ void guia_de_utilizacao() {
     printf("║    - Consulte erros.txt para ver problemas com dados carregados na opção 4.2 do menu ║\n");
     printf("║    - Erros a carregar dados/ler/guardar ficheiros? Certifique-se que todos os        ║\n");
     printf("║    ficheiros que quer usar estão na mesma pasta que o programa!                      ║\n");
+    printf("║    - Fazer um backup dos seus ficheiros .txt pode ser uma boa opção!                 ║\n");
     printf("║                                                                                      ║\n");
     printf("╚══════════════════════════════════════════════════════════════════════════════════════╝\n");
 
@@ -1888,7 +1975,7 @@ void processar_ficheiros(Uni * bd) {
     char opcao;
     do {
         autosave(bd);
-        opcao = mostrar_menu(menu_ficheiros, '0', '5');
+        opcao = mostrar_menu(menu_ficheiros, '0', '7');
         switch(opcao) {
             case '0': break;
             case '1':
@@ -1918,6 +2005,13 @@ void processar_ficheiros(Uni * bd) {
                     mostrar_dados_ficheiro(nome_ficheiro);
                     break;
                 } while(1);
+                break;
+            case '6':
+                guardar_dados_bin(LOGS_BIN, bd, '1');
+                break;
+            case '7': //backups
+                limpar_terminal();
+                guardar_dados_txt(DADOS_BACKUP_TXT, SITUACAO_ESCOLAR_BACKUP_TXT, bd);
                 break;
             default: 
                 opcao = '0';
@@ -2569,9 +2663,13 @@ void tabela_medias_ano(Uni * bd) {
             pressione_enter();
             continue;
         }
+        if (!verificar_e_limpar_buffer()) {
+            printf("Entrada inválida. Por favor insira um número inteiro positivo entre 1 e %d.\n", MAX_INTERVALOS);
+            pressione_enter();
+            continue;
+        }
         break;
     } while(1);
-    limpar_buffer();
 
     //Pedir intervalos
     for(int i = 0; i < n_intervalos && valido == '1'; i++) {
@@ -2579,11 +2677,15 @@ void tabela_medias_ano(Uni * bd) {
             printf("\nIntervalo %d:\n", i + 1);
             printf("Média inferior: ");
             if (scanf("%f", &media_inferior[i]) != 1 || media_inferior[i] < 0 || media_inferior[i] >= 20) {
-                printf("Média inválida. Por favor insira um número entre 0 e 20.\n");
+                printf("Média inválida. Por favor introduza um número entre 0 e 20.\n");
                 limpar_buffer();
                 continue;
             }
-            limpar_buffer();
+            if (!verificar_e_limpar_buffer()) {
+                printf("Entrada inválida. Por favor introduza um número inteiro positivo entre 1 e 20\n");
+                pressione_enter();
+                continue;
+            }
 
             printf("Média superior: ");
             if (scanf("%f", &media_superior[i]) != 1 || media_superior[i] <= media_inferior[i] || media_superior[i] > 20) {
@@ -2591,7 +2693,11 @@ void tabela_medias_ano(Uni * bd) {
                 limpar_buffer();
                 continue;
             }
-            limpar_buffer();
+            if (!verificar_e_limpar_buffer()) {
+                printf("Entrada inválida. Por favor introduza um número inteiro positivo maior que %.1f e menor ou igual a 20\n", media_inferior[i]);
+                pressione_enter();
+                continue;
+            }
 
             //Verificar se há sobreposição com intervalos anteriores
             for(int j = 0; j < i; j++) {
@@ -3368,6 +3474,36 @@ void verificar_primeiro_erro(FILE * erros, char * primeiro_erro, const char * no
     }
 }
 
+void print_uso_backup() {
+    printf("Os dados originais não poderam ser carregados.\n");
+	printf("Foi utilizado o último backup efetuado.\n");
+    pressione_enter();
+}
+
+void print_falha_carregar_dados() {
+    printf("Ocorreu um erro fatal ao carregar os dados.\n");
+    printf("Por favor, verifique se os ficheiros .txt ou .bin estão na mesma pasta que o programa.\n");
+    printf("Em último recurso, verifique se possui alguma cópia de segurança dos dados, e utilize-a.\n");
+    printf("O programa será encerrado.\n");
+    pressione_enter();
+}
+
+void printf_fich_bin_alterado() {
+    printf("O ficheiro binário foi alterado desde a última utilização do programa ou está corrompido.\n");
+    printf("Como medida preventiva, será utilizado um backup.\n");
+    printf("Caso não haja um, será pedido o carregamento dos dados através de ficheiros .txt\n");
+    pressione_enter();
+}
+
+//Lista os erros no ficheiro de erros e escreve a linha
+//Coloca erro = '1'
+//Não indica a razão do erro.
+void listar_erro_ao_carregar(FILE * erros, char * primeiro_erro, const char * nome_ficheiro, char * erro, int n_linhas, const char * linha) {
+    verificar_primeiro_erro(erros, primeiro_erro, nome_ficheiro);
+    fprintf(erros, "Linha %d inválida: %s\n", n_linhas, linha);
+    *erro = '1';
+}
+
 //Converte para int com validações de conversão. 
 int string_para_int(const char * str, int * resultado) {
     char * ptr_fim;
@@ -3526,6 +3662,62 @@ void calcular_quaresma(int ano, Data * inicio, Data * fim) {
     }
 }
 
+//Retorna o checksum dos dados atuais 
+unsigned long calcular_checksum(Uni * bd) {
+    unsigned long soma = 0;
+    
+    //Configs
+    soma += (unsigned long) autosaveON; //'1' passa a 49 decimal (ASCII)
+
+    //Dados dos arrays
+    soma += bd->tamanho_aluno;
+    soma += bd->capacidade_aluno;
+    soma += bd->tamanho_escolares; 
+    soma += bd->capacidade_escolares;
+
+    //Aluno
+    for(int i = 0; i < bd->tamanho_aluno; i++) {
+        soma += bd->aluno[i].codigo;
+        soma += bd->aluno[i].nascimento.dia;
+        soma += bd->aluno[i].nascimento.mes;
+        soma += bd->aluno[i].nascimento.ano;
+        
+        //Nome
+        size_t tamanho_nome = strlen(bd->aluno[i].nome); //Não inclui '\0'
+        soma += tamanho_nome + 1; //'\0'
+        //Nota: '\0' está incluído pois j começa em 0
+        for(size_t j = 0; j < tamanho_nome; j++) { //size_t porque strlen retorna size_t
+            soma += (unsigned long) bd->aluno[i].nome[j];
+        }
+        
+        //Nacionalidade
+        size_t tamanho_nacionalidade = strlen(bd->aluno[i].nacionalidade);
+        soma += tamanho_nacionalidade + 1;
+        for(size_t j = 0; j < strlen(bd->aluno[i].nacionalidade); j++) { 
+            soma += (unsigned long) bd->aluno[i].nacionalidade[j];
+        }
+    }
+
+    //Escolares
+    for(int i = 0; i < bd->tamanho_escolares; i++) {
+        soma += bd->escolares[i].codigo;
+        soma += bd->escolares[i].matriculas;
+        soma += bd->escolares[i].ects;
+        soma += bd->escolares[i].ano_atual;
+        soma += (unsigned long) (bd->escolares[i].media_atual * 10); //como é float com 1 casa decimal multiplicamos por 10 para fizer inteiro
+        soma += (unsigned long) bd->escolares[i].prescrever;
+        soma += (unsigned long) bd->escolares[i].finalista;
+    }
+    //Estatísticas
+    soma += (unsigned long) bd->stats.atualizado;
+    soma += bd->stats.finalistas;
+    soma += bd->stats.media;
+    soma += bd->stats.media_matriculas;
+    soma += bd->stats.risco_prescrever;
+
+    return soma;
+}
+
 //Sim - 1; Não - 0;
 int sim_nao() {
     char opcao;
@@ -3601,8 +3793,7 @@ short calcular_idade(Data nascimento) {
 //Retira os acentos das strings ou ç.
 //Retorna NULL em caso de erro.
 char * normalizar_string(char * str) {
-    //Retirar os acentos das frases para evitar erros.
-    //Apenas minúsculas porque usamos o strlwr.
+    //NAO FUNCIONA
     char acentuados[] = {
         0xE0, 0xE1, 0xE2, 0xE3,  // à á â ã
         0xE7,                    // ç

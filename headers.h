@@ -5,10 +5,13 @@
 
 //Definir os nomes dos ficheiros como constantes(de modo a que não sejam alterados)
 #define DADOS_TXT "dados.txt"
+#define DADOS_BACKUP_TXT "dados_backup.txt"
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
+#define SITUACAO_ESCOLAR_BACKUP_TXT "situacao_Escolar_Estudantes_backup.txt"
 #define ERROS_TXT "erros.txt" //Ficheiro onde serão armazenados todos os erros provenientes da leitura de dados(para evitar a eliminação dos mesmos)
-#define INSTALACAO_TXT "instalacao.txt" //flag para verificar estado do programa ao abrir
+#define CONFIG_TXT "config.txt" //flag para verificar estado do programa ao abrir
 #define LOGS_BIN "logs.bin"
+#define LOGS_BACKUP_BIN "logs_backup.bin"
 #define TAMANHO_INICIAL_ARRAYS 1000
 #define TAMANHO_INICIAL_BUFFER 100
 #define SEPARADOR '\t' //Necessário alterar em carregar_dados, nas mensagens de erro, caso seja mudado
@@ -112,11 +115,12 @@ extern char autosaveON;
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas);
 int carregar_dados_txt(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolar, Uni * bd);
 int carregar_dados_bin(const char * nome_ficheiro, Uni * bd);
+int ler_dados_binarios(void * ptr, size_t tamanho, size_t cont, FILE * ficheiro);
 void guardar_dados_txt(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd);
 void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo);
 void autosave(Uni * bd);
-int fase_instalacao(const char * flag);
-void eliminar_ficheiro(const char * nome);
+int fase_instalacao(const char * flag, const char abrir);
+int eliminar_ficheiro(const char * nome, const char modo);
 FILE * pedir_listagem(char * formato_selecionado);
 int verificar_extensao(const char * nome_ficheiro);
 void mostrar_dados_ficheiro(const char * nome_ficheiro);
@@ -126,6 +130,7 @@ void inicializar_aluno(Uni * bd, int indice_aluno);
 void inicializar_escolares(Uni * bd, int indice_escolares);
 void inicializar_estatisticas(Estatisticas * stats);
 void free_nome_nacionalidade(Uni * bd);
+void free_tudo(Uni * bd);
 int realocar_aluno(Uni * bd, const char modo);
 int realocar_escolares(Uni * bd, const char modo);
 int realocar_nome(Estudante * aluno, const char modo);
@@ -206,6 +211,10 @@ void pausa_listagem(short * contador);
 void pressione_enter();
 void colocar_terminal_utf8();
 void verificar_primeiro_erro(FILE * erros, char * primeiro_erro, const char * nome_ficheiro);
+void print_uso_backup();
+void print_falha_carregar_dados();
+void printf_fich_bin_alterado();
+void listar_erro_ao_carregar(FILE * erros, char * primeiro_erro, const char * nome_ficheiro, char * erro, int n_linhas, const char * linha);
 int string_para_int(const char * str, int * resultado);
 int string_para_short(const char * str, short * resultado);
 int string_para_float(const char * str, float * resultado);
@@ -213,6 +222,7 @@ short calcular_dia_da_semana(short dia, int mes, int ano);
 Data calcular_domingo_pascoa(int ano);
 Data calcular_quarta_feira_cinzas(Data pascoa);
 void calcular_quaresma(int ano, Data * inicio, Data * fim);
+unsigned long calcular_checksum(Uni * bd);
 int sim_nao();
 void pedir_codigo(int * codigo);
 char obter_separador(FILE * ficheiro, char * formato);
