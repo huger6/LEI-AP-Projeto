@@ -189,7 +189,7 @@ void calcular_media_matriculas(Uni * bd);
 int alunos_por_media_e_ano(Uni * bd, float media_min, float media_max, short ano_atual);
 void tabela_idade_por_escalao(Uni * bd);
 void tabela_medias_ano(Uni * bd);
-void media_idades_por_nacionalidade(Uni * bd);
+void media_idades_por_nacionalidade_e_ano(Uni * bd);
 //Listagens
 void listar(Uni * bd, int indice_aluno, FILE * ficheiro, char separador, short * contador);
 void listar_info_estudante(Uni * bd);

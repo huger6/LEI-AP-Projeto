@@ -41,10 +41,6 @@ int main() {
 			printf("A encerrar o programa.\n");
 			exit(EXIT_FAILURE);
 		}
-		
-		//Servirá para verificar se o tamanho atual de alunos excede ou não o alocado
-		bd.capacidade_aluno = TAMANHO_INICIAL_ARRAYS; //Variável que irá manter o tamanho do array de alunos
-		bd.capacidade_escolares = TAMANHO_INICIAL_ARRAYS;
 
 		inicializar_aluno(&bd, bd.tamanho_aluno);
 		inicializar_escolares(&bd, bd.tamanho_escolares);
@@ -65,6 +61,7 @@ int main() {
 		}
 		//Abrir o ficheiro flag (não é aberto antes para evitar ter de o fechar, em caso de erro)
 		(void) fase_instalacao(CONFIG_TXT, '1'); //void para o compilador não reclamar
+		guardar_dados_bin(LOGS_BIN, &bd, '0'); //Guardar os dados em binário, caso o utilizador decida sair do programa forçadamente
 	}	
 	else {
 		//A memória é toda alocada em carregar_dados_bin
@@ -86,7 +83,7 @@ int main() {
 	//Apenas se guarda se o autosave estiver desligado 
 	//Caso contrário, já foi guardado ao entrar no menu principal
 	if (autosaveON == '0') {
-		guardar_dados_bin(LOGS_BIN, &bd, '1');
+		guardar_dados_bin(LOGS_BIN, &bd, '0');
 	}
 	//O backup no entanto só se guarda aqui
 	guardar_dados_bin(LOGS_BACKUP_BIN, &bd, '0');

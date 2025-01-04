@@ -2,4 +2,5 @@ MENUS ANALISADOS E TESTADOS:
 -ANIVERSÁRIOS
 -PRINCIPAL
 -GERIR estudantes
+-CONSULTAR DADOS: 3, 4, 2, 1 buga com acentos
 -ESTATÍSTICAS verificadas: 1, 

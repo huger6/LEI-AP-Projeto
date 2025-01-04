@@ -98,6 +98,9 @@ O programa fecha abruptamente
 #BUG menu aceita 22 @RESOLVIDO
 Solução: Adicionada nova verificação em validacao_menus
 
+#BUG nacionalidade aceita 2 espaços seguidos
+
+
 #BUG CAPACIDADE_ESCOLARES 
 -está a ficar a 4000 por algum motivo
 ______________________________________________________________________________________________________________
