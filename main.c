@@ -1,10 +1,7 @@
 #include "headers.h"
-#include "funcoes.c"
 
-//TODO PRO ANO: usar a funcao nova de limpar_buffer para validar inputs de forma mais controlada.
-//As funções de procura com strings não suportam acentos ou ç!!
 //NOTA: erros.txt está atualmente em modo w para facilitar debugging, alterar quando já não for necessário
-int main() {
+int main(void) {
 	//Limpar quaisquer resíduos de iterações anteriores
 	limpar_terminal();
 	//Copia a data atual para uma variável global.
@@ -14,17 +11,6 @@ int main() {
 
 	//Criamos um array de cada struct para armzenar TAMANHO_INICIAL_ARRAYS alunos
 	Uni bd; //Pode ser fadcilmente alterado para guardar várias universidades
-
-	/*
-				FASE DE INSTALAÇÃO DO PROGRAMA
-
-	TEMOS DE:
-	-Verificar se é a primeira abertura do programa. Se for, carregar .txt, se não carregar .bat
-	-Dar opções ao user de guardar os dados automaticamente (autosave) - opcional
-	-autosave seria basicamente guardar sempre que entrarmos em cada menu
-	-Oferecer a possibilidade de guardar os dados em binário
-	-Talvez seja benéfico mudar as funções de carregar para int para devolver algum código de erro e efetuar validações
-	*/
 
 	if (fase_instalacao(CONFIG_TXT, '0') == 1) {
 		//É necessário alocar tudo do ínicio
@@ -69,11 +55,19 @@ int main() {
 			if (!carregar_dados_bin(LOGS_BACKUP_BIN, &bd)) { //tentar usar o backup
 				print_falha_carregar_dados();
 
-				free_tudo(&bd); //checksum errado (outros dá free(NULL), o que não é crítico)
-				exit(EXIT_FAILURE);
+				//Verificar se o user quer sair do programa
+				printf("\nCaso não possua cópias de segurança, é altamente recomendável repor o programa.\n");
+				printf("Quer efetuar a reposição do programa? (S/N) ");
+				if (sim_nao()) {
+					repor_estado_inicial(&bd);
+					free_tudo(&bd); //checksum errado (outros dá free(NULL), o que não é crítico)
+					exit(EXIT_FAILURE);
+				}
+			} 
+			else {
+				guardar_dados_bin(LOGS_BIN, &bd, '0'); //Guardar para termos sempre 2 dados
+				print_uso_backup();
 			}
-			guardar_dados_bin(LOGS_BIN, &bd, '0'); //Guardar para termos sempre 2 dados
-			print_uso_backup();
 		}
 	}
 

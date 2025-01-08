@@ -253,6 +253,10 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                     listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O ano atual é inválido! Deve estar entre 1 e %d.\n\n", MAX_ANO_ATUAL);
                 }
+                else if (ano_atual_temp > matriculas_temp) {
+                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
+                    fprintf(erros, "Razão: O ano atual é inválido! Não pode ser superior ao número de matrículas do estudante\n\n");
+                }
                 //Media atual do aluno
                 if (!string_para_float(parametros[4], &media_temp)) {
                     listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
@@ -385,7 +389,7 @@ int carregar_dados_bin(const char * nome_ficheiro, Uni * bd) {
     //Inicializar toda a memória
     inicializar_aluno(bd, bd->tamanho_aluno);
     inicializar_escolares(bd, bd->tamanho_escolares);
-    inicializar_estatisticas(bd->stats);
+    inicializar_estatisticas(&(bd->stats));
     
     //Aluno
     for (int i = 0; i < bd->tamanho_aluno; i++) {
@@ -549,6 +553,7 @@ void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo) {
     FILE * ficheiro = fopen(nome_ficheiro, "wb");
     if (!ficheiro) {
         if (modo == '1') printf("Ocorreu um erro ao guardar os dados.\n");
+        pressione_enter();
         return;
     }
     //Checksum
@@ -586,6 +591,7 @@ void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo) {
     fclose(ficheiro);
     if (modo == '1') {
         printf("Os dados foram guardados com sucesso em '%s'.\n", nome_ficheiro);
+        pressione_enter();
     }
 }
 
@@ -1123,7 +1129,7 @@ int procurar_codigo_aluno(int codigo, Uni * bd) {
  * @note Retorna posição como +/- (índice + 1) para distinguir erro de índice 0
  */
 int procurar_codigo_escolares(int codigo, Uni * bd) {
-    if (!bd || !bd->aluno || bd->tamanho_escolares <= 0) {
+    if (!bd || !bd->aluno|| !bd->escolares || bd->tamanho_escolares <= 0) {
         return 0;
     }
     if (bd->escolares[0].codigo > codigo) return -1; //Retornamos a posição de inserção -1 pois o codigo é menor que todos os outros no array. -1 pois -(0+1)
@@ -1651,7 +1657,8 @@ int comparar_data(Data d1, Data d2, const char ignorar_ano) {
  * @note Caracteres permitidos (letras, espaço, hífen)
  */
 int validar_nome(Estudante * aluno, char * nome, const char modo) {
-    if (!nome) {
+    //Verificar nome vazio
+    if (!nome || nome[0] == '\0') { //NULL != '\0'
         if (modo == '1') printf("\nNome em branco!\n");
         return 0;
     }
@@ -1679,7 +1686,7 @@ int validar_nome(Estudante * aluno, char * nome, const char modo) {
             return 0;
         }
         //Verificar caracteres inválidos
-        if (!isalpha(nome[i]) && nome[i] != ' ' && nome[i] != '-') { //isalpha apenas retorna válido a-z e A-Z, logo as outras condições validam espaços e hifens
+        if (!iswalpha(nome[i]) && nome[i] != ' ' && nome[i] != '-') { //isalpha apenas retorna válido a-z e A-Z, logo as outras condições validam espaços e hifens
             if (modo == '1') printf("\nNome contém caracteres inválidos!\n");
             return 0;
         }
@@ -1712,14 +1719,13 @@ int validar_nome(Estudante * aluno, char * nome, const char modo) {
  * @note Caracteres permitidos (letras, espaço, hífen)
  */
 int validar_nacionalidade(char * nacionalidade, const char modo) {
-    if (!nacionalidade) {
+    if (!nacionalidade || nacionalidade[0] == '\0') {
         if (modo == '1') printf("\nNacionalidade em branco!\n");
-        return 0;
+        return 0; 
     }
     
     int comprimento = strlen(nacionalidade);
     
-
     //Remover \n
     if (nacionalidade[comprimento - 1] == '\n' && comprimento != 1) { 
         nacionalidade[comprimento - 1] = '\0';
@@ -1748,7 +1754,7 @@ int validar_nacionalidade(char * nacionalidade, const char modo) {
             return 0;
         }
 
-        if (!isalpha(nacionalidade[i]) && nacionalidade[i] != ' ' && nacionalidade[i] != '-') {
+        if (!iswalpha(nacionalidade[i]) && nacionalidade[i] != ' ' && nacionalidade[i] != '-') {
             if (modo == '1') printf("\nA nacionalidade contém caracteres inválidos!\n");
             return 0;
         }
@@ -2030,7 +2036,8 @@ void ordenar_ao_inserir(int codigo, Uni * bd, int indice_aluno, int indice_escol
     bd->escolares[indice_escolares].matriculas = -1;
     bd->escolares[indice_escolares].ects = -1;
     bd->escolares[indice_escolares].ano_atual = -1;
-    bd->escolares[indice_escolares].prescrever = '0';
+    bd->escolares[indice_escolares].prescrever = '-';
+    bd->escolares[indice_escolares].finalista = '-';
     bd->escolares[indice_escolares].media_atual = -1;
     
     bd->tamanho_escolares++;
@@ -2886,8 +2893,14 @@ void inserir_estudante(Uni * bd) {
                 pressione_enter();
                 continue;
             }
-            if (ano_atual_temp < 1 || ano_atual_temp > MAX_ANO_ATUAL) {
+            if (ano_atual_temp < 1 || ano_atual_temp > MAX_ANO_ATUAL ) {
                 printf("O ano atual de curso é inválido. Deve estar entre 0 e %d.\n", MAX_ANO_ATUAL);
+                pressione_enter();
+                continue;
+            }
+            else if (ano_atual_temp > bd->escolares[posicao_insercao_escolares].matriculas) {
+                printf("O ano atual de curso é inválido. Deve ser igual ou superior ao número de matrículas (%hd).\n", 
+                bd->escolares[posicao_insercao_escolares].matriculas);
                 pressione_enter();
                 continue;
             }
@@ -3212,9 +3225,12 @@ void tabela_idade_por_escalao(Uni * bd) {
             pressione_enter();
             continue;
         }
+        if (!verificar_e_limpar_buffer()) {
+            printf("Número de intervalos inválido. Por favor tente novamente.\n");
+            continue;
+        }
         break;
     } while(1);
-    limpar_buffer();
     
     for(int i = 0; i < n_intervalos && valido == '1'; i++) {
         do {
@@ -3225,7 +3241,10 @@ void tabela_idade_por_escalao(Uni * bd) {
                 limpar_buffer();
                 continue;
             }
-            limpar_buffer();
+            if (!verificar_e_limpar_buffer()) {
+                printf("Idade inválida. Por favor tente novamente.\n");
+                continue;
+            }
 
             printf("Idade superior: ");
             if (scanf("%hd", &idade_sup[i]) != 1 || idade_sup[i] <= idade_inf[i] || idade_sup[i] > IDADE_MAXIMA) {
@@ -3327,7 +3346,7 @@ void tabela_medias_ano(Uni * bd) {
             continue;
         }
         if (!verificar_e_limpar_buffer()) {
-            printf("Entrada inválida. Por favor insira um número inteiro positivo entre 1 e %d.\n", MAX_INTERVALOS);
+            printf("Entrada inválida. Por favor insira um número entre 1 e %d.\n", MAX_INTERVALOS);
             pressione_enter();
             continue;
         }
@@ -3345,7 +3364,7 @@ void tabela_medias_ano(Uni * bd) {
                 continue;
             }
             if (!verificar_e_limpar_buffer()) {
-                printf("Entrada inválida. Por favor introduza um número inteiro positivo entre 1 e 20\n");
+                printf("Entrada inválida. Por favor introduza um número entre 1 e 20\n");
                 pressione_enter();
                 continue;
             }
@@ -3357,7 +3376,7 @@ void tabela_medias_ano(Uni * bd) {
                 continue;
             }
             if (!verificar_e_limpar_buffer()) {
-                printf("Entrada inválida. Por favor introduza um número inteiro positivo maior que %.1f e menor ou igual a 20\n", media_inferior[i]);
+                printf("Entrada inválida. Por favor introduza um número maior que %.1f e menor ou igual a 20\n", media_inferior[i]);
                 pressione_enter();
                 continue;
             }
@@ -3474,10 +3493,12 @@ void media_idades_por_nacionalidade_e_ano(Uni * bd) {
             limpar_buffer();
             continue;
         }
+        if (!verificar_e_limpar_buffer()) {
+            printf("O ano é inválido. Por favor tente novamente.\n");
+            continue;
+        }
         break;
     } while(1);
-
-    limpar_buffer(); //enter do scanf
 
     //Loopar pelos estudantes que se encaixem nos critérios
     for (int i = 0; i < bd->tamanho_escolares; i++) {
@@ -3565,7 +3586,11 @@ void listar(Uni * bd, int indice_aluno, FILE * ficheiro, char separador, short *
             fprintf(ficheiro, "%hd%c", bd->escolares[indice_escolares].matriculas, separador);
             fprintf(ficheiro, "%hd%c", bd->escolares[indice_escolares].ects, separador);
             fprintf(ficheiro, "%hd%c", bd->escolares[indice_escolares].ano_atual, separador);
-            fprintf(ficheiro, "%.1f", bd->escolares[indice_escolares].media_atual);
+            //Converter média para ponto (para o caso de ser ficheiro .csv)
+            short media_decimal = 0;
+            media_decimal = bd->escolares[indice_escolares].media_atual * 10;
+            media_decimal %= 10;
+            fprintf(ficheiro, "%d.%hd", (int) bd->escolares[indice_escolares].media_atual, media_decimal);
         }
     }
 }
@@ -3718,7 +3743,7 @@ void listar_apelidos_alfabeticamente(Uni * bd) {
     for(int i = 0; i < bd->tamanho_aluno - 1; i++) {
         for(int j = 0; j < bd->tamanho_aluno - i - 1; j++) {
             //Obter último nome de cada estudante com strrchr.
-            //strchr verifica a última ocorrência de char em str e retorna um ponteiro para essa ocorrência.
+            //strrchr verifica a última ocorrência de char em str e retorna um ponteiro para essa ocorrência.
             char * ultimo_nome1 = strrchr(copia[j].nome, ' ');
             char * ultimo_nome2 = strrchr(copia[j+1].nome, ' ');
             
@@ -3733,15 +3758,13 @@ void listar_apelidos_alfabeticamente(Uni * bd) {
             char * nome2_normalizado = normalizar_string(ultimo_nome2);
             if (!nome1_normalizado || !nome2_normalizado) {
                 //Evitar dar free em NULL
-                if (ultimo_nome1) free(ultimo_nome1);
-                if (ultimo_nome2) free(ultimo_nome2);
-                free(ultimo_nome1);
-                free(ultimo_nome2);
+                if (nome1_normalizado) free(nome1_normalizado);
+                if (nome2_normalizado) free(nome2_normalizado);
                 continue;
             }
 
             //Comparar por ordem alfabética.
-            if(strcmp(normalizar_string(ultimo_nome1), normalizar_string(ultimo_nome2)) > 0) {
+            if(strcmp(nome1_normalizado, nome2_normalizado) > 0) {
                 Estudante temp = copia[j];
                 copia[j] = copia[j+1];
                 copia[j+1] = temp;
@@ -3749,8 +3772,6 @@ void listar_apelidos_alfabeticamente(Uni * bd) {
 
             free(nome1_normalizado);
             free(nome2_normalizado);
-            //free(ultimo_nome1);
-            //free(ultimo_nome2);
         }
     }
 
@@ -4415,7 +4436,7 @@ int string_para_int(const char * str, int * resultado) {
     }
     
     //Como strtol converte para longs e nós só queremos ints, pode ler números mais altos que o int conseguiria guardar
-    if (valor >= MAX_INT || valor <= MIN_INT) {
+    if (valor >= INT_MAX || valor <= INT_MIN) {
         return 0; 
     }
     
@@ -4444,7 +4465,7 @@ int string_para_short(const char * str, short * resultado) {
         return 0; 
     }
     
-    if (valor >= MAX_SHORT || valor <= MIN_SHORT) {
+    if (valor >= SHRT_MAX || valor <= SHRT_MIN) {
         return 0; 
     }
     
@@ -4838,4 +4859,3 @@ void data_atual() {
     DATA_ATUAL.mes = tm_atual->tm_mon + 1; //tm_mon vai de 0-11
     DATA_ATUAL.ano = tm_atual->tm_year + 1900;
 }
-

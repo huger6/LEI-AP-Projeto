@@ -27,10 +27,6 @@
 #define MAX_ECTS 400
 #define MAX_ANO_ATUAL 8
 #define TAMANHO_INICIAL_ERRO 10
-#define MAX_INT 2147483647
-#define MIN_INT -2147483648
-#define MAX_SHORT 32767
-#define MIN_SHORT -32768
 #define MAX_FORMATO 10 //Ajustar se o formato do ficheiro for superior a 9 caracteres.
 #define CREDITOS_FINALISTA 154 //Créditos necessários para ser finalista.
 #define ECTS_3MATRICULAS 60
@@ -52,9 +48,10 @@
 #endif
 #include <locale.h>
 #include <string.h>
-#include <ctype.h> //Para fazer verificações relativas aos dados introduzidos (isalpha)
+#include <wctype.h> //Para fazer verificações relativas aos dados introduzidos (isalpha)
 #include <time.h> //Para calcular idades
 #include <locale.h>
+#include <limits.h>
 
 
 //Structs

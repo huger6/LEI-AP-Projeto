@@ -112,7 +112,6 @@ A REVER SE TIVER TEMPO:
 
 -Além disso, deve ser feito um scan com o valgrind às funções mais prováveis de ter memory leaks, como a de procurar_nacionalidades.
 -Códigos duplicados 
--mudar for loops para usa size_t caso não seja necesssário o i para printar (ver melhor)
 
 ______________________________________________________________________________________________________________
 
