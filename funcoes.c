@@ -253,10 +253,6 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                     listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O ano atual é inválido! Deve estar entre 1 e %d.\n\n", MAX_ANO_ATUAL);
                 }
-                else if (ano_atual_temp > matriculas_temp) {
-                    listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
-                    fprintf(erros, "Razão: O ano atual é inválido! Não pode ser superior ao número de matrículas do estudante\n\n");
-                }
                 //Media atual do aluno
                 if (!string_para_float(parametros[4], &media_temp)) {
                     listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
@@ -305,6 +301,7 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
     verificar_codigos_duplicados(bd, erros); //verifica duplicados em ambos os arrays
     verificar_codigos_escolares_sem_aluno(bd, erros, &primeiro_erro);
     fprintf(erros, "------------------------------------------FIM DE ITERAÇÃO------------------------------------------\n\n\n");
+    fclose(erros);
 
     if (erro_geral == '0' && primeiro_erro == '0') erro_geral = '1';
     if (erro_geral == '1') { 
@@ -313,7 +310,10 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
         printf("Pode consultar o que foi descartado e porquê no ficheiro '%s'.\n\n", ERROS_TXT);
         pressione_enter();
     }
-    fclose(erros);
+    else {
+        //Eliminar o ficheiro de erros já que não houve erros a carregar os dados
+        eliminar_ficheiro(ERROS_TXT, '0');
+    }
     return 1;
 }
 
@@ -772,9 +772,9 @@ int verificar_extensao(const char * nome_ficheiro) {
  * @note Suporta apenas ficheiros .txt e .csv
  * @note Verifica existência e extensão do ficheiro
  * @note Mostra mensagens de erro se necessário
+ * @note Limpa o terminal
  */
 void mostrar_dados_ficheiro(const char * nome_ficheiro) {
-    
     if (!verificar_extensao(nome_ficheiro)) {
         return;
     }
@@ -782,6 +782,7 @@ void mostrar_dados_ficheiro(const char * nome_ficheiro) {
     FILE * ficheiro = fopen(nome_ficheiro, "r");
     char * linha = NULL;
     int num_linhas = 0;
+    limpar_terminal();
     //Verificar se o ficheiro existe
     if (!ficheiro) {
         printf("O ficheiro \"%s\" não existe.\n", nome_ficheiro);
@@ -1663,7 +1664,6 @@ int validar_nome(Estudante * aluno, char * nome, const char modo) {
         return 0;
     }
     int comprimento = strlen(nome);
-    
     //Retirar o \n no final, se tiver, mas apenas se a string for apenas \n não contamos como válido
     if (nome[comprimento - 1] == '\n' && comprimento != 1) { 
         nome[comprimento - 1] = '\0';
@@ -1674,7 +1674,6 @@ int validar_nome(Estudante * aluno, char * nome, const char modo) {
         if (modo == '1') printf("\nO nome tem espaços indevidos!\n");
         return 0;
     }
-
     for (int i = 0; i < comprimento; i++) {
         if (nome[i] == SEPARADOR) {
             if (modo == '1') printf("\nO nome contém um caracter separador inválido (%c).\n", SEPARADOR);
@@ -1692,13 +1691,11 @@ int validar_nome(Estudante * aluno, char * nome, const char modo) {
         }
     
     }
-
     //Se estamos aqui é válido, e precisamos de verificar se o nome cabe no array
     if (comprimento > TAMANHO_INICIAL_NOME - 1) {
         //Realocar o nome 
         realocar_nome(aluno, modo);
     }
-
     return 1;
 }
 
@@ -2898,12 +2895,6 @@ void inserir_estudante(Uni * bd) {
                 pressione_enter();
                 continue;
             }
-            else if (ano_atual_temp > bd->escolares[posicao_insercao_escolares].matriculas) {
-                printf("O ano atual de curso é inválido. Deve ser igual ou superior ao número de matrículas (%hd).\n", 
-                bd->escolares[posicao_insercao_escolares].matriculas);
-                pressione_enter();
-                continue;
-            }
             bd->escolares[posicao_insercao_escolares].ano_atual = ano_atual_temp;
             break;
         } while (1);
@@ -2930,6 +2921,8 @@ void inserir_estudante(Uni * bd) {
             bd->escolares[posicao_insercao_escolares].media_atual = media_temp;
             break;
         } while(1);
+        //Estatísticas estão destaualizadas
+        bd->stats.atualizado = '0';
 
         printf("\nO código %d foi introduzido com sucesso!\n", bd->aluno[posicao_insercao_aluno].codigo);
 
@@ -2937,7 +2930,6 @@ void inserir_estudante(Uni * bd) {
         if (!sim_nao()) return;
     }while(1); //Não precisamos de verificar repetir pois só chega aqui se repetir == 's'
     //Introduzimos um estudante, logo os dados estatísticos têm de ser recalculados.
-    bd->stats.atualizado = '0';
 }
 
 /* Elimina estudante da base de dados
@@ -3072,7 +3064,6 @@ void calcular_estatisticas(Uni * bd) {
     bd->stats.finalistas = 0;
     bd->stats.media = 0.0;
     bd->stats.risco_prescrever = 0;
-
 
     for(int i = 0; i < bd->tamanho_escolares; i++) {
         //Matrículas
@@ -3947,7 +3938,7 @@ void listar_aniversario_na_quaresma(Uni * bd) {
 
         //Calcular a data da quaresma no ano pedido.
         calcular_quaresma(ano, &inicio, &fim);
-
+        
         printf("Estudantes cujo aniversário é na Quaresma em %hd:\n\n", ano);
         for(int i = 0; i < bd->tamanho_aluno; i++) {
             //Comparar_data não funcionava originalmente porque comparava tudo, logo foi acrescentada uma opção de exluir o ano e comparar apenas mes e dia.
