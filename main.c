@@ -1,37 +1,52 @@
 #include "headers.h"
 
-//NOTA: erros.txt está atualmente em modo w para facilitar debugging, alterar quando já não for necessário
 int main(void) {
 	//Limpar quaisquer resíduos de iterações anteriores
 	limpar_terminal();
-	//Copia a data atual para uma variável global.
+	//Copia a data atual para uma variável global
 	data_atual();
     //Colocar a consola em PT-PT (caracteres UTF8)
 	colocar_terminal_utf8();
-
-	//Criamos um array de cada struct para armzenar TAMANHO_INICIAL_ARRAYS alunos
+  
 	Uni bd; //Pode ser fadcilmente alterado para guardar várias universidades
 
+	//Verificar estado do programa
+
+	//Primeira iteração do programa
 	if (fase_instalacao(CONFIG_TXT, '0') == 1) {
-		//É necessário alocar tudo do ínicio
+
+		//Alocar memória para a struct de Estudante
 		bd.aluno = (Estudante *) malloc(TAMANHO_INICIAL_ARRAYS * sizeof(Estudante));
 		bd.tamanho_aluno = 0;
 		bd.capacidade_aluno = TAMANHO_INICIAL_ARRAYS;
 
+		if (!bd.aluno) {
+			printf("Ocorreu um erro ao alocar memória para os alunos.\n");
+			printf("A encerrar o programa.\n");
+			//Não há free porque nada foi alocado
+			exit(EXIT_FAILURE);
+		}
+
+		//Alocar memória para a struct de Dados
 		bd.escolares = (Dados *) malloc(TAMANHO_INICIAL_ARRAYS * sizeof(Dados));
 		bd.tamanho_escolares = 0;
 		bd.capacidade_escolares = TAMANHO_INICIAL_ARRAYS;
 
-		if (!bd.aluno || !bd.escolares) {
-			printf("Ocorreu um erro ao alocar memória para os alunos.\n");
+		if (!bd.escolares) {
+			printf("Ocorreu um erro ao alocar memória para os dados escolares.\n");
 			printf("A encerrar o programa.\n");
+			free(bd.aluno); //Não há nomes/nac alocados
 			exit(EXIT_FAILURE);
 		}
 
+		//Inicializar as structs
 		inicializar_aluno(&bd, bd.tamanho_aluno);
 		inicializar_escolares(&bd, bd.tamanho_escolares);
 		inicializar_estatisticas(&bd.stats);
+
+		//Carregar dados dos ficheiros .txt
 		if (!carregar_dados_txt(DADOS_TXT, SITUACAO_ESCOLAR_TXT, &bd)) {
+			//Tentar usar os backups em caso de erro
 			if (!carregar_dados_txt(DADOS_BACKUP_TXT, SITUACAO_ESCOLAR_BACKUP_TXT, &bd)) {
 				print_falha_carregar_dados();
 
@@ -41,7 +56,7 @@ int main(void) {
 			print_uso_backup();
 		}
 		else {
-			//Se os dados foram bem carregados, vamos guardar um backup
+			//Se os dados foram bem carregados, guarda-se um backup (automaticamente)
 			printf("Informação sobre os backups efetuados:\n");
 			guardar_dados_txt(DADOS_BACKUP_TXT, SITUACAO_ESCOLAR_BACKUP_TXT, &bd);
 		}

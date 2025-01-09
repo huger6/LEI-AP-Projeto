@@ -636,6 +636,7 @@ int fase_instalacao(const char * flag, const char abrir) {
         return 0; //A partir deste momento já passamos a ter o ficheiro aberto
     }
 
+    fclose(ficheiro);
     return 0;
 }
 
