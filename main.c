@@ -63,41 +63,41 @@ int main(void) {
 		//Abrir o ficheiro flag (não é aberto antes para evitar ter de o fechar, em caso de erro)
 		(void) fase_instalacao(CONFIG_TXT, '1'); //void para o compilador não reclamar
 		guardar_dados_bin(LOGS_BIN, &bd, '0'); //Guardar os dados em binário, caso o utilizador decida sair do programa forçadamente
-	}	
+	}
 	else {
-		//A memória é toda alocada em carregar_dados_bin
+		//Carregar os dados de forma binária
+		//Nota: A memória é toda alocada em carregar_dados_bin
 		if(!carregar_dados_bin(LOGS_BIN, &bd)) {
-			if (!carregar_dados_bin(LOGS_BACKUP_BIN, &bd)) { //tentar usar o backup
+			//Tentar usar os backups
+			if (!carregar_dados_bin(LOGS_BACKUP_BIN, &bd)) { 
 				print_falha_carregar_dados();
 
-				//Verificar se o user quer sair do programa
-				printf("\nCaso não possua cópias de segurança, é altamente recomendável repor o programa.\n");
-				printf("Quer efetuar a reposição do programa? (S/N) ");
-				if (sim_nao()) {
-					repor_estado_inicial(&bd);
-					free_tudo(&bd); //checksum errado (outros dá free(NULL), o que não é crítico)
-					exit(EXIT_FAILURE);
-				}
+				//Sair do programa para evitar um softloc
+				printf("\nComo medida de segurança, a aplicação será reposta ao seu estado inicial antes de encerrar.\n");
+				printf("Por favor siga todas as instruções.\n");
+				pressione_enter();
+				repor_estado_inicial(&bd);
 			} 
 			else {
-				guardar_dados_bin(LOGS_BIN, &bd, '0'); //Guardar para termos sempre 2 dados
+				//Guardar para termos sempre 2 dados
+				guardar_dados_bin(LOGS_BIN, &bd, '0'); 
 				print_uso_backup();
 			}
 		}
 	}
 
-	//"Cérebro" do programa.
+	//"Cérebro" do programa: apresenta os menus e trata das operações
 	the_architect(&bd);
 
 	//Apenas se guarda se o autosave estiver desligado 
-	//Caso contrário, já foi guardado ao entrar no menu principal
+	//Caso contrário, já foi guardado ao entrar no menu principal e escusamos guardar 2x
 	if (autosaveON == '0') {
 		guardar_dados_bin(LOGS_BIN, &bd, '0');
 	}
-	//O backup no entanto só se guarda aqui
+	//O backup no entanto só se guarda aqui (porque não depende de autosave)
 	guardar_dados_bin(LOGS_BACKUP_BIN, &bd, '0');
 
-	//Libertar a memória alocada a sair do programa.
+	//Libertar a memória alocada e sair do programa
 	free_tudo(&bd);
 	exit(EXIT_SUCCESS);
 }
