@@ -3,7 +3,6 @@
 #define HEADERS_H 
 
 
-//Definir os nomes dos ficheiros como constantes(de modo a que não sejam alterados)
 #define DADOS_TXT "dados.txt"
 #define DADOS_BACKUP_TXT "dados_backup.txt"
 #define SITUACAO_ESCOLAR_TXT "situacao_Escolar_Estudantes.txt"
@@ -12,64 +11,64 @@
 #define CONFIG_TXT "config.txt" //flag para verificar estado do programa ao abrir
 #define LOGS_BIN "logs.bin"
 #define LOGS_BACKUP_BIN "logs_backup.bin"
+
 #define TAMANHO_INICIAL_ARRAYS 1000
 #define TAMANHO_INICIAL_BUFFER 100
-#define SEPARADOR '\t' //Necessário alterar em carregar_dados, nas mensagens de erro, caso seja mudado
-#define PARAMETROS_ESTUDANTE 4
-#define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
-#define IDADE_MINIMA 12
-#define IDADE_MAXIMA 80
-#define ANO_MIN 1940
-#define MAX_NACIONALIDADES 206 //Número máximo de países
-#define MAX_STRING_NACIONALIDADE 101 //Definimos o número máximo de chars que uma nacionalidade pode ter
 #define TAMANHO_INICIAL_NOME 50 
+#define TAMANHO_SUGESTOES 5 
+#define MAX_STRING_NACIONALIDADE 101 //Definimos o número máximo de chars que uma nacionalidade pode ter
+#define MAX_ELIMINACOES_POR_INTERVALO 400
+#define ANOS_AVANCO_PROCURAS 10 //Anos em que o utilizador pode procurar mais à frente, como na quaresma
+#define MAX_INTERVALOS 6
+#define MAX_NACIONALIDADES_PEDIDA 5
+#define MAX_FORMATO 10 //Ajustar se o formato do ficheiro for superior a 9 caracteres
 #define MAX_MATRICULAS 20 //Limite razoável de matrículas(pode ser alterado)
 #define MAX_ECTS 400
 #define MAX_ANO_ATUAL 8
-#define TAMANHO_INICIAL_ERRO 10
-#define MAX_FORMATO 10 //Ajustar se o formato do ficheiro for superior a 9 caracteres.
-#define CREDITOS_FINALISTA 154 //Créditos necessários para ser finalista.
+
+#define PAUSA_LISTAGEM 20
+#define SEPARADOR '\t' //Necessário alterar em carregar_dados, nas mensagens de erro, caso seja mudado
+#define DIAS_QUARESMA 46
+#define IDADE_MINIMA 12
+#define IDADE_MAXIMA 80
+
+#define PARAMETROS_ESTUDANTE 4 //parametros a serem lidos, não os na struct
+#define PARAMETROS_DADOS_ESCOLARES 5 //parametros a serem lidos, não os na struct
+#define CREDITOS_FINALISTA 154 //Créditos necessários para ser finalista
 #define ECTS_3MATRICULAS 60
 #define ECTS_4MATRICULAS 120
-#define MAX_INTERVALOS 6
-#define MAX_NACIONALIDADES_PEDIDA 5
-#define TAMANHO_SUGESTOES 5
-#define DIAS_QUARESMA 46
-#define ANOS_AVANCO_PROCURAS 5 //Anos em que o utilizador pode procurar mais à frente, como na quaresma
-#define PAUSA_LISTAGEM 20
-#define MAX_ELIMINACOES_POR_INTERVALO 400
 
 #include <stdio.h>
 #include <stdlib.h>
-//Para evitar erros em sistemas não Windows, apenas incluímos a biblioteca se estivermos em Windows.
-//A variável _WIN32 está presente em todos os sistemas Windows.
+//Para evitar erros em sistemas não Windows, apenas incluímos a biblioteca se estivermos em Windows
+//A variável _WIN32 está presente em todos os sistemas Windows por definição
 #ifdef _WIN32 
     #include <windows.h> 
 #endif
 #include <locale.h>
 #include <string.h>
-#include <wctype.h> //Para fazer verificações relativas aos dados introduzidos (isalpha)
+#include <wctype.h> //Para fazer verificações relativas aos dados introduzidos (iswalpha)
 #include <time.h> //Para calcular idades
-#include <locale.h>
-#include <limits.h>
+#include <limits.h> //Para verificar limites nas conversões
 
 
 //Structs
-typedef struct data_nascimento {
+typedef struct {
     short dia;
     short mes;
     short ano;
 }Data;
 
 //Struct para tratar todos os dados relativos aos estudantes
-typedef struct estudante {
-    int codigo; //int para prevenir, caso o código tenha, imagine-se, 6 digitos
+typedef struct {
+    int codigo; 
     char * nome; //Declaramos um ponteiro para posteriormente alocar memória dinamicamente consoante o tamanho do nome
     Data nascimento; 
-    char * nacionalidade; //Criamos um array do tipo nacionalidade, que irá conter todas as nacionalidades
+    char * nacionalidade; 
 }Estudante;
 
-typedef struct dados_escolares {
+//Struct para tratar todos os dados escolares
+typedef struct {
     int codigo;
     short matriculas; 
     short ects; 
@@ -79,31 +78,30 @@ typedef struct dados_escolares {
     char finalista;
 }Dados;
 
-//Struct para os dados estatísticos gerais. Podem ser úteis em outros campos.
-typedef struct estatisticas {
+//Struct para os dados estatísticos gerais. Podem ser úteis em outros campos
+typedef struct {
 	float media_matriculas;
     float media;
 	int finalistas;
     int risco_prescrever;
-    char atualizado; //'0' - não; '1' - sim; Evita muitas iterações O(n) desnecessárias;
+    char atualizado; //Verifica se os dados estão atualizados
 }Estatisticas;
 
-//Os arrays destas structs DEVEM ser ORDENADOS
-typedef struct uni{
+typedef struct {
     Estudante * aluno;
     int tamanho_aluno; //tamanho atual do array aluno
     int capacidade_aluno; //tamanho alocado do array aluno
     Dados * escolares; 
-    int tamanho_escolares;
-    int capacidade_escolares;
+    int tamanho_escolares; //tamanho atual do array escolares
+    int capacidade_escolares; //tamanho alocado do array escolares
     Estatisticas stats;
 } Uni;
 
-//Variável global para assinalar a Data atual.
-//Nota: usa-se extern para permitir partilhar a variável entre todos os ficheiros do programa.
+//Variável global para assinalar a Data atual
+//Nota: usa-se extern para permitir partilhar a variável entre todos os ficheiros do programa
 //Só declaramos aqui porque acima deu erro (não reconhecia o tipo Data)
-//Apenas se declara, é necessário inicializar a variável noutro ficheiro.
-extern Data DATA_ATUAL; //Não se usa const porque temos de a ir modificar logo no ínicio.
+//Apenas se declara, é necessário inicializar a variável noutro ficheiro
+extern Data DATA_ATUAL; //Não se usa const porque temos de a ir modificar logo no ínicio
 extern char autosaveON;
 
 //Protótipos das funções
