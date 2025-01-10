@@ -953,9 +953,9 @@ void inicializar_aluno(Uni * bd, int indice_aluno) {
             }
             printf("Ocorreu um erro ao alocar memória. A encerrar.\n");
             //Guardar antes de sair
-            guardar_dados_bin(LOGS_BACKUP_BIN, bd, '0');
+            guardar_dados_bin(LOGS_BIN, bd, '0');
             //Sair do programa para evitar erros.
-            free_tudo();
+            free_tudo(bd);
             exit(EXIT_FAILURE);
         }
         bd->aluno[i].codigo = -1;
@@ -1270,7 +1270,9 @@ char ** procurar_nacionalidades(Uni * bd, const short n_nacionalidades, char * m
                 free(nacionalidades);
                 return NULL;
             }
-            nacionalidade = normalizar_string(nacionalidade);
+            free(nacionalidade); //Necessário pois normalizar_string não o faz, e neste caso, como já temos uma cópia, eliminamos para não haver memory leaks
+            nacionalidade = NULL;
+            nacionalidade = normalizar_string(original);
             if (!nacionalidade) {
                 printf("Ocorreu um erro a normalizar a string. Por favor, tente novamente.\n");
                 free(original);
@@ -3919,8 +3921,8 @@ void listar_aniversario_ao_domingo(Uni * bd) {
         //Pedir ano
         do {
             printf("Insira o ano: ");
-            if (scanf("%hd", &ano) != 1 || ano <= 0 || ano > DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS) {
-                printf("Por favor insira um ano entre 1 e %hd.\n", DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS);
+            if (scanf("%hd", &ano) != 1 || ano < DATA_ATUAL.ano - ANOS_AVANCO_PROCURAS || ano > DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS) {
+                printf("Por favor insira um ano entre %hd e %hd.\n", DATA_ATUAL.ano - ANOS_AVANCO_PROCURAS, DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS);
                 limpar_buffer();
                 continue;
             }
@@ -3983,8 +3985,8 @@ void listar_aniversario_na_quaresma(Uni * bd) {
         //Pedir o ano
         do {
             printf("Insira o ano: ");
-            if (scanf("%hd", &ano) != 1 || ano <= 0 || ano > DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS) {
-                printf("Por favor insira um ano entre 1 e %hd.\n", DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS);
+            if (scanf("%hd", &ano) != 1 || ano < DATA_ATUAL.ano - ANOS_AVANCO_PROCURAS || ano > DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS) {
+                printf("Por favor insira um ano entre %hd e %hd.\n", DATA_ATUAL.ano - ANOS_AVANCO_PROCURAS, DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS);
                 limpar_buffer();
                 continue;
             }
@@ -4899,7 +4901,7 @@ char * normalizar_string(char * str) {
     
     //Cópia da string para não alterar o original.
     char * resultado = strdup(str);
-    free(str); //Libertar a original para evitar fugas de memória
+    //Não damos free em str pois pode ser um dado original/dos arrays
     if (!resultado) return NULL;
     //Colocar tudo a minúsculas.
     strlwr(resultado);

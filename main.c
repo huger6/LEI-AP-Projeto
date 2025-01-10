@@ -57,7 +57,7 @@ int main(void) {
 		}
 		else {
 			//Se os dados foram bem carregados, guarda-se um backup (automaticamente)
-			printf("Informação sobre os backups efetuados:\n");
+			printf("Foram guardados alguns backups:\n");
 			guardar_dados_txt(DADOS_BACKUP_TXT, SITUACAO_ESCOLAR_BACKUP_TXT, &bd);
 		}
 		//Abrir o ficheiro flag (não é aberto antes para evitar ter de o fechar, em caso de erro)
