@@ -538,6 +538,7 @@ void guardar_dados_txt(const char * nome_ficheiro_dados, const char * nome_fiche
 
     if (!dados) {
         printf("Ocorreu um erro ao abrir o ficheiro %s para guardar os dados.\n", nome_ficheiro_escolares);
+        pressione_enter();
         return; //Já não há mais nada a guardar
     }
     //Escrever escolares
@@ -1491,11 +1492,10 @@ FILE * validar_ficheiro_e_abrir(const char * nome) {
  *         
  * @note Mantém primeira ocorrência de cada código
  * @note Requer array ordenado por código
- * @note Complexidade O(n)
+ * @note Complexidade O(n)^2
  * @note Escreve erros no ficheiro de log
  */
 void verificar_codigos_duplicados(Uni * bd, FILE * erros) {
-    //O(n)
     char erro = '0';
     //Estudante
     for(int i = 0; i < bd->tamanho_aluno - 1; i++) { 
@@ -1550,6 +1550,7 @@ void verificar_codigos_duplicados(Uni * bd, FILE * erros) {
  * @note Procura códigos em dados escolares sem aluno correspondente
  * @note Remove dados escolares sem aluno
  * @note Registra erros no ficheiro de log
+ * @note Complexidade O(tamanho_aluno + tamanho_escolares)
  */
 void verificar_codigos_escolares_sem_aluno(Uni * bd, FILE * erros, char * primeiro_erro) {
     int i = 0, j = 0; //i - indice de escolares; j - indice de aluno
