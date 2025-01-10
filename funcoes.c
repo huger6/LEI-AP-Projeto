@@ -3,7 +3,7 @@
 //Variáveis globais
 
 Data DATA_ATUAL = {0,0,0}; //Vai ser alterada logo no ínicio do programa
-char autosaveON = '0';
+char autosaveON = '0'; //desativado por padrão
 
 //Ficheiros e gestão de dados
 
@@ -21,22 +21,24 @@ char autosaveON = '0';
  * @note A string retornada tem de ser libertada 
  * @note O caractere de nova linha é removido da string retornada
  * @note Se a alocação de memória falhar mas alguns dados foram lidos, retorna a linha parcial
+ * @note n_linhas não é inicializado
+ * @note ficheiro deve estar aberto; não é fechado
  */
 char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
     if(!ficheiro) return NULL;
-    //n_linhas não será inicializado aqui
     char buffer[TAMANHO_INICIAL_BUFFER]; //Buffer para armazenar parte da linha
     size_t tamanho_total = 0; //Comprimento da linha; size_t pois é sempre >0 e evita conversões que podem levar a erros com outras funções
     char * linha = NULL;
 
     while (fgets(buffer, sizeof(buffer), ficheiro)) { //fgets le ate buffer -1 caracteres ou '\n' ou EOF
         size_t tamanho = strlen(buffer); //Calcula o tamanho do texto lido
-        //NOTA IMPORTANTE: se o ponteiro passado para realloc for nulo, ele funciona como o malloc
         char * temp = realloc(linha, tamanho_total + tamanho + 1); //+1 para o nul char
+
+        //Verificar erros na realocação/alocação
         if (!temp) {
-            //Evitar ao máximo retornar NULL, pois isso terminaria o loop em carregar_dados
+            //Evitar ao máximo retornar NULL, pois isso terminaria o loop em carregar_dados (ou a ler qualquer ficheiro)
             if (linha) {
-                linha[tamanho_total] = '\0';
+                linha[tamanho_total] = '\0'; //Linha incompleta mas pelo menos retorna
                 if (n_linhas != NULL) (*n_linhas)++;
                 return linha;
             }
@@ -45,7 +47,8 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
         linha = temp; //atualizar o ponteiro linha para apontar para a nova memória
 
         //Copiar o conteúdo lido para a linha total
-        memmove(linha + tamanho_total, buffer, tamanho); //linha + tamanho_total é um ponteiro para a posição da memória seguinte para onde a próxima parte de buffer será copiada
+        //linha + tamanho_total é um ponteiro para a posição da memória seguinte para onde a próxima parte de buffer será copiada
+        memmove(linha + tamanho_total, buffer, tamanho); 
         tamanho_total += tamanho;
         //Se houver mais que uma leitura, o primeiro char da segunda leitura de fgets irá substituir o nul char, pelo que fica sempre no fim
         linha[tamanho_total] = '\0'; 
@@ -58,8 +61,8 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
         }
     }
 
+    //Linha sem '\n' mas tem conteúdo (por ex: última linha)
     if (linha && tamanho_total > 0) {
-        //Linha final sem '\n' mas tem conteudo (por ex: ultima linha)
         if (n_linhas != NULL) (*n_linhas)++;
         return linha;
     }
@@ -90,31 +93,35 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
 int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_ficheiro_escolar, Uni * bd) { 
     FILE * dados = fopen(nome_ficheiro_dados, "r");
     FILE * situacao_escolar = fopen(nome_ficheiro_escolar, "r");
+    //Abrir ficheiro de erros e escrever o cabeçalho;
     FILE * erros = fopen(ERROS_TXT, "w"); //Vai anexar ao ficheiro de erros os erros encontrados
     if (!erros) {
-        return 0; //Se prosseguissemos iria resultar em segmentation fault
+        return 0; //Se prosseguissemos iria resultar em segmentation fault (pode ser contornado verificando se erros != NULL)
     } 
 
     fprintf(erros, "------------------------------------------NOVA ITERAÇÃO DO PROGRAMA------------------------------------------\n\n\n");
+    
     int n_linhas = 0;
     char * linha = NULL; //Ponteiro para armazenar uma linha lida do ficheiro
-    char primeiro_erro = '1'; //'1' significa que ainda não houve erro. 
-    char erro_geral = '0'; //Flag para dizer ao user que houve erro
+    char primeiro_erro = '1'; //'1' significa que ainda não houve erro. Usar para ERROS_TXT
+    char erro_geral = '0'; //Flag para dizer ao user que houve erro (apenas usada no final)
 
-    //Esta secção vai copiar, linha a linha, o conteúdo do ficheiro para a memória, nomeadamente na struct Estudante
+    //Ler dados para a struct estudante
     if(dados) { 
         int codigo_temp; //Necessário para passar para string_para_int
         while ((linha = ler_linha_txt(dados, &n_linhas)) != NULL) {
             char erro = '0'; //diferente de primeiro_erro pois este vai marcar se existe um erro em cada iteração
             char * parametros[PARAMETROS_ESTUDANTE] = {NULL}; //Array com PARAMETROS casas, onde cada pode armazenar um ponteiro para char (ou seja, uma string)
-            int num_parametros = 0; //Armazena o numero REAL de parametros
-            separar_parametros(linha, parametros, &num_parametros); //extrai os dados já formatados corretamente para parametros
+            int num_parametros = 0; //Armazena o número real de parâmetros
+            separar_parametros(linha, parametros, &num_parametros); //Extrai os dados já formatados corretamente para parametros
             
+            //Verificar se temos os parâmetros necessários
             if(num_parametros == PARAMETROS_ESTUDANTE) {
-                //+1 é FUNDAMENTAL, caso contrário a inicialização não é feita corretamente nos indices da borda
+                //Realocar memória caso necessário
+                //Nota: +1 é FUNDAMENTAL, caso contrário a inicialização não é feita corretamente nos índices da borda
                 if (bd->tamanho_aluno + 1 >= bd->capacidade_aluno) {
                     if (!realocar_aluno(bd, '0')) {
-                        printf("Ocorreu um erro a gerir a memória.\n"); //Averiguar melhor 
+                        printf("Ocorreu um erro a gerir a memória.\n");
                         for(int i = 0; i < num_parametros; i++) //Libertar a memória para os parâmetros alocados dinamicamente até ao momento
                             free(parametros[i]);
                         free(linha);
@@ -124,14 +131,14 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                     }
                     //A realocação do campos de nome é feita em validar_nome
                 }
-                 //Código
-                if (!string_para_int(parametros[0], &codigo_temp)) { //APENAS SE VERIFICA SE O CÓDIGO DE FACTO É VÁLIDO DEPOIS DE CARREGAR TUDO E ORDENAR TUDO
+                //Código
+                if (!string_para_int(parametros[0], &codigo_temp)) { //Código só é validado no final de carregar e ordenar tudo
                     listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O código é inválido!\n\n");
                 }
                 else if(codigo_temp <= 0) {
                     listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
-                    fprintf(erros, "Razão: O código é inválido!Deve ser maior que 0.\n\n");
+                    fprintf(erros, "Razão: O código é inválido! Deve ser maior que 0.\n\n");
                 }
                 //A seguir não são usados else if's para o caso de haver mais de um erro na mesma linha(assim identifica-os todos)
                 //Nome
@@ -141,7 +148,7 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                 }
                 //Data de nascimento
                 ler_data(&(bd->aluno[bd->tamanho_aluno].nascimento), parametros[2], '0');
-                if (bd->aluno[bd->tamanho_aluno].nascimento.dia == 0) {
+                if (bd->aluno[bd->tamanho_aluno].nascimento.dia == 0) { //apenas se verifica dia pois em ler_data os dados, se forem colocados na struct, são colocados todos juntos
                     listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: A data de nascimento é inválida!\n\n");
                 }
@@ -156,25 +163,27 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                     strcpy(bd->aluno[bd->tamanho_aluno].nome, parametros[1]);
                     //Data de nascimento já é copiada se for válida.
                     strcpy(bd->aluno[bd->tamanho_aluno].nacionalidade, parametros[3]);
-                    bd->tamanho_aluno += 1; //Aumentar o tamanho do array
+                    bd->tamanho_aluno += 1; //Incrementar o tamanho do array
                 }
-                //A data pode ter sido copiada e depois ter havido erro
+                //A data pode ter sido copiada e depois ter havido erro noutro parâmetro, nesse caso, inicializamos de novo
                 else {
                     bd->aluno[bd->tamanho_aluno].nascimento.dia = 0;
                     bd->aluno[bd->tamanho_aluno].nascimento.mes = 0;
                     bd->aluno[bd->tamanho_aluno].nascimento.ano = 0;
                 }
             }
+            //param a menos
             else if (num_parametros < PARAMETROS_ESTUDANTE) {
                 listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
-                fprintf(erros, "Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \\t (obrigatório)\n\n"); //Separar cada erro com uma linha
+                fprintf(erros, "Razão: A linha tem parâmetros insuficientes. Verifique se há parâmetros não separados por \\t (obrigatório)\n\n");
             }
+            //param a mais
             else {
                 listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_dados, &erro, n_linhas, linha);
                 fprintf(erros, "Razão: A linha tem parâmetros a mais. Verifique se algum parâmetro contém um \\t (não pode).\n\n");
             }
             
-            //Libertamos a memória alocada para os parametros
+            //Libertar a memória alocada para parametros
             for(int i = 0; i < num_parametros; i++) 
                 free(parametros[i]);
 
@@ -193,7 +202,10 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
     //Necessário porque primeiro_erro muda consoante a operação a fazer, logo não é viável
     n_linhas = 0;
     primeiro_erro = '1';
-    if(situacao_escolar) { //apenas se a abertura tiver sido bem sucedida
+
+    //Ler dados para a struct de escolares 
+    //Segue-se a mesma lógica do carregamento para estudante mas com os param diferentes
+    if(situacao_escolar) {
         int codigo_temp;
         short matriculas_temp;
         short ects_temp;
@@ -203,12 +215,12 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
             char erro = '0'; 
             char * parametros[PARAMETROS_DADOS_ESCOLARES] = {NULL}; 
             int num_parametros = 0; 
-            separar_parametros(linha, parametros, &num_parametros); //retorna num_parametros a zero se algo falhar.
+            separar_parametros(linha, parametros, &num_parametros);
             
             if(num_parametros == PARAMETROS_DADOS_ESCOLARES) {
                 if (bd->tamanho_escolares + 1 >= bd->capacidade_escolares) {
                     if (!realocar_escolares(bd, '0')) {
-                        printf("Ocorreu um erro a gerir a memória.\n"); //Averiguar melhor 
+                        printf("Ocorreu um erro a gerir a memória.\n");
                         for(int i = 0; i < num_parametros; i++) 
                             free(parametros[i]);
                         free(linha);
@@ -217,7 +229,7 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                         return 0;
                     }
                 }
-                 //Código
+                //Código
                 if (!string_para_int(parametros[0], &codigo_temp)) { 
                     listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: O código é inválido!\n\n");
@@ -262,8 +274,9 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
                     listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
                     fprintf(erros, "Razão: A média é inválida! Deve estar entre 0 e 20.\n\n");
                 }
-                if (erro == '0') { //ainda não houve erros
-                    bd->escolares[bd->tamanho_escolares].codigo = codigo_temp; //Copiar código
+
+                if (erro == '0') { 
+                    bd->escolares[bd->tamanho_escolares].codigo = codigo_temp;
                     bd->escolares[bd->tamanho_escolares].matriculas = matriculas_temp;
                     bd->escolares[bd->tamanho_escolares].ects = ects_temp;
                     bd->escolares[bd->tamanho_escolares].ano_atual = ano_atual_temp;
@@ -273,7 +286,7 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
             }
             else if (num_parametros < PARAMETROS_DADOS_ESCOLARES) {
                 listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
-                fprintf(erros, "Razão: A linha tem parâmetros insuficientes.\n\n"); //Separar cada erro com uma linha
+                fprintf(erros, "Razão: A linha tem parâmetros insuficientes.\n\n"); 
             }
             else {
                 listar_erro_ao_carregar(erros, &primeiro_erro, nome_ficheiro_escolar, &erro, n_linhas, linha);
@@ -284,7 +297,7 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
             for(int i = 0; i < num_parametros; i++) 
                 free(parametros[i]);
 
-            free(linha); //Libertamos a memória alocada para a linha presente
+            free(linha); 
         }
         fclose(situacao_escolar);
         //Ordenar o array de escolares
@@ -303,7 +316,10 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
     fprintf(erros, "------------------------------------------FIM DE ITERAÇÃO------------------------------------------\n\n\n");
     fclose(erros);
 
+    //Verificar se houve erro
     if (erro_geral == '0' && primeiro_erro == '0') erro_geral = '1';
+
+    //Informar o user
     if (erro_geral == '1') { 
         printf("Informação sobre os dados carregados:\n");
         printf("Foram detetados alguns erros e alguns dados foram descartados.\n");
@@ -332,6 +348,7 @@ int carregar_dados_txt(const char * nome_ficheiro_dados,const char * nome_fichei
  * @note Inicializa a memória alocada para todas as structs
  */
 int carregar_dados_bin(const char * nome_ficheiro, Uni * bd) {
+    //Abrir ficheiro em modo leitura binária
     FILE * ficheiro = fopen(nome_ficheiro, "rb");
     if (!ficheiro) {
         printf("Ocorreu um erro ao abrir o ficheiro de dados '%s'.\n", nome_ficheiro);
@@ -497,12 +514,14 @@ int ler_dados_binarios(void * ptr, size_t tamanho, size_t cont, FILE * ficheiro)
  * @note Escreve mensagens de erro, caso existam
  */
 void guardar_dados_txt(const char * nome_ficheiro_dados, const char * nome_ficheiro_escolares, Uni * bd) {
+    //Abrir ficheiros txt em modo de escrita
     FILE * aluno = fopen(nome_ficheiro_dados, "w");
     FILE * dados = fopen(nome_ficheiro_escolares, "w");
 
     if (!aluno) {
         printf("Ocorreu um erro ao abrir o ficheiro %s para guardar os dados.\n", nome_ficheiro_dados);
     }
+    //Escrever aluno
     else {
         for(int i = 0; i < bd->tamanho_aluno; i++) {
             //Colocar \n apenas se não for nem a primeira nem a última entrada.
@@ -521,6 +540,7 @@ void guardar_dados_txt(const char * nome_ficheiro_dados, const char * nome_fiche
         printf("Ocorreu um erro ao abrir o ficheiro %s para guardar os dados.\n", nome_ficheiro_escolares);
         return; //Já não há mais nada a guardar
     }
+    //Escrever escolares
     for(int i = 0; i < bd->tamanho_escolares; i++) {
         if (i > 0) fprintf(dados, "\n");
         fprintf(dados, "%d%c%hd%c%hd%c%hd%c%.1f",
@@ -531,8 +551,8 @@ void guardar_dados_txt(const char * nome_ficheiro_dados, const char * nome_fiche
             bd->escolares[i].media_atual);
     }
     fclose(dados);
-    printf("Os dados foram guardados com sucesso no ficheiro '%s'.\n", nome_ficheiro_escolares);
 
+    printf("Os dados foram guardados com sucesso no ficheiro '%s'.\n", nome_ficheiro_escolares);
     pressione_enter();
 }
 
@@ -550,6 +570,7 @@ void guardar_dados_txt(const char * nome_ficheiro_dados, const char * nome_fiche
  * @note Guarda estatísticas 
  */
 void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo) {
+    //Abrir ficheiro binário em modo de escrita
     FILE * ficheiro = fopen(nome_ficheiro, "wb");
     if (!ficheiro) {
         if (modo == '1') printf("Ocorreu um erro ao guardar os dados.\n");
@@ -559,8 +580,10 @@ void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo) {
     //Checksum
     unsigned long checksum = calcular_checksum(bd);
     fwrite(&checksum, sizeof(unsigned long), 1, ficheiro);
+
     //Configurações
     fwrite(&autosaveON, sizeof(char), 1, ficheiro);
+
     //Dados dos arrays
     fwrite(&bd->tamanho_aluno, sizeof(int), 1, ficheiro);
     fwrite(&bd->capacidade_aluno, sizeof(int), 1, ficheiro);
@@ -585,6 +608,7 @@ void guardar_dados_bin(const char * nome_ficheiro, Uni * bd, const char modo) {
     }
     //Escrever escolares
     fwrite(bd->escolares, sizeof(Dados), bd->tamanho_escolares, ficheiro);
+
     //Estatísticas
     fwrite(&bd->stats, sizeof(Estatisticas), 1, ficheiro);
 
@@ -635,7 +659,7 @@ int fase_instalacao(const char * flag, const char abrir) {
         fclose(ficheiro);
         return 0; //A partir deste momento já passamos a ter o ficheiro aberto
     }
-
+    //Só chega aqui se o ficheiro já existir previamente
     fclose(ficheiro);
     return 0;
 }
@@ -661,7 +685,7 @@ int eliminar_ficheiro(const char * nome, const char modo) {
         return 1;
     }
     else {
-        if (modo == '1') { //modo está assim porque podemos querer acrescentar algo no futuro
+        if (modo == '1') { 
             printf("Ocorreu um erro ao eliminar o ficheiro '%s'.\n", nome);
             printf("Por favor verifique que o nome do ficheiro inclui a extensão e se está no mesmo diretório do programa.\n");
             printf("Certifique-se ainda que o ficheiro '%s' não está aberto noutro lugar.\n", nome);
@@ -704,7 +728,7 @@ FILE * pedir_listagem(char * formato_selecionado) {
         opcao--; //Fazemos a opcao ser igual ao indice de formatos
         strcpy(formato_selecionado, formatos[opcao]); 
 
-        //Nome do ficheiro fica à escolha do utilizador.
+        //Nome do ficheiro fica à escolha do utilizador
         do {
             printf("Nome do ficheiro a guardar: ");
             nome_ficheiro = ler_linha_txt(stdin, NULL);
@@ -712,14 +736,15 @@ FILE * pedir_listagem(char * formato_selecionado) {
             else free(nome_ficheiro);
         } while(1);
 
-        //Garantir que a string a que vamos concatenar o nome da extensão do ficheiro tem tamanho suficiente para isso.
+        //Garantir que a string a que vamos concatenar o nome da extensão do ficheiro tem tamanho suficiente para isso
         char * temp = realloc(nome_ficheiro, strlen(nome_ficheiro) + strlen(formatos[opcao]) + 1);
-        if (!temp) { //Realocação falhou
+        if (!temp) { 
             free(nome_ficheiro);
             printf("Erro ao alocar memória. Por favor tente novamente mais tarde.\n");
             return NULL;
         }
         nome_ficheiro = temp;
+
         //strcat dá append na 2º string ao fim da 1ª.
         strcat(nome_ficheiro, formatos[opcao]);
         ficheiro = validar_ficheiro_e_abrir(nome_ficheiro);
@@ -729,7 +754,7 @@ FILE * pedir_listagem(char * formato_selecionado) {
         }
         limpar_terminal();
         printf("O ficheiro \"%s\" foi aberto com sucesso!\n", nome_ficheiro);
-        return ficheiro; //Retornamos um ponteiro para o ficheiro.
+        return ficheiro;
     }
     return NULL;
 }
@@ -747,7 +772,6 @@ FILE * pedir_listagem(char * formato_selecionado) {
  */
 int verificar_extensao(const char * nome_ficheiro) {
     //Verificar a extensão do ficheiro
-     //Se houvesse uma extensão que não fosse .txt ou .csv a função não funcionava e levava a erro.
     const char * extensao = strrchr(nome_ficheiro, '.');
 
     if (!extensao) {
@@ -756,6 +780,7 @@ int verificar_extensao(const char * nome_ficheiro) {
         return 0;
     }
 
+    //Verificar se é suportada
     if (strcmp(extensao, ".txt") != 0 && strcmp(extensao, ".csv") != 0) {
         printf("A extensão %s não é suportada.\n", extensao);
         pressione_enter();
@@ -826,9 +851,10 @@ void mostrar_dados_ficheiro(const char * nome_ficheiro) {
  */
 void repor_estado_inicial(Uni * bd) {
     limpar_terminal();
+
     printf("Todos os dados serão excluídos e será necessário carregar os ficheiros .txt.\n");
     printf("Quer guardar uma cópia dos dados em ficheiro .txt? (S/N) ");
-    if(sim_nao()) {
+    if(sim_nao()) { //Guardar cópias
         FILE * dados;
         FILE * escolar;
         char * dados_nome;
@@ -874,14 +900,15 @@ void repor_estado_inicial(Uni * bd) {
     printf("Tem a certeza que quer continuar? (S/N) ");
     if (!sim_nao()) return;
 
-    //Eliminamos o ficheiro de instalação para voltar a instalar o programa.
+    //Eliminamos o ficheiro de instalação para usar o programa do zero
     if (!eliminar_ficheiro(CONFIG_TXT, '1')){
         printf("Por favor, elimine o ficheiro manualmente.\n");
         printf("Caso não o faça, o programa pode malfuncionar.\n");
     }
     printf("\n");
-    FILE * logs = fopen(LOGS_BIN, "r");
+
     //Verificar se há logs
+    FILE * logs = fopen(LOGS_BIN, "r");
     if (logs) {
         fclose(logs);
         //Eliminar logs
@@ -913,11 +940,10 @@ void repor_estado_inicial(Uni * bd) {
  * @note Em caso de erro na alocação, liberta memória já alocada
  */
 void inicializar_aluno(Uni * bd, int indice_aluno) {
-    if (!bd || !bd->aluno || !bd->escolares) return;
+    if (!bd || !bd->aluno) return;
 
     for (int i = indice_aluno; i < bd->capacidade_aluno; i++) {
-        //Struct estudante
-        //Aloca memória para guardar a nacionalidade e o nome (primeiro pois pode falhar, e seria escusado inicializar outras coisas antes)
+        //Aloca memória para guardar a nacionalidade e o nome (primeiro, pois pode falhar, e seria escusado inicializar outras coisas antes)
         bd->aluno[i].nacionalidade = (char *) malloc (MAX_STRING_NACIONALIDADE * sizeof(char));
         bd->aluno[i].nome = (char *) malloc (TAMANHO_INICIAL_NOME * sizeof(char));
         if(bd->aluno[i].nacionalidade == NULL || bd->aluno[i].nome == NULL) {
@@ -926,12 +952,17 @@ void inicializar_aluno(Uni * bd, int indice_aluno) {
                 free(bd->aluno[j].nome);
             }
             printf("Ocorreu um erro ao alocar memória. A encerrar.\n");
-            return;
+            //Guardar antes de sair
+            guardar_dados_bin(LOGS_BACKUP_BIN, bd, '0');
+            //Sair do programa para evitar erros.
+            free_tudo();
+            exit(EXIT_FAILURE);
         }
         bd->aluno[i].codigo = -1;
-        bd->aluno[i].nascimento.dia = 0; //Para sinalizar que ainda não foi alterada
+        bd->aluno[i].nascimento.dia = 0; 
         bd->aluno[i].nascimento.mes = 0;
         bd->aluno[i].nascimento.ano = 0;
+        //Não era necessário mas sempre pode dar jeito
         strcpy(bd->aluno[i].nacionalidade, "-1");
         strcpy(bd->aluno[i].nome, "-1");
     }
@@ -948,6 +979,8 @@ void inicializar_aluno(Uni * bd, int indice_aluno) {
  * @note Inicializa todos os chars com '-'
  */
 void inicializar_escolares(Uni * bd, int indice_escolares) {
+    if (!bd || !bd->aluno || !bd->escolares) return;
+
     for(int i = indice_escolares; i < bd->capacidade_escolares; i++) {
         bd->escolares[i].codigo = -1;
         bd->escolares[i].matriculas = -1;
@@ -975,7 +1008,6 @@ void inicializar_estatisticas(Estatisticas * stats) {
     stats->media_matriculas = 0.0;
     stats->risco_prescrever = 0;
     stats->atualizado = '0'; 
-    //Inicializamos a '0' pois quando carregamos os dados, estamos possivelmente a introduzir dados novos que podem contar para a estatística.
 }
 
 /* Liberta memória alocada para strings de alunos
@@ -1022,6 +1054,7 @@ void free_tudo(Uni * bd) {
  * @note Inicializa nova memória via inicializar_aluno()
  */
 int realocar_aluno(Uni * bd, const char modo) {
+    //Dobrar o tamanho
     int tamanho_novo = bd->capacidade_aluno * 2;
     Estudante * temp = (Estudante *) realloc(bd->aluno, tamanho_novo * sizeof(Estudante));
 
@@ -1031,8 +1064,8 @@ int realocar_aluno(Uni * bd, const char modo) {
     }
     bd->aluno = temp;
     bd->capacidade_aluno = tamanho_novo;
-    //Não se faz free de temp pois temp aponta para a mesma morada de bd->aluno, logo ao dar free em temp, estavamos a dar free em bd->alunos, e perdeíamos os dados
-    inicializar_aluno(bd, bd->tamanho_aluno); //Inicializar logo a memória alocada
+    //Inicializar logo a memória alocada
+    inicializar_aluno(bd, bd->tamanho_aluno); 
     return 1;
 }
 
@@ -1047,6 +1080,7 @@ int realocar_aluno(Uni * bd, const char modo) {
  * @note Inicializa nova memória via inicializar_escolares()
  */
 int realocar_escolares(Uni * bd, const char modo) {
+    //Dobrar o tamanho
     int tamanho_novo = bd->capacidade_escolares * 2;
     Dados * temp = (Dados *) realloc(bd->escolares, tamanho_novo * sizeof(Dados));
 
@@ -1056,6 +1090,7 @@ int realocar_escolares(Uni * bd, const char modo) {
     }
     bd->escolares = temp;
     bd->capacidade_escolares = tamanho_novo;
+    //Inicializar logo a memória alocada
     inicializar_escolares(bd, bd->tamanho_escolares);
     return 1;
 }
@@ -1069,6 +1104,7 @@ int realocar_escolares(Uni * bd, const char modo) {
  * @return 1 se sucesso, 0 se erro na realocação
  */
 int realocar_nome(Estudante * aluno, const char modo) {
+    //Dobrar o tamanho
     int tamanho_novo = strlen(aluno->nome) * 2;
     char * temp = realloc(aluno->nome, tamanho_novo * sizeof(char));
 
@@ -1147,7 +1183,7 @@ int procurar_codigo_escolares(int codigo, Uni * bd) {
             else limSup = meio - 1;
         }
     }
-    return -(limInf + 1); //Não há esse código, RETORNA A POSIÇÃO DE INSERÇÃO + 1
+    return -(limInf + 1); //Não há esse código, logo retorna a posição de inserção
 }
 
 /* Procura nacionalidades existentes com sistema de sugestões
@@ -1171,8 +1207,8 @@ char ** procurar_nacionalidades(Uni * bd, const short n_nacionalidades, char * m
     if (n_nacionalidades <= 0) return NULL;
     char ** nacionalidades = NULL;
     
-    //Criamos um array de ponteiros para guardar as nacionalidades, no máximo as indicadas.
-    nacionalidades = (char**) malloc(n_nacionalidades * sizeof(char*));
+    //Criamos um array de ponteiros para guardar as nacionalidades, no máximo as indicadas
+    nacionalidades = (char **) malloc(n_nacionalidades * sizeof(char*));
     if (!nacionalidades) {
         printf("Ocorreu um erro a alocar memória para as nacionalidades!\n");
         return NULL;
@@ -1190,15 +1226,15 @@ char ** procurar_nacionalidades(Uni * bd, const short n_nacionalidades, char * m
         char * nacionalidade = NULL;
         char encontrado = '0';
 
-        //Array de string que irá conter todas as sugestões que foram feitas ao utilizador numa mesma nacionalidade.
-        //Apenas serão retidas 5 sugestões, pelo que depois,  o sistema de sugestões será desabilitado num todo.
+        //Array de string que irá conter todas as sugestões que foram feitas ao utilizador numa mesma nacionalidade
+        //Apenas serão retidas 5 sugestões, pelo que depois,  o sistema de sugestões será desabilitado num todo
         char ** sugeridas = NULL;
         short n_sugestao = 0;
         sugeridas = (char**) malloc(TAMANHO_SUGESTOES * sizeof(char *));
         for (int j = 0; j < TAMANHO_SUGESTOES; j++) {
             sugeridas[j] = NULL;
         }
-        //Pedimos a nacionalidade e depois verificamos se existe. Continua a pedir até que 
+        //Pedimos a nacionalidade e depois verificamos se existe
         do {
             if (!mensagem) {
                 printf("Insira a nacionalidade %d (ou 'sair' para cancelar): ", i + 1);
@@ -1224,7 +1260,7 @@ char ** procurar_nacionalidades(Uni * bd, const short n_nacionalidades, char * m
                 continue;
             }
 
-            char * original = strdup(nacionalidade); //original fica com a nacionalidade original
+            char * original = strdup(nacionalidade); //original fica com a nacionalidade introduzida
             if (!original) {
                 printf("Erro ao alocar memória.\n");
                 free(nacionalidade);
@@ -1331,14 +1367,14 @@ int validar_codigo_ao_inserir(int codigo, Uni * bd) {
         return 0;
     }
     int temp = procurar_codigo_aluno(codigo, bd); 
-    //basta procurar no aluno porque não pode haver nenhum código em escolares que não esteja em aluno
+    //Basta procurar no aluno porque não pode haver nenhum código em escolares que não esteja em aluno
     
     if(temp > 0) {
         printf("O código já existe! Insira um código diferente.\n");
         pressione_enter();
         return 0;
     }
-    //Se não existir o código podemos usá-lo(<0).
+    //Se não existir o código podemos usá-lo(<0)
     else if (temp < 0) {
         return temp; //Retornamos a posição onde será inserido
     }
@@ -1366,18 +1402,18 @@ int validar_codigo_eliminar(int codigo, Uni * bd, const char modo) {
         }
         return 0;
     }
-    int temp = procurar_codigo_aluno(codigo, bd); //basta procurar no aluno porque não pode haver nenhum código em escolares que não esteja em aluno
+    int temp = procurar_codigo_aluno(codigo, bd);
     
     if(temp > 0) {
-        return temp; //codigo existe logo pode ser eliminado
+        return temp; //Código existe logo pode ser eliminado
     }
-    //Se não existir o código podesmos usá-lo(<0).
+    //Se não existir o código podemos usá-lo(<0).
     else if (temp < 0) {
         if (modo == '1') {
             printf("O código não existe! Insira um código diferente.\n");
             pressione_enter();
         }
-        return 0; //<0 significa que foi retornada a posição onde o código devia ser inserido, logo não existe.
+        return 0; //<0 significa que foi retornada a posição onde o código devia ser inserido, logo não existe
     }
     return 0; 
 }
@@ -1392,11 +1428,11 @@ int validar_codigo_eliminar(int codigo, Uni * bd, const char modo) {
  * @note Lista caracteres inválidos se falhar
  */
 int validar_nome_ficheiro(const char * nome_ficheiro) {
-    //Caracteres inválidos ao escrever ficheiros.
+    //Caracteres inválidos ao escrever ficheiros
     const char * chars_invalidos = "\\/:*?\"<>|";
 
     for (int i = 0; nome_ficheiro[i] != '\0'; i++) {
-        //strchr é semelhante à strstr já usada, mas procura um char dentro da string(1º param).
+        //strchr é semelhante à strstr já usada, mas procura um char dentro da string(1º param)
         if (strchr(chars_invalidos, nome_ficheiro[i]) != NULL) { 
             printf("O nome do ficheiro é inválido. Por favor, escreva um nome sem os seguintes caracteres: \n");
             printf("%s\n", chars_invalidos);
@@ -1459,7 +1495,8 @@ FILE * validar_ficheiro_e_abrir(const char * nome) {
 void verificar_codigos_duplicados(Uni * bd, FILE * erros) {
     //O(n)
     char erro = '0';
-    for(int i = 0; i < bd->tamanho_aluno - 1; i++) { //-1 porque o último não pode ser igual a nenhum sem ser o penúltimo
+    //Estudante
+    for(int i = 0; i < bd->tamanho_aluno - 1; i++) { 
         if (bd->aluno[i].codigo == bd->aluno[i + 1].codigo) {
             if (erro == '0') {
                 erro = '1';
@@ -1478,7 +1515,9 @@ void verificar_codigos_duplicados(Uni * bd, FILE * erros) {
         }   
     }
 
-    erro = '0';
+    erro = '0'; //Dar reset na flag
+
+    //Escolares
     for(int i = 0; i < bd->tamanho_escolares - 1; i++) { 
         if (bd->escolares[i].codigo == bd->escolares[i + 1].codigo) {
             if (erro == '0') {
@@ -1559,12 +1598,13 @@ void verificar_codigos_escolares_sem_aluno(Uni * bd, FILE * erros, char * primei
  * @note Verifica anos bissextos    
  */
 int validar_data(short dia, short mes, short ano, const char modo) {
-    if (ano < 1 || mes < 1 || mes > 12 || dia < 1) { //Limites dos anos são os que foram considerados mais realistas
+    if (ano < 1 || mes < 1 || mes > 12 || dia < 1) { 
         if (modo == '1') printf("\nPor favor, insira uma data válida.\n");
         return 0;
     }
     
-    if (ano < DATA_ATUAL.ano - IDADE_MAXIMA || ano > DATA_ATUAL.ano - IDADE_MINIMA) {
+    //Limites dos anos são os que foram considerados mais realistas
+    if (ano < DATA_ATUAL.ano - IDADE_MAXIMA || ano > DATA_ATUAL.ano - IDADE_MINIMA) { 
         if (modo == '1') printf("\nO ano inserido é inválido. Insira um ano entre %d e %d.\n", DATA_ATUAL.ano - IDADE_MAXIMA, DATA_ATUAL.ano - IDADE_MINIMA);
         return 0;
     }
@@ -1581,9 +1621,8 @@ int validar_data(short dia, short mes, short ano, const char modo) {
 
     if (dia > dias_por_mes[mes - 1]) {
         if (modo == '1') printf("O dia é inválido! O mês de %s tem apenas %hd dias.\n", nome_do_mes[mes - 1], dias_por_mes[mes -1]);
-        return 0; //Falso
+        return 0; 
     }
-    //Se não retornou 0(F), é V
     return 1;
 }
 
@@ -1602,11 +1641,11 @@ int validar_data_entre_intervalo(Data inferior, Data superior, Data atual) {
     int comp = comparar_data(superior, inferior, '0');
     switch(comp) {
         case -1: 
-            return 0; //superior < inferior.
+            return 0; //superior < inferior
         case 0: 
-            //Se inf == sup, então atual == inf == sup.
+            //Se inf == sup, então atual == inf == sup
             if (comparar_data(inferior, atual, '0') != 0) return 0;
-            return 1; //atual == inf == sup logo é válido (está entre os dois, é valor único).
+            return 1; //atual == inf == sup logo é válido (está entre os dois, é valor único)
         case 1: 
             if ((comparar_data(atual, inferior, '0') != -1)&&(comparar_data(atual, superior, '0') != 1)) return 1;
             return 0;
@@ -1628,18 +1667,19 @@ int validar_data_entre_intervalo(Data inferior, Data superior, Data atual) {
  * @note Compara na ordem: ano, mês, dia
  */
 int comparar_data(Data d1, Data d2, const char ignorar_ano) {
+    //Ano
     if (ignorar_ano == '0') {
         if (d1.ano < d2.ano) return -1;
         if (d1.ano > d2.ano) return 1;
     }
-    
+    //Mês
     if (d1.mes < d2.mes) return -1;
     if (d1.mes > d2.mes) return 1;
-    
+    //Dia
     if (d1.dia < d2.dia) return -1;
     if (d1.dia > d2.dia) return 1;
     
-    return 0;  //Datas são iguais.
+    return 0;  //Datas são iguais
 }
 
 /* Valida e armazena nome de aluno
@@ -1676,6 +1716,7 @@ int validar_nome(Estudante * aluno, char * nome, const char modo) {
         return 0;
     }
     for (int i = 0; i < comprimento; i++) {
+        //Verificar se tem separador
         if (nome[i] == SEPARADOR) {
             if (modo == '1') printf("\nO nome contém um caracter separador inválido (%c).\n", SEPARADOR);
             return 0;
@@ -1686,7 +1727,7 @@ int validar_nome(Estudante * aluno, char * nome, const char modo) {
             return 0;
         }
         //Verificar caracteres inválidos
-        if (!iswalpha(nome[i]) && nome[i] != ' ' && nome[i] != '-') { //isalpha apenas retorna válido a-z e A-Z, logo as outras condições validam espaços e hifens
+        if (!iswalpha(nome[i]) && nome[i] != ' ' && nome[i] != '-') { //iswalpha apenas retorna válido a-z e A-Z, logo as outras condições validam espaços e hifens
             if (modo == '1') printf("\nNome contém caracteres inválidos!\n");
             return 0;
         }
@@ -1695,7 +1736,9 @@ int validar_nome(Estudante * aluno, char * nome, const char modo) {
     //Se estamos aqui é válido, e precisamos de verificar se o nome cabe no array
     if (comprimento > TAMANHO_INICIAL_NOME - 1) {
         //Realocar o nome 
-        realocar_nome(aluno, modo);
+        if (!realocar_nome(aluno, modo)) {
+            return 0;
+        }
     }
     return 1;
 }
@@ -1734,7 +1777,7 @@ int validar_nacionalidade(char * nacionalidade, const char modo) {
         if (modo == '1') printf("\nA nacionalidade tem espaços indevidos!\n");
         return 0;
     }
-
+    //Verificar se excede o tamanho máximo permitido
     if (comprimento > MAX_STRING_NACIONALIDADE - 1) {
         if (modo == '1') printf("\nA nacionalidade é inválida. Insira uma nacionalidade com menos de %d caracteres.\n", MAX_STRING_NACIONALIDADE - 1);
         return 0;
@@ -1781,11 +1824,11 @@ void validacao_menus(short * valido, const char opcao, const char limInf, const 
         pressione_enter();
     }
     else if (opcao < limInf || opcao > limSup) { 
-        *valido = 0; //Scanf leu corretamente e retornou 1, mas como não queremos esses números, voltamos a definir a zero.
+        *valido = 0; //Scanf leu corretamente e retornou 1, mas como não queremos esses números, voltamos a definir a zero
         printf("Por favor, escolha um número do menu (%c a %c).\n", limInf, limSup);
         pressione_enter();
     }
-    //Verificar entradas com mais de um char.
+    //Verificar entradas com mais de um char
     char lixo = getchar();
     if (lixo != '\n') {
         *valido = 0;
@@ -1793,16 +1836,16 @@ void validacao_menus(short * valido, const char opcao, const char limInf, const 
         printf("Por favor, escolha um número do menu (%c a %c).\n", limInf, limSup);
         pressione_enter();
     }
-    //Assim saímos do menu sempre com o buffer limpo. (menos uma preocupação)
+    //Assim saímos do menu sempre com o buffer limpo (menos uma preocupação)
 }
 
 //Ordenação
 
 /*
-As funções que se seguem implementam o algoritmo de ordenação Merge Sort.
-Dado o algoritmo já ser bastante conhecido, não há necessidade de reinventar.
+As funções que se seguem implementam o algoritmo de ordenação Merge Sort
+Dado o algoritmo já ser bastante conhecido, não há necessidade de reinventar
 Como tal, foi retirado o código base do algoritmo do website https://www.geeksforgeeks.org/c-program-for-merge-sort/
-Claro que foram necessários ajustes ao contexto do programa. 
+Claro que foram necessários ajustes ao contexto do programa
 Os nome das variáveis também foram ajustados para ser mais fácil de perceber o que se pretende
 */
 
@@ -1827,7 +1870,7 @@ void merge_aluno(Uni * bd, int inicio, int meio, int fim) {
     Estudante * esquerda = malloc(tamanho_esquerda * sizeof(Estudante));
     Estudante * direita = malloc(tamanho_direita * sizeof(Estudante));
 
-    //Copiar o conteúdo para os arrays temporários. É COPIADO TODO O CONTEÚDO DO ARRAY.
+    //Copiar o conteúdo para os arrays temporários. É COPIADO TODO O CONTEÚDO DO ARRAY
     for(int i = 0; i < tamanho_esquerda; i++) 
         esquerda[i] = bd->aluno[inicio + i];
     
@@ -1840,7 +1883,7 @@ void merge_aluno(Uni * bd, int inicio, int meio, int fim) {
 
     while(indice_esquerda < tamanho_esquerda && indice_direita < tamanho_direita) {
         if (esquerda[indice_esquerda].codigo <= direita[indice_direita].codigo) { 
-            bd->aluno[indice] = esquerda[indice_esquerda]; //Estamos a copiar todo o conteúdo da struct, logo já fica tudo ordenado, e não apenas o código
+            bd->aluno[indice] = esquerda[indice_esquerda];
             indice_esquerda++;
         }
         else {
@@ -1849,7 +1892,7 @@ void merge_aluno(Uni * bd, int inicio, int meio, int fim) {
         }
         indice++; 
     }
-    //Copiar elementos do array da direita que sobraram (ex: numeros da esquerda > num direita)
+    //Copiar elementos do array da direita que sobraram (ex: num da esquerda > num direita)
     while(indice_esquerda < tamanho_esquerda) {
         bd->aluno[indice] = esquerda[indice_esquerda];
         indice_esquerda++;
@@ -1925,7 +1968,7 @@ void merge_escolares(Uni * bd, int inicio, int meio, int fim) {
 
     while(indice_esquerda < tamanho_esquerda && indice_direita < tamanho_direita) {
         if (esquerda[indice_esquerda].codigo <= direita[indice_direita].codigo) { 
-            bd->escolares[indice] = esquerda[indice_esquerda]; //Estamos a copiar todo o conteúdo da struct, logo já fica tudo ordenado, e não apenas o código
+            bd->escolares[indice] = esquerda[indice_esquerda]; 
             indice_esquerda++;
         }
         else {
@@ -1994,12 +2037,12 @@ void merge_sort_escolares(Uni * bd, int inicio, int fim) {
  */
 void ordenar_ao_inserir(int codigo, Uni * bd, int indice_aluno, int indice_escolares) {
     //Ordenar aluno
-    //Copia-se por partes para evitar ponteiros duplicados.
+    //Copia-se por partes para evitar ponteiros duplicados
     for(int i = bd->tamanho_aluno; i > indice_aluno; i--) {
         //Libertamos a memória do elemento atual
         free(bd->aluno[i].nome);
         free(bd->aluno[i].nacionalidade);
-        //Alocamos nova memória para o elemento atual, para não termos ponteiros duplicados a apontar para o mesmo sítio.
+        //Alocamos nova memória para o elemento atual, para não termos ponteiros duplicados a apontar para o mesmo sítio
         bd->aluno[i].nome = malloc(strlen(bd->aluno[i - 1].nome) + 1);
         bd->aluno[i].nacionalidade = malloc(strlen(bd->aluno[i - 1].nacionalidade) + 1);
 
@@ -2012,7 +2055,7 @@ void ordenar_ao_inserir(int codigo, Uni * bd, int indice_aluno, int indice_escol
         bd->aluno[i].codigo = bd->aluno[i - 1].codigo; 
         bd->aluno[i].nascimento = bd->aluno[i - 1].nascimento; 
     }
-    //Precisamos de colocar os dados do novo aluno, no caso o código, os outros inicializamos para não ficar com os dados do anterior.
+    //Precisamos de colocar os dados do novo aluno, no caso o código, os outros inicializamos para não ficar com os dados do anterior
     bd->aluno[indice_aluno].codigo = codigo;
     bd->aluno[indice_aluno].nascimento.dia = 0;
     bd->aluno[indice_aluno].nascimento.mes = 0;
@@ -2059,10 +2102,10 @@ int ordenar_ao_eliminar(int codigo, Uni * bd, const char modo) {
     int posicao_eliminacao_escolares;
 
     posicao_eliminacao_aluno = validar_codigo_eliminar(codigo, bd, modo);
-    if(posicao_eliminacao_aluno <= 0) return 0; //O código não existe ou houve erro.
+    if(posicao_eliminacao_aluno <= 0) return 0; //O código não existe ou houve erro
     posicao_eliminacao_aluno -=1;
 
-    //Se vamos eliminar o estudante então é necessário dar free na memória alocada dinamicamente nessas structs.
+    //Se vamos eliminar o estudante então é necessário dar free na memória alocada dinamicamente nessas structs
     free(bd->aluno[posicao_eliminacao_aluno].nome);
     free(bd->aluno[posicao_eliminacao_aluno].nacionalidade);
     //i começa no índice que queremos eliminar(vai ser substituído)
@@ -2073,7 +2116,7 @@ int ordenar_ao_eliminar(int codigo, Uni * bd, const char modo) {
     bd->tamanho_aluno -= 1;
     
     posicao_eliminacao_escolares = procurar_codigo_escolares(codigo, bd);
-    if (posicao_eliminacao_escolares <= 0) return 1; //Aqui não retornamos 0 porque pode haver aluno sem dados escolares.
+    if (posicao_eliminacao_escolares <= 0) return 1; //Aqui não retornamos 0 porque pode haver aluno sem dados escolares
     posicao_eliminacao_escolares -= 1;
 
     for(int i = posicao_eliminacao_escolares; i < bd->tamanho_escolares; i++) {
@@ -2103,7 +2146,7 @@ char mostrar_menu(void (*escrever_menu)(), char min_opcao, char max_opcao) {
     char opcao = '0';
     do {
         limpar_terminal();
-        escrever_menu();
+        escrever_menu(); //Escreve a função do menu
         printf("=>Escolha uma opção: ");
 
         valido = scanf(" %c", &opcao); //scanf retorna 1 se conseguir ler corretamente
@@ -2375,7 +2418,7 @@ void guia_de_utilizacao() {
 void the_architect(Uni * bd) {
     char opcao;
     do {
-        autosave(bd);
+        autosave(bd); //Guarda automaticamente caso autosaveON ativo
         opcao = mostrar_menu(menu_principal, '0', '6');
         switch(opcao) {
             case '0':
@@ -2383,7 +2426,7 @@ void the_architect(Uni * bd) {
                 printf("Tem a certeza que quer sair do programa? (S/N) ");
                 if (!sim_nao()) {
                     opcao = '1'; //Forçar o loop a continuar
-                    //Não há problemas porque no ínicio do loop pedimos sempre o menu.
+                    //Não há problemas porque no ínicio do loop pedimos sempre o menu
                     continue;
                 }
                 break;
@@ -2585,7 +2628,7 @@ void processar_ficheiros(Uni * bd) {
             case '6':
                 guardar_dados_bin(LOGS_BIN, bd, '1');
                 break;
-            case '7': //backups
+            case '7': 
                 limpar_terminal();
                 guardar_dados_txt(DADOS_BACKUP_TXT, SITUACAO_ESCOLAR_BACKUP_TXT, bd);
                 break;
@@ -2685,7 +2728,7 @@ void processar_opcoes(Uni * bd) {
  */
 void ler_data(Data * aluno, char * str, const char modo) {
 	char data[11]; //Vamos usar o formato DD-MM-AAAA (10 caracteres + \0)
-    char erro = '0'; //1 há erro
+    char erro = '0'; 
     short dia_temp, mes_temp, ano_temp; //Variáveis temporárias para armazenar os valores lidos
     char extra;
 
@@ -2697,8 +2740,7 @@ void ler_data(Data * aluno, char * str, const char modo) {
                 limpar_buffer();
                 printf("Ocorreu um erro ao tentar ler a data de nascimento!\n");
                 erro = '1';
-                continue; //O continue faz com que o loop avance para a proxima iteração (aqui podemos usar porque não há perigo de ficar um loop infinito com !str)
-                //Nota: o uso do fgets faz com que o buffer nao rebente, pois ele so le ate ao limite de sizeof(data)-1(para o \0), apenas temos de limpar o buffer depois
+                continue;  
             }
             //Remover o \n
             size_t comprimento = strlen(data);
@@ -2714,14 +2756,14 @@ void ler_data(Data * aluno, char * str, const char modo) {
                 }
             }
         }
-        //Verificar se foi escrito mais do que o suposto mas para quando a string é passada
+        //Verificar se foi escrito mais do que o supostoa
         else {
             if (strlen(str) >= sizeof(data)) {
                 if (modo == '1') printf("Entrada inválida. Por favor, escreva a data no formato DD-MM-AAAA.\n");
                 erro = '1';
                 continue;
             }
-            //Copiar string para array
+            //Copiar a string para array
             strcpy(data, str);
         }
         
@@ -2785,7 +2827,7 @@ void inserir_estudante(Uni * bd) {
             if(posicao_insercao_aluno < 0) { //Não se verifica escolares pois nunca há códigos em escolares que não estejam em aluno
                 posicao_insercao_aluno = -(posicao_insercao_aluno + 1);
                 posicao_insercao_escolares = procurar_codigo_escolares(codigo_temp, bd);
-                if (posicao_insercao_escolares == 0) { //Necessário porque procurar não printa erros.
+                if (posicao_insercao_escolares == 0) { //Necessário porque procurar não printa erros
                     printf("Ocorreu um erro a procurar o índice dos dados escolares.\n");
                     printf("Por favor tente novamente.\n");
                     pressione_enter();
@@ -2794,7 +2836,7 @@ void inserir_estudante(Uni * bd) {
                 //Não se verifica se é < 0 porque sabemos que se não existe em aluno não existe em escolares
                 posicao_insercao_escolares = -(posicao_insercao_escolares + 1);
                 ordenar_ao_inserir(codigo_temp, bd, posicao_insercao_aluno, posicao_insercao_escolares);
-                //Trocam-se as posições do array. O código é inserido. O resto inicializado.
+                //Trocam-se as posições do array. O código é inserido. O resto inicializado
                 break; 
             }
         } while (1);
@@ -2813,7 +2855,7 @@ void inserir_estudante(Uni * bd) {
             break;
         } while(1);
 
-        //Ler data já faz as validações necessárias e coloca a data.
+        //Ler data já faz as validações necessárias e coloca a data
         ler_data(&(bd->aluno[posicao_insercao_aluno].nascimento), NULL, '1');
         
         do {
@@ -2922,7 +2964,7 @@ void inserir_estudante(Uni * bd) {
             bd->escolares[posicao_insercao_escolares].media_atual = media_temp;
             break;
         } while(1);
-        //Estatísticas estão destaualizadas
+        //Estatísticas estão desatualizadas
         bd->stats.atualizado = '0';
 
         printf("\nO código %d foi introduzido com sucesso!\n", bd->aluno[posicao_insercao_aluno].codigo);
@@ -3060,7 +3102,7 @@ void eliminar_estudante(Uni * bd) {
  *       - Em risco de prescrição
  */
 void calcular_estatisticas(Uni * bd) {
-    //Inicializar caso já tenhamos chamado a função antes.
+    //Inicializar caso já tenhamos chamado a função antes
     bd->stats.media_matriculas = 0.0;
     bd->stats.finalistas = 0;
     bd->stats.media = 0.0;
@@ -3073,7 +3115,7 @@ void calcular_estatisticas(Uni * bd) {
         bd->stats.media += bd->escolares[i].media_atual;
         //Finalistas
         if (bd->escolares[i].ects >= CREDITOS_FINALISTA) {
-            bd->escolares[i].finalista = '1'; //Marcar o aluno como finalista.
+            bd->escolares[i].finalista = '1'; //Marcar o aluno como finalista
             bd->stats.finalistas++;
         }
         else bd->escolares[i].finalista = '0';
@@ -3086,7 +3128,7 @@ void calcular_estatisticas(Uni * bd) {
         }
         else bd->escolares[i].prescrever = '0';
     }
-    //Tratar da divisão por zero.
+    //Tratar da divisão por zero
     if (bd->tamanho_escolares != 0) {
         bd->stats.media_matriculas /= bd->tamanho_escolares;
         bd->stats.media /= bd->tamanho_escolares;
@@ -3095,7 +3137,7 @@ void calcular_estatisticas(Uni * bd) {
         bd->stats.media_matriculas = 0.0;
         bd->stats.media = 0.0;
     }
-    //Estatísticas estão atualizadas.
+    //Estatísticas estão atualizadas
     bd->stats.atualizado = '1';
 }
 
@@ -3117,21 +3159,21 @@ void calcular_media_matriculas(Uni * bd) {
         switch(opcao) {
             case '0': return;
             case '1':
-                //Tratar do caso da divisão por zero.
+                //Tratar do caso da divisão por zero
                 if (bd->tamanho_escolares == 0) {
                     printf("Não há alunos!\n"); 
                     break;
                 }
-                //Media já foi calculada.
+                //Media já foi calculada
                 printf("O número médio de matrículas geral é de %.1f.\n", bd->stats.media_matriculas);
                 pressione_enter();
                 break;
             case '2':
                 float media_matriculas_nacionalidade = 0.0; 
-                int indice = 0; //Indice em escolares.
+                int indice = 0; //Indice em escolares
                 short contador = 0;
-                //Pedir uma nacionalidade correta.
                 
+                //Pedir uma nacionalidade correta
                 char ** nacionalidades = procurar_nacionalidades(bd, 1, "Insira a nacionalidade da qual quer saber a média de matrículas");
                 if (!nacionalidades) {
                     pressione_enter();
@@ -3140,7 +3182,7 @@ void calcular_media_matriculas(Uni * bd) {
                 
                 for(int i = 0; i < bd->tamanho_aluno; i++) {
                     if (strcmp(nacionalidades[0], bd->aluno[i].nacionalidade) == 0) {
-                        //O índice de aluno pode ser diferente de escolares.
+                        //O índice de aluno pode ser diferente de escolares
                         indice = procurar_codigo_escolares(bd->aluno[i].codigo, bd);
                         if (indice > 0) {
                             indice -= 1;
@@ -3149,7 +3191,7 @@ void calcular_media_matriculas(Uni * bd) {
                         }
                     }
                 }
-                //Evitar divisão por 0.
+                //Evitar divisão por 0
                 if (contador == 0) {
                     printf("Não foi encontrado nenhum aluno de nacionalidade %s ou o mesmo não possui número de matrículas!\n", nacionalidades[0]);
                     free(nacionalidades[0]);
@@ -3167,7 +3209,7 @@ void calcular_media_matriculas(Uni * bd) {
                 break;
             default: return;
         }
-    } while(1); //Saímos em cima caso seja 0.
+    } while(1); //Saímos em cima caso seja 0
 }
 
 /* Conta alunos num intervalo de médias para um ano específico
@@ -3224,6 +3266,7 @@ void tabela_idade_por_escalao(Uni * bd) {
         break;
     } while(1);
     
+    //Pedir pelos intervalos
     for(int i = 0; i < n_intervalos && valido == '1'; i++) {
         do {
             printf("\nIntervalo %d:\n", i + 1);
@@ -3473,11 +3516,13 @@ void media_idades_por_nacionalidade_e_ano(Uni * bd) {
     }
     
     nacionalidades = procurar_nacionalidades(bd, 1, "Insira a nacionalidade da qual quer saber a média de idades");
-    //Como nacionalidades só tem um parametro, só precisamos de dar free em nacionalidades[0] e nacionalidades.
+    //Como nacionalidades só tem um parâmetro, só precisamos de dar free em nacionalidades[0] e nacionalidades.
     if (!nacionalidades) {
+        pressione_enter();
         return;
     }
     
+    //Pedir a média de idades
     do {
         printf("Quer saber a média de idades de que estudantes de que ano? (1-%hd) ", max_ano);
         if (scanf("%hd", &ano) != 1 || ano < 1 || ano > max_ano) {
@@ -3541,6 +3586,7 @@ void listar(Uni * bd, int indice_aluno, FILE * ficheiro, char separador, short *
     indice_escolares = procurar_codigo_escolares(bd->aluno[indice_aluno].codigo, bd);
     pausa_listagem(contador);
 
+    //Listar no terminal
     printf("Código: %d\n", bd->aluno[indice_aluno].codigo);
     printf("Nome: %s\n", bd->aluno[indice_aluno].nome);
     printf("Data de Nascimento: %02d-%02d-%04d\n", bd->aluno[indice_aluno].nascimento.dia, bd->aluno[indice_aluno].nascimento.mes, bd->aluno[indice_aluno].nascimento.ano);
@@ -3564,9 +3610,10 @@ void listar(Uni * bd, int indice_aluno, FILE * ficheiro, char separador, short *
             printf("Em risco de prescrição: Não\n");
     }
     printf("\n");
-    indice_escolares++; //Precisamos de uma 'flag' para verificar se escrevemos o escolares nos ficheiros ou não.
+    indice_escolares++; //Precisamos de uma 'flag' para verificar se escrevemos o escolares nos ficheiros ou não
+    //Listar no ficheiro
     if (ficheiro) {
-        //Colocar \n apenas se não for nem a primeira nem a última entrada.
+        //Colocar \n apenas se não for nem a primeira nem a última entrada
         if (contador && *contador > 0) fprintf(ficheiro, "\n");
 
         fprintf(ficheiro, "%d%c", bd->aluno[indice_aluno].codigo, separador);
@@ -3605,6 +3652,7 @@ void listar_info_estudante(Uni * bd) {
         pedir_codigo(&codigo);
         if (codigo == 0) return;
 
+        //Procurar índice 
         indice_aluno = procurar_codigo_aluno(codigo, bd);
         if (indice_aluno > 0) {
             indice_aluno--;
@@ -3643,10 +3691,11 @@ void procurar_estudante_por_nome(Uni * bd) {
         contador = 0;
         listagem = NULL;
         limpar_terminal();
-        //Verificar se queremos fazer uma listagem
+        //Listagem
         listagem = pedir_listagem(formato);
         separador = obter_separador(listagem, formato);
         
+        //Pedir nome
         do {
             parte_nome = NULL;
             printf("Introduza parte do nome do estudante a procurar: ");
@@ -3659,14 +3708,13 @@ void procurar_estudante_por_nome(Uni * bd) {
             }
             break;
         } while(1);
-        //Faz-se isto para evitar mudar o nome da variável.
-        //Colocar a string introduzida em minúsculas para evitar erros de procura.
-        char * temp = strdup(parte_nome);
+        //Faz-se isto para evitar mudar o nome da variável
+        char * orig = strdup(parte_nome);
         parte_nome = normalizar_string(parte_nome);
 
-        printf("Resultados da pesquisa para \"%s\": \n\n", temp);
+        printf("Resultados da pesquisa para \"%s\": \n\n", orig);
         for(int i = 0; i < bd->tamanho_aluno; i++) {
-            //Colocar todos os dados a letras minúsculas.
+            //Colocar todos os dados a letras minúsculas
             char * nome = normalizar_string(bd->aluno[i].nome);
             if (nome) {
                 //strstr(s1, s2) é uma função que retorna a primeira ocorrência de s2 em s1
@@ -3678,8 +3726,8 @@ void procurar_estudante_por_nome(Uni * bd) {
             }
         }
         if (contador == 0) 
-            printf("Não foi encontrado nenhum estudante com parte do nome \"%s\".\n", temp);
-        free(temp); //Libertamos o ponteiro original para não haver memory leaks.
+            printf("Não foi encontrado nenhum estudante com parte do nome \"%s\".\n", orig);
+        free(orig); //Libertamos o ponteiro original para não haver memory leaks
 
         pressione_enter();
         printf("\n---------------------FIM DE LISTAGEM---------------------\n\n");
@@ -3817,8 +3865,8 @@ void listar_aniversarios_por_dia(Uni * bd) {
         listagem = pedir_listagem(formato);
         separador = obter_separador(listagem, formato);
 
-        //Lembrar que se for 7, na verdade é o 0 na função calcular_dia_da_semana.
-        if (opcao == 7) opcao = 0; //Como já saímos do menu, ajustamos para a mesma ordem que a função calcular_dia_da_semana retornará.
+        //Lembrar que se for 7, na verdade é o 0 na função calcular_dia_da_semana
+        if (opcao == 7) opcao = 0; //Como já saímos do menu, ajustamos para a mesma ordem que a função calcular_dia_da_semana retornará
         
         if (opcao == 0 || opcao == 1) printf("Estudantes nascidos no %s:\n\n", dias_da_semana[opcao]); //Ajuste gramatical
         else printf("Estudantes nascidos na %s:\n\n", dias_da_semana[opcao]);
@@ -3864,9 +3912,11 @@ void listar_aniversario_ao_domingo(Uni * bd) {
         listagem = NULL;
         limpar_terminal();
 
+        //Listagem
         listagem = pedir_listagem(formato);
         separador = obter_separador(listagem, formato);
 
+        //Pedir ano
         do {
             printf("Insira o ano: ");
             if (scanf("%hd", &ano) != 1 || ano <= 0 || ano > DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS) {
@@ -3874,7 +3924,11 @@ void listar_aniversario_ao_domingo(Uni * bd) {
                 limpar_buffer();
                 continue;
             }
-        break;
+            if (!verificar_e_limpar_buffer()) {
+                printf("Ano inválido. Tente novamente.\n");
+                continue;
+            }
+            break;
         } while (1);
 
         printf("Estudantes cujo aniversário é ao domingo em %hd:\n\n", ano);
@@ -3922,9 +3976,11 @@ void listar_aniversario_na_quaresma(Uni * bd) {
         listagem = NULL;
         limpar_terminal();
 
+        //Listagem
         listagem = pedir_listagem(formato);
         separador = obter_separador(listagem, formato);
 
+        //Pedir o ano
         do {
             printf("Insira o ano: ");
             if (scanf("%hd", &ano) != 1 || ano <= 0 || ano > DATA_ATUAL.ano + ANOS_AVANCO_PROCURAS) {
@@ -3932,27 +3988,31 @@ void listar_aniversario_na_quaresma(Uni * bd) {
                 limpar_buffer();
                 continue;
             }
-        break;
+            if (!verificar_e_limpar_buffer()) {
+                printf("Ano inválido. Tente novamente.\n");
+                continue;
+            }
+            break;
         } while (1);
-        limpar_buffer();
         limpar_terminal();
 
-        //Calcular a data da quaresma no ano pedido.
+        //Calcular a data da quaresma no ano pedido
         calcular_quaresma(ano, &inicio, &fim);
         
         printf("Estudantes cujo aniversário é na Quaresma em %hd:\n\n", ano);
         for(int i = 0; i < bd->tamanho_aluno; i++) {
-            //Comparar_data não funcionava originalmente porque comparava tudo, logo foi acrescentada uma opção de exluir o ano e comparar apenas mes e dia.
+            //Comparar_data não funcionava originalmente porque comparava tudo, logo foi acrescentada uma opção de exluir o ano e comparar apenas mês e dia
             if (comparar_data(inicio, bd->aluno[i].nascimento, '1') == -1 && comparar_data(fim, bd->aluno[i].nascimento, '1') == 1) { 
                 listar(bd, i, listagem, separador, &contador);
             }
         }
+        if (listagem) fclose(listagem);
+
         if (contador == 0) {
             printf("Não foi encontrado nenhum estudante cujo aniversário fosse na Quaresma em %hd.\n", ano);
         }
         printf("\n---------------------FIM DE LISTAGEM---------------------\n\n");
         pressione_enter();
-        if (listagem) fclose(listagem);
 
         printf("\nQuer inserir um ano diferente? (S/N): ");
         if(!sim_nao()) return;
@@ -3974,8 +4034,9 @@ void prescrito(Uni * bd) {
     char formato[MAX_FORMATO]; 
     FILE * listagem = NULL;
     char separador;
-
     limpar_terminal();
+
+    //Listagem
     listagem = pedir_listagem(formato);
     separador = obter_separador(listagem, formato);
 
@@ -3990,12 +4051,13 @@ void prescrito(Uni * bd) {
             }
         }
     }
+    if (listagem) fclose(listagem);
+
     if (contador == 0) {
             printf("Não foi encontrado nenhum estudante em risco de prescrição.\n");
     }
     printf("\n---------------------FIM DE LISTAGEM---------------------\n\n");
     pressione_enter();
-    if (listagem) fclose(listagem);
 }
 
 /* Lista alunos finalistas
@@ -4014,12 +4076,12 @@ void finalistas(Uni * bd) {
     char formato[MAX_FORMATO]; 
     FILE * listagem = NULL;
     char separador;
-
     limpar_terminal();
+    
+    //Listagem
     listagem = pedir_listagem(formato);
     separador = obter_separador(listagem, formato);
 
-    //Ao fazer este loop evitamos ir até ao final do array caso no fim não haja prescrevidos.
     printf("Alunos finalistas: \n\n");
     for (int i = 0; contador < bd->stats.finalistas; i++) {
         if (bd->escolares[i].finalista == '1') {
@@ -4030,6 +4092,8 @@ void finalistas(Uni * bd) {
             }
         }
     }
+    if (listagem) fclose(listagem);
+
     if (contador == 0) {
         printf("Não foram encontrados alunos finalistas.\n");
     }
@@ -4063,6 +4127,7 @@ void listar_estudantes_por_data_e_nacionalidades(Uni *bd) {
 
     limpar_terminal();
 
+    //Listagem
     listagem = pedir_listagem(formato);
     separador = obter_separador(listagem, formato);
 
@@ -4080,10 +4145,15 @@ void listar_estudantes_por_data_e_nacionalidades(Uni *bd) {
     limpar_buffer();
     limpar_terminal();
 
+    //Pedir as nacionalidades
     nacionalidades = procurar_nacionalidades(bd, n_nacionalidades, NULL);
-    if (!nacionalidades) return;
+    if (!nacionalidades) {
+        pressione_enter();
+        return;
+    }
+
     do {
-        //Data inferior.
+        //Data inferior
         do {
             char * data = NULL;
             printf("Insira a data inferior (DD-MM-AAAA): ");
@@ -4091,9 +4161,9 @@ void listar_estudantes_por_data_e_nacionalidades(Uni *bd) {
             if (!data) continue;
 
             ler_data(&inf, data, '1');
-            free(data); //Libertamos porque temos a certeza que != NULL.
+            free(data); //Libertamos porque temos a certeza que != NULL
         } while(inf.dia == 0);
-        //Data superior.
+        //Data superior
         do {
             char * data = NULL;
             printf("Insira a data superior (DD-MM-AAAA): ");
@@ -4103,8 +4173,9 @@ void listar_estudantes_por_data_e_nacionalidades(Uni *bd) {
             ler_data(&sup, data, '1');
             free(data);
         } while(sup.dia == 0);
-    } while(comparar_data(sup, inf, '0') == -1); //Apenas saímos se sup >= inf.
+    } while(comparar_data(sup, inf, '0') == -1); //Apenas saímos se sup >= inf
 
+    //Listar
     printf("\nAlunos nascidos entre %02hd-%02hd-%04hd e %02hd-%02hd-%04hd e pertencentes às nacionalidades escolhidas: \n\n", 
         inf.dia, inf.mes, inf.ano, sup.dia, sup.mes, sup.ano);
 
@@ -4166,7 +4237,7 @@ void remover_espacos(char * str) {
         fim--;
     }
 
-    //Colocamos o nul char no final, de modo a sinalizar o fim da string. 
+    //Colocamos o nul char no final
     *(fim + 1) = '\0';
 }
 
@@ -4186,7 +4257,7 @@ void remover_espacos(char * str) {
  */
 void separar_parametros(const char * linha, char ** parametros, int * num_parametros) { // char ** parametros serve para armazenar os ponteiros dos parametros, de modo a que não sejam perdidos
     if(linha == NULL || parametros == NULL || num_parametros == NULL) return;
-    char * inicio = strdup(linha); //Ponteiro para o inicio da linha, que não deve ser alterado
+    char * inicio = strdup(linha); //Ponteiro para o inicio da linha
     //!!NOTA IMPORTANTE - É feita uma cópia da linha pois caso contrário, caso a função tenha um erro em qualquer parte, a linha original será perdida!!
     char * fim = NULL;
     //Não colocamos *num_parametros = 0 pois esta função poderá ser chamada várias vezes numa linha, e não queremos alterar a var nesse caso
@@ -4197,23 +4268,23 @@ void separar_parametros(const char * linha, char ** parametros, int * num_parame
 
         //Vamos veriricar se o ponteiro atual de fim é um separador ou o fim da linha, caso não seja avançamos
         while(*fim != SEPARADOR && *fim != '\0' && *fim != '\n') fim++;
-        //Aqui fim está a apontar para o separador, o fim da linha ou um \n (se bem que neste caso \n é o fim da linha
+        //Aqui fim está a apontar para o separador, o fim da linha ou um \n (se bem que neste caso \n é o fim da linha)
         char temp = *fim; //Armazena o tab ou o nul char
-        *fim = '\0'; //vai terminar a string de inicio (ou seja, um parametro); também corta o \n aqui, se exitir
+        *fim = '\0'; //vai terminar a string de inicio (ou seja, um parâmetro); também corta o \n aqui, se exitir
         remover_espacos(inicio);
 
         if (*inicio != '\0') { //Se o inicio não for o fim da linha, então temos um parametro
             //Alocamos memória para o parametro e copia o conteúdo
-            parametros[indice] = malloc(strlen(inicio) + 1); //Lembrar que parametros recebe um ponteiro.
+            parametros[indice] = malloc(strlen(inicio) + 1); //Lembrar que parâmetros recebe um ponteiro
             if (parametros[indice] != NULL) {
-                strcpy(parametros[indice], inicio);
+                strcpy(parametros[indice], inicio); //inicio é copiado, logo não necessita de free() (apenas em carregar_dados)
                 indice++;
                 (*num_parametros)++;
             }
             else {
                 //ERRO!!
-                *num_parametros = 0; //Usamos num_parametros como uma flag para evitar que a linha seja lida.
-                //Talvez fosse bom encontrar uma forma diferente de fazer isso sem levar o user a erro.
+                *num_parametros = 0; //Usamos num_parametros como uma flag para evitar que a linha seja lida
+                //Talvez fosse bom encontrar uma forma diferente de fazer isso sem levar o user a erro
                 //Libertar a memória alocada até ao indice atual
                 for (int i = 0; i < indice; i++) 
                     free(parametros[i]); 
@@ -4237,7 +4308,6 @@ void limpar_buffer() {
     while ((lixo = getchar()) != '\n' && lixo != EOF);
 }
 
-
 /* Verifica e limpa buffer do teclado
  *
  * @return int  1 se buffer só tem \n, 0 se tiver outros caracteres
@@ -4254,7 +4324,7 @@ int verificar_e_limpar_buffer() {
         limpar_buffer(); //limpamos o buffer (pois ainda há o enter, pelo menos)
         return 0;
     }
-    //Se estamos aqui, então o caracter é o \n, e já foi lido, logo não precisamos de fazer nada
+    //Se estamos aqui, então o caracter é o \n, e já foi lido, logo não precisamos fazer nada
     return 1;
 }
 
@@ -4268,7 +4338,7 @@ void limpar_terminal() {
     #ifdef _WIN32 //_WIN32 é uma variável local automaticamente pre-definida pelo windows em todos os sistemas
         system("cls"); //Sistemas windows
     #else
-        system("clear"); //Sistemas linux, macOs, etc
+        system("clear"); //Sistemas linux, macos, etc
     #endif
 }
 
@@ -4300,7 +4370,7 @@ void pausa_listagem(short * contador) {
  */
 void pressione_enter() {
     printf("Pressione Enter para continuar.\n");
-    while (getchar() != '\n'); //Caso o user escreva algo e não enter limpar buffer
+    while (getchar() != '\n'); //Caso o user escreva algo e não enter
 }
 
 /* Coloca terminal para UTF-8
@@ -4318,7 +4388,7 @@ void colocar_terminal_utf8() {
             printf("Ocorreu um erro ao configurar o terminal do Windows para UTF-8.\n");
             printf("A aplicação irá continuar. Desformatação será visível. Para resolver, reinicie a aplicação.\n");
         }
-	    setlocale(LC_NUMERIC, "Portuguese"); //Apenas afeta os números , ou seja, muda a notação de floats de . para ,
+	    setlocale(LC_NUMERIC, "Portuguese"); //Apenas afeta os números , ou seja, muda a notação de floats de '.' para ','
     #else
         setlocale(LC_ALL, "pt_PT.UTF-8");
     #endif
@@ -4335,10 +4405,9 @@ void colocar_terminal_utf8() {
  * @note Formata cabeçalho de erro
  */
 void verificar_primeiro_erro(FILE * erros, char * primeiro_erro, const char * nome_ficheiro) {
-    //Não é necessário verificar se algum ponteiro é NULL porque já os utilizamos antes, logo sabemos que não são NULL
     if (*primeiro_erro == '1' && erros) {
         *primeiro_erro = '0';
-        fprintf(erros, "\n\n"); //Caso seja o primeiro erro queremos separar o ficheiro de erros com 3\n
+        fprintf(erros, "\n\n"); 
         fprintf(erros, "==>ERROS AO LER O FICHEIRO %s\n\n", nome_ficheiro);
     }
 }
@@ -4456,7 +4525,7 @@ int string_para_short(const char * str, short * resultado) {
     if (ptr_fim == str || *ptr_fim != '\0') {
         return 0; 
     }
-    
+    //Verificar limites
     if (valor >= SHRT_MAX || valor <= SHRT_MIN) {
         return 0; 
     }
@@ -4483,7 +4552,7 @@ int string_para_float(const char * str, float * resultado) {
     
     //Verificar erros de conversão
     if (ptr_fim == str || *ptr_fim != '\0') {
-        return 0;  //Se o ponteiro de fim da str for igual ao ptr do inicio, não há um int; Se for diferente de nul char então também houve erro porque há caracteres indesejados
+        return 0; 
     }
     //Já não há necessidade de verificar limites pois converte diretamente para float
     *resultado = (float) valor;
@@ -4605,12 +4674,14 @@ Data calcular_quarta_feira_cinzas(Data pascoa) {
 void calcular_quaresma(int ano, Data * inicio, Data * fim) {
     if (!inicio || !fim) return;
 
+    //Calcular data inicial e final + 3
     *fim = calcular_domingo_pascoa(ano);
     *inicio = calcular_quarta_feira_cinzas(*fim);
 
     //Quaresma acaba na quinta feira santa, logo temos de subtrair 3(domingo, sábado, sexta -> quinta)
     fim->dia -=3;
 
+    //Ajustar data
     if (fim->dia <= 0) {
         fim->mes--;
         //Fevereiro
@@ -4659,6 +4730,7 @@ unsigned long calcular_checksum(Uni * bd) {
         //Nome
         size_t tamanho_nome = strlen(bd->aluno[i].nome); //Não inclui '\0'
         soma += tamanho_nome + 1; //'\0'
+
         //Nota: '\0' está incluído pois j começa em 0
         for(size_t j = 0; j < tamanho_nome; j++) { //size_t porque strlen retorna size_t
             soma += (unsigned long) bd->aluno[i].nome[j];
@@ -4667,6 +4739,7 @@ unsigned long calcular_checksum(Uni * bd) {
         //Nacionalidade
         size_t tamanho_nacionalidade = strlen(bd->aluno[i].nacionalidade);
         soma += tamanho_nacionalidade + 1;
+
         for(size_t j = 0; j < strlen(bd->aluno[i].nacionalidade); j++) { 
             soma += (unsigned long) bd->aluno[i].nacionalidade[j];
         }
@@ -4704,6 +4777,7 @@ int sim_nao() {
     char opcao;
     do {
         scanf(" %c", &opcao);
+        //Verificar entradas inválidas
         if (!verificar_e_limpar_buffer()) {
             printf("Entrada inválida! Por favor tente novamente. Utilize 'S' ou 'N': ");
             continue;
@@ -4714,7 +4788,7 @@ int sim_nao() {
         else if (opcao == 'n' || opcao == 'N') {
             return 0;
         }
-        printf("\nOpção inválida. Use S ou N: ");
+        printf("\nOpção inválida. Use 'S' ou 'N': ");
     } while (1);
 }
 
@@ -4732,7 +4806,7 @@ void pedir_codigo(int * codigo) {
     *codigo = 0;
     char * input = NULL;
     do {
-        //Usamos ler_linha_txt para evitar overflows (o código é mais grave por causa dos algoritmos de procura)
+        //Usamos ler_linha_txt para evitar overflows
         printf("Insira o código do estudante (ou '0' para sair): ");
         input = ler_linha_txt(stdin, NULL);
         if (!input) continue;
@@ -4767,7 +4841,7 @@ char obter_separador(FILE * ficheiro, char * formato) {
     if(ficheiro) {
         if (strcmp(formato, ".txt") == 0) separador = '\t';
         else if (strcmp(formato, ".csv") == 0) separador = ',';
-        //Cabeçalho do ficheiro de listagem.
+        //Printar cabeçalho do ficheiro de listagem.
         fprintf(ficheiro, "Código%cNome%cData de Nascimento%cNacionalidade%cMatrículas%cECTS%cAno de curso%cMédia\n", separador, separador, separador, separador,
             separador, separador, separador); 
     }
@@ -4784,12 +4858,12 @@ char obter_separador(FILE * ficheiro, char * formato) {
  */
 short calcular_idade(Data nascimento) {
     short idade = DATA_ATUAL.ano - nascimento.ano;
-    //Ainda não passou o mês logo a idade está +1.
+    //Ainda não passou o mês logo a idade está +1
     if (DATA_ATUAL.mes < nascimento.mes) return (idade - 1);
-    //Já passou o mês logo já fizeram anos. 
+    //Já passou o mês logo já fizeram anos
     else if (DATA_ATUAL.mes > nascimento.mes) return idade;
     //Meses iguais:
-    if (DATA_ATUAL.dia >= nascimento.dia) return idade; //Ou é o aniverário ou já passou.
+    if (DATA_ATUAL.dia >= nascimento.dia) return idade; //Ou é o aniverário ou já passou
     return (idade - 1);
 }
 
@@ -4805,7 +4879,13 @@ short calcular_idade(Data nascimento) {
  * @note Retorna NULL se erro
  */
 char * normalizar_string(char * str) {
-    //NAO FUNCIONA
+    /*
+    !Não funciona:
+    -O objetivo desta parte seria colocar tudo a minúsculas (funciona) e alterar todos os acentos ou 'ç' para caracteres normais
+    -Nem usando os valores hexadecimais foi possível
+    -Seria possível fazer isto funcionar, possivelmente usando a biblioteca <iconv.h>, mas por falta de tempo não foi implementado
+    -Apesar disso, a função funciona sem erros, e as procuras também, no entanto, estão mais condicionadas
+    */
     char acentuados[] = {
         0xE0, 0xE1, 0xE2, 0xE3,  // à á â ã
         0xE7,                    // ç
@@ -4819,6 +4899,7 @@ char * normalizar_string(char * str) {
     
     //Cópia da string para não alterar o original.
     char * resultado = strdup(str);
+    free(str); //Libertar a original para evitar fugas de memória
     if (!resultado) return NULL;
     //Colocar tudo a minúsculas.
     strlwr(resultado);
@@ -4826,7 +4907,7 @@ char * normalizar_string(char * str) {
     for (int i = 0; resultado[i]; i++) {
         char * acento = strchr(acentuados, resultado[i]);
         if (acento) {
-            int pos = acento - acentuados; //- acentuados porque estamos a usar ponteiros.
+            int pos = acento - acentuados;
             resultado[i] = sem_acentos[pos];
         }
     }
@@ -4844,9 +4925,11 @@ char * normalizar_string(char * str) {
  * @note Referência: //https://www.geeksforgeeks.org/time-h-header-file-in-c-with-examples/
  */
 void data_atual() {
+    //Obter a data atual usando time.h
     time_t t = time(NULL);
     struct tm * tm_atual = localtime(&t);
     
+    //Passar para a variável global
     DATA_ATUAL.dia = tm_atual->tm_mday;
     DATA_ATUAL.mes = tm_atual->tm_mon + 1; //tm_mon vai de 0-11
     DATA_ATUAL.ano = tm_atual->tm_year + 1900;
