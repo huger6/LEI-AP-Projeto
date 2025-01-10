@@ -1,5 +1,12 @@
 #include "headers.h"
 
+/*
+Todas as versões do programa estão disponíveis no seguinte repositório do github:
+https://github.com/huger6/TrabalhoAP
+
+No entanto, é de notar que há alguns ficheiros que podem estar desatualizados
+*/
+
 int main(void) {
 	//Limpar quaisquer resíduos de iterações anteriores
 	limpar_terminal();
