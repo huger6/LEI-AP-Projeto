@@ -4744,17 +4744,16 @@ unsigned long calcular_checksum(Uni * bd) {
         size_t tamanho_nome = strlen(bd->aluno[i].nome); //Não inclui '\0'
         soma += tamanho_nome + 1; //'\0'
 
-        //Nota: '\0' está incluído pois j começa em 0
-        for(size_t j = 0; j < tamanho_nome; j++) { //size_t porque strlen retorna size_t
-            soma += (unsigned long) bd->aluno[i].nome[j];
+        for (const char * letra = bd->aluno[i].nome; *letra; letra++) {
+            soma += (unsigned long) *letra;
         }
         
         //Nacionalidade
         size_t tamanho_nacionalidade = strlen(bd->aluno[i].nacionalidade);
         soma += tamanho_nacionalidade + 1;
 
-        for(size_t j = 0; j < strlen(bd->aluno[i].nacionalidade); j++) { 
-            soma += (unsigned long) bd->aluno[i].nacionalidade[j];
+        for (const char * letra = bd->aluno[i].nacionalidade; *letra; letra++) {
+            soma += (unsigned long) *letra;
         }
     }
 
@@ -4880,51 +4879,72 @@ short calcular_idade(Data nascimento) {
     return (idade - 1);
 }
 
-/* Normaliza string (minúsculas sem acentos)
+/* Normaliza uma string removendo acentos e convertendo para minúsculas
  *
- * @param str    String original
+ * @param str    String a normalizar. Deve estar codificada em UTF-8.
+ *               Não é modificada pela função.
  *
- * @return char* Nova string normalizada (alocar free)
+ * @return char* Nova string alocada dinamicamente contendo:
+ *         - String normalizada sem acentos e em minúsculas
+ *         - NULL se str for NULL ou ocorrer erro de memória
  *         
- * @note Faz cópia da string
- * @note Remove acentos e ç (NÃO FUNCIONA)
- * @note Converte para minúsculas
- * @note Retorna NULL se erro
+ * @note Arrays estáticos usados para mapear caracteres acentuados para não acentuados
+ * @note A string retornada deve ser libertada com free()
+ * @note Suporta caracteres UTF-8 multi-byte através de strstr()
  */
 char * normalizar_string(char * str) {
+    if (!str) return NULL;
     /*
-    !Não funciona:
-    -O objetivo desta parte seria colocar tudo a minúsculas (funciona) e alterar todos os acentos ou 'ç' para caracteres normais
-    -Nem usando os valores hexadecimais foi possível
-    -Seria possível fazer isto funcionar, possivelmente usando a biblioteca <iconv.h>, mas por falta de tempo não foi implementado
-    -Apesar disso, a função funciona sem erros, e as procuras também, no entanto, estão mais condicionadas
+    Esta solução de retirar os acentos foi feita pelo copilot
+    Apesar de já ter sido desenvolvida uma solução semelhante, os arrays eram inicializados com caracteres invisíveis ou com "?"
+    Tentou-se usar a <iconv.h> mas também não funcionou
+    Não sei porque é que se decidiu funcionar desta vez, mas funciona :)
+    Presumo que seja por se compararem os caracteres com o strchr e aqui usa-se o strstr (talvez por terem acentos o strchr não funcione como o esperado (espera apeans 1 byte))
     */
-    char acentuados[] = {
-        0xE0, 0xE1, 0xE2, 0xE3,  // à á â ã
-        0xE7,                    // ç
-        0xE8, 0xE9, 0xEA,        // è é ê
-        0xEC, 0xED, 0xEE,        // ì í î
-        0xF2, 0xF3, 0xF4, 0xF5,  // ò ó ô õ
-        0xF9, 0xFA, 0xFB,        // ù ú û
-        0                        //Nul char
-    };
-    char sem_acentos[] = "aaaaceeeiiioooouuu";
-    
-    //Cópia da string para não alterar o original.
-    char * resultado = strdup(str);
-    //Não damos free em str pois pode ser um dado original/dos arrays
-    if (!resultado) return NULL;
-    //Colocar tudo a minúsculas.
-    strlwr2(resultado);
+    const char * acentos[] = {"á","à","ã","â","ä","é","è","ê","ë","í","ì","î","ï",
+                            "ó","ò","õ","ô","ö","ú","ù","û","ü","ý","ÿ","ñ","ç",
+                            "Á","À","Ã","Â","Ä","É","È","Ê","Ë","Í","Ì","Î","Ï",
+                            "Ó","Ò","Õ","Ô","Ö","Ú","Ù","Û","Ü","Ý","Ÿ","Ñ","Ç"};
+    const char * sem_acentos[] = {"a","a","a","a","a","e","e","e","e","i","i","i","i",
+                                "o","o","o","o","o","u","u","u","u","y","y","n","c",
+                                "A","A","A","A","A","E","E","E","E","I","I","I","I",
+                                "O","O","O","O","O","U","U","U","U","Y","Y","N","C"};
+    const int n_chars = sizeof(acentos)/sizeof(acentos[0]);
 
-    for (int i = 0; resultado[i]; i++) {
-        char * acento = strchr(acentuados, resultado[i]);
-        if (acento) {
-            int pos = acento - acentuados;
-            resultado[i] = sem_acentos[pos];
+    //Duplicar string original
+    char * resultado = strdup(str);
+    if (!resultado) return NULL;
+
+    //Para cada caracter acentuado possível
+    for (int i = 0; i < n_chars; i++) {
+        //Alocar string temporária
+        char * temp = NULL;
+        //Enquanto encontrar ocorrências do acento atual
+        const char * pos = strstr(resultado, acentos[i]);
+        while (pos != NULL) {
+            int indice = pos - resultado;
+            //Realocar string com espaço para substituição
+            temp = malloc(strlen(resultado) + 1);
+            if (!temp) {
+                free(resultado);
+                return NULL;
+            }
+            //Copiar parte antes do acento
+            strncpy(temp, resultado, indice);
+            temp[indice] = '\0';
+            //Adicionar char sem acento
+            strcat(temp, sem_acentos[i]);
+            //Adicionar resto da string
+            strcat(temp, pos + strlen(acentos[i]));
+            //Atualizar resultado
+            free(resultado);
+            resultado = temp;
+            pos = strstr(resultado, acentos[i]);
         }
     }
-    
+
+    //Converter para minúsculas
+    strlwr2(resultado);
     return resultado;
 }
 

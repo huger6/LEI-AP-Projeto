@@ -5,6 +5,17 @@ Todas as versões do programa estão disponíveis no seguinte repositório do gi
 https://github.com/huger6/TrabalhoAP
 
 No entanto, é de notar que há alguns ficheiros que podem estar desatualizados
+
+Para compilar em Win, usar:
+	gcc -Wall -Wextra -g -O0 -std=c23 -o (**FILENAME**) main.c funcoes.c
+
+	Testado com o compilador GGC em C23, no Windows 11 Home 23H2 (64bits)
+
+Para compilar em Linux, usar:
+	gcc -std=c2x -Wall -Wextra -o (**FILENAME**) main.c funcoes.c -D_XOPEN_SOURCE=700
+
+	Garantir que estamos a usar gcc13 (C23) - Testado na versão 13.1.0
+	Testado em Linux Ubuntu 20.04.6 LTS
 */
 
 int main(void) {
