@@ -54,15 +54,25 @@ char * ler_linha_txt(FILE * ficheiro, int * n_linhas) {
         linha[tamanho_total] = '\0'; 
 
         //Verificamos se a linha está completa
-        if (linha[tamanho_total - 1] == '\n') { //se tudo tiver sido copiado, o ultimo caracter do buffer(e da linha também) será o '\n'
+        if (tamanho_total > 0 && linha[tamanho_total - 1] == '\n') { //se tudo tiver sido copiado, o ultimo caracter do buffer(e da linha também) será o '\n'
+            tamanho_total--;
+            linha[tamanho_total] = '\0';
+            //Remover \r caso exista 
+            if (tamanho_total > 0 && linha[tamanho_total - 1] == '\r') {
+                tamanho_total--;
+                linha[tamanho_total] = '\0';
+            }
             if (n_linhas != NULL) (*n_linhas)++;
-            linha[tamanho_total - 1] = '\0'; //Substitui o \n por \0
             return linha;
         }
     }
 
     //Linha sem '\n' mas tem conteúdo (por ex: última linha)
     if (linha && tamanho_total > 0) {
+        // Remove \r final se presente
+        if (linha[tamanho_total - 1] == '\r') {
+            linha[tamanho_total - 1] = '\0';
+        }
         if (n_linhas != NULL) (*n_linhas)++;
         return linha;
     }
@@ -4905,7 +4915,7 @@ char * normalizar_string(char * str) {
     //Não damos free em str pois pode ser um dado original/dos arrays
     if (!resultado) return NULL;
     //Colocar tudo a minúsculas.
-    strlwr(resultado);
+    strlwr2(resultado);
 
     for (int i = 0; resultado[i]; i++) {
         char * acento = strchr(acentuados, resultado[i]);
@@ -4917,6 +4927,30 @@ char * normalizar_string(char * str) {
     
     return resultado;
 }
+
+/* Converte string para minúsculas
+ *
+ * @param str   String a converter
+ * 
+ * @return Ponteiro para a string convertida ou NULL se:
+ *         - str for NULL
+ *         
+ * @note Modifica a string original
+ * @note Usa unsigned char para suportar caracteres estendidos ASCII
+ * @note Versão segura do strlwr() da string.h (para linux)
+ */
+char * strlwr2(char * str) {
+    if (!str) return NULL;
+    
+    unsigned char * p = (unsigned char *)str;
+
+    while (*p) {
+        *p = tolower((unsigned char)*p);
+        p++;
+    }
+
+    return str;
+}   
 
 /* Atualiza a data atual global
  *

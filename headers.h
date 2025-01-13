@@ -48,6 +48,7 @@
 #include <locale.h>
 #include <string.h>
 #include <wctype.h> //Para fazer verificações relativas aos dados introduzidos (iswalpha)
+#include <ctype.h>
 #include <time.h> //Para calcular idades
 #include <limits.h> //Para verificar limites nas conversões
 
@@ -223,6 +224,7 @@ void pedir_codigo(int * codigo);
 char obter_separador(FILE * ficheiro, char * formato);
 short calcular_idade(Data nascimento);
 char * normalizar_string(char * str);
+char * strlwr2(char * str);
 void data_atual();
 
 #endif
