@@ -3258,6 +3258,7 @@ int alunos_por_media_e_ano(Uni * bd, float media_min, float media_max, short ano
  * @note Calcula idade via calcular_idade()
  */
 void tabela_idade_por_escalao(Uni * bd) {
+    limpar_terminal();
     short n_intervalos = 0;
     short idade_inf[MAX_INTERVALOS];
     short idade_sup[MAX_INTERVALOS];
@@ -4947,7 +4948,7 @@ char * normalizar_string(char * str) {
     strlwr2(resultado);
     return resultado;
 }
-
+ 
 /* Converte string para minúsculas
  *
  * @param str   String a converter

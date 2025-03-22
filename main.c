@@ -26,7 +26,7 @@ int main(void) {
     //Colocar a consola em PT-PT (caracteres UTF8)
 	colocar_terminal_utf8();
   
-	Uni bd; //Pode ser fadcilmente alterado para guardar várias universidades
+	Uni bd; //Pode ser facilmente alterado para guardar várias universidades
 
 	//Verificar estado do programa
 

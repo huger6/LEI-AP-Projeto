@@ -1,0 +1,235 @@
+\doxysection{headers.\+h}
+\hypertarget{headers_8h_source}{}\label{headers_8h_source}\mbox{\hyperlink{headers_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ HEADERS\_H\ }\textcolor{comment}{//Se\ HEADERS\_H\ não\ foi\ definida,\ o\ código\ entre\ o\ \#ifndef\ e\ o\ \#endif\ será\ processado,\ caso\ contrário,\ será\ ignorado.}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//Ou\ seja,\ evita\ o\ processamento\ dos\ headers\ várias\ vezes}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ HEADERS\_H\ }}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ DADOS\_TXT\ "{}dados.txt"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ DADOS\_BACKUP\_TXT\ "{}dados\_backup.txt"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ SITUACAO\_ESCOLAR\_TXT\ "{}situacao\_Escolar\_Estudantes.txt"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ SITUACAO\_ESCOLAR\_BACKUP\_TXT\ "{}situacao\_Escolar\_Estudantes\_backup.txt"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ ERROS\_TXT\ "{}erros.txt"{}\ }\textcolor{comment}{//Ficheiro\ onde\ serão\ armazenados\ todos\ os\ erros\ provenientes\ da\ leitura\ de\ dados(para\ evitar\ a\ eliminação\ dos\ mesmos)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ CONFIG\_TXT\ "{}config.txt"{}\ }\textcolor{comment}{//flag\ para\ verificar\ estado\ do\ programa\ ao\ abrir}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ LOGS\_BIN\ "{}logs.bin"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ LOGS\_BACKUP\_BIN\ "{}logs\_backup.bin"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ TAMANHO\_INICIAL\_ARRAYS\ 1000}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ TAMANHO\_INICIAL\_BUFFER\ 100}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ TAMANHO\_INICIAL\_NOME\ 50\ }}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ TAMANHO\_SUGESTOES\ 5\ }}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MAX\_STRING\_NACIONALIDADE\ 101\ }\textcolor{comment}{//Definimos\ o\ número\ máximo\ de\ chars\ que\ uma\ nacionalidade\ pode\ ter}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ MAX\_ELIMINACOES\_POR\_INTERVALO\ 400}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ ANOS\_AVANCO\_PROCURAS\ 10\ }\textcolor{comment}{//Anos\ em\ que\ o\ utilizador\ pode\ procurar\ mais\ à\ frente,\ como\ na\ quaresma}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ MAX\_INTERVALOS\ 6}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ MAX\_NACIONALIDADES\_PEDIDA\ 5}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ MAX\_FORMATO\ 10\ }\textcolor{comment}{//Ajustar\ se\ o\ formato\ do\ ficheiro\ for\ superior\ a\ 9\ caracteres}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ MAX\_MATRICULAS\ 20\ }\textcolor{comment}{//Limite\ razoável\ de\ matrículas(pode\ ser\ alterado)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MAX\_ECTS\ 400}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ MAX\_ANO\_ATUAL\ 8}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ PAUSA\_LISTAGEM\ 20}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ SEPARADOR\ '\(\backslash\)t'\ }\textcolor{comment}{//Necessário\ alterar\ em\ carregar\_dados,\ nas\ mensagens\ de\ erro,\ caso\ seja\ mudado}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ DIAS\_QUARESMA\ 46}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ IDADE\_MINIMA\ 12}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ IDADE\_MAXIMA\ 80}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ PARAMETROS\_ESTUDANTE\ 4\ }\textcolor{comment}{//parametros\ a\ serem\ lidos,\ não\ os\ na\ struct}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ PARAMETROS\_DADOS\_ESCOLARES\ 5\ }\textcolor{comment}{//parametros\ a\ serem\ lidos,\ não\ os\ na\ struct}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ CREDITOS\_FINALISTA\ 154\ }\textcolor{comment}{//Créditos\ necessários\ para\ ser\ finalista}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ECTS\_3MATRICULAS\ 60}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ ECTS\_4MATRICULAS\ 120}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//Para\ evitar\ erros\ em\ sistemas\ não\ Windows,\ apenas\ incluímos\ a\ biblioteca\ se\ estivermos\ em\ Windows}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//A\ variável\ \_WIN32\ está\ presente\ em\ todos\ os\ sistemas\ Windows\ por\ definição}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#ifdef\ \_WIN32\ }}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ \#include\ <windows.h>}\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <locale.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ <wctype.h>}\ \textcolor{comment}{//Para\ fazer\ verificações\ relativas\ aos\ dados\ introduzidos\ (iswalpha)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <ctype.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ <time.h>}\ \textcolor{comment}{//Para\ calcular\ idades}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ <limits.h>}\ \textcolor{comment}{//Para\ verificar\ limites\ nas\ conversões}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{//Structs}}
+\DoxyCodeLine{00057\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{struct_data_a7027121ae3b92f01287af8ca5d6476a7}{dia}};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{struct_data_aad961818b9da74d602e75b25675ef56d}{mes}};}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{struct_data_ab466d97d3c7c48bdf4b7f58e6ccf8a8a}{ano}};}
+\DoxyCodeLine{00061\ \}\mbox{\hyperlink{struct_data}{Data}};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{//Struct\ para\ tratar\ todos\ os\ dados\ relativos\ aos\ estudantes}}
+\DoxyCodeLine{00064\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_estudante_a735af0d02144c4a93888ef0f8d5c8295}{codigo}};\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ \mbox{\hyperlink{struct_estudante_a71ae06f0dbb0d7bdb3d29657df9cb09b}{nome}};\ \textcolor{comment}{//Declaramos\ um\ ponteiro\ para\ posteriormente\ alocar\ memória\ dinamicamente\ consoante\ o\ tamanho\ do\ nome}}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{struct_data}{Data}}\ \mbox{\hyperlink{struct_estudante_abb751a28c63e3bfce4e7796a0161d9d3}{nascimento}};\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{char}\ *\ \mbox{\hyperlink{struct_estudante_a7f50671894eef74b80dba446a97005e9}{nacionalidade}};\ }
+\DoxyCodeLine{00069\ \}\mbox{\hyperlink{struct_estudante}{Estudante}};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{//Struct\ para\ tratar\ todos\ os\ dados\ escolares}}
+\DoxyCodeLine{00072\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_dados_ad6750faa012642badfd5b951b7db8227}{codigo}};}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{struct_dados_a55e9d3017c536c0a9c486148717c7446}{matriculas}};\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{struct_dados_af47ac8d50d4a160159d310faaa490f2a}{ects}};\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{struct_dados_a3835a62eda8a6a90738dd6d161e2e249}{ano\_atual}};}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_dados_a907c3a054cee6b591f82d511ca925bf1}{media\_atual}};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct_dados_ab4052e86989220fa76bc801665f209d7}{prescrever}};}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct_dados_a7558c2d7e4eb4fc98c27759af1d64c51}{finalista}};}
+\DoxyCodeLine{00080\ \}\mbox{\hyperlink{struct_dados}{Dados}};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{//Struct\ para\ os\ dados\ estatísticos\ gerais.\ Podem\ ser\ úteis\ em\ outros\ campos}}
+\DoxyCodeLine{00083\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_estatisticas_aa6d68ff2ed550aa866407e0d84a61457}{media\_matriculas}};}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_estatisticas_a2e41021749e4a0a2bb8848a0e4bda924}{media}};}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_estatisticas_a858861fb6f2b5ef6b3a7ae426ca9f420}{finalistas}};}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_estatisticas_abbaaf7c474cb852152defdcfb89eb6d9}{risco\_prescrever}};}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct_estatisticas_a1e8164cee19cadb98a94be747adaf08a}{atualizado}};\ \textcolor{comment}{//Verifica\ se\ os\ dados\ estão\ atualizados}}
+\DoxyCodeLine{00089\ \}\mbox{\hyperlink{struct_estatisticas}{Estatisticas}};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{struct_estudante}{Estudante}}\ *\ \mbox{\hyperlink{struct_uni_a4352fcd62b48bbc0b1a1a1321bc207c2}{aluno}};}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_uni_ad07ae57abdd149be83757a88d4fa01a8}{tamanho\_aluno}};\ \textcolor{comment}{//tamanho\ atual\ do\ array\ aluno}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_uni_af863f7e9d149c4bd0948e82da47452d1}{capacidade\_aluno}};\ \textcolor{comment}{//tamanho\ alocado\ do\ array\ aluno}}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{struct_dados}{Dados}}\ *\ \mbox{\hyperlink{struct_uni_abeddcb14430e772508c57d00b3f5c2c4}{escolares}};\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_uni_a42c975bea38f7e52507b14fd58d2e2e6}{tamanho\_escolares}};\ \textcolor{comment}{//tamanho\ atual\ do\ array\ escolares}}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_uni_a3d49f110331ca20fb46d8f2f231c05d3}{capacidade\_escolares}};\ \textcolor{comment}{//tamanho\ alocado\ do\ array\ escolares}}
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{struct_estatisticas}{Estatisticas}}\ \mbox{\hyperlink{struct_uni_a6fc0f8b1fd24e9a71d814507f03c2862}{stats}};}
+\DoxyCodeLine{00099\ \}\ \mbox{\hyperlink{struct_uni}{Uni}};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{//Variável\ global\ para\ assinalar\ a\ Data\ atual}}
+\DoxyCodeLine{00102\ \textcolor{comment}{//Nota:\ usa-\/se\ extern\ para\ permitir\ partilhar\ a\ variável\ entre\ todos\ os\ ficheiros\ do\ programa}}
+\DoxyCodeLine{00103\ \textcolor{comment}{//Só\ declaramos\ aqui\ porque\ acima\ deu\ erro\ (não\ reconhecia\ o\ tipo\ Data)}}
+\DoxyCodeLine{00104\ \textcolor{comment}{//Apenas\ se\ declara,\ é\ necessário\ inicializar\ a\ variável\ noutro\ ficheiro}}
+\DoxyCodeLine{00105\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{struct_data}{Data}}\ \mbox{\hyperlink{funcoes_8c_a36e05dce33885bc9d91881e12b3a1fbc}{DATA\_ATUAL}};\ \textcolor{comment}{//Não\ se\ usa\ const\ porque\ temos\ de\ a\ ir\ modificar\ logo\ no\ ínicio}}
+\DoxyCodeLine{00106\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{funcoes_8c_a0bc55d294ef92122873e5cef612f44c0}{autosaveON}};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{comment}{//Protótipos\ das\ funções}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{//Ficheiros\ e\ gestão\ de\ dados}}
+\DoxyCodeLine{00111\ \textcolor{keywordtype}{char}\ *\ \mbox{\hyperlink{headers_8h_a5ed848b8558cea3fcc64b56b36031b6e}{ler\_linha\_txt}}(FILE\ *\ ficheiro,\ \textcolor{keywordtype}{int}\ *\ n\_linhas);}
+\DoxyCodeLine{00112\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a30ddb5c269cf9bc3aaa84b9fcdcb1044}{carregar\_dados\_txt}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro\_dados,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro\_escolar,\ \mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_aa11094c06353f7a6d700d032b5541795}{carregar\_dados\_bin}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro,\ \mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_acd13dc258398325952a9b61843f81d1e}{ler\_dados\_binarios}}(\textcolor{keywordtype}{void}\ *\ ptr,\ \textcolor{keywordtype}{size\_t}\ tamanho,\ \textcolor{keywordtype}{size\_t}\ cont,\ FILE\ *\ ficheiro);}
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a1abc606ae8ce90c65d4239779c4cb2a5}{guardar\_dados\_txt}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro\_dados,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro\_escolares,\ \mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00116\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a9302ce17e223e5c9d09b81e5af68db70}{guardar\_dados\_bin}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro,\ \mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a0ec392bcb7ab2eb825e137a38add1ce7}{autosave}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00118\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a7cb7b278afa49c2389e4aaaa46407b36}{fase\_instalacao}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ flag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ abrir);}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_adcf76f7eea353b044f2a03818d254bd5}{eliminar\_ficheiro}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00120\ FILE\ *\ \mbox{\hyperlink{headers_8h_a96eab323cc71dc17b5a2b542f27b1857}{pedir\_listagem}}(\textcolor{keywordtype}{char}\ *\ formato\_selecionado);}
+\DoxyCodeLine{00121\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a2db16be94c314cc7f9c862c734b1ac6c}{verificar\_extensao}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro);}
+\DoxyCodeLine{00122\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ae0b607fbe1b8f40c01b66ab2bdb1f195}{mostrar\_dados\_ficheiro}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro);}
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a14e3034d6ec757f8a248334b0f0e7f19}{repor\_estado\_inicial}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00124\ \textcolor{comment}{//Gestão\ de\ memória}}
+\DoxyCodeLine{00125\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ac72da37d9eb2b513855be77e47305482}{inicializar\_aluno}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keywordtype}{int}\ indice\_aluno);}
+\DoxyCodeLine{00126\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_af5facf2af9e8dec813f3ce4ad57a13ba}{inicializar\_escolares}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keywordtype}{int}\ indice\_escolares);}
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a2dbfde9c0521a3493b0a5420ecdb1724}{inicializar\_estatisticas}}(\mbox{\hyperlink{struct_estatisticas}{Estatisticas}}\ *\ stats);}
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a05635821f2ce6c433e13b25cf0e122a8}{free\_nome\_nacionalidade}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a868b8ee27532c0f0d7e3ee3dac56a2f4}{free\_tudo}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00130\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a35d83b50569cd4e1f9148519e36a538d}{realocar\_aluno}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a0ebea5c8c13c97d6f706e5e328f65d74}{realocar\_escolares}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00132\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a0d619150ed7f45cfac10fff6b40439ce}{realocar\_nome}}(\mbox{\hyperlink{struct_estudante}{Estudante}}\ *\ aluno,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00133\ \textcolor{comment}{//Procura\ e\ validações}}
+\DoxyCodeLine{00134\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a1fc5f38bfd2d657e65548d6070460a2f}{procurar\_codigo\_aluno}}(\textcolor{keywordtype}{int}\ codigo,\ \mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00135\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a8cd8b0c0460eb73eaa1a429c058d663a}{procurar\_codigo\_escolares}}(\textcolor{keywordtype}{int}\ codigo,\ \mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00136\ \textcolor{keywordtype}{char}\ **\ \mbox{\hyperlink{headers_8h_a80e6c4d1632aa624c00b3ea11bf7cf85}{procurar\_nacionalidades}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{short}\ n\_nacionalidades,\ \textcolor{keywordtype}{char}\ *\ mensagem);}
+\DoxyCodeLine{00137\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_ae8ac339da32cd342e9a51cbffd8d49ac}{validar\_codigo\_ao\_inserir}}(\textcolor{keywordtype}{int}\ codigo,\ \mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00138\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a77c0bca982c7679548831f64d6e8b1e4}{validar\_codigo\_eliminar}}(\textcolor{keywordtype}{int}\ codigo,\ \mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00139\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a6293054eafa4d3d2aaac9ef806b1a67d}{validar\_nome\_ficheiro}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro);}
+\DoxyCodeLine{00140\ FILE\ *\ \mbox{\hyperlink{headers_8h_a1e03d498d5f08d864dbec7e53505bfa7}{validar\_ficheiro\_e\_abrir}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome);}
+\DoxyCodeLine{00141\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_adea92deea52ed3e86e801e734321d25d}{verificar\_codigos\_duplicados}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ FILE\ *\ erros);}
+\DoxyCodeLine{00142\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a692e7da88cb54e0f39e92546541c1869}{verificar\_codigos\_escolares\_sem\_aluno}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ FILE\ *\ erros,\ \textcolor{keywordtype}{char}\ *\ primeiro\_erro);}
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_aa1646ad4065aabfd64b06f8893a2b6e5}{validar\_data}}(\textcolor{keywordtype}{short}\ dia,\ \textcolor{keywordtype}{short}\ mes,\ \textcolor{keywordtype}{short}\ ano,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00144\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_aedfd6a4df1856943551e616d9de29802}{validar\_data\_entre\_intervalo}}(\mbox{\hyperlink{struct_data}{Data}}\ inferior,\ \mbox{\hyperlink{struct_data}{Data}}\ superior,\ \mbox{\hyperlink{struct_data}{Data}}\ atual);}
+\DoxyCodeLine{00145\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a6d2c2fb8ef15e5f9c7f1f3a466b75499}{comparar\_data}}(\mbox{\hyperlink{struct_data}{Data}}\ d1,\ \mbox{\hyperlink{struct_data}{Data}}\ d2,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ ignorar\_ano);}
+\DoxyCodeLine{00146\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a97c435e0cef1e821731515c272f233ef}{validar\_nome}}(\mbox{\hyperlink{struct_estudante}{Estudante}}\ *\ aluno,\ \textcolor{keywordtype}{char}\ *\ nome,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00147\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a05580b5a69aa59ab2dfae290ecf7e4e6}{validar\_nacionalidade}}(\textcolor{keywordtype}{char}\ *\ nacionalidade,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00148\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ab7fb7f00f2e939eea7d742e853c8b3a2}{validacao\_menus}}(\textcolor{keywordtype}{short}\ *\ valido,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ opcao,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ limInf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ limSup);}
+\DoxyCodeLine{00149\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a7bae239237077776677c2468b0ee4e0b}{validacao\_input\_menu}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ limInf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ limSup);}
+\DoxyCodeLine{00150\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a5d7eb5372bccc42b1f0701878ed02174}{validacao\_numero\_menu}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ limInf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ limSup);}
+\DoxyCodeLine{00151\ \textcolor{comment}{//Ordenação}}
+\DoxyCodeLine{00152\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a528b7d81f4ddeddbe5fc15cf6f57319c}{merge\_aluno}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keywordtype}{int}\ inicio,\ \textcolor{keywordtype}{int}\ meio,\ \textcolor{keywordtype}{int}\ fim);}
+\DoxyCodeLine{00153\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ad21604bb78636cb96497aa70f895613d}{merge\_sort\_aluno}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keywordtype}{int}\ inicio,\ \textcolor{keywordtype}{int}\ fim);}
+\DoxyCodeLine{00154\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ae0451fad516769040ec3b671ef35dfff}{merge\_escolares}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keywordtype}{int}\ inicio,\ \textcolor{keywordtype}{int}\ meio,\ \textcolor{keywordtype}{int}\ fim);}
+\DoxyCodeLine{00155\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a0c154dfd2a4c5bde43412d7823fc467e}{merge\_sort\_escolares}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keywordtype}{int}\ inicio,\ \textcolor{keywordtype}{int}\ fim);}
+\DoxyCodeLine{00156\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ac04e9d9a853b7dcd05444aba5dfc047e}{ordenar\_ao\_inserir}}(\textcolor{keywordtype}{int}\ codigo,\ \mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keywordtype}{int}\ indice\_aluno,\ \textcolor{keywordtype}{int}\ indice\_escolares);}
+\DoxyCodeLine{00157\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a30084b6624e2d2d351706fa97596a260}{ordenar\_ao\_eliminar}}(\textcolor{keywordtype}{int}\ codigo,\ \mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00158\ \textcolor{comment}{//Menus}}
+\DoxyCodeLine{00159\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{headers_8h_a925d4d58ba624fdedb9e50f77d050df8}{mostrar\_menu}}(\textcolor{keywordtype}{void}\ (*escrever\_menu)(),\ \textcolor{keywordtype}{char}\ min\_opcao,\ \textcolor{keywordtype}{char}\ max\_opcao);}
+\DoxyCodeLine{00160\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ae3a600065cfe3e0105b6209e35d20264}{menu\_principal}}();}
+\DoxyCodeLine{00161\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a53452fe506884066f02b5b15345e0666}{menu\_gerir\_estudantes}}();}
+\DoxyCodeLine{00162\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_acec43b7727891bfac4b2d8446dd456f9}{menu\_consultar\_dados}}();}
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ae59883fb46ae5cc77a3b9bb9098ce499}{menu\_estatisticas}}();}
+\DoxyCodeLine{00164\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a2d203ce081a12cd3e8322a29f6724da0}{menu\_ficheiros}}();}
+\DoxyCodeLine{00165\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a1b9ad34211504ea774b610a1669a44da}{menu\_opcoes}}();}
+\DoxyCodeLine{00166\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a793be6171eeffeca257559ddca4f6dd1}{menu\_aniversarios}}();}
+\DoxyCodeLine{00167\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a261367a0f9be69a3f2a30444190b07b5}{menu\_dias\_da\_semana}}();}
+\DoxyCodeLine{00168\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a1658be24cc2901ecf82e217d101d2682}{menu\_formatos\_disponiveis}}();}
+\DoxyCodeLine{00169\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a04826c4e706cb61abc237affb0ea6d40}{menu\_media\_matriculas}}();}
+\DoxyCodeLine{00170\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ac61d53c9697a58df4534bdc51c323379}{guia\_de\_utilizacao}}();}
+\DoxyCodeLine{00171\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a06f74c6a0126465474d9bf73a845314a}{the\_architect}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00172\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a63ec2c778201a25329508221a93e4e31}{processar\_gerir\_estudantes}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00173\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a5343fd62e1c198d73eebee481719e0ed}{processar\_consultar\_dados}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00174\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a4275f72921a11d0f53d33928ebc12391}{processar\_estatisticas}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00175\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_abb9a1eb278d4656b1274dfb2fab3a3f6}{processar\_ficheiros}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00176\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ad8fcdb4b7cdf9227223a7e51ef88d838}{processar\_aniversarios}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a5207558a7623253479a44cc2cf1cb254}{processar\_opcoes}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00178\ \textcolor{comment}{//Inserção/leitura\ de\ dados}}
+\DoxyCodeLine{00179\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_adc54394e7583cba4903132a7162c57de}{ler\_data}}(\mbox{\hyperlink{struct_data}{Data}}\ *\ aluno,\ \textcolor{keywordtype}{char}\ *\ str,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ modo);}
+\DoxyCodeLine{00180\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_aa813338834b90790209374eec9d5b6d1}{inserir\_estudante}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00181\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_aeb4fbbd865e9528fae03c460510a114a}{eliminar\_estudante}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00182\ \textcolor{comment}{//Estatísticas}}
+\DoxyCodeLine{00183\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a54b501fcef0588252015f79c50616d82}{calcular\_estatisticas}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00184\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a8b4ae71d82625bd24d59e80acc78de55}{calcular\_media\_matriculas}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00185\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a48c54f726a9708ed345d0a43280e469e}{alunos\_por\_media\_e\_ano}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keywordtype}{float}\ media\_min,\ \textcolor{keywordtype}{float}\ media\_max,\ \textcolor{keywordtype}{short}\ ano\_atual);}
+\DoxyCodeLine{00186\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a2bdcacc4abc9c49fd6cdb7b3a79a6e43}{tabela\_idade\_por\_escalao}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00187\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a68b1ebc12ef6f5fa1fdbdf4c3f553fed}{tabela\_medias\_ano}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00188\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a5e9c3f38cf7e9e077ec9ae242fc3d3eb}{media\_idades\_por\_nacionalidade\_e\_ano}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00189\ \textcolor{comment}{//Listagens}}
+\DoxyCodeLine{00190\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a7294e4cf0667759cc939952386283929}{listar}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd,\ \textcolor{keywordtype}{int}\ indice\_aluno,\ FILE\ *\ ficheiro,\ \textcolor{keywordtype}{char}\ separador,\ \textcolor{keywordtype}{short}\ *\ contador);}
+\DoxyCodeLine{00191\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a35c0e9800c2a6ac6004d1369b381dcdb}{listar\_info\_estudante}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00192\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a79ce8e61cf19d78e541345aa41794931}{procurar\_estudante\_por\_nome}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00193\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a0caf9e5fdaebbcf36a894107c1fd4033}{listar\_apelidos\_alfabeticamente}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00194\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a2af54582154bfed13a035758b2c39f56}{listar\_aniversarios\_por\_dia}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00195\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_aa2fd96ef6f118cd5dfa2e1b45ef1a922}{listar\_aniversario\_ao\_domingo}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00196\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ae457d8bcde92779ba3369fa91d56c2de}{listar\_aniversario\_na\_quaresma}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00197\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a55b517ba98cc2e8aa3b59b5fdd2775fa}{prescrito}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00198\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_af1e29a98c2f8ae05d356e7a4eb432b11}{finalistas}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00199\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a6c8fc2919d96eb992e824f61b53d2243}{listar\_estudantes\_por\_data\_e\_nacionalidades}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *bd);}
+\DoxyCodeLine{00200\ \textcolor{comment}{//Funções\ auxiliares}}
+\DoxyCodeLine{00201\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a4f6e41225473e99e3e09542c15a1db4e}{remover\_espacos}}(\textcolor{keywordtype}{char}\ *\ str);}
+\DoxyCodeLine{00202\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a5be0841243f9252d6fdc97c4c9b07187}{separar\_parametros}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ linha,\ \textcolor{keywordtype}{char}\ **\ parametros,\ \textcolor{keywordtype}{int}\ *\ num\_parametros);}
+\DoxyCodeLine{00203\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a79ac624f20d876fd446b46bbc153fc58}{limpar\_buffer}}();}
+\DoxyCodeLine{00204\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a63c57a87c465b578725bce99dc62d1be}{verificar\_e\_limpar\_buffer}}();}
+\DoxyCodeLine{00205\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a1bf976fde2f18d0adaef6417c4f5c6f9}{limpar\_terminal}}();}
+\DoxyCodeLine{00206\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ae4110e08f7139b09f4703c90c430e45c}{pausa\_listagem}}(\textcolor{keywordtype}{short}\ *\ contador);}
+\DoxyCodeLine{00207\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a234f12ff9ae49f6f24298e493974f1d8}{pressione\_enter}}();}
+\DoxyCodeLine{00208\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a0b62a41cf3976ca74afa8d9da0063d4d}{colocar\_terminal\_utf8}}();}
+\DoxyCodeLine{00209\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a22704f14eabf70f04cddbecd436774e1}{verificar\_primeiro\_erro}}(FILE\ *\ erros,\ \textcolor{keywordtype}{char}\ *\ primeiro\_erro,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro);}
+\DoxyCodeLine{00210\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ac08b4ff052a6cd34b528a460b98cb8e7}{print\_uso\_backup}}();}
+\DoxyCodeLine{00211\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_aab7a6de84d0366e7f3ff9b7d6cedef13}{print\_falha\_carregar\_dados}}();}
+\DoxyCodeLine{00212\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a6d7b3ce291f82656673d4ac8922185e0}{printf\_fich\_bin\_alterado}}();}
+\DoxyCodeLine{00213\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_ad5065518fc25ef431b69d8586d182ca6}{listar\_erro\_ao\_carregar}}(FILE\ *\ erros,\ \textcolor{keywordtype}{char}\ *\ primeiro\_erro,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ nome\_ficheiro,\ \textcolor{keywordtype}{char}\ *\ erro,\ \textcolor{keywordtype}{int}\ n\_linhas,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ linha);}
+\DoxyCodeLine{00214\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_af3af413399ff5a8ef7281bac06871b12}{string\_para\_int}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str,\ \textcolor{keywordtype}{int}\ *\ resultado);}
+\DoxyCodeLine{00215\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_aae0cd096c276200df34e312e2c350ad1}{string\_para\_short}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str,\ \textcolor{keywordtype}{short}\ *\ resultado);}
+\DoxyCodeLine{00216\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_ab71f6c36bd25e8be40ea2902579fb31c}{string\_para\_float}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ str,\ \textcolor{keywordtype}{float}\ *\ resultado);}
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{headers_8h_afe8317e94ff3d4221446e51e14f40edd}{calcular\_dia\_da\_semana}}(\textcolor{keywordtype}{short}\ dia,\ \textcolor{keywordtype}{int}\ mes,\ \textcolor{keywordtype}{int}\ ano);}
+\DoxyCodeLine{00218\ \mbox{\hyperlink{struct_data}{Data}}\ \mbox{\hyperlink{headers_8h_a784ab1b9215b7d8aceae67d56eca57ea}{calcular\_domingo\_pascoa}}(\textcolor{keywordtype}{int}\ ano);}
+\DoxyCodeLine{00219\ \mbox{\hyperlink{struct_data}{Data}}\ \mbox{\hyperlink{headers_8h_a633e8b6c4440cc317cb8c9157df320be}{calcular\_quarta\_feira\_cinzas}}(\mbox{\hyperlink{struct_data}{Data}}\ pascoa);}
+\DoxyCodeLine{00220\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_aeeb090e02add3d0c2c4a5fdf03163125}{calcular\_quaresma}}(\textcolor{keywordtype}{int}\ ano,\ \mbox{\hyperlink{struct_data}{Data}}\ *\ inicio,\ \mbox{\hyperlink{struct_data}{Data}}\ *\ fim);}
+\DoxyCodeLine{00221\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{headers_8h_af74f7a7125b42502640c2b9bb3947ca7}{calcular\_checksum}}(\mbox{\hyperlink{struct_uni}{Uni}}\ *\ bd);}
+\DoxyCodeLine{00222\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{headers_8h_a591951fe49c89cb3e1fd69135a648d3b}{sim\_nao}}();}
+\DoxyCodeLine{00223\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a52a8642cbc902e0ba7a495e5d17622bb}{pedir\_codigo}}(\textcolor{keywordtype}{int}\ *\ codigo);}
+\DoxyCodeLine{00224\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{headers_8h_aad77d26892502cd57110cd9f2c55ad91}{obter\_separador}}(FILE\ *\ ficheiro,\ \textcolor{keywordtype}{char}\ *\ formato);}
+\DoxyCodeLine{00225\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{headers_8h_ad1be3bc54e01edac9d556a166afa88c6}{calcular\_idade}}(\mbox{\hyperlink{struct_data}{Data}}\ nascimento);}
+\DoxyCodeLine{00226\ \textcolor{keywordtype}{char}\ *\ \mbox{\hyperlink{headers_8h_a3d1c6aed98e798dbb1469080ecc26536}{normalizar\_string}}(\textcolor{keywordtype}{char}\ *\ str);}
+\DoxyCodeLine{00227\ \textcolor{keywordtype}{char}\ *\ \mbox{\hyperlink{headers_8h_a70141b3bc2a366f4707a4dda668017e7}{strlwr2}}(\textcolor{keywordtype}{char}\ *\ str);}
+\DoxyCodeLine{00228\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{headers_8h_a854f7fe68ad6497f4e1456f6c9bbb377}{data\_atual}}();}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

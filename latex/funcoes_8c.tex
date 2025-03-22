@@ -1,0 +1,895 @@
+\doxysection{funcoes.\+c File Reference}
+\hypertarget{funcoes_8c}{}\label{funcoes_8c}\index{funcoes.c@{funcoes.c}}
+{\ttfamily \#include "{}headers.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{funcoes_8c_a5ed848b8558cea3fcc64b56b36031b6e}{ler\+\_\+linha\+\_\+txt}} (FILE \texorpdfstring{$\ast$}{*}ficheiro, int \texorpdfstring{$\ast$}{*}n\+\_\+linhas)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a30ddb5c269cf9bc3aaa84b9fcdcb1044}{carregar\+\_\+dados\+\_\+txt}} (const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro\+\_\+dados, const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro\+\_\+escolar, \mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+int \mbox{\hyperlink{funcoes_8c_aa11094c06353f7a6d700d032b5541795}{carregar\+\_\+dados\+\_\+bin}} (const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro, \mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+int \mbox{\hyperlink{funcoes_8c_acd13dc258398325952a9b61843f81d1e}{ler\+\_\+dados\+\_\+binarios}} (void \texorpdfstring{$\ast$}{*}ptr, size\+\_\+t tamanho, size\+\_\+t cont, FILE \texorpdfstring{$\ast$}{*}ficheiro)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a1abc606ae8ce90c65d4239779c4cb2a5}{guardar\+\_\+dados\+\_\+txt}} (const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro\+\_\+dados, const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro\+\_\+escolares, \mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a9302ce17e223e5c9d09b81e5af68db70}{guardar\+\_\+dados\+\_\+bin}} (const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro, \mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, const char modo)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a0ec392bcb7ab2eb825e137a38add1ce7}{autosave}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a7cb7b278afa49c2389e4aaaa46407b36}{fase\+\_\+instalacao}} (const char \texorpdfstring{$\ast$}{*}flag, const char abrir)
+\item 
+int \mbox{\hyperlink{funcoes_8c_adcf76f7eea353b044f2a03818d254bd5}{eliminar\+\_\+ficheiro}} (const char \texorpdfstring{$\ast$}{*}nome, const char modo)
+\item 
+FILE \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{funcoes_8c_a96eab323cc71dc17b5a2b542f27b1857}{pedir\+\_\+listagem}} (char \texorpdfstring{$\ast$}{*}formato\+\_\+selecionado)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a2db16be94c314cc7f9c862c734b1ac6c}{verificar\+\_\+extensao}} (const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro)
+\item 
+void \mbox{\hyperlink{funcoes_8c_ae0b607fbe1b8f40c01b66ab2bdb1f195}{mostrar\+\_\+dados\+\_\+ficheiro}} (const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a14e3034d6ec757f8a248334b0f0e7f19}{repor\+\_\+estado\+\_\+inicial}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_ac72da37d9eb2b513855be77e47305482}{inicializar\+\_\+aluno}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, int indice\+\_\+aluno)
+\item 
+void \mbox{\hyperlink{funcoes_8c_af5facf2af9e8dec813f3ce4ad57a13ba}{inicializar\+\_\+escolares}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, int indice\+\_\+escolares)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a2dbfde9c0521a3493b0a5420ecdb1724}{inicializar\+\_\+estatisticas}} (\mbox{\hyperlink{struct_estatisticas}{Estatisticas}} \texorpdfstring{$\ast$}{*}stats)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a05635821f2ce6c433e13b25cf0e122a8}{free\+\_\+nome\+\_\+nacionalidade}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a868b8ee27532c0f0d7e3ee3dac56a2f4}{free\+\_\+tudo}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a35d83b50569cd4e1f9148519e36a538d}{realocar\+\_\+aluno}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, const char modo)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a0ebea5c8c13c97d6f706e5e328f65d74}{realocar\+\_\+escolares}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, const char modo)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a0d619150ed7f45cfac10fff6b40439ce}{realocar\+\_\+nome}} (\mbox{\hyperlink{struct_estudante}{Estudante}} \texorpdfstring{$\ast$}{*}aluno, const char modo)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a1fc5f38bfd2d657e65548d6070460a2f}{procurar\+\_\+codigo\+\_\+aluno}} (int codigo, \mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a8cd8b0c0460eb73eaa1a429c058d663a}{procurar\+\_\+codigo\+\_\+escolares}} (int codigo, \mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{funcoes_8c_a80e6c4d1632aa624c00b3ea11bf7cf85}{procurar\+\_\+nacionalidades}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, const short n\+\_\+nacionalidades, char \texorpdfstring{$\ast$}{*}mensagem)
+\item 
+int \mbox{\hyperlink{funcoes_8c_ae8ac339da32cd342e9a51cbffd8d49ac}{validar\+\_\+codigo\+\_\+ao\+\_\+inserir}} (int codigo, \mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a77c0bca982c7679548831f64d6e8b1e4}{validar\+\_\+codigo\+\_\+eliminar}} (int codigo, \mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, const char modo)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a6293054eafa4d3d2aaac9ef806b1a67d}{validar\+\_\+nome\+\_\+ficheiro}} (const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro)
+\item 
+FILE \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{funcoes_8c_a1e03d498d5f08d864dbec7e53505bfa7}{validar\+\_\+ficheiro\+\_\+e\+\_\+abrir}} (const char \texorpdfstring{$\ast$}{*}nome)
+\item 
+void \mbox{\hyperlink{funcoes_8c_adea92deea52ed3e86e801e734321d25d}{verificar\+\_\+codigos\+\_\+duplicados}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, FILE \texorpdfstring{$\ast$}{*}erros)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a692e7da88cb54e0f39e92546541c1869}{verificar\+\_\+codigos\+\_\+escolares\+\_\+sem\+\_\+aluno}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, FILE \texorpdfstring{$\ast$}{*}erros, char \texorpdfstring{$\ast$}{*}primeiro\+\_\+erro)
+\item 
+int \mbox{\hyperlink{funcoes_8c_aa1646ad4065aabfd64b06f8893a2b6e5}{validar\+\_\+data}} (short dia, short mes, short ano, const char modo)
+\item 
+int \mbox{\hyperlink{funcoes_8c_aedfd6a4df1856943551e616d9de29802}{validar\+\_\+data\+\_\+entre\+\_\+intervalo}} (\mbox{\hyperlink{struct_data}{Data}} inferior, \mbox{\hyperlink{struct_data}{Data}} superior, \mbox{\hyperlink{struct_data}{Data}} atual)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a6d2c2fb8ef15e5f9c7f1f3a466b75499}{comparar\+\_\+data}} (\mbox{\hyperlink{struct_data}{Data}} d1, \mbox{\hyperlink{struct_data}{Data}} d2, const char ignorar\+\_\+ano)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a97c435e0cef1e821731515c272f233ef}{validar\+\_\+nome}} (\mbox{\hyperlink{struct_estudante}{Estudante}} \texorpdfstring{$\ast$}{*}aluno, char \texorpdfstring{$\ast$}{*}nome, const char modo)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a05580b5a69aa59ab2dfae290ecf7e4e6}{validar\+\_\+nacionalidade}} (char \texorpdfstring{$\ast$}{*}nacionalidade, const char modo)
+\item 
+void \mbox{\hyperlink{funcoes_8c_ab7fb7f00f2e939eea7d742e853c8b3a2}{validacao\+\_\+menus}} (short \texorpdfstring{$\ast$}{*}valido, const char opcao, const char lim\+Inf, const char lim\+Sup)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a528b7d81f4ddeddbe5fc15cf6f57319c}{merge\+\_\+aluno}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, int inicio, int meio, int fim)
+\item 
+void \mbox{\hyperlink{funcoes_8c_ad21604bb78636cb96497aa70f895613d}{merge\+\_\+sort\+\_\+aluno}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, int inicio, int fim)
+\item 
+void \mbox{\hyperlink{funcoes_8c_ae0451fad516769040ec3b671ef35dfff}{merge\+\_\+escolares}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, int inicio, int meio, int fim)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a0c154dfd2a4c5bde43412d7823fc467e}{merge\+\_\+sort\+\_\+escolares}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, int inicio, int fim)
+\item 
+void \mbox{\hyperlink{funcoes_8c_ac04e9d9a853b7dcd05444aba5dfc047e}{ordenar\+\_\+ao\+\_\+inserir}} (int codigo, \mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, int indice\+\_\+aluno, int indice\+\_\+escolares)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a30084b6624e2d2d351706fa97596a260}{ordenar\+\_\+ao\+\_\+eliminar}} (int codigo, \mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, const char modo)
+\item 
+char \mbox{\hyperlink{funcoes_8c_a925d4d58ba624fdedb9e50f77d050df8}{mostrar\+\_\+menu}} (void(\texorpdfstring{$\ast$}{*}escrever\+\_\+menu)(), char min\+\_\+opcao, char max\+\_\+opcao)
+\item 
+void \mbox{\hyperlink{funcoes_8c_ae3a600065cfe3e0105b6209e35d20264}{menu\+\_\+principal}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a53452fe506884066f02b5b15345e0666}{menu\+\_\+gerir\+\_\+estudantes}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_acec43b7727891bfac4b2d8446dd456f9}{menu\+\_\+consultar\+\_\+dados}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_ae59883fb46ae5cc77a3b9bb9098ce499}{menu\+\_\+estatisticas}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a2d203ce081a12cd3e8322a29f6724da0}{menu\+\_\+ficheiros}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a1b9ad34211504ea774b610a1669a44da}{menu\+\_\+opcoes}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a793be6171eeffeca257559ddca4f6dd1}{menu\+\_\+aniversarios}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a261367a0f9be69a3f2a30444190b07b5}{menu\+\_\+dias\+\_\+da\+\_\+semana}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a1658be24cc2901ecf82e217d101d2682}{menu\+\_\+formatos\+\_\+disponiveis}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a04826c4e706cb61abc237affb0ea6d40}{menu\+\_\+media\+\_\+matriculas}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_ac61d53c9697a58df4534bdc51c323379}{guia\+\_\+de\+\_\+utilizacao}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a06f74c6a0126465474d9bf73a845314a}{the\+\_\+architect}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a63ec2c778201a25329508221a93e4e31}{processar\+\_\+gerir\+\_\+estudantes}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a5343fd62e1c198d73eebee481719e0ed}{processar\+\_\+consultar\+\_\+dados}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a4275f72921a11d0f53d33928ebc12391}{processar\+\_\+estatisticas}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_abb9a1eb278d4656b1274dfb2fab3a3f6}{processar\+\_\+ficheiros}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_ad8fcdb4b7cdf9227223a7e51ef88d838}{processar\+\_\+aniversarios}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a5207558a7623253479a44cc2cf1cb254}{processar\+\_\+opcoes}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_adc54394e7583cba4903132a7162c57de}{ler\+\_\+data}} (\mbox{\hyperlink{struct_data}{Data}} \texorpdfstring{$\ast$}{*}aluno, char \texorpdfstring{$\ast$}{*}str, const char modo)
+\item 
+void \mbox{\hyperlink{funcoes_8c_aa813338834b90790209374eec9d5b6d1}{inserir\+\_\+estudante}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_aeb4fbbd865e9528fae03c460510a114a}{eliminar\+\_\+estudante}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a54b501fcef0588252015f79c50616d82}{calcular\+\_\+estatisticas}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a8b4ae71d82625bd24d59e80acc78de55}{calcular\+\_\+media\+\_\+matriculas}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a48c54f726a9708ed345d0a43280e469e}{alunos\+\_\+por\+\_\+media\+\_\+e\+\_\+ano}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, float media\+\_\+min, float media\+\_\+max, short ano\+\_\+atual)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a2bdcacc4abc9c49fd6cdb7b3a79a6e43}{tabela\+\_\+idade\+\_\+por\+\_\+escalao}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a68b1ebc12ef6f5fa1fdbdf4c3f553fed}{tabela\+\_\+medias\+\_\+ano}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a5e9c3f38cf7e9e077ec9ae242fc3d3eb}{media\+\_\+idades\+\_\+por\+\_\+nacionalidade\+\_\+e\+\_\+ano}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a7294e4cf0667759cc939952386283929}{listar}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd, int indice\+\_\+aluno, FILE \texorpdfstring{$\ast$}{*}ficheiro, char separador, short \texorpdfstring{$\ast$}{*}contador)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a35c0e9800c2a6ac6004d1369b381dcdb}{listar\+\_\+info\+\_\+estudante}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a79ce8e61cf19d78e541345aa41794931}{procurar\+\_\+estudante\+\_\+por\+\_\+nome}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a0caf9e5fdaebbcf36a894107c1fd4033}{listar\+\_\+apelidos\+\_\+alfabeticamente}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a2af54582154bfed13a035758b2c39f56}{listar\+\_\+aniversarios\+\_\+por\+\_\+dia}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_aa2fd96ef6f118cd5dfa2e1b45ef1a922}{listar\+\_\+aniversario\+\_\+ao\+\_\+domingo}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_ae457d8bcde92779ba3369fa91d56c2de}{listar\+\_\+aniversario\+\_\+na\+\_\+quaresma}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a55b517ba98cc2e8aa3b59b5fdd2775fa}{prescrito}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_af1e29a98c2f8ae05d356e7a4eb432b11}{finalistas}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a6c8fc2919d96eb992e824f61b53d2243}{listar\+\_\+estudantes\+\_\+por\+\_\+data\+\_\+e\+\_\+nacionalidades}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a4f6e41225473e99e3e09542c15a1db4e}{remover\+\_\+espacos}} (char \texorpdfstring{$\ast$}{*}str)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a5be0841243f9252d6fdc97c4c9b07187}{separar\+\_\+parametros}} (const char \texorpdfstring{$\ast$}{*}linha, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}parametros, int \texorpdfstring{$\ast$}{*}num\+\_\+parametros)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a79ac624f20d876fd446b46bbc153fc58}{limpar\+\_\+buffer}} ()
+\item 
+int \mbox{\hyperlink{funcoes_8c_a63c57a87c465b578725bce99dc62d1be}{verificar\+\_\+e\+\_\+limpar\+\_\+buffer}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a1bf976fde2f18d0adaef6417c4f5c6f9}{limpar\+\_\+terminal}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_ae4110e08f7139b09f4703c90c430e45c}{pausa\+\_\+listagem}} (short \texorpdfstring{$\ast$}{*}contador)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a234f12ff9ae49f6f24298e493974f1d8}{pressione\+\_\+enter}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a0b62a41cf3976ca74afa8d9da0063d4d}{colocar\+\_\+terminal\+\_\+utf8}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a22704f14eabf70f04cddbecd436774e1}{verificar\+\_\+primeiro\+\_\+erro}} (FILE \texorpdfstring{$\ast$}{*}erros, char \texorpdfstring{$\ast$}{*}primeiro\+\_\+erro, const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro)
+\item 
+void \mbox{\hyperlink{funcoes_8c_ac08b4ff052a6cd34b528a460b98cb8e7}{print\+\_\+uso\+\_\+backup}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_aab7a6de84d0366e7f3ff9b7d6cedef13}{print\+\_\+falha\+\_\+carregar\+\_\+dados}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a6d7b3ce291f82656673d4ac8922185e0}{printf\+\_\+fich\+\_\+bin\+\_\+alterado}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_ad5065518fc25ef431b69d8586d182ca6}{listar\+\_\+erro\+\_\+ao\+\_\+carregar}} (FILE \texorpdfstring{$\ast$}{*}erros, char \texorpdfstring{$\ast$}{*}primeiro\+\_\+erro, const char \texorpdfstring{$\ast$}{*}nome\+\_\+ficheiro, char \texorpdfstring{$\ast$}{*}erro, int n\+\_\+linhas, const char \texorpdfstring{$\ast$}{*}linha)
+\item 
+int \mbox{\hyperlink{funcoes_8c_af3af413399ff5a8ef7281bac06871b12}{string\+\_\+para\+\_\+int}} (const char \texorpdfstring{$\ast$}{*}str, int \texorpdfstring{$\ast$}{*}resultado)
+\item 
+int \mbox{\hyperlink{funcoes_8c_aae0cd096c276200df34e312e2c350ad1}{string\+\_\+para\+\_\+short}} (const char \texorpdfstring{$\ast$}{*}str, short \texorpdfstring{$\ast$}{*}resultado)
+\item 
+int \mbox{\hyperlink{funcoes_8c_ab71f6c36bd25e8be40ea2902579fb31c}{string\+\_\+para\+\_\+float}} (const char \texorpdfstring{$\ast$}{*}str, float \texorpdfstring{$\ast$}{*}resultado)
+\item 
+short \mbox{\hyperlink{funcoes_8c_afe8317e94ff3d4221446e51e14f40edd}{calcular\+\_\+dia\+\_\+da\+\_\+semana}} (short dia, int mes, int ano)
+\item 
+\mbox{\hyperlink{struct_data}{Data}} \mbox{\hyperlink{funcoes_8c_a784ab1b9215b7d8aceae67d56eca57ea}{calcular\+\_\+domingo\+\_\+pascoa}} (int ano)
+\item 
+\mbox{\hyperlink{struct_data}{Data}} \mbox{\hyperlink{funcoes_8c_a633e8b6c4440cc317cb8c9157df320be}{calcular\+\_\+quarta\+\_\+feira\+\_\+cinzas}} (\mbox{\hyperlink{struct_data}{Data}} pascoa)
+\item 
+void \mbox{\hyperlink{funcoes_8c_aeeb090e02add3d0c2c4a5fdf03163125}{calcular\+\_\+quaresma}} (int ano, \mbox{\hyperlink{struct_data}{Data}} \texorpdfstring{$\ast$}{*}inicio, \mbox{\hyperlink{struct_data}{Data}} \texorpdfstring{$\ast$}{*}fim)
+\item 
+unsigned long \mbox{\hyperlink{funcoes_8c_af74f7a7125b42502640c2b9bb3947ca7}{calcular\+\_\+checksum}} (\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}bd)
+\item 
+int \mbox{\hyperlink{funcoes_8c_a591951fe49c89cb3e1fd69135a648d3b}{sim\+\_\+nao}} ()
+\item 
+void \mbox{\hyperlink{funcoes_8c_a52a8642cbc902e0ba7a495e5d17622bb}{pedir\+\_\+codigo}} (int \texorpdfstring{$\ast$}{*}codigo)
+\item 
+char \mbox{\hyperlink{funcoes_8c_aad77d26892502cd57110cd9f2c55ad91}{obter\+\_\+separador}} (FILE \texorpdfstring{$\ast$}{*}ficheiro, char \texorpdfstring{$\ast$}{*}formato)
+\item 
+short \mbox{\hyperlink{funcoes_8c_ad1be3bc54e01edac9d556a166afa88c6}{calcular\+\_\+idade}} (\mbox{\hyperlink{struct_data}{Data}} nascimento)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{funcoes_8c_a3d1c6aed98e798dbb1469080ecc26536}{normalizar\+\_\+string}} (char \texorpdfstring{$\ast$}{*}str)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{funcoes_8c_a70141b3bc2a366f4707a4dda668017e7}{strlwr2}} (char \texorpdfstring{$\ast$}{*}str)
+\item 
+void \mbox{\hyperlink{funcoes_8c_a854f7fe68ad6497f4e1456f6c9bbb377}{data\+\_\+atual}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_data}{Data}} \mbox{\hyperlink{funcoes_8c_a36e05dce33885bc9d91881e12b3a1fbc}{DATA\+\_\+\+ATUAL}} = \{0,0,0\}
+\item 
+char \mbox{\hyperlink{funcoes_8c_a0bc55d294ef92122873e5cef612f44c0}{autosave\+ON}} = \textquotesingle{}0\textquotesingle{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{funcoes_8c_a48c54f726a9708ed345d0a43280e469e}\index{funcoes.c@{funcoes.c}!alunos\_por\_media\_e\_ano@{alunos\_por\_media\_e\_ano}}
+\index{alunos\_por\_media\_e\_ano@{alunos\_por\_media\_e\_ano}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{alunos\_por\_media\_e\_ano()}{alunos\_por\_media\_e\_ano()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a48c54f726a9708ed345d0a43280e469e} 
+int alunos\+\_\+por\+\_\+media\+\_\+e\+\_\+ano (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{float}]{media\+\_\+min}{, }\item[{float}]{media\+\_\+max}{, }\item[{short}]{ano\+\_\+atual}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a0ec392bcb7ab2eb825e137a38add1ce7}\index{funcoes.c@{funcoes.c}!autosave@{autosave}}
+\index{autosave@{autosave}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{autosave()}{autosave()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a0ec392bcb7ab2eb825e137a38add1ce7} 
+void autosave (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_af74f7a7125b42502640c2b9bb3947ca7}\index{funcoes.c@{funcoes.c}!calcular\_checksum@{calcular\_checksum}}
+\index{calcular\_checksum@{calcular\_checksum}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{calcular\_checksum()}{calcular\_checksum()}}
+{\footnotesize\ttfamily \label{funcoes_8c_af74f7a7125b42502640c2b9bb3947ca7} 
+unsigned long calcular\+\_\+checksum (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_afe8317e94ff3d4221446e51e14f40edd}\index{funcoes.c@{funcoes.c}!calcular\_dia\_da\_semana@{calcular\_dia\_da\_semana}}
+\index{calcular\_dia\_da\_semana@{calcular\_dia\_da\_semana}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{calcular\_dia\_da\_semana()}{calcular\_dia\_da\_semana()}}
+{\footnotesize\ttfamily \label{funcoes_8c_afe8317e94ff3d4221446e51e14f40edd} 
+short calcular\+\_\+dia\+\_\+da\+\_\+semana (\begin{DoxyParamCaption}\item[{short}]{dia}{, }\item[{int}]{mes}{, }\item[{int}]{ano}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a784ab1b9215b7d8aceae67d56eca57ea}\index{funcoes.c@{funcoes.c}!calcular\_domingo\_pascoa@{calcular\_domingo\_pascoa}}
+\index{calcular\_domingo\_pascoa@{calcular\_domingo\_pascoa}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{calcular\_domingo\_pascoa()}{calcular\_domingo\_pascoa()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a784ab1b9215b7d8aceae67d56eca57ea} 
+\mbox{\hyperlink{struct_data}{Data}} calcular\+\_\+domingo\+\_\+pascoa (\begin{DoxyParamCaption}\item[{int}]{ano}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a54b501fcef0588252015f79c50616d82}\index{funcoes.c@{funcoes.c}!calcular\_estatisticas@{calcular\_estatisticas}}
+\index{calcular\_estatisticas@{calcular\_estatisticas}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{calcular\_estatisticas()}{calcular\_estatisticas()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a54b501fcef0588252015f79c50616d82} 
+void calcular\+\_\+estatisticas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ad1be3bc54e01edac9d556a166afa88c6}\index{funcoes.c@{funcoes.c}!calcular\_idade@{calcular\_idade}}
+\index{calcular\_idade@{calcular\_idade}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{calcular\_idade()}{calcular\_idade()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ad1be3bc54e01edac9d556a166afa88c6} 
+short calcular\+\_\+idade (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_data}{Data}}}]{nascimento}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a8b4ae71d82625bd24d59e80acc78de55}\index{funcoes.c@{funcoes.c}!calcular\_media\_matriculas@{calcular\_media\_matriculas}}
+\index{calcular\_media\_matriculas@{calcular\_media\_matriculas}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{calcular\_media\_matriculas()}{calcular\_media\_matriculas()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a8b4ae71d82625bd24d59e80acc78de55} 
+void calcular\+\_\+media\+\_\+matriculas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_aeeb090e02add3d0c2c4a5fdf03163125}\index{funcoes.c@{funcoes.c}!calcular\_quaresma@{calcular\_quaresma}}
+\index{calcular\_quaresma@{calcular\_quaresma}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{calcular\_quaresma()}{calcular\_quaresma()}}
+{\footnotesize\ttfamily \label{funcoes_8c_aeeb090e02add3d0c2c4a5fdf03163125} 
+void calcular\+\_\+quaresma (\begin{DoxyParamCaption}\item[{int}]{ano}{, }\item[{\mbox{\hyperlink{struct_data}{Data}} \texorpdfstring{$\ast$}{*}}]{inicio}{, }\item[{\mbox{\hyperlink{struct_data}{Data}} \texorpdfstring{$\ast$}{*}}]{fim}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a633e8b6c4440cc317cb8c9157df320be}\index{funcoes.c@{funcoes.c}!calcular\_quarta\_feira\_cinzas@{calcular\_quarta\_feira\_cinzas}}
+\index{calcular\_quarta\_feira\_cinzas@{calcular\_quarta\_feira\_cinzas}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{calcular\_quarta\_feira\_cinzas()}{calcular\_quarta\_feira\_cinzas()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a633e8b6c4440cc317cb8c9157df320be} 
+\mbox{\hyperlink{struct_data}{Data}} calcular\+\_\+quarta\+\_\+feira\+\_\+cinzas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_data}{Data}}}]{pascoa}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_aa11094c06353f7a6d700d032b5541795}\index{funcoes.c@{funcoes.c}!carregar\_dados\_bin@{carregar\_dados\_bin}}
+\index{carregar\_dados\_bin@{carregar\_dados\_bin}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{carregar\_dados\_bin()}{carregar\_dados\_bin()}}
+{\footnotesize\ttfamily \label{funcoes_8c_aa11094c06353f7a6d700d032b5541795} 
+int carregar\+\_\+dados\+\_\+bin (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro}{, }\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a30ddb5c269cf9bc3aaa84b9fcdcb1044}\index{funcoes.c@{funcoes.c}!carregar\_dados\_txt@{carregar\_dados\_txt}}
+\index{carregar\_dados\_txt@{carregar\_dados\_txt}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{carregar\_dados\_txt()}{carregar\_dados\_txt()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a30ddb5c269cf9bc3aaa84b9fcdcb1044} 
+int carregar\+\_\+dados\+\_\+txt (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro\+\_\+dados}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro\+\_\+escolar}{, }\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a0b62a41cf3976ca74afa8d9da0063d4d}\index{funcoes.c@{funcoes.c}!colocar\_terminal\_utf8@{colocar\_terminal\_utf8}}
+\index{colocar\_terminal\_utf8@{colocar\_terminal\_utf8}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{colocar\_terminal\_utf8()}{colocar\_terminal\_utf8()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a0b62a41cf3976ca74afa8d9da0063d4d} 
+void colocar\+\_\+terminal\+\_\+utf8 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a6d2c2fb8ef15e5f9c7f1f3a466b75499}\index{funcoes.c@{funcoes.c}!comparar\_data@{comparar\_data}}
+\index{comparar\_data@{comparar\_data}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{comparar\_data()}{comparar\_data()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a6d2c2fb8ef15e5f9c7f1f3a466b75499} 
+int comparar\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_data}{Data}}}]{d1}{, }\item[{\mbox{\hyperlink{struct_data}{Data}}}]{d2}{, }\item[{const char}]{ignorar\+\_\+ano}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a854f7fe68ad6497f4e1456f6c9bbb377}\index{funcoes.c@{funcoes.c}!data\_atual@{data\_atual}}
+\index{data\_atual@{data\_atual}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{data\_atual()}{data\_atual()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a854f7fe68ad6497f4e1456f6c9bbb377} 
+void data\+\_\+atual (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_aeb4fbbd865e9528fae03c460510a114a}\index{funcoes.c@{funcoes.c}!eliminar\_estudante@{eliminar\_estudante}}
+\index{eliminar\_estudante@{eliminar\_estudante}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{eliminar\_estudante()}{eliminar\_estudante()}}
+{\footnotesize\ttfamily \label{funcoes_8c_aeb4fbbd865e9528fae03c460510a114a} 
+void eliminar\+\_\+estudante (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_adcf76f7eea353b044f2a03818d254bd5}\index{funcoes.c@{funcoes.c}!eliminar\_ficheiro@{eliminar\_ficheiro}}
+\index{eliminar\_ficheiro@{eliminar\_ficheiro}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{eliminar\_ficheiro()}{eliminar\_ficheiro()}}
+{\footnotesize\ttfamily \label{funcoes_8c_adcf76f7eea353b044f2a03818d254bd5} 
+int eliminar\+\_\+ficheiro (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{nome}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a7cb7b278afa49c2389e4aaaa46407b36}\index{funcoes.c@{funcoes.c}!fase\_instalacao@{fase\_instalacao}}
+\index{fase\_instalacao@{fase\_instalacao}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{fase\_instalacao()}{fase\_instalacao()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a7cb7b278afa49c2389e4aaaa46407b36} 
+int fase\+\_\+instalacao (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{flag}{, }\item[{const char}]{abrir}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_af1e29a98c2f8ae05d356e7a4eb432b11}\index{funcoes.c@{funcoes.c}!finalistas@{finalistas}}
+\index{finalistas@{finalistas}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{finalistas()}{finalistas()}}
+{\footnotesize\ttfamily \label{funcoes_8c_af1e29a98c2f8ae05d356e7a4eb432b11} 
+void finalistas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a05635821f2ce6c433e13b25cf0e122a8}\index{funcoes.c@{funcoes.c}!free\_nome\_nacionalidade@{free\_nome\_nacionalidade}}
+\index{free\_nome\_nacionalidade@{free\_nome\_nacionalidade}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{free\_nome\_nacionalidade()}{free\_nome\_nacionalidade()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a05635821f2ce6c433e13b25cf0e122a8} 
+void free\+\_\+nome\+\_\+nacionalidade (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a868b8ee27532c0f0d7e3ee3dac56a2f4}\index{funcoes.c@{funcoes.c}!free\_tudo@{free\_tudo}}
+\index{free\_tudo@{free\_tudo}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{free\_tudo()}{free\_tudo()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a868b8ee27532c0f0d7e3ee3dac56a2f4} 
+void free\+\_\+tudo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a9302ce17e223e5c9d09b81e5af68db70}\index{funcoes.c@{funcoes.c}!guardar\_dados\_bin@{guardar\_dados\_bin}}
+\index{guardar\_dados\_bin@{guardar\_dados\_bin}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{guardar\_dados\_bin()}{guardar\_dados\_bin()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a9302ce17e223e5c9d09b81e5af68db70} 
+void guardar\+\_\+dados\+\_\+bin (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro}{, }\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a1abc606ae8ce90c65d4239779c4cb2a5}\index{funcoes.c@{funcoes.c}!guardar\_dados\_txt@{guardar\_dados\_txt}}
+\index{guardar\_dados\_txt@{guardar\_dados\_txt}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{guardar\_dados\_txt()}{guardar\_dados\_txt()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a1abc606ae8ce90c65d4239779c4cb2a5} 
+void guardar\+\_\+dados\+\_\+txt (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro\+\_\+dados}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro\+\_\+escolares}{, }\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ac61d53c9697a58df4534bdc51c323379}\index{funcoes.c@{funcoes.c}!guia\_de\_utilizacao@{guia\_de\_utilizacao}}
+\index{guia\_de\_utilizacao@{guia\_de\_utilizacao}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{guia\_de\_utilizacao()}{guia\_de\_utilizacao()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ac61d53c9697a58df4534bdc51c323379} 
+void guia\+\_\+de\+\_\+utilizacao (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ac72da37d9eb2b513855be77e47305482}\index{funcoes.c@{funcoes.c}!inicializar\_aluno@{inicializar\_aluno}}
+\index{inicializar\_aluno@{inicializar\_aluno}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{inicializar\_aluno()}{inicializar\_aluno()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ac72da37d9eb2b513855be77e47305482} 
+void inicializar\+\_\+aluno (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{int}]{indice\+\_\+aluno}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_af5facf2af9e8dec813f3ce4ad57a13ba}\index{funcoes.c@{funcoes.c}!inicializar\_escolares@{inicializar\_escolares}}
+\index{inicializar\_escolares@{inicializar\_escolares}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{inicializar\_escolares()}{inicializar\_escolares()}}
+{\footnotesize\ttfamily \label{funcoes_8c_af5facf2af9e8dec813f3ce4ad57a13ba} 
+void inicializar\+\_\+escolares (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{int}]{indice\+\_\+escolares}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a2dbfde9c0521a3493b0a5420ecdb1724}\index{funcoes.c@{funcoes.c}!inicializar\_estatisticas@{inicializar\_estatisticas}}
+\index{inicializar\_estatisticas@{inicializar\_estatisticas}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{inicializar\_estatisticas()}{inicializar\_estatisticas()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a2dbfde9c0521a3493b0a5420ecdb1724} 
+void inicializar\+\_\+estatisticas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_estatisticas}{Estatisticas}} \texorpdfstring{$\ast$}{*}}]{stats}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_aa813338834b90790209374eec9d5b6d1}\index{funcoes.c@{funcoes.c}!inserir\_estudante@{inserir\_estudante}}
+\index{inserir\_estudante@{inserir\_estudante}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{inserir\_estudante()}{inserir\_estudante()}}
+{\footnotesize\ttfamily \label{funcoes_8c_aa813338834b90790209374eec9d5b6d1} 
+void inserir\+\_\+estudante (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_acd13dc258398325952a9b61843f81d1e}\index{funcoes.c@{funcoes.c}!ler\_dados\_binarios@{ler\_dados\_binarios}}
+\index{ler\_dados\_binarios@{ler\_dados\_binarios}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{ler\_dados\_binarios()}{ler\_dados\_binarios()}}
+{\footnotesize\ttfamily \label{funcoes_8c_acd13dc258398325952a9b61843f81d1e} 
+int ler\+\_\+dados\+\_\+binarios (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{size\+\_\+t}]{tamanho}{, }\item[{size\+\_\+t}]{cont}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{ficheiro}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_adc54394e7583cba4903132a7162c57de}\index{funcoes.c@{funcoes.c}!ler\_data@{ler\_data}}
+\index{ler\_data@{ler\_data}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{ler\_data()}{ler\_data()}}
+{\footnotesize\ttfamily \label{funcoes_8c_adc54394e7583cba4903132a7162c57de} 
+void ler\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_data}{Data}} \texorpdfstring{$\ast$}{*}}]{aluno}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a5ed848b8558cea3fcc64b56b36031b6e}\index{funcoes.c@{funcoes.c}!ler\_linha\_txt@{ler\_linha\_txt}}
+\index{ler\_linha\_txt@{ler\_linha\_txt}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{ler\_linha\_txt()}{ler\_linha\_txt()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a5ed848b8558cea3fcc64b56b36031b6e} 
+char \texorpdfstring{$\ast$}{*} ler\+\_\+linha\+\_\+txt (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{ficheiro}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{n\+\_\+linhas}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a79ac624f20d876fd446b46bbc153fc58}\index{funcoes.c@{funcoes.c}!limpar\_buffer@{limpar\_buffer}}
+\index{limpar\_buffer@{limpar\_buffer}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{limpar\_buffer()}{limpar\_buffer()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a79ac624f20d876fd446b46bbc153fc58} 
+void limpar\+\_\+buffer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a1bf976fde2f18d0adaef6417c4f5c6f9}\index{funcoes.c@{funcoes.c}!limpar\_terminal@{limpar\_terminal}}
+\index{limpar\_terminal@{limpar\_terminal}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{limpar\_terminal()}{limpar\_terminal()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a1bf976fde2f18d0adaef6417c4f5c6f9} 
+void limpar\+\_\+terminal (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a7294e4cf0667759cc939952386283929}\index{funcoes.c@{funcoes.c}!listar@{listar}}
+\index{listar@{listar}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{listar()}{listar()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a7294e4cf0667759cc939952386283929} 
+void listar (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{int}]{indice\+\_\+aluno}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{ficheiro}{, }\item[{char}]{separador}{, }\item[{short \texorpdfstring{$\ast$}{*}}]{contador}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_aa2fd96ef6f118cd5dfa2e1b45ef1a922}\index{funcoes.c@{funcoes.c}!listar\_aniversario\_ao\_domingo@{listar\_aniversario\_ao\_domingo}}
+\index{listar\_aniversario\_ao\_domingo@{listar\_aniversario\_ao\_domingo}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{listar\_aniversario\_ao\_domingo()}{listar\_aniversario\_ao\_domingo()}}
+{\footnotesize\ttfamily \label{funcoes_8c_aa2fd96ef6f118cd5dfa2e1b45ef1a922} 
+void listar\+\_\+aniversario\+\_\+ao\+\_\+domingo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ae457d8bcde92779ba3369fa91d56c2de}\index{funcoes.c@{funcoes.c}!listar\_aniversario\_na\_quaresma@{listar\_aniversario\_na\_quaresma}}
+\index{listar\_aniversario\_na\_quaresma@{listar\_aniversario\_na\_quaresma}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{listar\_aniversario\_na\_quaresma()}{listar\_aniversario\_na\_quaresma()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ae457d8bcde92779ba3369fa91d56c2de} 
+void listar\+\_\+aniversario\+\_\+na\+\_\+quaresma (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a2af54582154bfed13a035758b2c39f56}\index{funcoes.c@{funcoes.c}!listar\_aniversarios\_por\_dia@{listar\_aniversarios\_por\_dia}}
+\index{listar\_aniversarios\_por\_dia@{listar\_aniversarios\_por\_dia}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{listar\_aniversarios\_por\_dia()}{listar\_aniversarios\_por\_dia()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a2af54582154bfed13a035758b2c39f56} 
+void listar\+\_\+aniversarios\+\_\+por\+\_\+dia (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a0caf9e5fdaebbcf36a894107c1fd4033}\index{funcoes.c@{funcoes.c}!listar\_apelidos\_alfabeticamente@{listar\_apelidos\_alfabeticamente}}
+\index{listar\_apelidos\_alfabeticamente@{listar\_apelidos\_alfabeticamente}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{listar\_apelidos\_alfabeticamente()}{listar\_apelidos\_alfabeticamente()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a0caf9e5fdaebbcf36a894107c1fd4033} 
+void listar\+\_\+apelidos\+\_\+alfabeticamente (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ad5065518fc25ef431b69d8586d182ca6}\index{funcoes.c@{funcoes.c}!listar\_erro\_ao\_carregar@{listar\_erro\_ao\_carregar}}
+\index{listar\_erro\_ao\_carregar@{listar\_erro\_ao\_carregar}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{listar\_erro\_ao\_carregar()}{listar\_erro\_ao\_carregar()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ad5065518fc25ef431b69d8586d182ca6} 
+void listar\+\_\+erro\+\_\+ao\+\_\+carregar (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{erros}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{primeiro\+\_\+erro}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{erro}{, }\item[{int}]{n\+\_\+linhas}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{linha}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a6c8fc2919d96eb992e824f61b53d2243}\index{funcoes.c@{funcoes.c}!listar\_estudantes\_por\_data\_e\_nacionalidades@{listar\_estudantes\_por\_data\_e\_nacionalidades}}
+\index{listar\_estudantes\_por\_data\_e\_nacionalidades@{listar\_estudantes\_por\_data\_e\_nacionalidades}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{listar\_estudantes\_por\_data\_e\_nacionalidades()}{listar\_estudantes\_por\_data\_e\_nacionalidades()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a6c8fc2919d96eb992e824f61b53d2243} 
+void listar\+\_\+estudantes\+\_\+por\+\_\+data\+\_\+e\+\_\+nacionalidades (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a35c0e9800c2a6ac6004d1369b381dcdb}\index{funcoes.c@{funcoes.c}!listar\_info\_estudante@{listar\_info\_estudante}}
+\index{listar\_info\_estudante@{listar\_info\_estudante}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{listar\_info\_estudante()}{listar\_info\_estudante()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a35c0e9800c2a6ac6004d1369b381dcdb} 
+void listar\+\_\+info\+\_\+estudante (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a5e9c3f38cf7e9e077ec9ae242fc3d3eb}\index{funcoes.c@{funcoes.c}!media\_idades\_por\_nacionalidade\_e\_ano@{media\_idades\_por\_nacionalidade\_e\_ano}}
+\index{media\_idades\_por\_nacionalidade\_e\_ano@{media\_idades\_por\_nacionalidade\_e\_ano}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{media\_idades\_por\_nacionalidade\_e\_ano()}{media\_idades\_por\_nacionalidade\_e\_ano()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a5e9c3f38cf7e9e077ec9ae242fc3d3eb} 
+void media\+\_\+idades\+\_\+por\+\_\+nacionalidade\+\_\+e\+\_\+ano (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a793be6171eeffeca257559ddca4f6dd1}\index{funcoes.c@{funcoes.c}!menu\_aniversarios@{menu\_aniversarios}}
+\index{menu\_aniversarios@{menu\_aniversarios}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{menu\_aniversarios()}{menu\_aniversarios()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a793be6171eeffeca257559ddca4f6dd1} 
+void menu\+\_\+aniversarios (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_acec43b7727891bfac4b2d8446dd456f9}\index{funcoes.c@{funcoes.c}!menu\_consultar\_dados@{menu\_consultar\_dados}}
+\index{menu\_consultar\_dados@{menu\_consultar\_dados}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{menu\_consultar\_dados()}{menu\_consultar\_dados()}}
+{\footnotesize\ttfamily \label{funcoes_8c_acec43b7727891bfac4b2d8446dd456f9} 
+void menu\+\_\+consultar\+\_\+dados (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a261367a0f9be69a3f2a30444190b07b5}\index{funcoes.c@{funcoes.c}!menu\_dias\_da\_semana@{menu\_dias\_da\_semana}}
+\index{menu\_dias\_da\_semana@{menu\_dias\_da\_semana}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{menu\_dias\_da\_semana()}{menu\_dias\_da\_semana()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a261367a0f9be69a3f2a30444190b07b5} 
+void menu\+\_\+dias\+\_\+da\+\_\+semana (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ae59883fb46ae5cc77a3b9bb9098ce499}\index{funcoes.c@{funcoes.c}!menu\_estatisticas@{menu\_estatisticas}}
+\index{menu\_estatisticas@{menu\_estatisticas}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{menu\_estatisticas()}{menu\_estatisticas()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ae59883fb46ae5cc77a3b9bb9098ce499} 
+void menu\+\_\+estatisticas (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a2d203ce081a12cd3e8322a29f6724da0}\index{funcoes.c@{funcoes.c}!menu\_ficheiros@{menu\_ficheiros}}
+\index{menu\_ficheiros@{menu\_ficheiros}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{menu\_ficheiros()}{menu\_ficheiros()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a2d203ce081a12cd3e8322a29f6724da0} 
+void menu\+\_\+ficheiros (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a1658be24cc2901ecf82e217d101d2682}\index{funcoes.c@{funcoes.c}!menu\_formatos\_disponiveis@{menu\_formatos\_disponiveis}}
+\index{menu\_formatos\_disponiveis@{menu\_formatos\_disponiveis}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{menu\_formatos\_disponiveis()}{menu\_formatos\_disponiveis()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a1658be24cc2901ecf82e217d101d2682} 
+void menu\+\_\+formatos\+\_\+disponiveis (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a53452fe506884066f02b5b15345e0666}\index{funcoes.c@{funcoes.c}!menu\_gerir\_estudantes@{menu\_gerir\_estudantes}}
+\index{menu\_gerir\_estudantes@{menu\_gerir\_estudantes}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{menu\_gerir\_estudantes()}{menu\_gerir\_estudantes()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a53452fe506884066f02b5b15345e0666} 
+void menu\+\_\+gerir\+\_\+estudantes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a04826c4e706cb61abc237affb0ea6d40}\index{funcoes.c@{funcoes.c}!menu\_media\_matriculas@{menu\_media\_matriculas}}
+\index{menu\_media\_matriculas@{menu\_media\_matriculas}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{menu\_media\_matriculas()}{menu\_media\_matriculas()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a04826c4e706cb61abc237affb0ea6d40} 
+void menu\+\_\+media\+\_\+matriculas (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a1b9ad34211504ea774b610a1669a44da}\index{funcoes.c@{funcoes.c}!menu\_opcoes@{menu\_opcoes}}
+\index{menu\_opcoes@{menu\_opcoes}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{menu\_opcoes()}{menu\_opcoes()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a1b9ad34211504ea774b610a1669a44da} 
+void menu\+\_\+opcoes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ae3a600065cfe3e0105b6209e35d20264}\index{funcoes.c@{funcoes.c}!menu\_principal@{menu\_principal}}
+\index{menu\_principal@{menu\_principal}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{menu\_principal()}{menu\_principal()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ae3a600065cfe3e0105b6209e35d20264} 
+void menu\+\_\+principal (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a528b7d81f4ddeddbe5fc15cf6f57319c}\index{funcoes.c@{funcoes.c}!merge\_aluno@{merge\_aluno}}
+\index{merge\_aluno@{merge\_aluno}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{merge\_aluno()}{merge\_aluno()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a528b7d81f4ddeddbe5fc15cf6f57319c} 
+void merge\+\_\+aluno (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{int}]{inicio}{, }\item[{int}]{meio}{, }\item[{int}]{fim}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ae0451fad516769040ec3b671ef35dfff}\index{funcoes.c@{funcoes.c}!merge\_escolares@{merge\_escolares}}
+\index{merge\_escolares@{merge\_escolares}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{merge\_escolares()}{merge\_escolares()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ae0451fad516769040ec3b671ef35dfff} 
+void merge\+\_\+escolares (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{int}]{inicio}{, }\item[{int}]{meio}{, }\item[{int}]{fim}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ad21604bb78636cb96497aa70f895613d}\index{funcoes.c@{funcoes.c}!merge\_sort\_aluno@{merge\_sort\_aluno}}
+\index{merge\_sort\_aluno@{merge\_sort\_aluno}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{merge\_sort\_aluno()}{merge\_sort\_aluno()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ad21604bb78636cb96497aa70f895613d} 
+void merge\+\_\+sort\+\_\+aluno (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{int}]{inicio}{, }\item[{int}]{fim}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a0c154dfd2a4c5bde43412d7823fc467e}\index{funcoes.c@{funcoes.c}!merge\_sort\_escolares@{merge\_sort\_escolares}}
+\index{merge\_sort\_escolares@{merge\_sort\_escolares}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{merge\_sort\_escolares()}{merge\_sort\_escolares()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a0c154dfd2a4c5bde43412d7823fc467e} 
+void merge\+\_\+sort\+\_\+escolares (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{int}]{inicio}{, }\item[{int}]{fim}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ae0b607fbe1b8f40c01b66ab2bdb1f195}\index{funcoes.c@{funcoes.c}!mostrar\_dados\_ficheiro@{mostrar\_dados\_ficheiro}}
+\index{mostrar\_dados\_ficheiro@{mostrar\_dados\_ficheiro}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{mostrar\_dados\_ficheiro()}{mostrar\_dados\_ficheiro()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ae0b607fbe1b8f40c01b66ab2bdb1f195} 
+void mostrar\+\_\+dados\+\_\+ficheiro (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a925d4d58ba624fdedb9e50f77d050df8}\index{funcoes.c@{funcoes.c}!mostrar\_menu@{mostrar\_menu}}
+\index{mostrar\_menu@{mostrar\_menu}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{mostrar\_menu()}{mostrar\_menu()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a925d4d58ba624fdedb9e50f77d050df8} 
+char mostrar\+\_\+menu (\begin{DoxyParamCaption}\item[{void(\texorpdfstring{$\ast$}{*}}]{escrever\+\_\+menu~}{)(), }\item[{char}]{min\+\_\+opcao}{, }\item[{char}]{max\+\_\+opcao}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a3d1c6aed98e798dbb1469080ecc26536}\index{funcoes.c@{funcoes.c}!normalizar\_string@{normalizar\_string}}
+\index{normalizar\_string@{normalizar\_string}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{normalizar\_string()}{normalizar\_string()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a3d1c6aed98e798dbb1469080ecc26536} 
+char \texorpdfstring{$\ast$}{*} normalizar\+\_\+string (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_aad77d26892502cd57110cd9f2c55ad91}\index{funcoes.c@{funcoes.c}!obter\_separador@{obter\_separador}}
+\index{obter\_separador@{obter\_separador}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{obter\_separador()}{obter\_separador()}}
+{\footnotesize\ttfamily \label{funcoes_8c_aad77d26892502cd57110cd9f2c55ad91} 
+char obter\+\_\+separador (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{ficheiro}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{formato}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a30084b6624e2d2d351706fa97596a260}\index{funcoes.c@{funcoes.c}!ordenar\_ao\_eliminar@{ordenar\_ao\_eliminar}}
+\index{ordenar\_ao\_eliminar@{ordenar\_ao\_eliminar}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{ordenar\_ao\_eliminar()}{ordenar\_ao\_eliminar()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a30084b6624e2d2d351706fa97596a260} 
+int ordenar\+\_\+ao\+\_\+eliminar (\begin{DoxyParamCaption}\item[{int}]{codigo}{, }\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ac04e9d9a853b7dcd05444aba5dfc047e}\index{funcoes.c@{funcoes.c}!ordenar\_ao\_inserir@{ordenar\_ao\_inserir}}
+\index{ordenar\_ao\_inserir@{ordenar\_ao\_inserir}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{ordenar\_ao\_inserir()}{ordenar\_ao\_inserir()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ac04e9d9a853b7dcd05444aba5dfc047e} 
+void ordenar\+\_\+ao\+\_\+inserir (\begin{DoxyParamCaption}\item[{int}]{codigo}{, }\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{int}]{indice\+\_\+aluno}{, }\item[{int}]{indice\+\_\+escolares}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ae4110e08f7139b09f4703c90c430e45c}\index{funcoes.c@{funcoes.c}!pausa\_listagem@{pausa\_listagem}}
+\index{pausa\_listagem@{pausa\_listagem}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{pausa\_listagem()}{pausa\_listagem()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ae4110e08f7139b09f4703c90c430e45c} 
+void pausa\+\_\+listagem (\begin{DoxyParamCaption}\item[{short \texorpdfstring{$\ast$}{*}}]{contador}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a52a8642cbc902e0ba7a495e5d17622bb}\index{funcoes.c@{funcoes.c}!pedir\_codigo@{pedir\_codigo}}
+\index{pedir\_codigo@{pedir\_codigo}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{pedir\_codigo()}{pedir\_codigo()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a52a8642cbc902e0ba7a495e5d17622bb} 
+void pedir\+\_\+codigo (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{codigo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a96eab323cc71dc17b5a2b542f27b1857}\index{funcoes.c@{funcoes.c}!pedir\_listagem@{pedir\_listagem}}
+\index{pedir\_listagem@{pedir\_listagem}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{pedir\_listagem()}{pedir\_listagem()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a96eab323cc71dc17b5a2b542f27b1857} 
+FILE \texorpdfstring{$\ast$}{*} pedir\+\_\+listagem (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{formato\+\_\+selecionado}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a55b517ba98cc2e8aa3b59b5fdd2775fa}\index{funcoes.c@{funcoes.c}!prescrito@{prescrito}}
+\index{prescrito@{prescrito}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{prescrito()}{prescrito()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a55b517ba98cc2e8aa3b59b5fdd2775fa} 
+void prescrito (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a234f12ff9ae49f6f24298e493974f1d8}\index{funcoes.c@{funcoes.c}!pressione\_enter@{pressione\_enter}}
+\index{pressione\_enter@{pressione\_enter}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{pressione\_enter()}{pressione\_enter()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a234f12ff9ae49f6f24298e493974f1d8} 
+void pressione\+\_\+enter (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_aab7a6de84d0366e7f3ff9b7d6cedef13}\index{funcoes.c@{funcoes.c}!print\_falha\_carregar\_dados@{print\_falha\_carregar\_dados}}
+\index{print\_falha\_carregar\_dados@{print\_falha\_carregar\_dados}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{print\_falha\_carregar\_dados()}{print\_falha\_carregar\_dados()}}
+{\footnotesize\ttfamily \label{funcoes_8c_aab7a6de84d0366e7f3ff9b7d6cedef13} 
+void print\+\_\+falha\+\_\+carregar\+\_\+dados (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ac08b4ff052a6cd34b528a460b98cb8e7}\index{funcoes.c@{funcoes.c}!print\_uso\_backup@{print\_uso\_backup}}
+\index{print\_uso\_backup@{print\_uso\_backup}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{print\_uso\_backup()}{print\_uso\_backup()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ac08b4ff052a6cd34b528a460b98cb8e7} 
+void print\+\_\+uso\+\_\+backup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a6d7b3ce291f82656673d4ac8922185e0}\index{funcoes.c@{funcoes.c}!printf\_fich\_bin\_alterado@{printf\_fich\_bin\_alterado}}
+\index{printf\_fich\_bin\_alterado@{printf\_fich\_bin\_alterado}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{printf\_fich\_bin\_alterado()}{printf\_fich\_bin\_alterado()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a6d7b3ce291f82656673d4ac8922185e0} 
+void printf\+\_\+fich\+\_\+bin\+\_\+alterado (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ad8fcdb4b7cdf9227223a7e51ef88d838}\index{funcoes.c@{funcoes.c}!processar\_aniversarios@{processar\_aniversarios}}
+\index{processar\_aniversarios@{processar\_aniversarios}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{processar\_aniversarios()}{processar\_aniversarios()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ad8fcdb4b7cdf9227223a7e51ef88d838} 
+void processar\+\_\+aniversarios (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a5343fd62e1c198d73eebee481719e0ed}\index{funcoes.c@{funcoes.c}!processar\_consultar\_dados@{processar\_consultar\_dados}}
+\index{processar\_consultar\_dados@{processar\_consultar\_dados}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{processar\_consultar\_dados()}{processar\_consultar\_dados()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a5343fd62e1c198d73eebee481719e0ed} 
+void processar\+\_\+consultar\+\_\+dados (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a4275f72921a11d0f53d33928ebc12391}\index{funcoes.c@{funcoes.c}!processar\_estatisticas@{processar\_estatisticas}}
+\index{processar\_estatisticas@{processar\_estatisticas}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{processar\_estatisticas()}{processar\_estatisticas()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a4275f72921a11d0f53d33928ebc12391} 
+void processar\+\_\+estatisticas (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_abb9a1eb278d4656b1274dfb2fab3a3f6}\index{funcoes.c@{funcoes.c}!processar\_ficheiros@{processar\_ficheiros}}
+\index{processar\_ficheiros@{processar\_ficheiros}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{processar\_ficheiros()}{processar\_ficheiros()}}
+{\footnotesize\ttfamily \label{funcoes_8c_abb9a1eb278d4656b1274dfb2fab3a3f6} 
+void processar\+\_\+ficheiros (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a63ec2c778201a25329508221a93e4e31}\index{funcoes.c@{funcoes.c}!processar\_gerir\_estudantes@{processar\_gerir\_estudantes}}
+\index{processar\_gerir\_estudantes@{processar\_gerir\_estudantes}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{processar\_gerir\_estudantes()}{processar\_gerir\_estudantes()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a63ec2c778201a25329508221a93e4e31} 
+void processar\+\_\+gerir\+\_\+estudantes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a5207558a7623253479a44cc2cf1cb254}\index{funcoes.c@{funcoes.c}!processar\_opcoes@{processar\_opcoes}}
+\index{processar\_opcoes@{processar\_opcoes}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{processar\_opcoes()}{processar\_opcoes()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a5207558a7623253479a44cc2cf1cb254} 
+void processar\+\_\+opcoes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a1fc5f38bfd2d657e65548d6070460a2f}\index{funcoes.c@{funcoes.c}!procurar\_codigo\_aluno@{procurar\_codigo\_aluno}}
+\index{procurar\_codigo\_aluno@{procurar\_codigo\_aluno}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{procurar\_codigo\_aluno()}{procurar\_codigo\_aluno()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a1fc5f38bfd2d657e65548d6070460a2f} 
+int procurar\+\_\+codigo\+\_\+aluno (\begin{DoxyParamCaption}\item[{int}]{codigo}{, }\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a8cd8b0c0460eb73eaa1a429c058d663a}\index{funcoes.c@{funcoes.c}!procurar\_codigo\_escolares@{procurar\_codigo\_escolares}}
+\index{procurar\_codigo\_escolares@{procurar\_codigo\_escolares}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{procurar\_codigo\_escolares()}{procurar\_codigo\_escolares()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a8cd8b0c0460eb73eaa1a429c058d663a} 
+int procurar\+\_\+codigo\+\_\+escolares (\begin{DoxyParamCaption}\item[{int}]{codigo}{, }\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a79ce8e61cf19d78e541345aa41794931}\index{funcoes.c@{funcoes.c}!procurar\_estudante\_por\_nome@{procurar\_estudante\_por\_nome}}
+\index{procurar\_estudante\_por\_nome@{procurar\_estudante\_por\_nome}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{procurar\_estudante\_por\_nome()}{procurar\_estudante\_por\_nome()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a79ce8e61cf19d78e541345aa41794931} 
+void procurar\+\_\+estudante\+\_\+por\+\_\+nome (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a80e6c4d1632aa624c00b3ea11bf7cf85}\index{funcoes.c@{funcoes.c}!procurar\_nacionalidades@{procurar\_nacionalidades}}
+\index{procurar\_nacionalidades@{procurar\_nacionalidades}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{procurar\_nacionalidades()}{procurar\_nacionalidades()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a80e6c4d1632aa624c00b3ea11bf7cf85} 
+char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} procurar\+\_\+nacionalidades (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{const short}]{n\+\_\+nacionalidades}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{mensagem}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a35d83b50569cd4e1f9148519e36a538d}\index{funcoes.c@{funcoes.c}!realocar\_aluno@{realocar\_aluno}}
+\index{realocar\_aluno@{realocar\_aluno}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{realocar\_aluno()}{realocar\_aluno()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a35d83b50569cd4e1f9148519e36a538d} 
+int realocar\+\_\+aluno (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a0ebea5c8c13c97d6f706e5e328f65d74}\index{funcoes.c@{funcoes.c}!realocar\_escolares@{realocar\_escolares}}
+\index{realocar\_escolares@{realocar\_escolares}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{realocar\_escolares()}{realocar\_escolares()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a0ebea5c8c13c97d6f706e5e328f65d74} 
+int realocar\+\_\+escolares (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a0d619150ed7f45cfac10fff6b40439ce}\index{funcoes.c@{funcoes.c}!realocar\_nome@{realocar\_nome}}
+\index{realocar\_nome@{realocar\_nome}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{realocar\_nome()}{realocar\_nome()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a0d619150ed7f45cfac10fff6b40439ce} 
+int realocar\+\_\+nome (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_estudante}{Estudante}} \texorpdfstring{$\ast$}{*}}]{aluno}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a4f6e41225473e99e3e09542c15a1db4e}\index{funcoes.c@{funcoes.c}!remover\_espacos@{remover\_espacos}}
+\index{remover\_espacos@{remover\_espacos}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{remover\_espacos()}{remover\_espacos()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a4f6e41225473e99e3e09542c15a1db4e} 
+void remover\+\_\+espacos (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a14e3034d6ec757f8a248334b0f0e7f19}\index{funcoes.c@{funcoes.c}!repor\_estado\_inicial@{repor\_estado\_inicial}}
+\index{repor\_estado\_inicial@{repor\_estado\_inicial}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{repor\_estado\_inicial()}{repor\_estado\_inicial()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a14e3034d6ec757f8a248334b0f0e7f19} 
+void repor\+\_\+estado\+\_\+inicial (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a5be0841243f9252d6fdc97c4c9b07187}\index{funcoes.c@{funcoes.c}!separar\_parametros@{separar\_parametros}}
+\index{separar\_parametros@{separar\_parametros}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{separar\_parametros()}{separar\_parametros()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a5be0841243f9252d6fdc97c4c9b07187} 
+void separar\+\_\+parametros (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{linha}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{parametros}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{num\+\_\+parametros}{}\end{DoxyParamCaption})}
+
+!\+NOTA IMPORTANTE -\/ É feita uma cópia da linha pois caso contrário, caso a função tenha um erro em qualquer parte, a linha original será perdida!!\Hypertarget{funcoes_8c_a591951fe49c89cb3e1fd69135a648d3b}\index{funcoes.c@{funcoes.c}!sim\_nao@{sim\_nao}}
+\index{sim\_nao@{sim\_nao}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{sim\_nao()}{sim\_nao()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a591951fe49c89cb3e1fd69135a648d3b} 
+int sim\+\_\+nao (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ab71f6c36bd25e8be40ea2902579fb31c}\index{funcoes.c@{funcoes.c}!string\_para\_float@{string\_para\_float}}
+\index{string\_para\_float@{string\_para\_float}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{string\_para\_float()}{string\_para\_float()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ab71f6c36bd25e8be40ea2902579fb31c} 
+int string\+\_\+para\+\_\+float (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{resultado}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_af3af413399ff5a8ef7281bac06871b12}\index{funcoes.c@{funcoes.c}!string\_para\_int@{string\_para\_int}}
+\index{string\_para\_int@{string\_para\_int}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{string\_para\_int()}{string\_para\_int()}}
+{\footnotesize\ttfamily \label{funcoes_8c_af3af413399ff5a8ef7281bac06871b12} 
+int string\+\_\+para\+\_\+int (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{resultado}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_aae0cd096c276200df34e312e2c350ad1}\index{funcoes.c@{funcoes.c}!string\_para\_short@{string\_para\_short}}
+\index{string\_para\_short@{string\_para\_short}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{string\_para\_short()}{string\_para\_short()}}
+{\footnotesize\ttfamily \label{funcoes_8c_aae0cd096c276200df34e312e2c350ad1} 
+int string\+\_\+para\+\_\+short (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{str}{, }\item[{short \texorpdfstring{$\ast$}{*}}]{resultado}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a70141b3bc2a366f4707a4dda668017e7}\index{funcoes.c@{funcoes.c}!strlwr2@{strlwr2}}
+\index{strlwr2@{strlwr2}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{strlwr2()}{strlwr2()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a70141b3bc2a366f4707a4dda668017e7} 
+char \texorpdfstring{$\ast$}{*} strlwr2 (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a2bdcacc4abc9c49fd6cdb7b3a79a6e43}\index{funcoes.c@{funcoes.c}!tabela\_idade\_por\_escalao@{tabela\_idade\_por\_escalao}}
+\index{tabela\_idade\_por\_escalao@{tabela\_idade\_por\_escalao}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{tabela\_idade\_por\_escalao()}{tabela\_idade\_por\_escalao()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a2bdcacc4abc9c49fd6cdb7b3a79a6e43} 
+void tabela\+\_\+idade\+\_\+por\+\_\+escalao (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a68b1ebc12ef6f5fa1fdbdf4c3f553fed}\index{funcoes.c@{funcoes.c}!tabela\_medias\_ano@{tabela\_medias\_ano}}
+\index{tabela\_medias\_ano@{tabela\_medias\_ano}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{tabela\_medias\_ano()}{tabela\_medias\_ano()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a68b1ebc12ef6f5fa1fdbdf4c3f553fed} 
+void tabela\+\_\+medias\+\_\+ano (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a06f74c6a0126465474d9bf73a845314a}\index{funcoes.c@{funcoes.c}!the\_architect@{the\_architect}}
+\index{the\_architect@{the\_architect}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{the\_architect()}{the\_architect()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a06f74c6a0126465474d9bf73a845314a} 
+void the\+\_\+architect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ab7fb7f00f2e939eea7d742e853c8b3a2}\index{funcoes.c@{funcoes.c}!validacao\_menus@{validacao\_menus}}
+\index{validacao\_menus@{validacao\_menus}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{validacao\_menus()}{validacao\_menus()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ab7fb7f00f2e939eea7d742e853c8b3a2} 
+void validacao\+\_\+menus (\begin{DoxyParamCaption}\item[{short \texorpdfstring{$\ast$}{*}}]{valido}{, }\item[{const char}]{opcao}{, }\item[{const char}]{lim\+Inf}{, }\item[{const char}]{lim\+Sup}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_ae8ac339da32cd342e9a51cbffd8d49ac}\index{funcoes.c@{funcoes.c}!validar\_codigo\_ao\_inserir@{validar\_codigo\_ao\_inserir}}
+\index{validar\_codigo\_ao\_inserir@{validar\_codigo\_ao\_inserir}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{validar\_codigo\_ao\_inserir()}{validar\_codigo\_ao\_inserir()}}
+{\footnotesize\ttfamily \label{funcoes_8c_ae8ac339da32cd342e9a51cbffd8d49ac} 
+int validar\+\_\+codigo\+\_\+ao\+\_\+inserir (\begin{DoxyParamCaption}\item[{int}]{codigo}{, }\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a77c0bca982c7679548831f64d6e8b1e4}\index{funcoes.c@{funcoes.c}!validar\_codigo\_eliminar@{validar\_codigo\_eliminar}}
+\index{validar\_codigo\_eliminar@{validar\_codigo\_eliminar}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{validar\_codigo\_eliminar()}{validar\_codigo\_eliminar()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a77c0bca982c7679548831f64d6e8b1e4} 
+int validar\+\_\+codigo\+\_\+eliminar (\begin{DoxyParamCaption}\item[{int}]{codigo}{, }\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_aa1646ad4065aabfd64b06f8893a2b6e5}\index{funcoes.c@{funcoes.c}!validar\_data@{validar\_data}}
+\index{validar\_data@{validar\_data}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{validar\_data()}{validar\_data()}}
+{\footnotesize\ttfamily \label{funcoes_8c_aa1646ad4065aabfd64b06f8893a2b6e5} 
+int validar\+\_\+data (\begin{DoxyParamCaption}\item[{short}]{dia}{, }\item[{short}]{mes}{, }\item[{short}]{ano}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_aedfd6a4df1856943551e616d9de29802}\index{funcoes.c@{funcoes.c}!validar\_data\_entre\_intervalo@{validar\_data\_entre\_intervalo}}
+\index{validar\_data\_entre\_intervalo@{validar\_data\_entre\_intervalo}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{validar\_data\_entre\_intervalo()}{validar\_data\_entre\_intervalo()}}
+{\footnotesize\ttfamily \label{funcoes_8c_aedfd6a4df1856943551e616d9de29802} 
+int validar\+\_\+data\+\_\+entre\+\_\+intervalo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_data}{Data}}}]{inferior}{, }\item[{\mbox{\hyperlink{struct_data}{Data}}}]{superior}{, }\item[{\mbox{\hyperlink{struct_data}{Data}}}]{atual}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a1e03d498d5f08d864dbec7e53505bfa7}\index{funcoes.c@{funcoes.c}!validar\_ficheiro\_e\_abrir@{validar\_ficheiro\_e\_abrir}}
+\index{validar\_ficheiro\_e\_abrir@{validar\_ficheiro\_e\_abrir}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{validar\_ficheiro\_e\_abrir()}{validar\_ficheiro\_e\_abrir()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a1e03d498d5f08d864dbec7e53505bfa7} 
+FILE \texorpdfstring{$\ast$}{*} validar\+\_\+ficheiro\+\_\+e\+\_\+abrir (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{nome}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a05580b5a69aa59ab2dfae290ecf7e4e6}\index{funcoes.c@{funcoes.c}!validar\_nacionalidade@{validar\_nacionalidade}}
+\index{validar\_nacionalidade@{validar\_nacionalidade}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{validar\_nacionalidade()}{validar\_nacionalidade()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a05580b5a69aa59ab2dfae290ecf7e4e6} 
+int validar\+\_\+nacionalidade (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{nacionalidade}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a97c435e0cef1e821731515c272f233ef}\index{funcoes.c@{funcoes.c}!validar\_nome@{validar\_nome}}
+\index{validar\_nome@{validar\_nome}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{validar\_nome()}{validar\_nome()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a97c435e0cef1e821731515c272f233ef} 
+int validar\+\_\+nome (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_estudante}{Estudante}} \texorpdfstring{$\ast$}{*}}]{aluno}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{nome}{, }\item[{const char}]{modo}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a6293054eafa4d3d2aaac9ef806b1a67d}\index{funcoes.c@{funcoes.c}!validar\_nome\_ficheiro@{validar\_nome\_ficheiro}}
+\index{validar\_nome\_ficheiro@{validar\_nome\_ficheiro}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{validar\_nome\_ficheiro()}{validar\_nome\_ficheiro()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a6293054eafa4d3d2aaac9ef806b1a67d} 
+int validar\+\_\+nome\+\_\+ficheiro (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_adea92deea52ed3e86e801e734321d25d}\index{funcoes.c@{funcoes.c}!verificar\_codigos\_duplicados@{verificar\_codigos\_duplicados}}
+\index{verificar\_codigos\_duplicados@{verificar\_codigos\_duplicados}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{verificar\_codigos\_duplicados()}{verificar\_codigos\_duplicados()}}
+{\footnotesize\ttfamily \label{funcoes_8c_adea92deea52ed3e86e801e734321d25d} 
+void verificar\+\_\+codigos\+\_\+duplicados (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{erros}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a692e7da88cb54e0f39e92546541c1869}\index{funcoes.c@{funcoes.c}!verificar\_codigos\_escolares\_sem\_aluno@{verificar\_codigos\_escolares\_sem\_aluno}}
+\index{verificar\_codigos\_escolares\_sem\_aluno@{verificar\_codigos\_escolares\_sem\_aluno}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{verificar\_codigos\_escolares\_sem\_aluno()}{verificar\_codigos\_escolares\_sem\_aluno()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a692e7da88cb54e0f39e92546541c1869} 
+void verificar\+\_\+codigos\+\_\+escolares\+\_\+sem\+\_\+aluno (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_uni}{Uni}} \texorpdfstring{$\ast$}{*}}]{bd}{, }\item[{FILE \texorpdfstring{$\ast$}{*}}]{erros}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{primeiro\+\_\+erro}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a63c57a87c465b578725bce99dc62d1be}\index{funcoes.c@{funcoes.c}!verificar\_e\_limpar\_buffer@{verificar\_e\_limpar\_buffer}}
+\index{verificar\_e\_limpar\_buffer@{verificar\_e\_limpar\_buffer}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{verificar\_e\_limpar\_buffer()}{verificar\_e\_limpar\_buffer()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a63c57a87c465b578725bce99dc62d1be} 
+int verificar\+\_\+e\+\_\+limpar\+\_\+buffer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a2db16be94c314cc7f9c862c734b1ac6c}\index{funcoes.c@{funcoes.c}!verificar\_extensao@{verificar\_extensao}}
+\index{verificar\_extensao@{verificar\_extensao}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{verificar\_extensao()}{verificar\_extensao()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a2db16be94c314cc7f9c862c734b1ac6c} 
+int verificar\+\_\+extensao (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro}{}\end{DoxyParamCaption})}
+
+\Hypertarget{funcoes_8c_a22704f14eabf70f04cddbecd436774e1}\index{funcoes.c@{funcoes.c}!verificar\_primeiro\_erro@{verificar\_primeiro\_erro}}
+\index{verificar\_primeiro\_erro@{verificar\_primeiro\_erro}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{verificar\_primeiro\_erro()}{verificar\_primeiro\_erro()}}
+{\footnotesize\ttfamily \label{funcoes_8c_a22704f14eabf70f04cddbecd436774e1} 
+void verificar\+\_\+primeiro\+\_\+erro (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{erros}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{primeiro\+\_\+erro}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{nome\+\_\+ficheiro}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{funcoes_8c_a0bc55d294ef92122873e5cef612f44c0}\index{funcoes.c@{funcoes.c}!autosaveON@{autosaveON}}
+\index{autosaveON@{autosaveON}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{autosaveON}{autosaveON}}
+{\footnotesize\ttfamily \label{funcoes_8c_a0bc55d294ef92122873e5cef612f44c0} 
+char autosave\+ON = \textquotesingle{}0\textquotesingle{}}
+
+\Hypertarget{funcoes_8c_a36e05dce33885bc9d91881e12b3a1fbc}\index{funcoes.c@{funcoes.c}!DATA\_ATUAL@{DATA\_ATUAL}}
+\index{DATA\_ATUAL@{DATA\_ATUAL}!funcoes.c@{funcoes.c}}
+\doxysubsubsection{\texorpdfstring{DATA\_ATUAL}{DATA\_ATUAL}}
+{\footnotesize\ttfamily \label{funcoes_8c_a36e05dce33885bc9d91881e12b3a1fbc} 
+\mbox{\hyperlink{struct_data}{Data}} DATA\+\_\+\+ATUAL = \{0,0,0\}}
+
