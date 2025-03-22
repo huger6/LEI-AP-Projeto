@@ -39,7 +39,8 @@ Requisitos Técnicos
 - Sistema operativo: Windows/Unix
 - Programa em Linux não carrega os dados corretamente (ver fix em https://github.com/huger6/TrabalhoAP)
 - Compilador C compatível (De preferência C23 com o GCC13)
-- Compilado como "gcc -Wall -Wextra -g -O0 -std=c23 -o programa main.c funcoes.c"
+- Compilado como "gcc -Wall -Wextra -g -O0 -std=c23 -o (**FILENAME**) main.c funcoes.c" em Windows 11 Home 23H2 (64 bits)
+- Compilado como "gcc -std=c2x -Wall -Wextra -o (**FILENAME**) main.c funcoes.c -D_XOPEN_SOURCE=700" em Linux (testado para Ubuntu 20.04.6 LTS)
 - Suporte a UTF-8
 - 1MB espaço em disco (mínimo)
 
